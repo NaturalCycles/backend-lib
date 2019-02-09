@@ -1,0 +1,119 @@
+#
+# validate yml:
+# circleci config validate -c .circleci/config.yml
+#
+
+version: 2
+
+#
+# Defaults
+#
+defaults: &defaults
+  resource_class: xlarge
+  docker:
+    - image: naturalcycles/ci-node:latest
+  working_directory: ~/repo
+
+restore_cache: &restore_cache
+  key: deps-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-v1-{{ checksum "package.json" }}
+
+save_cache: &save_cache
+  paths:
+    - node_modules
+  key: deps-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-v1-{{ checksum "package.json" }}
+
+release: &release
+  name: Release (if needed)
+  command: yarn release
+
+test: &test
+  name: Test
+  command: |
+    cc-test-reporter before-build
+    yarn test-ci
+    cc-test-reporter after-build -t lcov ./coverage/lcov.info
+
+#
+# Jobs
+#
+jobs:
+  build-job:
+    <<: *defaults
+    steps:
+      - checkout
+
+      # yarn
+      - restore_cache: *restore_cache
+      - run: yarn --pure-lockfile
+      - save_cache: *save_cache
+
+      # build
+      - run: yarn build-prod
+
+      # release
+      - run: *release
+
+  test-job:
+    <<: *defaults
+    environment:
+      CC_TEST_REPORTER_ID: tbd
+    steps:
+      - checkout
+
+      # yarn
+      - restore_cache: *restore_cache
+      - run: yarn --pure-lockfile
+
+      # build
+      - run: yarn build
+
+      - run: *test
+
+      - store_test_results:
+          path: report
+      - store_artifacts:
+          path: report
+          destination: report
+      - store_artifacts:
+          path: coverage/lcov-report
+          destination: coverage
+
+  nighly-job:
+    <<: *defaults
+    steps:
+      - checkout
+
+      # yarn (no cache)
+      - run: yarn --pure-lockfile
+
+      - run: yarn build
+      - run: yarn test-ci
+
+      - store_test_results:
+          path: report
+      - store_artifacts:
+          path: report
+          destination: report
+
+#
+# Workflows
+#
+workflows:
+  version: 2
+  default-workflow:
+    jobs:
+      - build-job:
+          filters:
+            branches:
+              only: master
+      - test-job
+
+  nightly-workflow:
+    triggers:
+      - schedule:
+          cron: '0 4 * * *' # 04:00 every day
+          filters:
+            branches:
+              only: master
+    jobs:
+      - nightly-job
