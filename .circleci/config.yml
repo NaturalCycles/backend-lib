@@ -56,7 +56,7 @@ jobs:
   test-job:
     <<: *defaults
     environment:
-      CC_TEST_REPORTER_ID: tbd
+      CC_TEST_REPORTER_ID: eae2fa40ae9e3d34015331647b26e69813f4a5fa5ccd7657147166508f4db8f3
     steps:
       - checkout
 
