@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/NaturalCycles/backend-lib/compare/v1.0.0...v1.1.0) (2019-02-10)
+
+
+### Features
+
+* progress ([da0637c](https://github.com/NaturalCycles/backend-lib/commit/da0637c))
+
 # 1.0.0 (2019-02-09)
 
 
