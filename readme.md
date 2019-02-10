@@ -8,6 +8,24 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c7aa5ef93894ec0246c4/test_coverage)](https://codeclimate.com/github/NaturalCycles/backend-lib/test_coverage)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
+# Install
+
+Install peerDependencies:
+
+```
+
+yarn add \
+@naturalcycles/js-lib \
+@naturalcycles/nodejs-lib \
+cookie-parser \
+cors \
+express \
+helmet \
+swagger-stats \
+@sentry/node
+
+```
+
 # Features
 
 TODO
