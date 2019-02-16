@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@naturalcycles/js-lib": "^2.0.1",
-    "@naturalcycles/nodejs-lib": "^2.2.0",
+    "@naturalcycles/nodejs-lib": "^3.0.0",
     "@naturalcycles/semantic-release": "^1.0.0",
     "@naturalcycles/shared-module": "^2.1.0",
     "@sentry/node": "^4.5.3",

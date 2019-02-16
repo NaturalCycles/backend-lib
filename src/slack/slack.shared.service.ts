@@ -1,4 +1,4 @@
-import { gotService } from '@naturalcycles/nodejs-lib'
+import * as got from 'got'
 import { timeUtil } from '../datetime/time.util'
 
 export interface SlackMessage {
@@ -19,15 +19,16 @@ export interface SlackSharedServiceCfg {
 export class SlackSharedService {
   constructor (private cfg: SlackSharedServiceCfg) {}
 
-  private defaults (): SlackMessage {
+  protected defaults (): SlackMessage {
     return {
-      username: 'kg-backend',
+      username: 'backend-lib',
       channel: '#log',
       icon_emoji: ':spider_web:',
       text: 'no text',
     }
   }
 
+  // Convenient method
   async send (text: string, channel = 'log'): Promise<void> {
     await this.sendMsg({
       text,
@@ -50,15 +51,16 @@ export class SlackSharedService {
 
     this.decorateMsg(body)
 
-    await gotService
+    await got
       .post(webhookUrl, {
+        json: true,
         body,
       })
       .catch(ignored => {}) // ignore, cause slack is weirdly returning non-json text "ok" response
   }
 
   // mutates
-  private decorateMsg (msg: SlackMessage): void {
+  protected decorateMsg (msg: SlackMessage): void {
     const tokens: string[] = []
 
     tokens.push(timeUtil.nowPretty())
