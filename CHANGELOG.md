@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/NaturalCycles/backend-lib/compare/v1.1.0...v1.1.1) (2019-02-16)
+
+
+### Bug Fixes
+
+* tuning services to support constructor DI ([7cb899d](https://github.com/NaturalCycles/backend-lib/commit/7cb899d))
+
 # [1.1.0](https://github.com/NaturalCycles/backend-lib/compare/v1.0.0...v1.1.0) (2019-02-10)
 
 
