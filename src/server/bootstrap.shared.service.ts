@@ -1,19 +1,19 @@
 import { memo } from '@naturalcycles/js-lib'
 import { Application } from 'express'
 import { Server } from 'http'
+import { BootstrapSharedServiceCfg } from './bootstrap.shared.service.model'
 import { serverSharedService } from './server.shared.service'
-
-export interface BootstrapSharedServiceCfg {
-  port: number
-
-  app: Application
-}
 
 /**
  * Server bootstrapping sequence. Called from `startServer.ts`
  */
 export class BootstrapSharedService {
-  constructor (public cfg: BootstrapSharedServiceCfg) {}
+  static INSTANCE_ALIAS = ['bootstrapService']
+
+  constructor (
+    public bootstrapServiceCfg: BootstrapSharedServiceCfg,
+    public expressApp: Application,
+  ) {}
 
   server!: Server
   serverStarted!: number
@@ -29,8 +29,8 @@ export class BootstrapSharedService {
     this.prepare()
 
     // 2. Start Express Server
-    const { app, port } = this.cfg
-    this.server = await serverSharedService.startServer(app, port)
+    const { port } = this.bootstrapServiceCfg
+    this.server = await serverSharedService.startServer(this.expressApp, port)
     this.serverStarted = Date.now()
 
     const bootstrapTime = this.serverStarted - bootstrapStarted

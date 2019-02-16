@@ -1,23 +1,11 @@
 import * as got from 'got'
 import { timeUtil } from '../datetime/time.util'
-
-export interface SlackMessage {
-  username?: string
-  channel?: string
-  icon_url?: string
-  icon_emoji?: string
-  text: string
-}
-
-export interface SlackSharedServiceCfg {
-  /**
-   * Undefined means slack is disabled.
-   */
-  webhookUrl?: string
-}
+import { SlackMessage, SlackSharedServiceCfg } from './slack.shared.service.model'
 
 export class SlackSharedService {
-  constructor (private cfg: SlackSharedServiceCfg) {}
+  static INSTANCE_ALIAS = ['slackService']
+
+  constructor (private slackServiceCfg: SlackSharedServiceCfg) {}
 
   protected defaults (): SlackMessage {
     return {
@@ -37,7 +25,7 @@ export class SlackSharedService {
   }
 
   async sendMsg (_msg: SlackMessage): Promise<void> {
-    const { webhookUrl } = this.cfg
+    const { webhookUrl } = this.slackServiceCfg
 
     if (!webhookUrl) {
       console.log(_msg.text)

@@ -5,20 +5,15 @@ import { Application, RequestHandler } from 'express'
 import * as express from 'express'
 import * as helmet from 'helmet'
 import { SentrySharedService } from '..'
+import { DefaultAppCfg } from './createDefaultApp.model'
 import { genericErrorHandler } from './handlers/generic.error.handler'
 import { notFoundHandler } from './handlers/notFound.handler'
 import { sentryErrorMiddleware } from './handlers/sentry.error.mw'
 
-export interface DefaultAppCfg {
-  swaggerStatsEnabled?: boolean
-  preHandlers?: RequestHandler[]
-  handlers?: RequestHandler[]
-  postHandlers?: RequestHandler[]
-  resources?: StringMap<RequestHandler>
-  sentryService?: SentrySharedService
-}
-
-export function createDefaultApp (cfg: DefaultAppCfg): Application {
+export function createDefaultApp (
+  defaultAppCfg: DefaultAppCfg,
+  sentryService?: SentrySharedService,
+): Application {
   const app = express()
 
   /*
@@ -32,11 +27,11 @@ export function createDefaultApp (cfg: DefaultAppCfg): Application {
   app.set('trust proxy', true)
 
   // preHandlers
-  useHandlers(app, cfg.preHandlers)
+  useHandlers(app, defaultAppCfg.preHandlers)
 
   // The request handler must be the first middleware on the app
-  if (cfg.sentryService) {
-    app.use(cfg.sentryService.getRequestHandler())
+  if (sentryService) {
+    app.use(sentryService.getRequestHandler())
   }
 
   app.use(express.json({ limit: '1mb' }))
@@ -55,7 +50,7 @@ export function createDefaultApp (cfg: DefaultAppCfg): Application {
 
   // GET /swagger-stats/stats
   // GET /swagger-stats/ui
-  if (cfg.swaggerStatsEnabled) {
+  if (defaultAppCfg.swaggerStatsEnabled) {
     const swaggerStats = require('swagger-stats')
 
     const uriPath = '/swagger-stats'
@@ -66,25 +61,25 @@ export function createDefaultApp (cfg: DefaultAppCfg): Application {
   app.use(express.static('static'))
 
   // Handlers
-  useHandlers(app, cfg.handlers)
+  useHandlers(app, defaultAppCfg.handlers)
 
   // Resources
-  useResources(app, cfg.resources)
+  useResources(app, defaultAppCfg.resources)
 
   // Generic 404 handler
   app.use(notFoundHandler)
 
   // postHandlers
-  useHandlers(app, cfg.postHandlers)
+  useHandlers(app, defaultAppCfg.postHandlers)
 
   // The error handler must be before any other error middleware
   // NO: Generic error handler chooses which errors to report to sentry
   // OR: another handler that will selectively report to Sentry and pass error further via next(err)
   // app.use(sentryService.getErrorHandler())
-  if (cfg.sentryService) {
+  if (sentryService) {
     app.use(
       sentryErrorMiddleware({
-        sentryService: cfg.sentryService,
+        sentryService,
       }),
     )
   }

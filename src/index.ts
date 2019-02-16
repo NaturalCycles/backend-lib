@@ -6,23 +6,19 @@ import { Error403Admin } from './error/http/error403admin'
 import { Error404 } from './error/http/error404'
 import { Error409 } from './error/http/error409'
 import { Error500 } from './error/http/error500'
-import { SentrySharedService, SentrySharedServiceCfg } from './sentry/sentry.shared.service'
-import {
-  BootstrapSharedService,
-  BootstrapSharedServiceCfg,
-} from './server/bootstrap.shared.service'
+import { SentrySharedServiceCfg } from './sentry/sentry.model'
+import { SentrySharedService } from './sentry/sentry.shared.service'
+import { BootstrapSharedService } from './server/bootstrap.shared.service'
+import { BootstrapSharedServiceCfg } from './server/bootstrap.shared.service.model'
 import { catchWrapper } from './server/catchWrapper'
-import { createDefaultApp } from './server/default.app'
+import { createDefaultApp } from './server/createDefaultApp'
+import { getDefaultRouter } from './server/getDefaultRouter'
 import { genericErrorHandler } from './server/handlers/generic.error.handler'
 import { notFoundHandler } from './server/handlers/notFound.handler'
 import { reqValidationMiddleware } from './server/handlers/reqValidation.mw'
-import { getDefaultRouter } from './server/router'
 import { serverSharedService } from './server/server.shared.service'
-import {
-  SlackMessage,
-  SlackSharedService,
-  SlackSharedServiceCfg,
-} from './slack/slack.shared.service'
+import { SlackSharedService } from './slack/slack.shared.service'
+import { SlackMessage, SlackSharedServiceCfg } from './slack/slack.shared.service.model'
 import { resourceTestService } from './testing/resource.test.service'
 
 export {

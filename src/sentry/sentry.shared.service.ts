@@ -1,22 +1,22 @@
 import { memo } from '@naturalcycles/js-lib'
-import { NodeOptions } from '@sentry/node'
 import * as SentryLib from '@sentry/node'
 import { ErrorRequestHandler, RequestHandler } from 'express'
-
-export interface SentrySharedServiceCfg extends NodeOptions {}
+import { SentrySharedServiceCfg } from './sentry.model'
 
 export class SentrySharedService {
-  constructor (public cfg: SentrySharedServiceCfg) {}
+  static INSTANCE_ALIAS = ['sentryService']
+
+  constructor (private sentryServiceCfg: SentrySharedServiceCfg) {}
 
   @memo()
   sentry (): typeof SentryLib {
-    if (this.cfg.dsn) {
+    if (this.sentryServiceCfg.dsn) {
       // Sentry enabled
       console.log('SentryService init...')
     }
 
     SentryLib.init({
-      dsn: this.cfg.dsn,
+      dsn: this.sentryServiceCfg.dsn,
     })
 
     return SentryLib
