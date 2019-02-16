@@ -1,5 +1,5 @@
-import { resourceTestService } from '..'
 import { debugResource } from '../test/debug.resource'
+import { resourceTestService } from '../testing/resource.test.service'
 
 test('should handle async error', async () => {
   const app = resourceTestService.createAppWithResource(debugResource)

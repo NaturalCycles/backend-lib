@@ -19,7 +19,6 @@ import { reqValidationMiddleware } from './server/handlers/reqValidation.mw'
 import { serverSharedService } from './server/server.shared.service'
 import { SlackSharedService } from './slack/slack.shared.service'
 import { SlackMessage, SlackSharedServiceCfg } from './slack/slack.shared.service.model'
-import { resourceTestService } from './testing/resource.test.service'
 
 export {
   Error400,
@@ -44,5 +43,5 @@ export {
   SlackMessage,
   catchWrapper,
   getDefaultRouter,
-  resourceTestService,
+  // resourceTestService, // no, cause it will require 'supertest' production dependency
 }
