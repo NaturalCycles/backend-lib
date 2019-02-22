@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/NaturalCycles/backend-lib/compare/v1.2.1...v1.2.2) (2019-02-22)
+
+
+### Bug Fixes
+
+* error.name for custom http errors ([a30eeab](https://github.com/NaturalCycles/backend-lib/commit/a30eeab))
+
 ## [1.2.1](https://github.com/NaturalCycles/backend-lib/compare/v1.2.0...v1.2.1) (2019-02-22)
 
 
