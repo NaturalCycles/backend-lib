@@ -9,5 +9,10 @@ export class Error500 extends HttpError {
       httpStatusCode: 500,
       ...data,
     })
+
+    Object.defineProperty(this, 'name', {
+      value: 'Error500',
+      configurable: true,
+    })
   }
 }

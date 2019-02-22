@@ -9,5 +9,10 @@ export class Error404 extends HttpError {
       httpStatusCode: 404,
       ...data,
     })
+
+    Object.defineProperty(this, 'name', {
+      value: 'Error404',
+      configurable: true,
+    })
   }
 }

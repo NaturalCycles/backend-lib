@@ -7,5 +7,10 @@ import { Error403 } from './error403'
 export class Error403Admin extends Error403 {
   constructor (message = 'Admin access forbidden', data?: Partial<HttpErrorData>) {
     super(message, data)
+
+    Object.defineProperty(this, 'name', {
+      value: 'Error403Admin',
+      configurable: true,
+    })
   }
 }
