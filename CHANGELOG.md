@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/NaturalCycles/backend-lib/compare/v1.2.2...v1.2.3) (2019-02-22)
+
+
+### Bug Fixes
+
+* err instanceof Error400 ([540bded](https://github.com/NaturalCycles/backend-lib/commit/540bded))
+
 ## [1.2.2](https://github.com/NaturalCycles/backend-lib/compare/v1.2.1...v1.2.2) (2019-02-22)
 
 
