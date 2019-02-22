@@ -1,6 +1,6 @@
 {
   "name": "@naturalcycles/backend-lib",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "build": "del ./dist && tsc",
     "build-prod": "del ./dist && tsc -p tsconfig.prod.json"
