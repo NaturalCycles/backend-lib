@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/NaturalCycles/backend-lib/compare/v1.1.2...v1.2.0) (2019-02-22)
+
+
+### Features
+
+* sentrySharedService.setUserId(), init() ([b25ef27](https://github.com/NaturalCycles/backend-lib/commit/b25ef27))
+
 ## [1.1.2](https://github.com/NaturalCycles/backend-lib/compare/v1.1.1...v1.1.2) (2019-02-16)
 
 
