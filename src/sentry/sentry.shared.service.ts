@@ -8,6 +8,10 @@ export class SentrySharedService {
 
   constructor (private sentryServiceCfg: SentrySharedServiceCfg) {}
 
+  init (): void {
+    this.sentry()
+  }
+
   @memo()
   sentry (): typeof SentryLib {
     if (this.sentryServiceCfg.dsn) {
@@ -28,6 +32,17 @@ export class SentrySharedService {
 
   getErrorHandler (): ErrorRequestHandler {
     return this.sentry().Handlers.errorHandler()
+  }
+
+  /**
+   * For GDPR reasons we never send more information than just User ID.
+   */
+  setUserId (id: string): void {
+    this.sentry().configureScope(scope => {
+      scope.setUser({
+        id,
+      })
+    })
   }
 
   /**
