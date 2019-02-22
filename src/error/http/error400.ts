@@ -10,8 +10,10 @@ export class Error400 extends HttpError {
       ...data,
     })
 
+    this.constructor = Error400
+    ;(this as any).__proto__ = this.constructor.prototype
     Object.defineProperty(this, 'name', {
-      value: 'Error400',
+      value: this.constructor.name,
       configurable: true,
     })
   }

@@ -9,6 +9,8 @@ const throwError400Async = async () => {
 
 test('should match snapshot', async () => {
   const err = new Error400('oops')
+  expect(err instanceof Error400).toBe(true)
+  expect(err instanceof Error).toBe(true)
   expect(err.name).toBe('Error400')
   expect(err.message).toBe('oops')
   expect(err.stack).toContain('Error400')
@@ -16,6 +18,6 @@ test('should match snapshot', async () => {
     httpStatusCode: 400,
   })
 
-  expect(throwError400).toThrowError(Error400)
-  await expect(throwError400Async()).rejects.toThrowError(Error400)
+  expect(throwError400).toThrow(Error400)
+  await expect(throwError400Async()).rejects.toThrow(Error400)
 })

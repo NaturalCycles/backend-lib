@@ -10,8 +10,10 @@ export class Error500 extends HttpError {
       ...data,
     })
 
+    this.constructor = Error500
+    ;(this as any).__proto__ = this.constructor.prototype
     Object.defineProperty(this, 'name', {
-      value: 'Error500',
+      value: this.constructor.name,
       configurable: true,
     })
   }

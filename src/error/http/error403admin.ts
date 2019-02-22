@@ -8,8 +8,10 @@ export class Error403Admin extends Error403 {
   constructor (message = 'Admin access forbidden', data?: Partial<HttpErrorData>) {
     super(message, data)
 
+    this.constructor = Error403Admin
+    ;(this as any).__proto__ = this.constructor.prototype
     Object.defineProperty(this, 'name', {
-      value: 'Error403Admin',
+      value: this.constructor.name,
       configurable: true,
     })
   }
