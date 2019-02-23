@@ -23,12 +23,12 @@
     "swagger-stats": "^0.95.7"
   },
   "devDependencies": {
-    "@naturalcycles/js-lib": "^2.0.1",
+    "@naturalcycles/js-lib": "^3.0.0",
     "@naturalcycles/nodejs-lib": "^3.0.0",
     "@naturalcycles/semantic-release": "^1.0.0",
-    "@naturalcycles/shared-module": "^2.1.0",
+    "@naturalcycles/shared-module": "^3.0.0",
     "@sentry/node": "^4.5.3",
-    "@types/jest": "^23.3.5",
+    "@types/jest": "^24.0.6",
     "@types/node": "^10.0.0",
     "@types/supertest": "^2.0.7",
     "cookie-parser": "^1.4.3",
@@ -37,7 +37,7 @@
     "express-promise-router": "^3.0.3",
     "got": "^9.6.0",
     "helmet": "^3.15.0",
-    "jest": "^23.6.0",
+    "jest": "^24.1.0",
     "jest-junit": "^6.2.1",
     "joi": "^14.0.4",
     "lru-cache": "^5.1.1",
@@ -45,7 +45,7 @@
     "prettier": "^1.14.3",
     "supertest": "^3.4.2",
     "swagger-stats": "^0.95.7",
-    "ts-jest": "^23.10.4",
+    "ts-jest": "^24.0.0",
     "ts-node": "^8.0.2",
     "tslint": "^5.11.0",
     "typescript": "^3.0.0"
