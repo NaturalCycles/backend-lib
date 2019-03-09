@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/NaturalCycles/backend-lib/compare/v1.2.3...v1.2.4) (2019-03-09)
+
+
+### Bug Fixes
+
+* upgrade js-lib, nodejs-lib ([93c175d](https://github.com/NaturalCycles/backend-lib/commit/93c175d))
+
 ## [1.2.3](https://github.com/NaturalCycles/backend-lib/compare/v1.2.2...v1.2.3) (2019-02-22)
 
 
