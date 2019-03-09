@@ -1,4 +1,4 @@
-import { joiValidationService } from '@naturalcycles/nodejs-lib'
+import { getValidationResult } from '@naturalcycles/nodejs-lib'
 import { RequestHandler } from 'express'
 import { AnySchema } from 'joi'
 import { Error400 } from '../..'
@@ -8,11 +8,7 @@ export function reqValidationMiddleware (
   schema: AnySchema,
 ): RequestHandler {
   return (req, res, next) => {
-    const { value, error } = joiValidationService.getValidationResult(
-      req[reqProperty],
-      schema,
-      `req.${reqProperty}`,
-    )
+    const { value, error } = getValidationResult(req[reqProperty], schema, `req.${reqProperty}`)
     if (error) {
       return next(new Error400(error.message, error.data))
     }

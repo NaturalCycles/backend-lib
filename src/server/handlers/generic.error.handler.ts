@@ -1,4 +1,4 @@
-import { ErrorObject, ErrorResponse, errorSharedUtil, HttpErrorData } from '@naturalcycles/js-lib'
+import { anyToErrorObject, ErrorObject, ErrorResponse, HttpErrorData } from '@naturalcycles/js-lib'
 import { ErrorRequestHandler } from 'express'
 
 /**
@@ -10,11 +10,13 @@ export const genericErrorHandler: ErrorRequestHandler = (_err, req, res, next) =
   if (res.headersSent) return next(_err)
   // log(`errorHandler`)
 
-  const err = errorSharedUtil.anyToErrorObject(_err) as ErrorObject<HttpErrorData>
+  const err = anyToErrorObject(_err) as ErrorObject<HttpErrorData>
   err.data = {
     httpStatusCode: 500, // default
     ...err.data,
   }
+
+  // delete err.stack // todo: configurable
 
   const { path } = req
 
