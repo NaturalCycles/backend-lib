@@ -56,9 +56,9 @@ export class SentrySharedService {
   /**
    * Returns "eventId"
    */
-  captureMessage (msg: string): string | undefined {
+  captureMessage (msg: string, level?: SentryLib.Severity): string | undefined {
     console.error(msg)
-    return this.sentry().captureMessage(msg)
+    return this.sentry().captureMessage(msg, level)
   }
 
   captureBreadcrumb (data: any): void {
