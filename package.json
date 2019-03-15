@@ -23,10 +23,10 @@
     "@naturalcycles/js-lib": "^4.0.0",
     "@naturalcycles/nodejs-lib": "^4.0.0",
     "@naturalcycles/semantic-release": "^1.0.0",
-    "@naturalcycles/shared-module": "^3.0.0",
+    "@naturalcycles/shared-module": "^4.0.2",
     "@sentry/node": "^4.5.3",
     "@types/jest": "^24.0.6",
-    "@types/node": "^10.0.0",
+    "@types/node": "^11.11.3",
     "@types/supertest": "^2.0.7",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
@@ -53,7 +53,7 @@
     "!src/test",
     "!src/**/*.test.ts",
     "!src/**/__snapshots__",
-    "!src/**/_exclude"
+    "!src/**/__exclude"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

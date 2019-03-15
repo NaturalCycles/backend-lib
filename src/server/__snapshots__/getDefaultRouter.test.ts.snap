@@ -6,7 +6,6 @@ Object {
     "httpStatusCode": 500,
   },
   "message": "debug_async_error",
-  "name": "Error",
   "stack": StringContaining "Error: debug_async_error",
 }
 `;
