@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/NaturalCycles/backend-lib/compare/v1.2.4...v1.3.0) (2019-03-15)
+
+
+### Features
+
+* upgrade deps ([20b6c89](https://github.com/NaturalCycles/backend-lib/commit/20b6c89))
+
 ## [1.2.4](https://github.com/NaturalCycles/backend-lib/compare/v1.2.3...v1.2.4) (2019-03-09)
 
 
