@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/NaturalCycles/backend-lib/compare/v1.4.0...v1.5.0) (2019-03-15)
+
+
+### Features
+
+* removed custom errors in favour of HttpError ([c5eddc9](https://github.com/NaturalCycles/backend-lib/commit/c5eddc9))
+
 # [1.4.0](https://github.com/NaturalCycles/backend-lib/compare/v1.3.0...v1.4.0) (2019-03-15)
 
 
