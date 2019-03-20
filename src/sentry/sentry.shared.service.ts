@@ -20,7 +20,7 @@ export class SentrySharedService {
     }
 
     SentryLib.init({
-      dsn: this.sentryServiceCfg.dsn,
+      ...this.sentryServiceCfg,
     })
 
     return SentryLib
