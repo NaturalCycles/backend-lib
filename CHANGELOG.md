@@ -1,3 +1,11 @@
+## [1.5.1](https://github.com/NaturalCycles/backend-lib/compare/v1.5.0...v1.5.1) (2019-03-20)
+
+
+### Bug Fixes
+
+* **sentry:** pass options correctly ([e2f30cc](https://github.com/NaturalCycles/backend-lib/commit/e2f30cc))
+* tsc ([8904205](https://github.com/NaturalCycles/backend-lib/commit/8904205))
+
 # [1.5.0](https://github.com/NaturalCycles/backend-lib/compare/v1.4.0...v1.5.0) (2019-03-15)
 
 
