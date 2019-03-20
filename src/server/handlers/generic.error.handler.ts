@@ -1,4 +1,9 @@
-import { anyToErrorObject, ErrorObject, ErrorResponse, HttpErrorData } from '@naturalcycles/js-lib'
+import {
+  anyToErrorObject,
+  ErrorObject,
+  HttpErrorData,
+  HttpErrorResponse,
+} from '@naturalcycles/js-lib'
 import { ErrorRequestHandler } from 'express'
 
 /**
@@ -22,7 +27,7 @@ export const genericErrorHandler: ErrorRequestHandler = (_err, req, res, next) =
 
   console.error(`HTTP ${err.data.httpStatusCode} ${path} ${err.message}`)
 
-  const resp: ErrorResponse<HttpErrorData> = {
+  const resp: HttpErrorResponse = {
     error: err,
   }
 
