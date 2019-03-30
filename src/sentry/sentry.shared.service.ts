@@ -14,16 +14,22 @@ export class SentrySharedService {
 
   @memo()
   sentry (): typeof SentryLib {
+    // Lazy-loading `@sentry/node`
+    // Reasons:
+    // 1. Can be useful is this module is imported but never actually used
+    // 2. Works around memory leak when used with Jest
+    const Sentry = require('@sentry/node') as typeof SentryLib
+
     if (this.sentryServiceCfg.dsn) {
       // Sentry enabled
       console.log('SentryService init...')
     }
 
-    SentryLib.init({
+    Sentry.init({
       ...this.sentryServiceCfg,
     })
 
-    return SentryLib
+    return Sentry
   }
 
   getRequestHandler (): RequestHandler {
