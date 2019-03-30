@@ -1,3 +1,15 @@
+# [1.7.0](https://github.com/NaturalCycles/backend-lib/compare/v1.6.0...v1.7.0) (2019-03-30)
+
+
+### Bug Fixes
+
+* createDefaultApp postHandlers before notFoundHandler ([008789e](https://github.com/NaturalCycles/backend-lib/commit/008789e))
+
+
+### Features
+
+* **error-handler:** APP_ENV to affect err.stack ([02aa56c](https://github.com/NaturalCycles/backend-lib/commit/02aa56c))
+
 # [1.6.0](https://github.com/NaturalCycles/backend-lib/compare/v1.5.1...v1.6.0) (2019-03-30)
 
 
