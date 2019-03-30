@@ -66,11 +66,11 @@ export function createDefaultApp (
   // Resources
   useResources(app, defaultAppCfg.resources)
 
-  // Generic 404 handler
-  app.use(notFoundHandler)
-
   // postHandlers
   useHandlers(app, defaultAppCfg.postHandlers)
+
+  // Generic 404 handler
+  app.use(notFoundHandler)
 
   // The error handler must be before any other error middleware
   // NO: Generic error handler chooses which errors to report to sentry
