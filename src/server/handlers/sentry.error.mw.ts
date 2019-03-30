@@ -2,12 +2,6 @@ import { HttpErrorData } from '@naturalcycles/js-lib'
 import { ErrorRequestHandler } from 'express'
 import { SentrySharedService } from '../..'
 
-const HTTP_FAMILIES_TO_EXCLUDE = new Set([
-  2, // 2xx
-  3, // 3xx
-  4, // 4xx
-])
-
 export interface SentryErrorMiddlewareCfg {
   sentryService: SentrySharedService
 }
@@ -39,6 +33,6 @@ export function sentryErrorMiddleware (cfg: SentryErrorMiddlewareCfg): ErrorRequ
 }
 
 function shouldReportToSentry (httpCode: number): boolean {
-  const family = Math.floor(httpCode / 100)
-  return !HTTP_FAMILIES_TO_EXCLUDE.has(family)
+  // Only report 5xx
+  return httpCode >= 500
 }
