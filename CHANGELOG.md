@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/NaturalCycles/backend-lib/compare/v1.5.1...v1.6.0) (2019-03-30)
+
+
+### Features
+
+* make SentrySharedService lazy loaded ([635e3ba](https://github.com/NaturalCycles/backend-lib/commit/635e3ba))
+
 ## [1.5.1](https://github.com/NaturalCycles/backend-lib/compare/v1.5.0...v1.5.1) (2019-03-20)
 
 
