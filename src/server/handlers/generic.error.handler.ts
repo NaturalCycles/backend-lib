@@ -6,6 +6,8 @@ import {
 } from '@naturalcycles/js-lib'
 import { ErrorRequestHandler } from 'express'
 
+const { APP_ENV } = process.env
+
 /**
  * Generic error handler.
  * Returns HTTP code based on err.data.httpStatusCode (default to 500).
@@ -21,7 +23,9 @@ export const genericErrorHandler: ErrorRequestHandler = (_err, req, res, next) =
     ...err.data,
   }
 
-  // delete err.stack // todo: configurable
+  if (APP_ENV === 'prod' || APP_ENV === 'test') {
+    delete err.stack
+  }
 
   const { path } = req
 
