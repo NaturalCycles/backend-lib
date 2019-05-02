@@ -7,7 +7,5 @@ test('should handle async error', async () => {
   // console.log(status, body)
   expect(status).toBe(500)
   expect(body).toHaveProperty('error')
-  expect(body.error).toMatchSnapshot({
-    stack: expect.stringContaining('Error: debug_async_error'),
-  })
+  expect(body.error).toMatchSnapshot()
 })

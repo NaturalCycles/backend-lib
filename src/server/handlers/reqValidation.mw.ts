@@ -1,7 +1,7 @@
+import { AnySchema } from '@hapi/joi'
 import { HttpError } from '@naturalcycles/js-lib'
 import { getValidationResult } from '@naturalcycles/nodejs-lib'
 import { RequestHandler } from 'express'
-import { AnySchema } from 'joi'
 
 export function reqValidationMiddleware (
   reqProperty: 'body' | 'params' | 'query',
