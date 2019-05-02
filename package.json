@@ -1,6 +1,6 @@
 {
   "name": "@naturalcycles/backend-lib",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "scripts": {},
   "dependencies": {
     "@types/cookie-parser": "^1.4.1",

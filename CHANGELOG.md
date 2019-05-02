@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/NaturalCycles/backend-lib/compare/v1.7.0...v1.8.0) (2019-05-02)
+
+
+### Features
+
+* update nodejs-lib, dev-lib ([7487462](https://github.com/NaturalCycles/backend-lib/commit/7487462))
+
 # [1.7.0](https://github.com/NaturalCycles/backend-lib/compare/v1.6.0...v1.7.0) (2019-03-30)
 
 
