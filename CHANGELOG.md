@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/NaturalCycles/backend-lib/compare/v1.8.0...v1.9.0) (2019-05-20)
+
+
+### Features
+
+* update deps, upgraded some libs from peerDeps to deps ([b227e87](https://github.com/NaturalCycles/backend-lib/commit/b227e87))
+
 # [1.8.0](https://github.com/NaturalCycles/backend-lib/compare/v1.7.0...v1.8.0) (2019-05-02)
 
 
