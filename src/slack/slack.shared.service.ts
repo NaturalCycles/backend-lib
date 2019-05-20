@@ -1,5 +1,5 @@
+import { nowPretty } from '@naturalcycles/time-lib'
 import * as got from 'got'
-import { timeUtil } from '../datetime/time.util'
 import { SlackMessage, SlackSharedServiceCfg } from './slack.shared.service.model'
 
 export class SlackSharedService {
@@ -51,7 +51,7 @@ export class SlackSharedService {
   protected decorateMsg (msg: SlackMessage): void {
     const tokens: string[] = []
 
-    tokens.push(timeUtil.nowPretty())
+    tokens.push(nowPretty())
     tokens.push(msg.text)
 
     msg.text = tokens.join('\n')
