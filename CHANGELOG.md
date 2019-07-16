@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/NaturalCycles/backend-lib/compare/v1.11.0...v1.11.1) (2019-07-16)
+
+
+### Bug Fixes
+
+* deploy-prepare ([7af0355](https://github.com/NaturalCycles/backend-lib/commit/7af0355))
+
 # [1.11.0](https://github.com/NaturalCycles/backend-lib/compare/v1.10.0...v1.11.0) (2019-07-16)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@naturalcycles/backend-lib",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "scripts": {
     "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts",
     "deploy-prepare-debug": "yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
