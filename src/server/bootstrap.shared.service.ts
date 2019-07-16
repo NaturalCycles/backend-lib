@@ -29,7 +29,9 @@ export class BootstrapSharedService {
     this.prepare()
 
     // 2. Start Express Server
-    const { port } = this.bootstrapServiceCfg
+    const { port: cfgPort } = this.bootstrapServiceCfg
+    const port = Number(process.env.PORT) || cfgPort
+
     this.server = await serverSharedService.startServer(this.expressApp, port)
     this.serverStarted = Date.now()
 
