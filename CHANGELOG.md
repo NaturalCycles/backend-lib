@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/NaturalCycles/backend-lib/compare/v1.9.0...v1.10.0) (2019-07-16)
+
+
+### Features
+
+* EnvSharedService, deps ([a72f968](https://github.com/NaturalCycles/backend-lib/commit/a72f968))
+
 # [1.9.0](https://github.com/NaturalCycles/backend-lib/compare/v1.8.0...v1.9.0) (2019-05-20)
 
 
