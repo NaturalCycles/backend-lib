@@ -1,10 +1,17 @@
 import { execShell } from '@naturalcycles/dev-lib'
 import { buildProdCommand } from '@naturalcycles/dev-lib/dist/cmd/build-prod.command'
-import * as fs from 'fs-extra'
-import { DeployInfo, deployPrepareCommand } from './deploy.util'
+import * as yargs from 'yargs'
+import { deployPrepareCommand } from './deploy.util'
 import { deployHealthCheck } from './deployHealthCheck.command'
 
 export async function deployGaeCommand (): Promise<void> {
+  const { logs } = yargs.options({
+    logs: {
+      type: 'boolean',
+      default: false,
+    },
+  }).argv
+
   // 1. build-prod
 
   // await execCommand(`yarn`, [`build-prod`])
@@ -13,14 +20,11 @@ export async function deployGaeCommand (): Promise<void> {
   // 2. deploy-prepare
 
   // await execCommand(`yarn`, ['deploy-prepare'])
-  await deployPrepareCommand()
+  const deployInfo = await deployPrepareCommand()
+  console.log({ deployInfo })
 
   const targetDir = './tmp/deploy'
-
   const appYamlPath = `${targetDir}/app.yaml`
-  const deployInfoPath = `${targetDir}/deployInfo.json`
-  const deployInfo: DeployInfo = await fs.readJson(deployInfoPath)
-  console.log({ deployInfo })
 
   const { gaeProject, gaeService, gaeVersion, versionUrl, serviceUrl } = deployInfo
 
@@ -28,17 +32,6 @@ export async function deployGaeCommand (): Promise<void> {
   await execShell(
     `gcloud app deploy ${appYamlPath} --project ${gaeProject} --version ${gaeVersion} --quiet --no-promote`,
   )
-  // await execCommand(`gcloud`, [
-  //   `app`,
-  //   `deploy`,
-  //   appYamlPath,
-  //   `--project`,
-  //   gaeProject,
-  //   `--version`,
-  //   gaeVersion,
-  //   `--quiet`,
-  //   `--no-promote`,
-  // ])
 
   // Health check (versionUrl)
   // yarn deploy-health-check --url $deployInfo_versionUrl --repeat 3 --timeoutSec 180 --intervalSec 2
@@ -54,17 +47,6 @@ export async function deployGaeCommand (): Promise<void> {
   await execShell(
     `gcloud app services set-traffic ${gaeService} --project ${gaeProject} --splits ${gaeVersion}=1 --quiet`,
   )
-  // await execCommand(`gcloud`, [
-  //   `app`,
-  //   `services`,
-  //   `set-traffic`,
-  //   gaeService,
-  //   `--project`,
-  //   gaeProject,
-  //   `--splits`,
-  //   `${gaeVersion}=1`,
-  //   `--quiet`,
-  // ])
 
   // Health check (serviceUrl)
   // yarn deploy-health-check --url $deployInfo_serviceUrl --repeat 3 --timeoutSec 60 --intervalSec 2
@@ -76,5 +58,10 @@ export async function deployGaeCommand (): Promise<void> {
   })
 
   // Logs
-  // gcloud app logs read --project $deployInfo_gaeProject --service $deployInfo_gaeService --version $deployInfo_gaeVersion
+  if (logs) {
+    // gcloud app logs read --project $deployInfo_gaeProject --service $deployInfo_gaeService --version $deployInfo_gaeVersion
+    await execShell(
+      `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
+    )
+  }
 }

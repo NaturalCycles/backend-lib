@@ -17,6 +17,7 @@ export interface DeployInfo {
   serviceUrl: string
   gitRev: string
   gitBranch: string
+  prod: boolean
 }
 
 export interface AppYaml extends StringMap<any> {
@@ -70,8 +71,14 @@ const APP_YAML_DEFAULT = (): AppYaml => ({
   },
 })
 
-export async function deployPrepareCommand (): Promise<void> {
-  const { projectDir, targetDir, createNpmrc } = yargs.options({
+interface DeployPrepareCommandOptions {
+  projectDir?: string
+  targetDir?: string
+  createNpmrc?: boolean
+}
+
+export async function deployPrepareCommand (): Promise<DeployInfo> {
+  const opts = yargs.options({
     projectDir: {
       type: 'string',
       default: '.',
@@ -86,6 +93,12 @@ export async function deployPrepareCommand (): Promise<void> {
       default: true,
     },
   }).argv
+
+  return deployPrepare(opts)
+}
+
+export async function deployPrepare (opts: DeployPrepareCommandOptions = {}): Promise<DeployInfo> {
+  const { projectDir = '.', targetDir = './tmp/deploy', createNpmrc = true } = opts
 
   const backendCfg = await getBackendCfg(projectDir)
   const inputPatterns = backendCfg.files || DEFAULT_FILES
@@ -119,6 +132,8 @@ export async function deployPrepareCommand (): Promise<void> {
 
   const deployInfo = await createAndSaveDeployInfo(backendCfg, targetDir)
   await createAndSaveAppYaml(backendCfg, deployInfo, projectDir, targetDir)
+
+  return deployInfo
 }
 
 export async function createAndSaveDeployInfo (
@@ -143,7 +158,9 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
   let { gaeProject, gaeService, prodBranch, branchesWithTimestampVersions = [] } = backendCfg
   gaeService = validateGAEServiceName(gaeService)
 
-  if (gitBranch !== prodBranch) {
+  const prod = gitBranch === prodBranch
+
+  if (!prod) {
     gaeService = validateGAEServiceName([gaeService, gitBranch].join('--'))
   }
 
@@ -169,6 +186,7 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
     serviceUrl,
     gitBranch,
     gitRev,
+    prod,
   }
 }
 
