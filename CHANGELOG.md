@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/NaturalCycles/backend-lib/compare/v1.12.0...v1.12.1) (2019-07-16)
+
+
+### Bug Fixes
+
+* .gcloudignore ([2f4bc69](https://github.com/NaturalCycles/backend-lib/commit/2f4bc69))
+
 # [1.12.0](https://github.com/NaturalCycles/backend-lib/compare/v1.11.1...v1.12.0) (2019-07-16)
 
 
