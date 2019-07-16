@@ -2,7 +2,9 @@
   "name": "@naturalcycles/backend-lib",
   "version": "1.10.0",
   "scripts": {
-    "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts"
+    "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts",
+    "deploy-prepare-debug": "yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
+    "deploy-health-check": "yarn tsn ./src/bin/deploy-health-check.ts"
   },
   "dependencies": {
     "@naturalcycles/fs-lib": "^2.3.0",
@@ -19,7 +21,9 @@
     "express-promise-router": "^3.0.3",
     "fs-extra": "^8.1.0",
     "got": "^9.6.0",
-    "helmet": "^3.18.0"
+    "helmet": "^3.18.0",
+    "js-yaml": "^3.13.1",
+    "simple-git": "^1.121.0"
   },
   "peerDependencies": {
     "@sentry/node": "^5.2.0"
@@ -32,6 +36,7 @@
     "@naturalcycles/semantic-release": "^1.0.0",
     "@sentry/node": "^5.2.0",
     "@types/got": "^9.4.4",
+    "@types/js-yaml": "^3.12.1",
     "@types/node": "^12.0.2",
     "@types/supertest": "^2.0.7",
     "jest": "^24.8.0",
@@ -48,7 +53,8 @@
     "!src/**/__exclude"
   ],
   "bin": {
-    "deploy-prepare": "dist/bin/deploy-prepare.js"
+    "deploy-prepare": "dist/bin/deploy-prepare.js",
+    "deploy-health-check": "dist/bin/deploy-health-check.js"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

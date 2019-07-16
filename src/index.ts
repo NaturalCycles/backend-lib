@@ -1,5 +1,6 @@
 import { BaseEnv } from './env/env.model'
 import { EnvSharedService, EnvSharedServiceCfg } from './env/env.shared.service'
+import { isGAE } from './gae/appEngine.util'
 import { SentrySharedServiceCfg } from './sentry/sentry.model'
 import { SentrySharedService } from './sentry/sentry.shared.service'
 import { BootstrapSharedService } from './server/bootstrap.shared.service'
@@ -35,4 +36,5 @@ export {
   EnvSharedService,
   EnvSharedServiceCfg,
   BaseEnv,
+  isGAE,
 }

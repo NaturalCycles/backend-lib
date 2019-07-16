@@ -519,9 +519,9 @@
     yargs "^13.2.2"
 
 "@naturalcycles/js-lib@^8.0.0":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-8.0.1.tgz#f01e1aef0c73c8df40e7399a4ae85b6669180598"
-  integrity sha512-f16EUXEdyNspu8jORxgqZKea7tYfrRUJS5Y8DQHQt0esxC/WhWyBovQyqdLYFKbmgqixun9AV4DvOningBOHuw==
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-8.1.0.tgz#e92b4d259027e484c4e6669159d4dc29f6cc8443"
+  integrity sha512-zA6JbCu0YaDVYiTE+sVWnH5RJfff0kzhaSrX7/3xSQKpTSov34RCxj4L0YZC5pvKwOVb30gb+bDuoGmhQgMtMA==
 
 "@naturalcycles/nodejs-lib@^6.3.1":
   version "6.7.0"
@@ -966,6 +966,11 @@
   integrity sha512-MU1HIvWUme74stAoc3mgAi+aMlgKOudgEvQDIm1v4RkrDudBh1T+NFp5sftpBAdXdx1J0PbdpJ+M2EsSOi1djA==
   dependencies:
     "@types/jest-diff" "*"
+
+"@types/js-yaml@^3.12.1":
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.12.1.tgz#5c6f4a1eabca84792fbd916f0cb40847f123c656"
+  integrity sha512-SGGAhXLHDx+PK4YLNcNGa6goPf9XRWQNAUUbffkwVGGXIxmDKWyGGL4inzq2sPmExu431Ekb9aEMn9BkPqEYFA==
 
 "@types/lru-cache@^5.1.0":
   version "5.1.0"
@@ -7450,7 +7455,7 @@ signale@^1.2.1:
     figures "^2.0.0"
     pkg-conf "^2.1.0"
 
-simple-git@^1.85.0:
+simple-git@^1.121.0, simple-git@^1.85.0:
   version "1.121.0"
   resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-1.121.0.tgz#4bdf0828cd1b0bb3cb7ed9bead2771982ef5876a"
   integrity sha512-LyYri/nuAX8+cx9nZw38mWO6oHNi//CmiPlkBL7aVjZIsdldve7eeDwXu9L4wP/74MpNHucXkXc/BOuIQShhPg==
