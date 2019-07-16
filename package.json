@@ -1,9 +1,12 @@
 {
   "name": "@naturalcycles/backend-lib",
   "version": "1.9.0",
-  "scripts": {},
+  "scripts": {
+    "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts"
+  },
   "dependencies": {
-    "@naturalcycles/js-lib": "^7.0.0",
+    "@naturalcycles/fs-lib": "^2.3.0",
+    "@naturalcycles/js-lib": "^8.0.0",
     "@naturalcycles/nodejs-lib": "^6.3.1",
     "@naturalcycles/time-lib": "^1.0.3",
     "@types/cookie-parser": "^1.4.1",
@@ -14,11 +17,12 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-promise-router": "^3.0.3",
+    "fs-extra": "^8.1.0",
     "got": "^9.6.0",
     "helmet": "^3.18.0"
   },
   "peerDependencies": {
-    "@sentry/node": "^4.6.4"
+    "@sentry/node": "^5.2.0"
   },
   "optionalDependencies": {
     "swagger-stats": "^0.95.7"
@@ -43,6 +47,9 @@
     "!src/**/__snapshots__",
     "!src/**/__exclude"
   ],
+  "bin": {
+    "deploy-prepare": "dist/bin/deploy-prepare.js"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {

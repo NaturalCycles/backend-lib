@@ -1,3 +1,5 @@
+import { BaseEnv } from './env/env.model'
+import { EnvSharedService, EnvSharedServiceCfg } from './env/env.shared.service'
 import { SentrySharedServiceCfg } from './sentry/sentry.model'
 import { SentrySharedService } from './sentry/sentry.shared.service'
 import { BootstrapSharedService } from './server/bootstrap.shared.service'
@@ -30,4 +32,7 @@ export {
   catchWrapper,
   getDefaultRouter,
   // resourceTestService, // no, cause it will require 'supertest' production dependency
+  EnvSharedService,
+  EnvSharedServiceCfg,
+  BaseEnv,
 }

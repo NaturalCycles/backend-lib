@@ -16,13 +16,6 @@ export function createDefaultApp (
 ): Application {
   const app = express()
 
-  /*
-  if (envService.isProd()) {
-    // require('@google-cloud/trace-agent').start()
-    // require('@google-cloud/debug-agent').start()
-  }
-  */
-
   app.disable('etag')
   app.set('trust proxy', true)
 

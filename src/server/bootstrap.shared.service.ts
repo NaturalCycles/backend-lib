@@ -16,13 +16,13 @@ export class BootstrapSharedService {
   ) {}
 
   server!: Server
-  serverStarted!: number
+  serverStarted?: number
   bootstrapStarted?: number
 
   /**
    * Starts HTTP Server.
    */
-  async startServer (bootstrapStarted: number): Promise<void> {
+  async startServer (bootstrapStarted = Date.now()): Promise<void> {
     this.bootstrapStarted = bootstrapStarted
 
     // 1. Register error handlers, etc.
@@ -54,7 +54,7 @@ export class BootstrapSharedService {
     process.once('SIGINT', () => this.stopServer())
     process.once('SIGTERM', () => this.stopServer())
 
-    // sentryService.install() // todo: new universal sentry sdk
+    // sentryService.install()
   }
 
   /**

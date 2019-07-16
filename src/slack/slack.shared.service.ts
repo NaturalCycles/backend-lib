@@ -1,4 +1,4 @@
-import { nowPretty } from '@naturalcycles/time-lib'
+import { dayjs } from '@naturalcycles/time-lib'
 import * as got from 'got'
 import { SlackMessage, SlackSharedServiceCfg } from './slack.shared.service.model'
 
@@ -51,7 +51,7 @@ export class SlackSharedService {
   protected decorateMsg (msg: SlackMessage): void {
     const tokens: string[] = []
 
-    tokens.push(nowPretty())
+    tokens.push(dayjs().toPretty())
     tokens.push(msg.text)
 
     msg.text = tokens.join('\n')
