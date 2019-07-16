@@ -2,6 +2,7 @@
   "name": "@naturalcycles/backend-lib",
   "version": "1.11.1",
   "scripts": {
+    "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
     "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts",
     "deploy-prepare-debug": "yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
     "deploy-health-check": "yarn tsn ./src/bin/deploy-health-check.ts"
@@ -53,6 +54,7 @@
     "!src/**/__exclude"
   ],
   "bin": {
+    "deploy-gae": "dist/bin/deploy-gae.js",
     "deploy-prepare": "dist/bin/deploy-prepare.js",
     "deploy-health-check": "dist/bin/deploy-health-check.js"
   },
