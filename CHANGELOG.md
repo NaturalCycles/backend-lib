@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/NaturalCycles/backend-lib/compare/v1.10.0...v1.11.0) (2019-07-16)
+
+
+### Features
+
+* yarn deploy-prepare, deploy-health-check ([a6f9fac](https://github.com/NaturalCycles/backend-lib/commit/a6f9fac))
+
 # [1.10.0](https://github.com/NaturalCycles/backend-lib/compare/v1.9.0...v1.10.0) (2019-07-16)
 
 
