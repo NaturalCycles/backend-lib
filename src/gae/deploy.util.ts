@@ -6,6 +6,7 @@ import * as yaml from 'js-yaml'
 import * as simpleGit from 'simple-git/promise'
 import * as yargs from 'yargs'
 import { BackendCfg, getBackendCfg } from '../backend.cfg.util'
+import { srcDir } from '../paths.cnst'
 const git = simpleGit('.')
 
 export interface DeployInfo {
@@ -50,6 +51,8 @@ const DEFAULT_FILES = [
   'app.yaml',
 ]
 
+const defaultFilesDir = `${srcDir}/gae/files-default`
+
 const APP_YAML_DEFAULT = (): AppYaml => ({
   runtime: 'nodejs10',
   service: 'default',
@@ -93,9 +96,16 @@ export async function deployPrepareCommand (): Promise<void> {
   await fs.emptyDir(targetDir)
 
   await kpy({
+    baseDir: defaultFilesDir,
+    outputDir: targetDir,
+    dotfiles: true,
+  })
+
+  await kpy({
     baseDir: projectDir,
     inputPatterns,
     outputDir: targetDir,
+    dotfiles: true,
   })
 
   const { NPM_TOKEN } = process.env
