@@ -11,6 +11,8 @@ import * as fs from 'fs-extra'
 export interface BackendCfg {
   gaeProject: string
 
+  gaeProjectByBranch?: StringMap
+
   /**
    * @example default
    */
@@ -37,6 +39,7 @@ export interface BackendCfg {
 
 const backendCfgSchema = objectSchema<BackendCfg>({
   gaeProject: stringSchema,
+  gaeProjectByBranch: anyObjectSchema.optional(),
   gaeService: stringSchema,
   prodBranch: stringSchema,
   files: arraySchema(stringSchema).optional(),

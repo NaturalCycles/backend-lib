@@ -155,7 +155,16 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
   const { current: gitBranch } = await git.status()
   const gitRev = (await git.revparse(['HEAD'])).substr(0, 7)
 
-  let { gaeProject, gaeService, prodBranch, branchesWithTimestampVersions = [] } = backendCfg
+  let {
+    gaeProject,
+    gaeProjectByBranch = {},
+    gaeService,
+    prodBranch,
+    branchesWithTimestampVersions = [],
+  } = backendCfg
+
+  gaeProject = gaeProjectByBranch[gitBranch] || gaeProject
+
   gaeService = validateGAEServiceName(gaeService)
 
   const prod = gitBranch === prodBranch
