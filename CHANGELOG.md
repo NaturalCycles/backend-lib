@@ -1,3 +1,11 @@
+# [1.13.0](https://github.com/NaturalCycles/backend-lib/compare/v1.12.1...v1.13.0) (2019-07-16)
+
+
+### Features
+
+* backend.cfg.json gaeProjectByBranch ([3ade6bc](https://github.com/NaturalCycles/backend-lib/commit/3ade6bc))
+* deploy-gae --logs ([b18b5ea](https://github.com/NaturalCycles/backend-lib/commit/b18b5ea))
+
 ## [1.12.1](https://github.com/NaturalCycles/backend-lib/compare/v1.12.0...v1.12.1) (2019-07-16)
 
 
