@@ -16,7 +16,15 @@ export class BootstrapSharedService {
   ) {}
 
   server!: Server
+
+  /**
+   * Unix timestamp in millis
+   */
   serverStarted?: number
+
+  /**
+   * Unix timestamp in millis
+   */
   bootstrapStarted?: number
 
   /**
