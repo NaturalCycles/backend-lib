@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/NaturalCycles/backend-lib/compare/v1.13.1...v1.14.0) (2019-07-17)
+
+
+### Features
+
+* root.handler ([f88ee4f](https://github.com/NaturalCycles/backend-lib/commit/f88ee4f))
+
 ## [1.13.1](https://github.com/NaturalCycles/backend-lib/compare/v1.13.0...v1.13.1) (2019-07-16)
 
 
