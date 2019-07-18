@@ -1,3 +1,10 @@
+## [1.14.1](https://github.com/NaturalCycles/backend-lib/compare/v1.14.0...v1.14.1) (2019-07-18)
+
+
+### Bug Fixes
+
+* createRootHandler ([91466b3](https://github.com/NaturalCycles/backend-lib/commit/91466b3))
+
 # [1.14.0](https://github.com/NaturalCycles/backend-lib/compare/v1.13.1...v1.14.0) (2019-07-17)
 
 
