@@ -1,3 +1,15 @@
+# [1.15.0](https://github.com/NaturalCycles/backend-lib/compare/v1.14.1...v1.15.0) (2019-07-18)
+
+
+### Bug Fixes
+
+* update js-lib ([62f8716](https://github.com/NaturalCycles/backend-lib/commit/62f8716))
+
+
+### Features
+
+* getDeployInfo, extend rootHandler ([3aa4b24](https://github.com/NaturalCycles/backend-lib/commit/3aa4b24))
+
 ## [1.14.1](https://github.com/NaturalCycles/backend-lib/compare/v1.14.0...v1.14.1) (2019-07-18)
 
 
