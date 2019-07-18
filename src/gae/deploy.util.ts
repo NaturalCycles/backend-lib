@@ -18,6 +18,11 @@ export interface DeployInfo {
   gitRev: string
   gitBranch: string
   prod: boolean
+
+  /**
+   * Unix timestamp of deployInfo.json being generated.
+   */
+  ts: number
 }
 
 export interface AppYaml extends StringMap<any> {
@@ -196,6 +201,7 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
     gitBranch,
     gitRev,
     prod,
+    ts: now.unix(),
   }
 }
 
