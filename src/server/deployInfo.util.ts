@@ -8,7 +8,7 @@ export const getDeployInfo = memoFn(
     try {
       return fs.readJsonSync(deployInfoPath)
     } catch (_err) {
-      console.error(`cannot read ${deployInfoPath}, returning empty version`)
+      // console.error(`cannot read ${deployInfoPath}, returning empty version`)
       return getDeployInfoStub()
     }
   },
