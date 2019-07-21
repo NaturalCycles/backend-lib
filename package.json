@@ -47,6 +47,7 @@
   },
   "files": [
     "dist",
+    "cfg",
     "src",
     "!src/test",
     "!src/**/*.test.ts",
