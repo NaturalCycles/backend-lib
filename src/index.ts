@@ -3,8 +3,6 @@ import { EnvSharedService, EnvSharedServiceCfg } from './env/env.shared.service'
 import { isGAE } from './gae/appEngine.util'
 import { SentrySharedServiceCfg } from './sentry/sentry.model'
 import { SentrySharedService } from './sentry/sentry.shared.service'
-import { BootstrapSharedService } from './server/bootstrap.shared.service'
-import { BootstrapSharedServiceCfg } from './server/bootstrap.shared.service.model'
 import { catchWrapper } from './server/catchWrapper'
 import { createDefaultApp } from './server/createDefaultApp'
 import { getDeployInfo } from './server/deployInfo.util'
@@ -14,7 +12,8 @@ import { notFoundHandler } from './server/handlers/notFound.handler'
 import { reqValidationMiddleware } from './server/handlers/reqValidation.mw'
 import { createRootHandler } from './server/handlers/root.handler'
 import { sentryErrorMiddleware } from './server/handlers/sentry.error.mw'
-import { serverSharedService } from './server/server.shared.service'
+import { BackendServer, startServer } from './server/startServer'
+import { StartServerCfg, StartServerData } from './server/startServer.model'
 import { SlackSharedService } from './slack/slack.shared.service'
 import { SlackMessage, SlackSharedServiceCfg } from './slack/slack.shared.service.model'
 
@@ -26,9 +25,10 @@ export {
   SentrySharedService,
   SentrySharedServiceCfg,
   createDefaultApp,
-  BootstrapSharedService,
-  BootstrapSharedServiceCfg,
-  serverSharedService,
+  BackendServer,
+  startServer,
+  StartServerCfg,
+  StartServerData,
   SlackSharedService,
   SlackSharedServiceCfg,
   SlackMessage,

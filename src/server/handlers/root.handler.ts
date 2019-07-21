@@ -9,9 +9,12 @@ import { getDeployInfo } from '../deployInfo.util'
  */
 type ServerStartedCallback = () => number | undefined
 
+const now = Date.now()
+const defaultServerStartedCallback = () => now
+
 export function createRootHandler (
-  serverStartedCallback: ServerStartedCallback,
-  projectDir: string,
+  serverStartedCallback: ServerStartedCallback = defaultServerStartedCallback,
+  projectDir: string = process.cwd(),
   extra?: any,
 ): RequestHandler {
   const { APP_ENV } = process.env
