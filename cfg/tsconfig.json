@@ -1,0 +1,50 @@
+//
+// @naturalcycles/backend-lib/cfg/tsconfig.json
+//
+// Shared tsconfig for Backend services
+//
+{
+  "compilerOptions": {
+    // Target/module
+    "target": "es2018",
+    "lib": ["dom", "es2018"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+
+    // Emit
+    "sourceMap": false,
+    "declaration": false,
+
+    // Strictness
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "suppressImplicitAnyIndexErrors": true,
+
+    // Enabled should be faster, but will catch less errors
+    // "skipLibCheck": true,
+
+    // Disabled because of https://github.com/Microsoft/TypeScript/issues/29172
+    // Need to be specified in the project tsconfig
+    // "outDir": "dist",
+    // "rootDir": "./src",
+    //  "baseUrl": "./",
+    //  "paths": {
+    //    "@src/*": ["src/*"]
+    //  },
+    // "typeRoots": [
+    //   "node_modules/@types",
+    //   "src/@types"
+    // ],
+
+    // Other
+    "pretty": true,
+    "newLine": "lf",
+    "importHelpers": true,
+    "experimentalDecorators": true
+  }
+  // Need to be specified in the project tsconfig
+  // "include": ["src"],
+  // "exclude": ["**/__exclude", "**/@linked"]
+}
