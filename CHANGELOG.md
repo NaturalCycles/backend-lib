@@ -1,3 +1,16 @@
+# [1.16.0](https://github.com/NaturalCycles/backend-lib/compare/v1.15.0...v1.16.0) (2019-07-21)
+
+
+### Bug Fixes
+
+* log less in dev ([23b1d97](https://github.com/NaturalCycles/backend-lib/commit/23b1d97))
+
+
+### Features
+
+* cfg/tsconfig.json ([a11be44](https://github.com/NaturalCycles/backend-lib/commit/a11be44))
+* refactor BoostrapSharedService into startServer() ([3441eae](https://github.com/NaturalCycles/backend-lib/commit/3441eae))
+
 # [1.15.0](https://github.com/NaturalCycles/backend-lib/compare/v1.14.1...v1.15.0) (2019-07-18)
 
 
