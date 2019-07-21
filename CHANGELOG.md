@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/NaturalCycles/backend-lib/compare/v1.16.0...v1.16.1) (2019-07-21)
+
+
+### Bug Fixes
+
+* export /cfg ([4a3abc8](https://github.com/NaturalCycles/backend-lib/commit/4a3abc8))
+
 # [1.16.0](https://github.com/NaturalCycles/backend-lib/compare/v1.15.0...v1.16.0) (2019-07-21)
 
 
