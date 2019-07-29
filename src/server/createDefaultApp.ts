@@ -6,9 +6,9 @@ import * as express from 'express'
 import * as helmet from 'helmet'
 import { SentrySharedService } from '..'
 import { DefaultAppCfg } from './createDefaultApp.model'
-import { genericErrorHandler } from './handlers/generic.error.handler'
-import { notFoundHandler } from './handlers/notFound.handler'
-import { sentryErrorMiddleware } from './handlers/sentry.error.mw'
+import { genericErrorHandler } from './handlers/genericErrorHandler.mw'
+import { notFoundHandler } from './handlers/notFoundHandler.mw'
+import { sentryErrorHandler } from './handlers/sentryErrorHandler.mw'
 
 export function createDefaultApp (
   defaultAppCfg: DefaultAppCfg,
@@ -63,7 +63,7 @@ export function createDefaultApp (
   useHandlers(app, defaultAppCfg.postHandlers)
 
   // Generic 404 handler
-  app.use(notFoundHandler)
+  app.use(notFoundHandler())
 
   // The error handler must be before any other error middleware
   // NO: Generic error handler chooses which errors to report to sentry
@@ -71,7 +71,7 @@ export function createDefaultApp (
   // app.use(sentryService.getErrorHandler())
   if (sentryService) {
     app.use(
-      sentryErrorMiddleware({
+      sentryErrorHandler({
         sentryService,
       }),
     )
@@ -81,7 +81,7 @@ export function createDefaultApp (
   // It handles errors, returns proper status, does sentry.captureException()
   // It only rethrows error that happen in errorHandlerMiddleware itself ("error in errorHandler"),
   // otherwise there is no more error propagation behind it
-  app.use(genericErrorHandler)
+  app.use(genericErrorHandler())
 
   return app
 }

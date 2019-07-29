@@ -12,7 +12,7 @@ type ServerStartedCallback = () => number | undefined
 const now = Date.now()
 const defaultServerStartedCallback = () => now
 
-export function createRootHandler (
+export function rootHandler (
   serverStartedCallback: ServerStartedCallback = defaultServerStartedCallback,
   projectDir: string = process.cwd(),
   extra?: any,
@@ -20,7 +20,7 @@ export function createRootHandler (
   const { APP_ENV } = process.env
   const { gitRev, gitBranch, prod, ts } = getDeployInfo(projectDir)
   const deployBuildTimeUTC = dayjs.unix(ts).toPretty()
-  const buildInfo = [dayjs.unix(ts).toCompactTime(), gitBranch, gitRev].join('_')
+  const buildInfo = [dayjs.unix(ts).toCompactTime(), gitBranch, gitRev].filter(Boolean).join('_')
 
   return async (req, res) => {
     res.json(

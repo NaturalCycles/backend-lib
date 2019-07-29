@@ -10,7 +10,7 @@ export interface SentryErrorMiddlewareCfg {
  * Mutates err with err.data.errorId.
  * Passes error further via next(err).
  */
-export function sentryErrorMiddleware (cfg: SentryErrorMiddlewareCfg): ErrorRequestHandler {
+export function sentryErrorHandler (cfg: SentryErrorMiddlewareCfg): ErrorRequestHandler {
   return (err, req, res, next) => {
     if (!err) return next(err)
 
