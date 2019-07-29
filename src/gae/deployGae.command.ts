@@ -5,10 +5,16 @@ import { deployPrepareCommand } from './deploy.util'
 import { deployHealthCheck } from './deployHealthCheck.command'
 
 export async function deployGaeCommand (): Promise<void> {
-  const { logs } = yargs.options({
-    logs: {
+  const { logOnFailure, logOnSuccess } = yargs.options({
+    logOnFailure: {
+      type: 'boolean',
+      default: true,
+      descr: 'Show server logs on failure',
+    },
+    logOnSuccess: {
       type: 'boolean',
       default: false,
+      descr: 'Show server logs on success',
     },
   }).argv
 
@@ -31,7 +37,13 @@ export async function deployGaeCommand (): Promise<void> {
   // gcloud app deploy ./tmp/deploy/app.yaml --project $deployInfo_gaeProject --version $deployInfo_gaeVersion --quiet --no-promote
   await execShell(
     `gcloud app deploy ${appYamlPath} --project ${gaeProject} --version ${gaeVersion} --quiet --no-promote`,
-  )
+  ).catch(async err => {
+    if (logOnFailure) {
+      await logs(gaeProject, gaeService, gaeVersion)
+    }
+
+    throw err
+  })
 
   // Health check (versionUrl)
   // yarn deploy-health-check --url $deployInfo_versionUrl --repeat 3 --timeoutSec 180 --intervalSec 2
@@ -40,6 +52,10 @@ export async function deployGaeCommand (): Promise<void> {
     repeat: 3,
     timeoutSec: 180,
     intervalSec: 2,
+    logOnFailure,
+    gaeProject,
+    gaeService,
+    gaeVersion,
   })
 
   // Rollout (promote versionUrl to serviceUrl)
@@ -55,13 +71,20 @@ export async function deployGaeCommand (): Promise<void> {
     repeat: 3,
     timeoutSec: 60,
     intervalSec: 2,
+    logOnFailure,
+    gaeProject,
+    gaeService,
+    gaeVersion,
   })
 
   // Logs
-  if (logs) {
-    // gcloud app logs read --project $deployInfo_gaeProject --service $deployInfo_gaeService --version $deployInfo_gaeVersion
-    await execShell(
-      `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
-    )
+  if (logOnSuccess) {
+    await logs(gaeProject, gaeService, gaeVersion)
   }
+}
+
+async function logs (gaeProject: string, gaeService: string, gaeVersion: string): Promise<void> {
+  await execShell(
+    `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
+  ).catch(_ignored => {})
 }
