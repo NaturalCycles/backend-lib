@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/NaturalCycles/backend-lib/compare/v2.0.0...v2.1.0) (2019-07-29)
+
+
+### Features
+
+* **deploy:** logOnFailure, logOnSuccess ([15b421d](https://github.com/NaturalCycles/backend-lib/commit/15b421d))
+
 # [2.0.0](https://github.com/NaturalCycles/backend-lib/compare/v1.16.1...v2.0.0) (2019-07-29)
 
 
