@@ -175,7 +175,7 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
   const prod = gitBranch === prodBranch
 
   if (!prod) {
-    gaeService = validateGAEServiceName([gaeService, gitBranch].join('--'))
+    gaeService = validateGAEServiceName([gitBranch, gaeService].join('--'))
   }
 
   let gaeVersion = '1'
