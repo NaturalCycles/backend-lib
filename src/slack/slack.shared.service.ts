@@ -32,6 +32,8 @@ export class SlackSharedService<CTX = any> {
       return
     }
 
+    this.processKV(_msg)
+
     const body = {
       ...DEFAULTS(),
       ...this.slackServiceCfg.defaults,
@@ -48,7 +50,9 @@ export class SlackSharedService<CTX = any> {
       .catch(ignored => {}) // ignore, cause slack is weirdly returning non-json text "ok" response
   }
 
-  // mutates
+  /**
+   * mutates
+   */
   protected decorateMsg (msg: SlackMessage, ctx?: CTX): void {
     const tokens: string[] = []
 
@@ -56,5 +60,24 @@ export class SlackSharedService<CTX = any> {
     tokens.push(msg.text)
 
     msg.text = tokens.join('\n')
+  }
+
+  /**
+   * mutates
+   */
+  private processKV (msg: SlackMessage): void {
+    if (!msg.kv) return
+
+    const fields = Object.entries(msg.kv).map(([k, v]) => ({
+      title: k,
+      value: String(v),
+      short: String(v).length < 80,
+    }))
+
+    msg.attachments = (msg.attachments || []).concat({
+      fields,
+    })
+
+    delete msg.kv
   }
 }

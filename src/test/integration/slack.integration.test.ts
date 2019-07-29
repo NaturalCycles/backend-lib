@@ -49,3 +49,14 @@ test('slack', async () => {
     ],
   })
 })
+
+test('kv', async () => {
+  await slackService.sendMsg({
+    text: 'hello kv',
+    kv: {
+      a: 'a1',
+      b: 'b1',
+      long: 'very very very very very very very very very very very very very very long',
+    },
+  })
+})
