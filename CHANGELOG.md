@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/NaturalCycles/backend-lib/compare/v2.1.0...v2.2.0) (2019-07-29)
+
+
+### Features
+
+* **slack:** msg.kv sugar syntax ([e31e451](https://github.com/NaturalCycles/backend-lib/commit/e31e451))
+
 # [2.1.0](https://github.com/NaturalCycles/backend-lib/compare/v2.0.0...v2.1.0) (2019-07-29)
 
 
