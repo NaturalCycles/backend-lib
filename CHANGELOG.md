@@ -1,3 +1,23 @@
+# [2.0.0](https://github.com/NaturalCycles/backend-lib/compare/v1.16.1...v2.0.0) (2019-07-29)
+
+
+### Code Refactoring
+
+* all handlers are middlewares (factory functions) now ([fc756bb](https://github.com/NaturalCycles/backend-lib/commit/fc756bb))
+
+
+### Features
+
+* **slack:** allow attachments ([23775a4](https://github.com/NaturalCycles/backend-lib/commit/23775a4))
+* gaeServiceName as `branch--service` ([7821727](https://github.com/NaturalCycles/backend-lib/commit/7821727))
+* methodOverride middleware ([6f4fca3](https://github.com/NaturalCycles/backend-lib/commit/6f4fca3))
+* SlackService to allow defaults, ctx ([c326ed1](https://github.com/NaturalCycles/backend-lib/commit/c326ed1))
+
+
+### BREAKING CHANGES
+
+* ^^^
+
 ## [1.16.1](https://github.com/NaturalCycles/backend-lib/compare/v1.16.0...v1.16.1) (2019-07-21)
 
 
