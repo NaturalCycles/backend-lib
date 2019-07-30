@@ -8,9 +8,14 @@ const slackService = new SlackSharedService({
   defaults: {
     channel: 'test',
   },
+  log: false,
 })
 
-test('slack', async () => {
+test('hello world', async () => {
+  await slackService.send(`Hello Slack`)
+})
+
+test('attachments', async () => {
   await slackService.sendMsg({
     text: 'hello',
     attachments: [

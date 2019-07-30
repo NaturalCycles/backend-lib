@@ -48,4 +48,10 @@ export interface SlackSharedServiceCfg {
   webhookUrl?: string
 
   defaults?: Partial<SlackMessage>
+
+  /**
+   * Log all messages to console
+   * @default true
+   */
+  log?: boolean
 }

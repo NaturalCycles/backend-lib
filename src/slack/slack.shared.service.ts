@@ -25,12 +25,13 @@ export class SlackSharedService<CTX = any> {
   }
 
   async sendMsg (_msg: SlackMessage, ctx?: CTX): Promise<void> {
-    const { webhookUrl } = this.slackServiceCfg
+    const { webhookUrl, log = true } = this.slackServiceCfg
 
-    if (!webhookUrl) {
-      console.log(_msg.text)
-      return
+    if (log) {
+      console.log(...[_msg.text, _msg.kv, _msg.attachments].filter(Boolean))
     }
+
+    if (!webhookUrl) return
 
     this.processKV(_msg)
 
