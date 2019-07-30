@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/NaturalCycles/backend-lib/compare/v2.2.0...v2.3.0) (2019-07-30)
+
+
+### Features
+
+* slackServiceCfg.log (default to true) ([b9a8954](https://github.com/NaturalCycles/backend-lib/commit/b9a8954))
+
 # [2.2.0](https://github.com/NaturalCycles/backend-lib/compare/v2.1.0...v2.2.0) (2019-07-29)
 
 
