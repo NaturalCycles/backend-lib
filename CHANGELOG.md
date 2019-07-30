@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/NaturalCycles/backend-lib/compare/v2.3.0...v2.4.0) (2019-07-30)
+
+
+### Features
+
+* slackService.kvToFields() ([fdd0246](https://github.com/NaturalCycles/backend-lib/commit/fdd0246))
+
 # [2.3.0](https://github.com/NaturalCycles/backend-lib/compare/v2.2.0...v2.3.0) (2019-07-30)
 
 
