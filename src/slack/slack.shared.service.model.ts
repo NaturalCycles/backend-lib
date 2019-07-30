@@ -1,5 +1,3 @@
-import { StringMap } from '@naturalcycles/js-lib'
-
 export interface SlackMessage {
   username?: string
   channel?: string
@@ -11,7 +9,13 @@ export interface SlackMessage {
   /**
    * Keys-values will be rendered as MessageAttachment with Fields
    */
-  kv?: StringMap<any>
+  kv?: Record<string, any>
+}
+
+export interface SlackAttachmentField {
+  title: string
+  value: string
+  short?: boolean
 }
 
 // Taken from here: https://github.com/slackapi/node-slack-sdk/blob/master/packages/types/src/index.ts
@@ -26,11 +30,7 @@ export interface SlackMessageAttachment {
   title?: string
   title_link?: string // title must be present
   text?: string // either this or fallback must be defined
-  fields?: {
-    title: string
-    value: string
-    short?: boolean
-  }[]
+  fields?: SlackAttachmentField[]
   image_url?: string
   thumb_url?: string
   footer?: string

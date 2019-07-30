@@ -1,6 +1,10 @@
 import { dayjs } from '@naturalcycles/time-lib'
 import * as got from 'got'
-import { SlackMessage, SlackSharedServiceCfg } from './slack.shared.service.model'
+import {
+  SlackAttachmentField,
+  SlackMessage,
+  SlackSharedServiceCfg,
+} from './slack.shared.service.model'
 
 const DEFAULTS = (): SlackMessage => ({
   username: 'backend-lib',
@@ -52,7 +56,8 @@ export class SlackSharedService<CTX = any> {
   }
 
   /**
-   * mutates
+   * Mutates msg.
+   * To be overridden.
    */
   protected decorateMsg (msg: SlackMessage, ctx?: CTX): void {
     const tokens: string[] = []
@@ -63,20 +68,22 @@ export class SlackSharedService<CTX = any> {
     msg.text = tokens.join('\n')
   }
 
+  kvToFields (kv: Record<string, any>): SlackAttachmentField[] {
+    return Object.entries(kv).map(([k, v]) => ({
+      title: k,
+      value: String(v),
+      short: String(v).length < 80,
+    }))
+  }
+
   /**
    * mutates
    */
   private processKV (msg: SlackMessage): void {
     if (!msg.kv) return
 
-    const fields = Object.entries(msg.kv).map(([k, v]) => ({
-      title: k,
-      value: String(v),
-      short: String(v).length < 80,
-    }))
-
     msg.attachments = (msg.attachments || []).concat({
-      fields,
+      fields: this.kvToFields(msg.kv),
     })
 
     delete msg.kv
