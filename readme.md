@@ -3,6 +3,7 @@
 > Standard library for building Node.js / Express backend
 
 [![npm](https://img.shields.io/npm/v/@naturalcycles/backend-lib/latest.svg)](https://www.npmjs.com/package/@naturalcycles/backend-lib)
+[![min.gz size](https://badgen.net/bundlephobia/minzip/@naturalcycles/backend-lib)](https://bundlephobia.com/result?p=@naturalcycles/backend-lib)
 [![](https://circleci.com/gh/NaturalCycles/backend-lib.svg?style=shield)](https://circleci.com/gh/NaturalCycles/backend-lib)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c7aa5ef93894ec0246c4/maintainability)](https://codeclimate.com/github/NaturalCycles/backend-lib/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c7aa5ef93894ec0246c4/test_coverage)](https://codeclimate.com/github/NaturalCycles/backend-lib/test_coverage)
