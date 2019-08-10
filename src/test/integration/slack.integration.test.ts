@@ -33,7 +33,7 @@ test('attachments', async () => {
           },
           {
             title: 'Priority2',
-            value: 'Low',
+            value: '<http://example.com|Low>',
             short: true,
           },
           {

@@ -8,33 +8,16 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c7aa5ef93894ec0246c4/test_coverage)](https://codeclimate.com/github/NaturalCycles/backend-lib/test_coverage)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-# Install
-
-Install peerDependencies:
-
-```
-
-yarn add \
-@naturalcycles/js-lib \
-@naturalcycles/nodejs-lib \
-cookie-parser \
-cors \
-express \
-helmet \
-swagger-stats \
-@sentry/node
-
-```
-
 # Features
 
-TODO
+# DEBUG namespaces
 
-# What should go in this lib
+- `backend-lib`
+- `backend-lib:sentry`
 
 # Packaging
 
-- `engines.node >= 10.13`: latest Node.js LTS
+- `engines.node`: latest Node.js LTS
 - `main: dist/index.js`: commonjs, es2018
 - `types: dist/index.d.ts`: typescript types
 - `/src` folder with source `*.ts` files included

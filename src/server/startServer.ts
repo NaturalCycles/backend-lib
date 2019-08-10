@@ -1,4 +1,5 @@
 import { Server } from 'http'
+import { log } from '../log'
 import { StartServerCfg, StartServerData } from './startServer.model'
 
 export class BackendServer {
@@ -36,7 +37,7 @@ export class BackendServer {
     const serverStartedAt = Date.now()
 
     const bootstrapMillis = serverStartedAt - bootstrapStartedAt
-    console.log(`serverStarted on port ${port}, bootstrapTime: ${bootstrapMillis} ms`)
+    log(`serverStarted on port ${port}, bootstrapTime: ${bootstrapMillis} ms`)
 
     return {
       port,
@@ -51,16 +52,22 @@ export class BackendServer {
    * Does `process.exit()` in the end.
    */
   async stop (): Promise<void> {
+    log('Server shutdown...')
+
     setTimeout(() => {
-      console.error('Forcefully shutting down after timeout...')
+      log('Forceful shutdown after timeout')
       process.exit(1)
-    }, 3000)
+    }, this.cfg.forceShutdownTimeout || 3000)
+
+    if (this.cfg.onShutdown) {
+      void this.cfg.onShutdown()
+    }
 
     try {
       if (this.server) {
         await new Promise(r => this.server!.close(r))
       }
-      console.log('Gracefully shut down')
+      log('Shutdown completed.')
       process.exit(0)
     } catch (err) {
       console.error(err)

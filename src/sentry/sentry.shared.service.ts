@@ -1,7 +1,10 @@
 import { memo } from '@naturalcycles/js-lib'
+import { Debug } from '@naturalcycles/nodejs-lib'
 import * as SentryLib from '@sentry/node'
 import { ErrorRequestHandler, RequestHandler } from 'express'
 import { SentrySharedServiceCfg } from './sentry.model'
+
+const log = Debug('backend-lib:sentry')
 
 export class SentrySharedService {
   static INSTANCE_ALIAS = ['sentryService']
@@ -22,7 +25,7 @@ export class SentrySharedService {
 
     if (this.sentryServiceCfg.dsn) {
       // Sentry enabled
-      console.log('SentryService init...')
+      log('SentryService init...')
     }
 
     Sentry.init({

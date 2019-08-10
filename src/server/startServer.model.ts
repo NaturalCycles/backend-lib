@@ -13,6 +13,14 @@ export interface StartServerCfg {
   bootstrapStartedAt?: number
 
   expressApp: Application
+
+  /**
+   * Server will wait for promise to resolve until shutting down.
+   * (with a timeout)
+   */
+  onShutdown?: () => Promise<void>
+
+  forceShutdownTimeout?: number
 }
 
 export interface StartServerData {

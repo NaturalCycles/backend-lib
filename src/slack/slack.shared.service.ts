@@ -1,3 +1,4 @@
+import { Debug } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
 import * as got from 'got'
 import {
@@ -12,6 +13,8 @@ const DEFAULTS = (): SlackMessage => ({
   icon_emoji: ':spider_web:',
   text: 'no text',
 })
+
+const log = Debug('backend-lib:slack')
 
 export class SlackSharedService<CTX = any> {
   static INSTANCE_ALIAS = ['slackService']
@@ -29,11 +32,9 @@ export class SlackSharedService<CTX = any> {
   }
 
   async sendMsg (_msg: SlackMessage, ctx?: CTX): Promise<void> {
-    const { webhookUrl, log = true } = this.slackServiceCfg
+    const { webhookUrl } = this.slackServiceCfg
 
-    if (log) {
-      console.log(...[_msg.text, _msg.kv, _msg.attachments].filter(Boolean))
-    }
+    log(...[_msg.text, _msg.kv, _msg.attachments].filter(Boolean))
 
     if (!webhookUrl) return
 

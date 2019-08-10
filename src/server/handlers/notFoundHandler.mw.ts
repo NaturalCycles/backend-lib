@@ -1,8 +1,9 @@
 import { RequestHandler } from 'express'
+import { log } from '../../log'
 
 export function notFoundHandler (): RequestHandler {
   return (req, res) => {
-    console.log(`404: ${req.url}`)
+    log(`404: ${req.url}`)
 
     res
       .contentType('text/plain')
