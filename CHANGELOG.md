@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/NaturalCycles/backend-lib/compare/v2.4.0...v2.5.0) (2019-08-10)
+
+
+### Features
+
+* use Debug from nodejs-lib for logging ([48f707a](https://github.com/NaturalCycles/backend-lib/commit/48f707a))
+
 # [2.4.0](https://github.com/NaturalCycles/backend-lib/compare/v2.3.0...v2.4.0) (2019-07-30)
 
 
