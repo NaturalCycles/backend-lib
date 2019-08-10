@@ -8,7 +8,6 @@ const slackService = new SlackSharedService({
   defaults: {
     channel: 'test',
   },
-  log: false,
 })
 
 test('hello world', async () => {
