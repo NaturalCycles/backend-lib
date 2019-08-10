@@ -1,3 +1,10 @@
+## [2.5.1](https://github.com/NaturalCycles/backend-lib/compare/v2.5.0...v2.5.1) (2019-08-10)
+
+
+### Bug Fixes
+
+* test ([53f4830](https://github.com/NaturalCycles/backend-lib/commit/53f4830))
+
 # [2.5.0](https://github.com/NaturalCycles/backend-lib/compare/v2.4.0...v2.5.0) (2019-08-10)
 
 
