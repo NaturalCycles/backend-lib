@@ -4,7 +4,7 @@ import * as SentryLib from '@sentry/node'
 import { ErrorRequestHandler, RequestHandler } from 'express'
 import { SentrySharedServiceCfg } from './sentry.model'
 
-const log = Debug('backend-lib:sentry')
+const log = Debug('nc:backend-lib:sentry')
 
 export class SentrySharedService {
   static INSTANCE_ALIAS = ['sentryService']

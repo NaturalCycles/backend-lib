@@ -14,7 +14,7 @@ const DEFAULTS = (): SlackMessage => ({
   text: 'no text',
 })
 
-const log = Debug('backend-lib:slack')
+const log = Debug('nc:backend-lib:slack')
 
 export class SlackSharedService<CTX = any> {
   static INSTANCE_ALIAS = ['slackService']

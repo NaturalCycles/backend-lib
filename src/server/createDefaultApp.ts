@@ -4,11 +4,14 @@ import * as cors from 'cors'
 import { Application, RequestHandler } from 'express'
 import * as express from 'express'
 import * as helmet from 'helmet'
-import { SentrySharedService } from '..'
+import { methodOverride, SentrySharedService } from '..'
 import { DefaultAppCfg } from './createDefaultApp.model'
+import { bodyParserTimeout, clearBodyParserTimeout } from './handlers/bodyParserTimeout.mw'
 import { genericErrorHandler } from './handlers/genericErrorHandler.mw'
 import { notFoundHandler } from './handlers/notFoundHandler.mw'
+import { requestTimeout } from './handlers/requestTimeout.mw'
 import { sentryErrorHandler } from './handlers/sentryErrorHandler.mw'
+import { simpleRequestLogger } from './handlers/simpleRequestLogger.mw'
 
 export function createDefaultApp (
   defaultAppCfg: DefaultAppCfg,
@@ -21,6 +24,11 @@ export function createDefaultApp (
 
   // preHandlers
   useHandlers(app, defaultAppCfg.preHandlers)
+
+  app.use(methodOverride())
+  app.use(requestTimeout())
+  app.use(bodyParserTimeout())
+  app.use(simpleRequestLogger())
 
   // The request handler must be the first middleware on the app
   if (sentryService) {
@@ -40,6 +48,8 @@ export function createDefaultApp (
     }),
   )
   app.options('*', cors()) // enable pre-flight for all requests
+
+  app.use(clearBodyParserTimeout())
 
   // GET /swagger-stats/stats
   // GET /swagger-stats/ui

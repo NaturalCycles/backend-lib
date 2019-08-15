@@ -1,3 +1,4 @@
+import * as onFinished from 'on-finished'
 import { BaseEnv } from './env/env.model'
 import { EnvSharedService, EnvSharedServiceCfg } from './env/env.shared.service'
 import { isGAE } from './gae/appEngine.util'
@@ -43,4 +44,5 @@ export {
   isGAE,
   rootHandler,
   getDeployInfo,
+  onFinished,
 }

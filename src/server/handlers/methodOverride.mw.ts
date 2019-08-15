@@ -1,8 +1,24 @@
 import { RequestHandler } from 'express'
 
-export function methodOverride (): RequestHandler {
+export interface MethodOverrideCfg {
+  /**
+   * @default _method
+   */
+  methodKey?: string
+}
+
+export function methodOverride (cfg: MethodOverrideCfg = {}): RequestHandler {
+  const { methodKey } = {
+    methodKey: '_method',
+    ...cfg,
+  }
+
   return (req, res, next) => {
-    req.method = req.query._method || req.method
+    if (req.query[methodKey]) {
+      req.method = req.query[methodKey]
+      delete req.query[methodKey]
+    }
+
     next()
   }
 }

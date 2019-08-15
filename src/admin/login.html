@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.0/src/js.cookie.min.js"></script>
+    <script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
+
+    <link href="https://unpkg.com/bootstrap@4.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="app" style="padding: 40px 50px;">
+      <pre v-if="loading">Checking login...</pre>
+      <div v-else>
+        <div v-if="user">
+          <p>Logged in as:</p>
+          <pre><mark>{{ user.email }}</mark></pre>
+          <pre><mark>{{ user.token }}</mark></pre>
+          <button class="btn btn-primary btn-lg" @click="logout">Logout</button>
+        </div>
+        <div v-else>
+          <button class="btn btn-primary btn-lg" @click="login" id="loginBtn">Login</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const apiKey = '<%= firebaseApiKey %>'
+      const authDomain = '<%= firebaseAuthDomain %>'
+      const authProvider = '<%= firebaseAuthProvider %>'
+
+      if (!apiKey || !authDomain) {
+        alert(`Error: 'apiKey' or 'authDomain' is missing!`)
+      }
+
+      const qs = parseQuery(location.search)
+      const { autoLogin, logout, returnUrl, adminTokenKey = 'admin_token' } = qs
+      console.log(qs)
+
+      const provider = new firebase.auth[authProvider]()
+
+      const app = new Vue({
+        el: '#app',
+
+        data: {
+          loading: 'Loading...',
+          user: undefined,
+        },
+
+        methods: {
+          login: async function() {
+            try {
+              await firebase.auth().signInWithRedirect(provider)
+            } catch (err) {
+              logError(err)
+            }
+          },
+
+          logout: async function() {
+            try {
+              Cookies.remove(adminTokenKey)
+              await firebase.auth().signOut()
+
+              if (logout && returnUrl) {
+                alert('Logged out, redurecting back...')
+                location.href = returnUrl
+              }
+            } catch (err) {
+              logError(err)
+            }
+          },
+        },
+      })
+
+      // Initialize Firebase
+      const config = {
+        apiKey,
+        authDomain,
+      }
+      firebase.initializeApp(config)
+
+      firebase.auth().onAuthStateChanged(user => {
+        // console.log('onAuthStateChanged, user: ', JSON.stringify(user, null, 2))
+        console.log('onAuthStateChanged, user: ', user)
+        onUser(user)
+      })
+
+      // console.log('cookies all', Cookies.get())
+      // alert('qs:\n' + JSON.stringify(qs, null, 2))
+
+      if (logout) app.logout()
+
+      ////
+
+      async function onUser(user) {
+        try {
+          // alert('onUser')
+          app.user = user
+          app.loading = false
+          if (!user) {
+            if (autoLogin) app.login()
+          } else {
+            const token = await firebase.auth().currentUser.getIdToken(true)
+            // alert('idToken')
+            // console.log(idToken)
+            app.user = Object.assign({}, app.user, {
+              token,
+            })
+            Cookies.set(adminTokenKey, token, {
+              // secure: true,
+            })
+
+            // Redirect if needed
+            if (returnUrl) {
+              // alert(`Logged in as ${app.user.email}, redirecting back...`)
+              location.href = returnUrl
+            }
+          }
+        } catch (err) {
+          logError(err)
+        }
+      }
+
+      function parseQuery(queryString) {
+        const query = {}
+        const pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&')
+        for (let i = 0; i < pairs.length; i++) {
+          const pair = pairs[i].split('=')
+          query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '')
+        }
+        return query
+      }
+
+      function logError(err) {
+        console.error(err)
+        alert('Error\n ' + JSON.stringify(err, null, 2))
+      }
+    </script>
+  </body>
+</html>
