@@ -1,9 +1,7 @@
-import { Debug } from '@naturalcycles/nodejs-lib'
-import * as c from 'ansi-colors'
+import { HttpError } from '@naturalcycles/js-lib'
 import { RequestHandler } from 'express'
 import { Request } from 'express'
-
-const log = Debug('nc:backend-lib:request')
+import { respondWithError } from '../error.util'
 
 export interface BodyParserTimeoutCfg {
   /**
@@ -14,7 +12,7 @@ export interface BodyParserTimeoutCfg {
   /**
    * @default 400
    */
-  httpCode?: number
+  httpStatusCode?: number
 
   /**
    * @default 'Timeout reading request input'
@@ -26,13 +24,15 @@ interface RequestWithTimeout extends Request {
   _bodyParserTimeout?: NodeJS.Timeout
 }
 
+const code = 'BODY_PARSER_TIMEOUT'
+
 /**
  * Should be called BEFORE bodyParser
  */
 export function bodyParserTimeout (cfg: BodyParserTimeoutCfg = {}): RequestHandler {
-  const { timeoutSeconds, httpCode, httpStatus } = {
+  const { timeoutSeconds, httpStatusCode, httpStatus } = {
     timeoutSeconds: 10,
-    httpCode: 400,
+    httpStatusCode: 400,
     httpStatus: 'Timeout reading request input',
     ...cfg,
   }
@@ -43,16 +43,15 @@ export function bodyParserTimeout (cfg: BodyParserTimeoutCfg = {}): RequestHandl
     req._bodyParserTimeout = setTimeout(() => {
       if (res.headersSent) return
 
-      log.warn(
-        [c.red(String(httpCode)), req.method, c.bold(req.url), httpStatus, `(${timeout} sec)`].join(
-          ' ',
-        ),
+      respondWithError(
+        req,
+        res,
+        new HttpError(httpStatus, {
+          code,
+          httpStatusCode,
+          userFriendly: true,
+        }),
       )
-
-      res
-        .status(httpCode)
-        .send(httpStatus)
-        .end()
     }, timeout)
 
     next()

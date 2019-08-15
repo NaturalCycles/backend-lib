@@ -1,10 +1,13 @@
-import { Debug, DebugLogLevel } from '@naturalcycles/nodejs-lib'
+import { anyToErrorMessage } from '@naturalcycles/js-lib'
+import { Debug } from '@naturalcycles/nodejs-lib'
 import { since } from '@naturalcycles/time-lib'
 import * as c from 'ansi-colors'
 import { RequestHandler } from 'express'
 import { onFinished } from '../../index'
+import { ResponseWithError } from '../error.util'
+import { logRequest } from '../request.log.util'
 
-const log = Debug('nc:backend-lib:request')
+const log = Debug('nc:backend-lib')
 
 export interface SimpleRequestLoggerCfg {
   /**
@@ -16,57 +19,33 @@ export interface SimpleRequestLoggerCfg {
    * @default true
    */
   logFinish: boolean
-
-  /**
-   * @default warn
-   */
-  logLevel4xx: DebugLogLevel
-
-  /**
-   * @default error
-   */
-  logLevel5xx: DebugLogLevel
 }
 
 export function simpleRequestLogger (_cfg: Partial<SimpleRequestLoggerCfg> = {}): RequestHandler {
   const cfg: SimpleRequestLoggerCfg = {
     logStart: false,
     logFinish: true,
-    logLevel4xx: DebugLogLevel.warn,
-    logLevel5xx: DebugLogLevel.error,
     ..._cfg,
   }
   const { logStart, logFinish } = cfg
 
-  return (req, res, next) => {
+  return (req, res: ResponseWithError, next) => {
     const started = Date.now()
 
     if (logStart) {
-      log(`>> ${req.method} ${req.url}`)
+      log(['>>', req.method, c.bold(req.url)].join(' '))
     }
 
     if (logFinish) {
       onFinished(res, () => {
-        log[logLevel(res.statusCode, cfg)](
-          [coloredCode(res.statusCode), req.method, c.bold(req.url), c.dim(since(started))].join(
-            ' ',
-          ),
-        )
+        if (res.__err) {
+          logRequest(req, res.statusCode, c.dim(since(started)), anyToErrorMessage(res.__err))
+        } else {
+          logRequest(req, res.statusCode, c.dim(since(started)))
+        }
       })
     }
 
     next()
   }
-}
-
-function coloredCode (statusCode: number): string {
-  if (statusCode < 400) return c.green(String(statusCode))
-  if (statusCode < 500) return c.yellow(String(statusCode))
-  return c.red(String(statusCode))
-}
-
-function logLevel (statusCode: number, cfg: SimpleRequestLoggerCfg): DebugLogLevel {
-  if (statusCode < 400) return DebugLogLevel.info
-  if (statusCode < 500) return cfg.logLevel4xx
-  return cfg.logLevel5xx
 }

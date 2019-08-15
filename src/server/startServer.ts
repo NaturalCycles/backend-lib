@@ -12,11 +12,11 @@ export class BackendServer {
 
     // 1. Register error handlers, etc.
     process.on('uncaughtException', err => {
-      console.error('uncaughtException', err)
+      log.error('uncaughtException:', err)
     })
 
     process.on('unhandledRejection', err => {
-      console.error('unhandledRejection', err)
+      log.error('unhandledRejection:', err)
     })
 
     process.once('SIGINT', () => this.stop())
@@ -70,7 +70,7 @@ export class BackendServer {
       log('Shutdown completed.')
       process.exit(0)
     } catch (err) {
-      console.error(err)
+      log.error(err)
       process.exit(1)
     }
   }

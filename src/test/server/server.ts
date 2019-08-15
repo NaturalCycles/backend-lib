@@ -28,8 +28,18 @@ router.get('/debug', reqAdmin(), async (req, res) => {
   })
 })
 
-router.get('/timeout', async (req, res) => {
+router.get('/timeout', () => {
   // just hang on
+})
+
+router.get('/error500', async (req, res) => {
+  await new Promise(r => setTimeout(r, 500))
+  throw new Error('my error 5xx')
+})
+
+router.get('/error400', async (req, res) => {
+  await new Promise(r => setTimeout(r, 500))
+  throw new Error('my error 4xx')
 })
 
 void startServer({

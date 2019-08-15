@@ -1,8 +1,12 @@
 import { execShell } from '@naturalcycles/dev-lib'
 import { buildProdCommand } from '@naturalcycles/dev-lib/dist/cmd/build-prod.command'
+import { Debug } from '@naturalcycles/nodejs-lib'
 import * as yargs from 'yargs'
 import { deployPrepareCommand } from './deploy.util'
 import { deployHealthCheck } from './deployHealthCheck.command'
+
+const log = Debug('nc:backend-lib:deploy')
+Debug.enable('nc:backend-lib*') // force-enable
 
 export async function deployGaeCommand (): Promise<void> {
   const { logOnFailure, logOnSuccess } = yargs.options({
@@ -27,7 +31,7 @@ export async function deployGaeCommand (): Promise<void> {
 
   // await execCommand(`yarn`, ['deploy-prepare'])
   const deployInfo = await deployPrepareCommand()
-  console.log({ deployInfo })
+  log({ deployInfo })
 
   const targetDir = './tmp/deploy'
   const appYamlPath = `${targetDir}/app.yaml`

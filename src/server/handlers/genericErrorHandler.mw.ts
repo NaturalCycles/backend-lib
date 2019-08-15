@@ -1,12 +1,8 @@
-import {
-  anyToErrorObject,
-  ErrorObject,
-  HttpErrorData,
-  HttpErrorResponse,
-} from '@naturalcycles/js-lib'
+import { Debug } from '@naturalcycles/nodejs-lib'
 import { ErrorRequestHandler } from 'express'
+import { respondWithError } from '../error.util'
 
-const { APP_ENV } = process.env
+const log = Debug('nc:backend-lib')
 
 /**
  * Generic error handler.
@@ -15,27 +11,12 @@ const { APP_ENV } = process.env
  */
 export function genericErrorHandler (): ErrorRequestHandler {
   return (_err, req, res, next) => {
-    if (res.headersSent) return next(_err)
-    // log(`errorHandler`)
-
-    const err = anyToErrorObject(_err) as ErrorObject<HttpErrorData>
-    err.data = {
-      httpStatusCode: 500, // default
-      ...err.data,
+    if (res.headersSent) {
+      log(`genericErrorHandler, but headersSent=true`)
+      return next(_err)
     }
+    log.error(_err)
 
-    if (APP_ENV === 'prod' || APP_ENV === 'test') {
-      delete err.stack
-    }
-
-    const { path } = req
-
-    console.error(`HTTP ${err.data.httpStatusCode} ${path} ${err.message}`)
-
-    const resp: HttpErrorResponse = {
-      error: err,
-    }
-
-    res.status(err.data.httpStatusCode).json(resp)
+    respondWithError(req, res, _err)
   }
 }

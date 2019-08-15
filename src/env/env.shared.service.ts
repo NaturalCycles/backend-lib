@@ -1,3 +1,4 @@
+import { log } from '../log'
 import { BaseEnv } from './env.model'
 
 export interface EnvSharedServiceCfg {
@@ -33,14 +34,14 @@ export class EnvSharedService<ENV extends BaseEnv = any> {
         throw new Error(`Cannot read envFile ${envFilePath}`)
       }
 
-      console.log(`APP_ENV=${APP_ENV} loaded`)
+      log(`APP_ENV=${APP_ENV} loaded`)
     }
 
     return this.env!
   }
 
   setEnv (env?: ENV): void {
-    console.log(`setEnv APP_ENV=${env ? env.name : 'undefined'}`)
+    log(`setEnv APP_ENV=${env ? env.name : 'undefined'}`)
     this.env = env
   }
 }

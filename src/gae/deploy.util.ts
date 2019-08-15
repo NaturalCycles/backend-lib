@@ -1,5 +1,6 @@
 import { kpy } from '@naturalcycles/fs-lib'
 import { _merge, StringMap } from '@naturalcycles/js-lib'
+import { Debug } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
 import * as fs from 'fs-extra'
 import * as yaml from 'js-yaml'
@@ -82,6 +83,8 @@ interface DeployPrepareCommandOptions {
   createNpmrc?: boolean
 }
 
+const log = Debug('nc:backend-lib:deploy')
+
 export async function deployPrepareCommand (): Promise<DeployInfo> {
   const opts = yargs.options({
     projectDir: {
@@ -108,7 +111,7 @@ export async function deployPrepare (opts: DeployPrepareCommandOptions = {}): Pr
   const backendCfg = await getBackendCfg(projectDir)
   const inputPatterns = backendCfg.files || DEFAULT_FILES
 
-  console.log(`[deploy-prepare] 1. Copy files to ${targetDir}`)
+  log(`1. Copy files to ${targetDir}`)
 
   // Clean targetDir
   await fs.emptyDir(targetDir)
@@ -133,7 +136,7 @@ export async function deployPrepare (opts: DeployPrepareCommandOptions = {}): Pr
     await fs.writeFile(npmrcPath, npmrc)
   }
 
-  console.log(`[deploy-prepare] 2. Generate deployInfo.json and app.yaml in targetDir`)
+  log(`2. Generate deployInfo.json and app.yaml in targetDir`)
 
   const deployInfo = await createAndSaveDeployInfo(backendCfg, targetDir)
   await createAndSaveAppYaml(backendCfg, deployInfo, projectDir, targetDir)
@@ -150,7 +153,7 @@ export async function createAndSaveDeployInfo (
   const deployInfoPath = `${targetDir}/deployInfo.json`
 
   await fs.writeJson(deployInfoPath, deployInfo, { spaces: 2 })
-  console.log(`saved ${deployInfoPath}`)
+  log(`saved ${deployInfoPath}`)
 
   return deployInfo
 }
@@ -216,7 +219,7 @@ export async function createAndSaveAppYaml (
   const appYamlPath = `${targetDir}/app.yaml`
 
   await fs.writeFile(appYamlPath, yaml.safeDump(appYaml))
-  console.log(`saved ${appYamlPath}`)
+  log(`saved ${appYamlPath}`)
 
   return appYaml
 }
@@ -232,14 +235,14 @@ export async function createAppYaml (
   const { APP_ENV: processAppEnv } = process.env
   const APP_ENV = processAppEnv || appEnvByBranch[gitBranch] || appEnvDefault
   if (processAppEnv) {
-    console.log(`using APP_ENV=${processAppEnv} from process.env`)
+    log(`using APP_ENV=${processAppEnv} from process.env`)
   }
 
   // Check existing app.yaml
   const appYamlPath = `${projectDir}/app.yaml`
   let existingAppYaml = {}
   if (fs.existsSync(appYamlPath)) {
-    console.log(`merging-in ${appYamlPath}`)
+    log(`merging-in ${appYamlPath}`)
 
     existingAppYaml = yaml.safeLoad(await fs.readFile(appYamlPath, 'utf8'))
   }

@@ -1,9 +1,7 @@
-import { Debug } from '@naturalcycles/nodejs-lib'
-import * as c from 'ansi-colors'
+import { HttpError } from '@naturalcycles/js-lib'
 import { RequestHandler } from 'express'
 import { onFinished } from '../../index'
-
-const log = Debug('nc:backend-lib:request')
+import { respondWithError } from '../error.util'
 
 export interface RequestTimeoutCfg {
   /**
@@ -14,7 +12,7 @@ export interface RequestTimeoutCfg {
   /**
    * @default 503
    */
-  httpCode?: number
+  httpStatusCode?: number
 
   /**
    * @default 'Request timed out'
@@ -22,10 +20,12 @@ export interface RequestTimeoutCfg {
   httpStatus?: string
 }
 
+const code = 'REQUEST_TIMEOUT'
+
 export function requestTimeout (cfg: RequestTimeoutCfg = {}): RequestHandler {
-  const { timeoutSeconds, httpCode, httpStatus } = {
+  const { timeoutSeconds, httpStatusCode, httpStatus } = {
     timeoutSeconds: 60,
-    httpCode: 503,
+    httpStatusCode: 503,
     httpStatus: 'Request timed out',
     ...cfg,
   }
@@ -36,20 +36,15 @@ export function requestTimeout (cfg: RequestTimeoutCfg = {}): RequestHandler {
     const timer = setTimeout(() => {
       if (res.headersSent) return
 
-      log.warn(
-        [
-          c.red(String(httpCode)),
-          req.method,
-          c.bold(req.url),
-          httpStatus,
-          `(${timeoutSeconds} sec)`,
-        ].join(' '),
+      respondWithError(
+        req,
+        res,
+        new HttpError(httpStatus, {
+          code,
+          httpStatusCode,
+          userFriendly: true,
+        }),
       )
-
-      res
-        .status(httpCode)
-        .send(httpStatus)
-        .end()
     }, timeout)
 
     onFinished(res, () => clearTimeout(timer))

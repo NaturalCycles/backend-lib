@@ -1,5 +1,6 @@
 import { execShell } from '@naturalcycles/dev-lib'
 import { _range } from '@naturalcycles/js-lib'
+import { Debug } from '@naturalcycles/nodejs-lib'
 import { pDelay } from '@naturalcycles/promise-lib'
 import { since } from '@naturalcycles/time-lib'
 import * as got from 'got'
@@ -16,6 +17,9 @@ export interface DeployHealthCheckOptions {
   gaeService?: string
   gaeVersion?: string
 }
+
+const log = Debug('nc:backend-lib:health')
+Debug.enable('nc:backend-lib*') // force-enable
 
 export async function deployHealthCheckCommand (): Promise<void> {
   const opt = yargs.options({
@@ -75,7 +79,7 @@ export async function deployHealthCheck (opt: DeployHealthCheckOptions): Promise
   } = opt
 
   for await (const attempt of _range(1, repeat + 1)) {
-    console.log(`>> ${url} (attempt ${attempt} / ${repeat})`)
+    log(`>> ${url} (attempt ${attempt} / ${repeat})`)
     const started = Date.now()
 
     const { statusCode } = await got(url, {
@@ -86,10 +90,10 @@ export async function deployHealthCheck (opt: DeployHealthCheckOptions): Promise
       throwHttpErrors: false,
     })
 
-    console.log(`<< HTTP ${statusCode} in ${since(started)}`)
+    log(`<< HTTP ${statusCode} in ${since(started)}`)
 
     if (statusCode !== 200) {
-      console.log(`Health check failed!`)
+      log.warn(`Health check failed!`)
 
       if (logOnFailure) {
         // gcloud app logs read --project $deployInfo_gaeProject --service $deployInfo_gaeService --version $deployInfo_gaeVersion

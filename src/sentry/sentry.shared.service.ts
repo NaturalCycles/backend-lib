@@ -58,7 +58,7 @@ export class SentrySharedService {
    * Returns "eventId"
    */
   captureException (e: any): string | undefined {
-    console.error(e)
+    log.error(e)
     return this.sentry().captureException(e)
   }
 
@@ -66,7 +66,7 @@ export class SentrySharedService {
    * Returns "eventId"
    */
   captureMessage (msg: string, level?: SentryLib.Severity): string | undefined {
-    console.error(msg)
+    log.error(msg)
     return this.sentry().captureMessage(msg, level)
   }
 
