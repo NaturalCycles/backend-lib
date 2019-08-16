@@ -53,6 +53,8 @@
     "jest": "^24.8.0",
     "supertest": "^4.0.2",
     "swagger-stats": "^0.95.7",
+    "vega": "^5.4.0",
+    "vega-lite": "^4.0.0-beta.0",
     "weak": "^1.0.1"
   },
   "files": [

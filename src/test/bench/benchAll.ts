@@ -11,6 +11,7 @@ import * as fs from 'fs-extra'
 import * as http from 'http'
 import { AddressInfo } from 'net'
 import * as yargs from 'yargs'
+import { AutocannonSummary } from './bench.model'
 const autocannon = require('autocannon')
 const profileDir = `${__dirname}/profile`
 const summaryJsonPath = `${__dirname}/summary.json`
@@ -55,17 +56,6 @@ interface AutocannonResult {
   timeouts: number
 }
 
-interface AutocannonSummary {
-  rpsAvg: number
-  latencyAvg: number
-  latency50: number
-  latency90: number
-  latency99: number
-  throughputAvg: number
-  errors: number
-  timeouts: number
-}
-
 const profiles = [
   '01-bare-node',
   '02-bare-express',
@@ -76,7 +66,7 @@ const profiles = [
 void main()
 
 async function main () {
-  const { runs, connections, pipelining, duration, cooldown, host } = yargs.options({
+  const { runs, connections, pipelining, duration, cooldown, host, verbose } = yargs.options({
     runs: {
       type: 'number',
       default: 2,
@@ -103,25 +93,24 @@ async function main () {
     },
     verbose: {
       type: 'boolean',
-      default: false,
+      default: true,
     },
   }).argv
-  const cfg: BenchCfg = { runs, connections, pipelining, duration, cooldown, host }
+  const cfg: BenchCfg = { runs, connections, pipelining, duration, cooldown, host, verbose }
 
   console.log(cfg)
 
   const resultByProfile: Record<string, AutocannonResult> = {}
-  const summaryByProfile: Record<string, AutocannonSummary> = {}
+  const summary: AutocannonSummary[] = []
 
   for await (const profile of profiles) {
     resultByProfile[profile] = await runProfile(profile, cfg)
-    summaryByProfile[profile] = toSummary(resultByProfile[profile])
+    summary.push(toSummary(profile, resultByProfile[profile]))
   }
 
-  // console.log(summaryByProfile)
-  console.table(summaryByProfile)
+  console.table(summary)
 
-  await fs.writeJson(summaryJsonPath, summaryByProfile, { spaces: 2 })
+  await fs.writeJson(summaryJsonPath, summary, { spaces: 2 })
   console.log(`saved ${summaryJsonPath}`)
 }
 
@@ -175,8 +164,9 @@ async function runProfile (profileName: string, cfg: BenchCfg): Promise<Autocann
   return finalResult
 }
 
-function toSummary (result: AutocannonResult): AutocannonSummary {
+function toSummary (profile: string, result: AutocannonResult): AutocannonSummary {
   return {
+    profile,
     rpsAvg: result.requests.average,
     latencyAvg: result.latency.average,
     latency50: result.latency.p50,

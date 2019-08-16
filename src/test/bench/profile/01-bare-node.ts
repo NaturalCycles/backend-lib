@@ -6,5 +6,3 @@ export async function createServer (): Promise<http.Server> {
     res.end(JSON.stringify({ hello: 'world' }))
   })
 }
-
-// server.listen(8080)
