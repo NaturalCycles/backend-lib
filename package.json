@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@naturalcycles/dev-lib": "^7.9.0",
+    "@naturalcycles/promise-lib": "^2.5.0",
     "@sentry/node": "^5.2.0",
     "@types/ansi-colors": "^3.2.0",
     "@types/ejs": "^2.6.3",
@@ -46,6 +47,7 @@
     "@types/js-yaml": "^3.12.1",
     "@types/node": "^12.0.2",
     "@types/supertest": "^2.0.7",
+    "autocannon": "^4.0.0",
     "dotenv": "^8.0.0",
     "firebase-admin": "^8.3.0",
     "jest": "^24.8.0",

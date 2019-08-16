@@ -18,6 +18,7 @@ const router = getDefaultRouter()
 export const rootResource = router
 
 router.get('/', rootHandler())
+router.get('/hello', (req, res) => res.json({ ok: 1 }))
 router.get('/login.html', loginHtml(adminService))
 
 router.get('/debug', reqAdmin(), async (req, res) => {
