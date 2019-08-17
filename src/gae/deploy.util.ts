@@ -37,6 +37,7 @@ export interface AppYaml extends StringMap<any> {
   }
   env_variables: {
     APP_ENV: string
+    DEBUG: string
     [k: string]: string
   }
 }
@@ -71,6 +72,9 @@ const APP_YAML_DEFAULT = (): AppYaml => ({
   },
   env_variables: {
     APP_ENV: 'prod',
+    DEBUG: 'nc:*',
+    DEBUG_HIDE_DATE: 'true',
+    // DEBUG_COLORS: 'true',
     TZ: 'UTC',
     // NODE_ICU_DATA: './node_modules/full-icu',
     TS_NODE_PROJECT: './tsconfig.dist.json',
