@@ -1,3 +1,10 @@
+## [2.6.1](https://github.com/NaturalCycles/backend-lib/compare/v2.6.0...v2.6.1) (2019-08-17)
+
+
+### Bug Fixes
+
+* DEBUG env var defaults ([93e88e6](https://github.com/NaturalCycles/backend-lib/commit/93e88e6))
+
 # [2.6.0](https://github.com/NaturalCycles/backend-lib/compare/v2.5.1...v2.6.0) (2019-08-17)
 
 
