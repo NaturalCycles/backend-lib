@@ -1,3 +1,13 @@
+# [2.6.0](https://github.com/NaturalCycles/backend-lib/compare/v2.5.1...v2.6.0) (2019-08-17)
+
+
+### Features
+
+* admin, more middlewares (timeout, logger) ([667ae23](https://github.com/NaturalCycles/backend-lib/commit/667ae23))
+* bench.md with plots ([c30cb0d](https://github.com/NaturalCycles/backend-lib/commit/c30cb0d))
+* benchAll ([aaf9acb](https://github.com/NaturalCycles/backend-lib/commit/aaf9acb))
+* improve logging ([34e36f6](https://github.com/NaturalCycles/backend-lib/commit/34e36f6))
+
 ## [2.5.1](https://github.com/NaturalCycles/backend-lib/compare/v2.5.0...v2.5.1) (2019-08-10)
 
 
