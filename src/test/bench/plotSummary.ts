@@ -4,7 +4,7 @@ yarn tsn-script ./src/test/bench/plotSummary.ts
 
  */
 
-import { pMap } from '@naturalcycles/promise-lib'
+import { pMap } from '@naturalcycles/js-lib'
 import * as fs from 'fs-extra'
 import * as vega from 'vega'
 import { Spec } from 'vega'

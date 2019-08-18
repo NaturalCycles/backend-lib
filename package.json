@@ -39,7 +39,6 @@
   },
   "devDependencies": {
     "@naturalcycles/dev-lib": "^7.9.0",
-    "@naturalcycles/promise-lib": "^2.5.0",
     "@sentry/node": "^5.2.0",
     "@types/ansi-colors": "^3.2.0",
     "@types/ejs": "^2.6.3",

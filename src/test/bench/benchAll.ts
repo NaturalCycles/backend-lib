@@ -4,8 +4,7 @@ yarn tsn-script ./src/test/bench/benchAll.ts
 
  */
 
-import { _range } from '@naturalcycles/js-lib'
-import { pDefer, pDelay } from '@naturalcycles/promise-lib'
+import { _range, pDefer, pDelay } from '@naturalcycles/js-lib'
 import * as c from 'ansi-colors'
 import * as fs from 'fs-extra'
 import * as http from 'http'
