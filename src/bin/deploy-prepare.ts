@@ -6,10 +6,11 @@ yarn deploy-prepare
 
  */
 
+import { runScript } from '@naturalcycles/nodejs-lib'
 import 'loud-rejection/register'
 import { deployPrepareCommand } from '../gae/deploy.util'
 
-void deployPrepareCommand()
+runScript(deployPrepareCommand)
 
 // deploy strategy
 // gae project: from config

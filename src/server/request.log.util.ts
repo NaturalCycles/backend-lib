@@ -1,5 +1,5 @@
 import { Debug, DebugLogLevel } from '@naturalcycles/nodejs-lib'
-import * as c from 'ansi-colors'
+import c from 'chalk'
 import { Request } from 'express'
 
 const log = Debug('nc:backend-lib')

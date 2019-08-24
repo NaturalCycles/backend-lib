@@ -51,6 +51,7 @@ const DEFAULT_FILES = [
   '!**/__snapshots__',
   '!**/__exclude',
   'static',
+  'secret/**/*.enc', // encrypted secrets
   'package.json',
   'yarn.lock',
   'tsconfig.json', // for path-mapping to work!
@@ -85,9 +86,16 @@ interface DeployPrepareCommandOptions {
   projectDir?: string
   targetDir?: string
   createNpmrc?: boolean
+
+  /**
+   * Comma-separated list of env variables that will be passed to app.yaml from process.env.
+   * Use it to pass secrets.
+   */
+  appYamlPassEnv?: string
 }
 
 const log = Debug('nc:backend-lib:deploy')
+Debug.enable('nc:backend-lib*')
 
 export async function deployPrepareCommand (): Promise<DeployInfo> {
   const opts = yargs.options({
@@ -104,13 +112,23 @@ export async function deployPrepareCommand (): Promise<DeployInfo> {
       descr: 'Create .npmrc in targetDir if NPM_TOKEN env var is set',
       default: true,
     },
+    appYamlPassEnv: {
+      type: 'string',
+      descr:
+        'Comma-separated list of env variables that will be passed to app.yaml from process.env',
+    },
   }).argv
 
   return deployPrepare(opts)
 }
 
 export async function deployPrepare (opts: DeployPrepareCommandOptions = {}): Promise<DeployInfo> {
-  const { projectDir = '.', targetDir = './tmp/deploy', createNpmrc = true } = opts
+  const {
+    projectDir = '.',
+    targetDir = './tmp/deploy',
+    createNpmrc = true,
+    appYamlPassEnv = '',
+  } = opts
 
   const backendCfg = await getBackendCfg(projectDir)
   const inputPatterns = backendCfg.files || DEFAULT_FILES
@@ -143,7 +161,7 @@ export async function deployPrepare (opts: DeployPrepareCommandOptions = {}): Pr
   log(`2. Generate deployInfo.json and app.yaml in targetDir`)
 
   const deployInfo = await createAndSaveDeployInfo(backendCfg, targetDir)
-  await createAndSaveAppYaml(backendCfg, deployInfo, projectDir, targetDir)
+  await createAndSaveAppYaml(backendCfg, deployInfo, projectDir, targetDir, appYamlPassEnv)
 
   return deployInfo
 }
@@ -217,8 +235,9 @@ export async function createAndSaveAppYaml (
   deployInfo: DeployInfo,
   projectDir: string,
   targetDir: string,
+  appYamlPassEnv = '',
 ): Promise<AppYaml> {
-  const appYaml = await createAppYaml(backendCfg, deployInfo, projectDir)
+  const appYaml = await createAppYaml(backendCfg, deployInfo, projectDir, appYamlPassEnv)
 
   const appYamlPath = `${targetDir}/app.yaml`
 
@@ -232,6 +251,7 @@ export async function createAppYaml (
   backendCfg: BackendCfg,
   deployInfo: DeployInfo,
   projectDir: string,
+  appYamlPassEnv = '',
 ): Promise<AppYaml> {
   const { appEnvDefault, appEnvByBranch = {} } = backendCfg
   const { gaeService: service, gitBranch } = deployInfo
@@ -251,10 +271,34 @@ export async function createAppYaml (
     existingAppYaml = yaml.safeLoad(await fs.readFile(appYamlPath, 'utf8'))
   }
 
+  // appYamlPassEnv
+  const passEnv = appYamlPassEnv.split(',').reduce(
+    (map, key) => {
+      const v = process.env[key]
+      if (!v) {
+        throw new Error(
+          `appYamlPassEnv.${key} is requested, but process.env.${key} is not defined!`,
+        )
+      }
+      map[key] = v
+      return map
+    },
+    {} as Record<string, string>,
+  )
+
+  if (Object.keys(passEnv).length) {
+    log(
+      `will merge ${Object.keys(passEnv).length} process.env keys to app.yaml: ${Object.keys(
+        passEnv,
+      ).join(', ')}`,
+    )
+  }
+
   return _merge(APP_YAML_DEFAULT(), existingAppYaml, {
     service,
     env_variables: {
       APP_ENV,
+      ...passEnv,
     },
   })
 }

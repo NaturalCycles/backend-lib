@@ -5,7 +5,7 @@ yarn tsn-script ./src/test/bench/benchAll.ts
  */
 
 import { _range, pDefer, pDelay } from '@naturalcycles/js-lib'
-import * as c from 'ansi-colors'
+import c from 'chalk'
 import * as fs from 'fs-extra'
 import * as http from 'http'
 import { AddressInfo } from 'net'

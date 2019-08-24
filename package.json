@@ -4,7 +4,7 @@
   "scripts": {
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
     "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts",
-    "deploy-prepare-debug": "yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
+    "deploy-prepare-debug": "AA=AA1 BB=BB1 yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project --appYamlPassEnv=AA,BB",
     "deploy-health-check": "yarn tsn ./src/bin/deploy-health-check.ts"
   },
   "dependencies": {
@@ -15,9 +15,9 @@
     "@types/cookie-parser": "^1.4.1",
     "@types/cors": "^2.8.4",
     "@types/express": "^4.16.1",
-    "@types/helmet": "^0.0.43",
+    "@types/helmet": "^0.0.44",
     "@types/on-finished": "^2.3.1",
-    "ansi-colors": "^4.1.1",
+    "chalk": "^2.4.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
     "ejs": "^2.6.2",
@@ -40,7 +40,6 @@
   "devDependencies": {
     "@naturalcycles/dev-lib": "^7.9.0",
     "@sentry/node": "^5.2.0",
-    "@types/ansi-colors": "^3.2.0",
     "@types/ejs": "^2.6.3",
     "@types/got": "^9.4.4",
     "@types/js-yaml": "^3.12.1",
