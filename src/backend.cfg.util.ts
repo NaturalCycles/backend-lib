@@ -35,6 +35,11 @@ export interface BackendCfg {
    * List of branches to use timestamps in gae version names (to keep previous versions).
    */
   branchesWithTimestampVersions?: string[]
+
+  /**
+   * Comma-separated list of env variables that will be passed to app.yaml from process.env
+   */
+  appYamlPassEnv?: string
 }
 
 const backendCfgSchema = objectSchema<BackendCfg>({
@@ -45,6 +50,7 @@ const backendCfgSchema = objectSchema<BackendCfg>({
   files: arraySchema(stringSchema).optional(),
   appEnvDefault: stringSchema,
   appEnvByBranch: anyObjectSchema.optional(),
+  appYamlPassEnv: stringSchema.optional(),
 })
 
 export async function getBackendCfg (projectDir: string = '.'): Promise<BackendCfg> {

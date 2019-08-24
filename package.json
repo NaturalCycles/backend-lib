@@ -4,7 +4,7 @@
   "scripts": {
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
     "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts",
-    "deploy-prepare-debug": "AA=AA1 BB=BB1 yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project --appYamlPassEnv=AA,BB",
+    "deploy-prepare-debug": "AA=AA1 BB=BB1 yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
     "deploy-health-check": "yarn tsn ./src/bin/deploy-health-check.ts"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "chalk": "^2.4.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
     "ejs": "^2.6.2",
     "express": "^4.16.4",
     "express-promise-router": "^3.0.3",
@@ -46,7 +47,6 @@
     "@types/node": "^12.0.2",
     "@types/supertest": "^2.0.7",
     "autocannon": "^4.0.0",
-    "dotenv": "^8.0.0",
     "firebase-admin": "^8.3.0",
     "jest": "^24.8.0",
     "supertest": "^4.0.2",

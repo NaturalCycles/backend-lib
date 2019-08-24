@@ -123,15 +123,11 @@ export async function deployPrepareCommand (): Promise<DeployInfo> {
 }
 
 export async function deployPrepare (opts: DeployPrepareCommandOptions = {}): Promise<DeployInfo> {
-  const {
-    projectDir = '.',
-    targetDir = './tmp/deploy',
-    createNpmrc = true,
-    appYamlPassEnv = '',
-  } = opts
+  const { projectDir = '.', targetDir = './tmp/deploy', createNpmrc = true } = opts
 
   const backendCfg = await getBackendCfg(projectDir)
   const inputPatterns = backendCfg.files || DEFAULT_FILES
+  const appYamlPassEnv = opts.appYamlPassEnv || backendCfg.appYamlPassEnv
 
   log(`1. Copy files to ${targetDir}`)
 
@@ -272,6 +268,7 @@ export async function createAppYaml (
   }
 
   // appYamlPassEnv
+  require('dotenv').config() // ensure .env is read
   const passEnv = appYamlPassEnv.split(',').reduce(
     (map, key) => {
       const v = process.env[key]
