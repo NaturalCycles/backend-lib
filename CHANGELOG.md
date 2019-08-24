@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/NaturalCycles/backend-lib/compare/v2.7.1...v2.8.0) (2019-08-24)
+
+
+### Features
+
+* rootHandler > statusHandler ([0a1fef6](https://github.com/NaturalCycles/backend-lib/commit/0a1fef6))
+
 ## [2.7.1](https://github.com/NaturalCycles/backend-lib/compare/v2.7.0...v2.7.1) (2019-08-24)
 
 
