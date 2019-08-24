@@ -1,3 +1,10 @@
+# [2.7.0](https://github.com/NaturalCycles/backend-lib/compare/v2.6.2...v2.7.0) (2019-08-24)
+
+
+### Features
+
+* yarn deploy-gae --appYamlPassEnv=AA,BB ([bdf33b4](https://github.com/NaturalCycles/backend-lib/commit/bdf33b4))
+
 ## [2.6.2](https://github.com/NaturalCycles/backend-lib/compare/v2.6.1...v2.6.2) (2019-08-18)
 
 
