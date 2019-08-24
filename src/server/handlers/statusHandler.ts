@@ -12,7 +12,7 @@ type ServerStartedCallback = () => number | undefined
 const now = Date.now()
 const defaultServerStartedCallback = () => now
 
-export function rootHandler (
+export function statusHandler (
   serverStartedCallback: ServerStartedCallback = defaultServerStartedCallback,
   projectDir: string = process.cwd(),
   extra?: any,

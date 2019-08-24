@@ -10,15 +10,21 @@ const bootstrapStartedAt = Date.now()
 import { log } from '../../log'
 log('startServer... ')
 
-import { startServer, createDefaultApp, getDefaultRouter, rootHandler } from '../../index'
+import {
+  startServer,
+  createDefaultApp,
+  getDefaultRouter,
+  statusHandler,
+  okHandler,
+} from '../../index'
 import { loginHtml } from '../../admin/admin.mw'
 import { adminService, reqAdmin } from './admin'
 
 const router = getDefaultRouter()
 export const rootResource = router
 
-router.get('/', rootHandler())
-router.get('/hello', (req, res) => res.json({ ok: 1 }))
+router.get('/', okHandler())
+router.get('/status', statusHandler())
 router.get('/login.html', loginHtml(adminService))
 
 router.get('/debug', reqAdmin(), async (req, res) => {

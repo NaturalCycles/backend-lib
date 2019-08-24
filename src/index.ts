@@ -1,5 +1,5 @@
 import * as onFinished from 'on-finished'
-import { AdminMiddleware, createAdminMiddleware } from './admin/admin.mw'
+import { AdminMiddleware, createAdminMiddleware, loginHtml, ReqAdminCfg } from './admin/admin.mw'
 import { AdminInfo, AdminServiceCfg, BaseAdminService } from './admin/base.admin.service'
 import { BaseEnv } from './env/env.model'
 import { EnvSharedService, EnvSharedServiceCfg } from './env/env.shared.service'
@@ -19,14 +19,15 @@ import {
 import { genericErrorHandler } from './server/handlers/genericErrorHandler.mw'
 import { methodOverride, MethodOverrideCfg } from './server/handlers/methodOverride.mw'
 import { notFoundHandler } from './server/handlers/notFoundHandler.mw'
+import { okHandler } from './server/handlers/okHandler.mw'
 import { requestTimeout, RequestTimeoutCfg } from './server/handlers/requestTimeout.mw'
 import { reqValidation } from './server/handlers/reqValidation.mw'
-import { rootHandler } from './server/handlers/root.handler'
 import { sentryErrorHandler } from './server/handlers/sentryErrorHandler.mw'
 import {
   simpleRequestLogger,
   SimpleRequestLoggerCfg,
 } from './server/handlers/simpleRequestLogger.mw'
+import { statusHandler } from './server/handlers/statusHandler'
 import { logRequest } from './server/request.log.util'
 import { BackendServer, startServer } from './server/startServer'
 import { StartServerCfg, StartServerData } from './server/startServer.model'
@@ -57,7 +58,8 @@ export {
   EnvSharedServiceCfg,
   BaseEnv,
   isGAE,
-  rootHandler,
+  statusHandler,
+  okHandler,
   getDeployInfo,
   onFinished,
   respondWithError,
@@ -67,6 +69,8 @@ export {
   AdminServiceCfg,
   AdminInfo,
   BaseAdminService,
+  loginHtml,
+  ReqAdminCfg,
   BodyParserTimeoutCfg,
   bodyParserTimeout,
   clearBodyParserTimeout,
