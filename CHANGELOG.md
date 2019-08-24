@@ -1,3 +1,10 @@
+## [2.7.1](https://github.com/NaturalCycles/backend-lib/compare/v2.7.0...v2.7.1) (2019-08-24)
+
+
+### Bug Fixes
+
+* allow appYamlPassEnv in backend.cfg ([d83941b](https://github.com/NaturalCycles/backend-lib/commit/d83941b))
+
 # [2.7.0](https://github.com/NaturalCycles/backend-lib/compare/v2.6.2...v2.7.0) (2019-08-24)
 
 
