@@ -20,6 +20,9 @@ export interface StartServerCfg {
    */
   onShutdown?: () => Promise<void>
 
+  /**
+   * @default 3000
+   */
   forceShutdownTimeout?: number
 }
 

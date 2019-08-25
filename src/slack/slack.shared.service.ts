@@ -7,6 +7,8 @@ import {
   SlackSharedServiceCfg,
 } from './slack.shared.service.model'
 
+const GAE = !!process.env.GAE_INSTANCE
+
 const DEFAULTS = (): SlackMessage => ({
   username: 'backend-lib',
   channel: '#log',
@@ -61,12 +63,18 @@ export class SlackSharedService<CTX = any> {
    * To be overridden.
    */
   protected decorateMsg (msg: SlackMessage, ctx?: CTX): void {
-    const tokens: string[] = []
+    const tokens = [dayjs().toPretty()]
 
-    tokens.push(dayjs().toPretty())
-    tokens.push(msg.text)
+    // AppEngine-specific decoration
+    if (GAE && ctx && typeof ctx === 'object' && typeof (ctx as any).header === 'function') {
+      tokens.push(
+        (ctx as any).header('x-appengine-country')!,
+        (ctx as any).header('x-appengine-city')!,
+        // ctx.header('x-appengine-user-ip')!,
+      )
+    }
 
-    msg.text = tokens.join('\n')
+    msg.text = [tokens.filter(Boolean).join(': '), msg.text].join('\n')
   }
 
   kvToFields (kv: Record<string, any>): SlackAttachmentField[] {

@@ -1,3 +1,6 @@
+import { memo } from '@naturalcycles/js-lib'
+import { ms } from '@naturalcycles/time-lib'
+import c from 'chalk'
 import { Server } from 'http'
 import { log } from '../log'
 import { StartServerCfg, StartServerData } from './startServer.model'
@@ -37,7 +40,7 @@ export class BackendServer {
     const serverStartedAt = Date.now()
 
     const bootstrapMillis = serverStartedAt - bootstrapStartedAt
-    log(`serverStarted on port ${port}, bootstrapTime: ${bootstrapMillis} ms`)
+    log(`serverStarted on port ${c.dim(String(port))}, bootstrapTime ${c.dim(ms(bootstrapMillis))}`)
 
     return {
       port,
@@ -51,11 +54,12 @@ export class BackendServer {
    * Gracefully shuts down the server.
    * Does `process.exit()` in the end.
    */
+  @memo()
   async stop (): Promise<void> {
-    log('Server shutdown...')
+    log(c.bold(`Server shutdown...`))
 
     setTimeout(() => {
-      log('Forceful shutdown after timeout')
+      log(c.bold('Forceful shutdown after timeout'))
       process.exit(1)
     }, this.cfg.forceShutdownTimeout || 3000)
 
@@ -67,7 +71,7 @@ export class BackendServer {
       if (this.server) {
         await new Promise(r => this.server!.close(r))
       }
-      log('Shutdown completed.')
+      log(c.bold('Shutdown completed.'))
       process.exit(0)
     } catch (err) {
       log.error(err)

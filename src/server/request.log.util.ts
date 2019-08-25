@@ -6,11 +6,11 @@ const log = Debug('nc:backend-lib')
 
 export function logRequest (req: Request, statusCode: number, ...tokens: any[]): void {
   log[logLevel(statusCode)](
-    [coloredCode(statusCode), req.method, c.bold(req.url), ...tokens].join(' '),
+    [coloredHttpCode(statusCode), req.method, c.bold(req.url), ...tokens].join(' '),
   )
 }
 
-function coloredCode (statusCode: number): string {
+export function coloredHttpCode (statusCode: number): string {
   if (statusCode < 400) return c.green(String(statusCode))
   if (statusCode < 500) return c.yellow(String(statusCode))
   return c.red(String(statusCode))

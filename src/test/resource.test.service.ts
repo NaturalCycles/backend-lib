@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import * as request from 'supertest'
-import { createDefaultApp } from '..'
+import { createDefaultApp } from '../index'
 
 class ResourceTestService {
   createAppWithResource (resource: Router): request.SuperTest<request.Test> {

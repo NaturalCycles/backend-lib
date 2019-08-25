@@ -2,8 +2,10 @@ import { execShell } from '@naturalcycles/dev-lib'
 import { _range, pDelay } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import { since } from '@naturalcycles/time-lib'
+import c from 'chalk'
 import * as got from 'got'
 import * as yargs from 'yargs'
+import { coloredHttpCode } from '../server/request.log.util'
 
 export interface DeployHealthCheckOptions {
   url: string
@@ -78,7 +80,7 @@ export async function deployHealthCheck (opt: DeployHealthCheckOptions): Promise
   } = opt
 
   for await (const attempt of _range(1, repeat + 1)) {
-    log(`>> ${url} (attempt ${attempt} / ${repeat})`)
+    log(`>> ${c.dim(url)} (attempt ${attempt} / ${repeat})`)
     const started = Date.now()
 
     const { statusCode } = await got(url, {
@@ -89,7 +91,7 @@ export async function deployHealthCheck (opt: DeployHealthCheckOptions): Promise
       throwHttpErrors: false,
     })
 
-    log(`<< HTTP ${statusCode} in ${since(started)}`)
+    log(`<< HTTP ${coloredHttpCode(statusCode)} ${c.dim(since(started))}`)
 
     if (statusCode !== 200) {
       log.warn(`Health check failed!`)

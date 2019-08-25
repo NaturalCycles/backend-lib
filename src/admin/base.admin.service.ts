@@ -1,5 +1,6 @@
 import { Admin401ErrorData, Admin403ErrorData, HttpError } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
+import c from 'chalk'
 import { Request } from 'express'
 import * as FirebaseAdmin from 'firebase-admin'
 
@@ -60,7 +61,11 @@ export class BaseAdminService {
    */
   getEmailPermissions (email?: string): Set<string> | undefined {
     if (!email) return
-    log(`getEmailPermissions (${email}) returning undefined (please override the implementation)`)
+    log(
+      `getEmailPermissions (${c.dim(
+        email,
+      )}) returning undefined (please override the implementation)`,
+    )
     return
   }
 
@@ -75,9 +80,9 @@ export class BaseAdminService {
     granted: boolean,
   ): Promise<void> {
     log(
-      `${email} ${required ? 'required' : 'optional'} permissions check [${reqPermissions.join(
-        ', ',
-      )}]: ${granted ? 'GRANTED' : 'DENIED'}`,
+      `${c.dim(email)} ${required ? 'required' : 'optional'} permissions check [${c.dim(
+        reqPermissions.join(', '),
+      )}]: ${granted ? c.green('GRANTED') : c.red('DENIED')}`,
     )
   }
 
@@ -87,7 +92,7 @@ export class BaseAdminService {
     try {
       const decodedToken = await this.firebaseAuth.verifyIdToken(adminToken)
       const email = decodedToken && decodedToken.email
-      log(`admin email: ${email}`)
+      log(`admin email: ${c.dim(email)}`)
       return email
     } catch (err) {
       log(`getEmailByToken error: ${(err || {}).message}`, err, JSON.stringify(err))

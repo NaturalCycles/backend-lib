@@ -28,7 +28,7 @@ import {
   SimpleRequestLoggerCfg,
 } from './server/handlers/simpleRequestLogger.mw'
 import { statusHandler } from './server/handlers/statusHandler'
-import { logRequest } from './server/request.log.util'
+import { coloredHttpCode, logRequest } from './server/request.log.util'
 import { BackendServer, startServer } from './server/startServer'
 import { StartServerCfg, StartServerData } from './server/startServer.model'
 import { SlackSharedService } from './slack/slack.shared.service'
@@ -78,4 +78,5 @@ export {
   requestTimeout,
   SimpleRequestLoggerCfg,
   simpleRequestLogger,
+  coloredHttpCode,
 }

@@ -1,3 +1,5 @@
+const { GAE_INSTANCE } = process.env
+
 export function isGAE (): boolean {
-  return !!process.env.GAE_INSTANCE
+  return !!GAE_INSTANCE
 }

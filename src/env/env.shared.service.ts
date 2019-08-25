@@ -1,3 +1,4 @@
+import c from 'chalk'
 import { log } from '../log'
 import { BaseEnv } from './env.model'
 
@@ -34,14 +35,14 @@ export class EnvSharedService<ENV extends BaseEnv = any> {
         throw new Error(`Cannot read envFile ${envFilePath}`)
       }
 
-      log(`APP_ENV=${APP_ENV} loaded`)
+      log(`APP_ENV=${c.dim(APP_ENV)} loaded`)
     }
 
     return this.env!
   }
 
   setEnv (env?: ENV): void {
-    log(`setEnv APP_ENV=${env ? env.name : 'undefined'}`)
+    log(`setEnv APP_ENV=${c.dim(env ? env.name : 'undefined')}`)
     this.env = env
   }
 }
