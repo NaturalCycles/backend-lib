@@ -1,3 +1,10 @@
+# [2.9.0](https://github.com/NaturalCycles/backend-lib/compare/v2.8.0...v2.9.0) (2019-08-25)
+
+
+### Features
+
+* colors, slack GAE decoration ([0f98fa2](https://github.com/NaturalCycles/backend-lib/commit/0f98fa2))
+
 # [2.8.0](https://github.com/NaturalCycles/backend-lib/compare/v2.7.1...v2.8.0) (2019-08-24)
 
 
