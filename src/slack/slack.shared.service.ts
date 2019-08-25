@@ -53,7 +53,7 @@ export class SlackSharedService<CTX = any> {
   async sendMsg (_msg: SlackMessage, ctx?: CTX): Promise<void> {
     const { webhookUrl } = this.slackServiceCfg
 
-    log(...[_msg.text, _msg.kv, _msg.attachments].filter(Boolean))
+    log[_msg.level || DebugLogLevel.info](...[_msg.text, _msg.kv, _msg.attachments].filter(Boolean))
 
     if (!webhookUrl) return
 
