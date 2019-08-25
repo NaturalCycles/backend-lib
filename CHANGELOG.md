@@ -1,3 +1,10 @@
+# [2.11.0](https://github.com/NaturalCycles/backend-lib/compare/v2.10.0...v2.11.0) (2019-08-25)
+
+
+### Features
+
+* slack.error, slack.channelByLevel ([55d05fd](https://github.com/NaturalCycles/backend-lib/commit/55d05fd))
+
 # [2.10.0](https://github.com/NaturalCycles/backend-lib/compare/v2.9.0...v2.10.0) (2019-08-25)
 
 
