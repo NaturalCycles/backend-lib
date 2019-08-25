@@ -1,3 +1,10 @@
+## [2.11.1](https://github.com/NaturalCycles/backend-lib/compare/v2.11.0...v2.11.1) (2019-08-25)
+
+
+### Bug Fixes
+
+* slack.error with level=error ([8fc1831](https://github.com/NaturalCycles/backend-lib/commit/8fc1831))
+
 # [2.11.0](https://github.com/NaturalCycles/backend-lib/compare/v2.10.0...v2.11.0) (2019-08-25)
 
 
