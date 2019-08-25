@@ -13,33 +13,38 @@ const now = Date.now()
 const defaultServerStartedCallback = () => now
 
 export function statusHandler (
+  serverStartedCallback?: ServerStartedCallback,
+  projectDir?: string,
+  extra?: any,
+): RequestHandler {
+  return async (req, res) => {
+    res.json(statusHandlerData(serverStartedCallback, projectDir, extra))
+  }
+}
+
+export function statusHandlerData (
   serverStartedCallback: ServerStartedCallback = defaultServerStartedCallback,
   projectDir: string = process.cwd(),
   extra?: any,
-): RequestHandler {
+): Record<string, any> {
   const { APP_ENV } = process.env
   const { gitRev, gitBranch, prod, ts } = getDeployInfo(projectDir)
   const deployBuildTimeUTC = dayjs.unix(ts).toPretty()
   const buildInfo = [dayjs.unix(ts).toCompactTime(), gitBranch, gitRev].filter(Boolean).join('_')
 
-  return async (req, res) => {
-    res.json(
-      filterFalsyValues({
-        started: getStartedStr(serverStartedCallback()),
-        deployBuildTimeUTC,
-        APP_ENV,
-        prod,
-        buildInfo,
-        mem: processSharedUtil.memoryUsage(),
-        cpuAvg: processSharedUtil.cpuAvg(),
-        GAE_APPLICATION: process.env.GAE_APPLICATION,
-        GAE_SERVICE: process.env.GAE_SERVICE,
-        GAE_VERSION: process.env.GAE_VERSION,
-
-        ...extra,
-      }),
-    )
-  }
+  return filterFalsyValues({
+    started: getStartedStr(serverStartedCallback()),
+    deployBuildTimeUTC,
+    APP_ENV,
+    prod,
+    buildInfo,
+    mem: processSharedUtil.memoryUsage(),
+    cpuAvg: processSharedUtil.cpuAvg(),
+    GAE_APPLICATION: process.env.GAE_APPLICATION,
+    GAE_SERVICE: process.env.GAE_SERVICE,
+    GAE_VERSION: process.env.GAE_VERSION,
+    ...extra,
+  })
 }
 
 function getStartedStr (serverStarted?: number): string {

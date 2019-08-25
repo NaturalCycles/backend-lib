@@ -27,7 +27,7 @@ import {
   simpleRequestLogger,
   SimpleRequestLoggerCfg,
 } from './server/handlers/simpleRequestLogger.mw'
-import { statusHandler } from './server/handlers/statusHandler'
+import { statusHandler, statusHandlerData } from './server/handlers/statusHandler'
 import { coloredHttpCode, logRequest } from './server/request.log.util'
 import { BackendServer, startServer } from './server/startServer'
 import { StartServerCfg, StartServerData } from './server/startServer.model'
@@ -59,6 +59,7 @@ export {
   BaseEnv,
   isGAE,
   statusHandler,
+  statusHandlerData,
   okHandler,
   getDeployInfo,
   onFinished,

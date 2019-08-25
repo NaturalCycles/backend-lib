@@ -40,7 +40,9 @@ export class BackendServer {
     const serverStartedAt = Date.now()
 
     const bootstrapMillis = serverStartedAt - bootstrapStartedAt
-    log(`serverStarted on port ${c.dim(String(port))}, bootstrapTime ${c.dim(ms(bootstrapMillis))}`)
+    log(
+      `serverStarted on port ${c.white(String(port))}, bootstrapTime ${c.dim(ms(bootstrapMillis))}`,
+    )
 
     return {
       port,

@@ -286,7 +286,7 @@ export async function createAppYaml (
 
   if (Object.keys(passEnv).length) {
     log(
-      `will merge ${c.dim(
+      `will merge ${c.white(
         String(Object.keys(passEnv).length),
       )} process.env keys to app.yaml: ${c.dim(Object.keys(passEnv).join(', '))}`,
     )
