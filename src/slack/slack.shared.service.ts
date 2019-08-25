@@ -1,5 +1,5 @@
 import { anyToErrorObject } from '@naturalcycles/js-lib'
-import { Debug } from '@naturalcycles/nodejs-lib'
+import { Debug, DebugLogLevel } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
 import * as got from 'got'
 import {
@@ -42,6 +42,7 @@ export class SlackSharedService<CTX = any> {
     const text = err.stack || err.message
     await this.sendMsg(
       {
+        level: DebugLogLevel.error,
         ...opts,
         text,
       },
