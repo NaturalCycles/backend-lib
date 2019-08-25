@@ -14,6 +14,11 @@ test('hello world', async () => {
   await slackService.send(`Hello Slack`)
 })
 
+test('hello error', async () => {
+  await slackService.error(new Error('hello error'))
+  await slackService.error('hello error string')
+})
+
 test('attachments', async () => {
   await slackService.sendMsg({
     text: 'hello',

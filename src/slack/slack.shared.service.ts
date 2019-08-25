@@ -1,3 +1,4 @@
+import { anyToErrorObject } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
 import * as got from 'got'
@@ -23,10 +24,25 @@ export class SlackSharedService<CTX = any> {
 
   constructor (private slackServiceCfg: SlackSharedServiceCfg) {}
 
-  // Convenient method
+  // Convenience method
   async send (text: string, ctx?: CTX): Promise<void> {
     await this.sendMsg(
       {
+        text,
+      },
+      ctx,
+    )
+  }
+
+  /**
+   * Send error.
+   */
+  async error (_err: any, opts: Partial<SlackMessage> = {}, ctx?: CTX): Promise<void> {
+    const err = anyToErrorObject(_err)
+    const text = err.stack || err.message
+    await this.sendMsg(
+      {
+        ...opts,
         text,
       },
       ctx,
@@ -42,11 +58,13 @@ export class SlackSharedService<CTX = any> {
 
     this.processKV(_msg)
 
-    const body = {
+    const body: SlackMessage = {
       ...DEFAULTS(),
       ...this.slackServiceCfg.defaults,
       ..._msg,
     }
+
+    body.channel = (this.slackServiceCfg.channelByLevel || {})[_msg.level!] || body.channel
 
     this.decorateMsg(body, ctx)
 

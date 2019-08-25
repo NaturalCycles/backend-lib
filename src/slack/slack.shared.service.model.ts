@@ -1,9 +1,12 @@
+import { DebugLogLevel } from '@naturalcycles/nodejs-lib'
+
 export interface SlackMessage {
   username?: string
   channel?: string
   icon_url?: string
   icon_emoji?: string
   text: string
+  level?: DebugLogLevel
   attachments?: SlackMessageAttachment[]
 
   /**
@@ -48,4 +51,11 @@ export interface SlackSharedServiceCfg {
   webhookUrl?: string
 
   defaults?: Partial<SlackMessage>
+
+  /**
+   * Override channel when msg.level is set.
+   * key: DebugLogLevel
+   * value: channel name to send message to
+   */
+  channelByLevel?: Record<string, string | undefined>
 }
