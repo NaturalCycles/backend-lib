@@ -1,3 +1,10 @@
+# [2.10.0](https://github.com/NaturalCycles/backend-lib/compare/v2.9.0...v2.10.0) (2019-08-25)
+
+
+### Features
+
+* statusHandlerData ([a113108](https://github.com/NaturalCycles/backend-lib/commit/a113108))
+
 # [2.9.0](https://github.com/NaturalCycles/backend-lib/compare/v2.8.0...v2.9.0) (2019-08-25)
 
 
