@@ -1,3 +1,10 @@
+# [2.15.0](https://github.com/NaturalCycles/backend-lib/compare/v2.14.0...v2.15.0) (2019-08-27)
+
+
+### Features
+
+* **deploy:** log redacted appYaml ([fdac0d2](https://github.com/NaturalCycles/backend-lib/commit/fdac0d2))
+
 # [2.14.0](https://github.com/NaturalCycles/backend-lib/compare/v2.13.0...v2.14.0) (2019-08-27)
 
 
