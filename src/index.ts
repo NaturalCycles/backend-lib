@@ -1,6 +1,7 @@
 import * as onFinished from 'on-finished'
 import { AdminMiddleware, createAdminMiddleware, loginHtml, ReqAdminCfg } from './admin/admin.mw'
 import { AdminInfo, AdminServiceCfg, BaseAdminService } from './admin/base.admin.service'
+import { FirebaseSharedService } from './admin/firebase.shared.service'
 import { BaseEnv } from './env/env.model'
 import { EnvSharedService, EnvSharedServiceCfg } from './env/env.shared.service'
 import { isGAE } from './gae/appEngine.util'
@@ -65,6 +66,7 @@ export {
   onFinished,
   respondWithError,
   logRequest,
+  FirebaseSharedService,
   AdminMiddleware,
   createAdminMiddleware,
   AdminServiceCfg,
