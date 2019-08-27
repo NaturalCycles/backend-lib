@@ -74,7 +74,7 @@ const APP_YAML_DEFAULT = (): AppYaml => ({
   },
   env_variables: {
     APP_ENV: 'prod',
-    DEBUG: 'nc:*',
+    DEBUG: 'app*,nc:*',
     DEBUG_HIDE_DATE: 'true',
     // DEBUG_COLORS: 'true',
     TZ: 'UTC',
