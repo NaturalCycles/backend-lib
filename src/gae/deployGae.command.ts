@@ -62,24 +62,27 @@ export async function deployGaeCommand (): Promise<void> {
     gaeVersion,
   })
 
-  // Rollout (promote versionUrl to serviceUrl)
-  // gcloud app services set-traffic $deployInfo_gaeService --project $deployInfo_gaeProject --splits $deployInfo_gaeVersion=1 --quiet
-  await execShell(
-    `gcloud app services set-traffic ${gaeService} --project ${gaeProject} --splits ${gaeVersion}=1 --quiet`,
-  )
+  // Only if "timestamped version" is used ('1' is default)
+  if (gaeVersion !== '1') {
+    // Rollout (promote versionUrl to serviceUrl)
+    // gcloud app services set-traffic $deployInfo_gaeService --project $deployInfo_gaeProject --splits $deployInfo_gaeVersion=1 --quiet
+    await execShell(
+      `gcloud app services set-traffic ${gaeService} --project ${gaeProject} --splits ${gaeVersion}=1 --quiet`,
+    )
 
-  // Health check (serviceUrl)
-  // yarn deploy-health-check --url $deployInfo_serviceUrl --repeat 3 --timeoutSec 60 --intervalSec 2
-  await deployHealthCheck({
-    url: serviceUrl,
-    repeat: 3,
-    timeoutSec: 60,
-    intervalSec: 2,
-    logOnFailure,
-    gaeProject,
-    gaeService,
-    gaeVersion,
-  })
+    // Health check (serviceUrl)
+    // yarn deploy-health-check --url $deployInfo_serviceUrl --repeat 3 --timeoutSec 60 --intervalSec 2
+    await deployHealthCheck({
+      url: serviceUrl,
+      repeat: 3,
+      timeoutSec: 60,
+      intervalSec: 2,
+      logOnFailure,
+      gaeProject,
+      gaeService,
+      gaeVersion,
+    })
+  }
 
   // Logs
   if (logOnSuccess) {
