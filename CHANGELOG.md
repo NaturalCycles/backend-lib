@@ -1,3 +1,11 @@
+# [2.13.0](https://github.com/NaturalCycles/backend-lib/compare/v2.12.0...v2.13.0) (2019-08-27)
+
+
+### Features
+
+* faster no-timestamp deploy (skips "rollout") ([1b51d34](https://github.com/NaturalCycles/backend-lib/commit/1b51d34))
+* **deploy:** merge-in app.${env}.yaml ([06a0c88](https://github.com/NaturalCycles/backend-lib/commit/06a0c88))
+
 # [2.12.0](https://github.com/NaturalCycles/backend-lib/compare/v2.11.2...v2.12.0) (2019-08-27)
 
 
