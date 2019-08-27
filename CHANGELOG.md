@@ -1,3 +1,15 @@
+# [2.12.0](https://github.com/NaturalCycles/backend-lib/compare/v2.11.2...v2.12.0) (2019-08-27)
+
+
+### Bug Fixes
+
+* app.yaml DEBUG include app* ([c575aa4](https://github.com/NaturalCycles/backend-lib/commit/c575aa4))
+
+
+### Features
+
+* FirebaseSharedService ([53c427c](https://github.com/NaturalCycles/backend-lib/commit/53c427c))
+
 ## [2.11.2](https://github.com/NaturalCycles/backend-lib/compare/v2.11.1...v2.11.2) (2019-08-25)
 
 
