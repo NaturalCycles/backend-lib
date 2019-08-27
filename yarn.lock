@@ -626,9 +626,9 @@
     yargs "^14.0.0"
 
 "@naturalcycles/js-lib@^8.0.0", "@naturalcycles/js-lib@^8.4.0":
-  version "8.6.1"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-8.6.1.tgz#a9576f39648ee6e8615ae11ac6a8774c729d170f"
-  integrity sha512-NHYkPt0GBuE71JBjDu2IQKzBLLWGqUjpZlqi9IbJV3O93j10wVZb6qSPb0OMKKo94UsN4jNmt3zTOAeIlbPO5A==
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-8.7.0.tgz#7ad23043162492fe9339bc7fa9a152942bf2a26e"
+  integrity sha512-Az0F760zadDvGWSGwzUv+OqPuBMn/fdhKzVX6qPCA7Hsm98a4YOM/3aq7fpxczF0jiu6gvc+SJ62Q5TmhL7WuA==
   dependencies:
     type-fest "^0.7.1"
 

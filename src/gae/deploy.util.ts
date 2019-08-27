@@ -1,5 +1,5 @@
 import { kpy } from '@naturalcycles/fs-lib'
-import { _merge } from '@naturalcycles/js-lib'
+import { _mapValues, _merge, _truncate } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
 import c from 'chalk'
@@ -214,7 +214,7 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
 
   const serviceUrl = `https://${[gaeService, gaeProject].join('-dot-')}.appspot.com`
 
-  return {
+  const deployInfo: DeployInfo = {
     gaeProject,
     gaeService,
     gaeVersion,
@@ -225,6 +225,10 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
     prod,
     ts: now.unix(),
   }
+
+  log({ deployInfo })
+
+  return deployInfo
 }
 
 export async function createAndSaveAppYaml (
@@ -298,13 +302,27 @@ export async function createAppYaml (
     )
   }
 
-  return _merge(appYaml, {
+  _merge(appYaml, {
     service,
     env_variables: {
       APP_ENV,
       ...passEnv,
     },
   })
+
+  // Redacted appYaml to not show up secrets
+  log({
+    appYaml: redactedAppYaml(appYaml),
+  })
+
+  return appYaml
+}
+
+function redactedAppYaml (appYaml: AppYaml): AppYaml {
+  return {
+    ...appYaml,
+    env_variables: _mapValues(appYaml.env_variables || {}, v => _truncate(String(v), 7)),
+  }
 }
 
 export function validateGAEServiceName (serviceName: string): string {

@@ -5,7 +5,7 @@ import * as yargs from 'yargs'
 import { deployPrepareCommand } from './deploy.util'
 import { deployHealthCheck } from './deployHealthCheck.command'
 
-const log = Debug('nc:backend-lib:deploy')
+// const log = Debug('nc:backend-lib:deploy')
 Debug.enable('nc:backend-lib*') // force-enable
 
 export async function deployGaeCommand (): Promise<void> {
@@ -31,7 +31,6 @@ export async function deployGaeCommand (): Promise<void> {
 
   // await execCommand(`yarn`, ['deploy-prepare'])
   const deployInfo = await deployPrepareCommand()
-  log({ deployInfo })
 
   const targetDir = './tmp/deploy'
   const appYamlPath = `${targetDir}/app.yaml`
