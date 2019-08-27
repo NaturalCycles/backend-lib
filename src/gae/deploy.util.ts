@@ -1,5 +1,5 @@
 import { kpy } from '@naturalcycles/fs-lib'
-import { _merge, StringMap } from '@naturalcycles/js-lib'
+import { _merge } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
 import c from 'chalk'
@@ -27,7 +27,7 @@ export interface DeployInfo {
   ts: number
 }
 
-export interface AppYaml extends StringMap<any> {
+export interface AppYaml extends Record<string, any> {
   runtime: string
   service: string
   inbound_services?: string[]
@@ -259,13 +259,19 @@ export async function createAppYaml (
     log(`using APP_ENV=${c.dim(processAppEnv)} from process.env`)
   }
 
+  const appYaml = APP_YAML_DEFAULT()
+
   // Check existing app.yaml
   const appYamlPath = `${projectDir}/app.yaml`
-  let existingAppYaml = {}
   if (fs.existsSync(appYamlPath)) {
     log(`merging-in ${c.dim(appYamlPath)}`)
+    _merge(appYaml, yaml.safeLoad(await fs.readFile(appYamlPath, 'utf8')))
+  }
 
-    existingAppYaml = yaml.safeLoad(await fs.readFile(appYamlPath, 'utf8'))
+  const appEnvYamlPath = `${projectDir}/app.${APP_ENV}.yaml`
+  if (fs.existsSync(appEnvYamlPath)) {
+    log(`merging-in ${c.dim(appEnvYamlPath)}`)
+    _merge(appYaml, yaml.safeLoad(await fs.readFile(appEnvYamlPath, 'utf8')))
   }
 
   // appYamlPassEnv
@@ -292,7 +298,7 @@ export async function createAppYaml (
     )
   }
 
-  return _merge(APP_YAML_DEFAULT(), existingAppYaml, {
+  return _merge(appYaml, {
     service,
     env_variables: {
       APP_ENV,

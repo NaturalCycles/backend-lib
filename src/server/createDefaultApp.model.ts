@@ -1,4 +1,3 @@
-import { StringMap } from '@naturalcycles/js-lib'
 import { RequestHandler } from 'express'
 
 export interface DefaultAppCfg {
@@ -9,5 +8,5 @@ export interface DefaultAppCfg {
   preHandlers?: RequestHandler[]
   handlers?: RequestHandler[]
   postHandlers?: RequestHandler[]
-  resources?: StringMap<RequestHandler>
+  resources?: Record<string, RequestHandler>
 }

@@ -1,4 +1,3 @@
-import { StringMap } from '@naturalcycles/js-lib'
 import * as cookieParser from 'cookie-parser'
 import * as cors from 'cors'
 import { Application, RequestHandler } from 'express'
@@ -102,7 +101,7 @@ function useHandlers (app: Application, handlers: RequestHandler[] = []): void {
   })
 }
 
-function useResources (app: Application, resources: StringMap<RequestHandler> = {}): void {
+function useResources (app: Application, resources: Record<string, RequestHandler> = {}): void {
   Object.keys(resources).forEach(path => {
     app.use(path, resources[path])
   })
