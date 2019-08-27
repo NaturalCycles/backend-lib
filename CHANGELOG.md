@@ -1,3 +1,10 @@
+# [2.14.0](https://github.com/NaturalCycles/backend-lib/compare/v2.13.0...v2.14.0) (2019-08-27)
+
+
+### Features
+
+* decouple firebaseService / adminService ([b251ac5](https://github.com/NaturalCycles/backend-lib/commit/b251ac5))
+
 # [2.13.0](https://github.com/NaturalCycles/backend-lib/compare/v2.12.0...v2.13.0) (2019-08-27)
 
 
