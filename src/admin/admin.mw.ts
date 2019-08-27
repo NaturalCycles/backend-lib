@@ -4,6 +4,7 @@ import * as ejs from 'ejs'
 import { RequestHandler } from 'express'
 import * as fs from 'fs'
 import { BaseAdminService } from './base.admin.service'
+import { FirebaseSharedServiceCfg } from './firebase.shared.service'
 
 const log = Debug('nc:backend-lib:admin')
 
@@ -59,9 +60,21 @@ interface LoginHtmlCfg {
   firebaseAuthProvider: string
 }
 
-export function loginHtml (adminService: BaseAdminService): RequestHandler {
+export function loginHtml (firebaseServiceCfg: FirebaseSharedServiceCfg): RequestHandler {
+  const {
+    apiKey: firebaseApiKey,
+    authDomain: firebaseAuthDomain,
+    adminAuthProvider: firebaseAuthProvider = 'GoogleAuthProvider',
+  } = firebaseServiceCfg
+
   return (req, res) => {
-    res.send(getLoginHtml(adminService.cfg))
+    res.send(
+      getLoginHtml({
+        firebaseApiKey,
+        firebaseAuthDomain,
+        firebaseAuthProvider,
+      }),
+    )
   }
 }
 

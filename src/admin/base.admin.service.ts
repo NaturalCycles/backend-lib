@@ -1,4 +1,9 @@
-import { Admin401ErrorData, Admin403ErrorData, HttpError } from '@naturalcycles/js-lib'
+import {
+  Admin401ErrorData,
+  Admin403ErrorData,
+  anyToErrorMessage,
+  HttpError,
+} from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import c from 'chalk'
 import { Request } from 'express'
@@ -7,14 +12,6 @@ import * as FirebaseAdmin from 'firebase-admin'
 const log = Debug('nc:backend-lib:admin')
 
 export interface AdminServiceCfg {
-  firebaseApiKey: string
-  firebaseAuthDomain: string
-
-  /**
-   * @default 'GoogleAuthProvider'
-   */
-  firebaseAuthProvider?: string
-
   /**
    * @default 'admin_token'
    */
@@ -45,7 +42,6 @@ export class BaseAdminService {
     this.cfg = {
       adminTokenKey: 'admin_token',
       authEnabled: true,
-      firebaseAuthProvider: 'GoogleAuthProvider',
       ...cfg,
     }
   }
@@ -95,7 +91,7 @@ export class BaseAdminService {
       log(`admin email: ${c.dim(email)}`)
       return email
     } catch (err) {
-      log(`getEmailByToken error: ${(err || {}).message}`, err, JSON.stringify(err))
+      log(`getEmailByToken error: ${anyToErrorMessage(err)}`)
       return
     }
   }

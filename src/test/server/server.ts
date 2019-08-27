@@ -1,6 +1,6 @@
 /*
 
-DEBUG=nc:* yarn tsn-script ./src/test/server/server.ts
+DEBUG=app*,nc:* yarn tsn-script ./src/test/server/server.ts
 
  */
 
@@ -18,14 +18,14 @@ import {
   okHandler,
 } from '../../index'
 import { loginHtml } from '../../admin/admin.mw'
-import { adminService, reqAdmin } from './admin'
+import { adminService, firebaseService, reqAdmin } from './admin'
 
 const router = getDefaultRouter()
 export const rootResource = router
 
 router.get('/', okHandler())
 router.get('/status', statusHandler())
-router.get('/login.html', loginHtml(adminService))
+router.get('/login.html', loginHtml(firebaseService.cfg))
 
 router.get('/debug', reqAdmin(), async (req, res) => {
   res.json({

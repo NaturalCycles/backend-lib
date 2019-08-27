@@ -5,8 +5,24 @@ import * as firebaseAdmin from 'firebase-admin'
 export interface FirebaseSharedServiceCfg {
   /**
    * If undefined - will try to use credential.applicationDefault()
+   * Can be ServiceAccount object or path to a json file (string)
    */
-  serviceAccount?: ServiceAccount
+  serviceAccount?: ServiceAccount | string
+
+  /**
+   * Used in Firebase Auth.
+   */
+  authDomain: string
+
+  /**
+   * Used e.g in Firebase Auth to decrypt JWT auth tokens.
+   */
+  apiKey: string
+
+  /**
+   * @default 'GoogleAuthProvider'
+   */
+  adminAuthProvider?: string
 }
 
 export class FirebaseSharedService {
@@ -27,5 +43,9 @@ export class FirebaseSharedService {
     return firebaseAdmin.initializeApp({
       credential,
     })
+  }
+
+  auth (): firebaseAdmin.auth.Auth {
+    return this.admin().auth()
   }
 }

@@ -1,5 +1,5 @@
 import { requireEnvKeys } from '@naturalcycles/nodejs-lib'
-import * as FirebaseAdmin from 'firebase-admin'
+import { FirebaseSharedService } from '../..'
 import { createAdminMiddleware } from '../../admin/admin.mw'
 import { BaseAdminService } from '../../admin/base.admin.service'
 require('dotenv').config()
@@ -10,8 +10,10 @@ const { FIREBASE_SERVICE_ACCOUNT_PATH, FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN } 
   'FIREBASE_AUTH_DOMAIN',
 )
 
-const firebaseAdmin = FirebaseAdmin.initializeApp({
-  credential: FirebaseAdmin.credential.cert(FIREBASE_SERVICE_ACCOUNT_PATH),
+export const firebaseService = new FirebaseSharedService({
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  apiKey: FIREBASE_API_KEY,
+  serviceAccount: FIREBASE_SERVICE_ACCOUNT_PATH,
 })
 
 class AdminService extends BaseAdminService {
@@ -22,9 +24,7 @@ class AdminService extends BaseAdminService {
 }
 
 // const firebaseAdmin
-export const adminService = new AdminService(firebaseAdmin.auth(), {
-  firebaseAuthDomain: FIREBASE_AUTH_DOMAIN,
-  firebaseApiKey: FIREBASE_API_KEY,
+export const adminService = new AdminService(firebaseService.auth(), {
   authEnabled: true,
 })
 
