@@ -1,3 +1,10 @@
+# [2.16.0](https://github.com/NaturalCycles/backend-lib/compare/v2.15.1...v2.16.0) (2019-08-28)
+
+
+### Features
+
+* createAdminMiddleware(..., cfg) ([6c9180a](https://github.com/NaturalCycles/backend-lib/commit/6c9180a))
+
 ## [2.15.1](https://github.com/NaturalCycles/backend-lib/compare/v2.15.0...v2.15.1) (2019-08-28)
 
 
