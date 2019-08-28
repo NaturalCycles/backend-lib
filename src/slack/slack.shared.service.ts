@@ -67,7 +67,7 @@ export class SlackSharedService<CTX = any> {
 
     body.channel = (this.slackServiceCfg.channelByLevel || {})[_msg.level!] || body.channel
 
-    this.decorateMsg(body, ctx)
+    await this.decorateMsg(body, ctx)
 
     await got
       .post(webhookUrl, {
@@ -81,7 +81,7 @@ export class SlackSharedService<CTX = any> {
    * Mutates msg.
    * To be overridden.
    */
-  protected decorateMsg (msg: SlackMessage, ctx?: CTX): void {
+  protected async decorateMsg (msg: SlackMessage, ctx?: CTX): Promise<void> {
     const tokens = [dayjs().toPretty()]
 
     // AppEngine-specific decoration
