@@ -19,8 +19,15 @@ export interface ReqAdminCfg {
 
 export type AdminMiddleware = (reqPermissions?: string[], cfg?: ReqAdminCfg) => RequestHandler
 
-export function createAdminMiddleware (adminService: BaseAdminService): AdminMiddleware {
-  return (reqPermissions, cfg) => reqAdminPermissions(adminService, reqPermissions, cfg)
+export function createAdminMiddleware (
+  adminService: BaseAdminService,
+  cfgDefaults: ReqAdminCfg = {},
+): AdminMiddleware {
+  return (reqPermissions, cfg) =>
+    reqAdminPermissions(adminService, reqPermissions, {
+      ...cfgDefaults,
+      ...cfg,
+    })
 }
 
 /**

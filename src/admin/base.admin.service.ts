@@ -48,6 +48,13 @@ export class BaseAdminService {
 
   cfg!: Required<AdminServiceCfg>
 
+  adminInfoDisabled (): AdminInfo {
+    return {
+      email: 'authDisabled',
+      permissions: [],
+    }
+  }
+
   /**
    * To be extended.
    *
