@@ -64,6 +64,7 @@ const backendCfgSchema = objectSchema<BackendCfg>({
   files: arraySchema(stringSchema).optional(),
   appEnvDefault: stringSchema,
   appEnvByBranch: anyObjectSchema.optional(),
+  branchesWithTimestampVersions: arraySchema(stringSchema).optional(),
   appYamlPassEnv: stringSchema.optional(),
 })
 
