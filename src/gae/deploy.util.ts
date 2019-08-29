@@ -212,15 +212,9 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
     ].join('-')
   }
 
-  const gaeServiceInUrl = gaeService === 'default' ? undefined : gaeService
+  const versionUrl = `https://${[gaeVersion, gaeService, gaeProject].join('-dot-')}.appspot.com`
 
-  const versionUrl = `https://${[gaeVersion, gaeServiceInUrl, gaeProject]
-    .filter(Boolean)
-    .join('-dot-')}.appspot.com`
-
-  const serviceUrl = `https://${[gaeServiceInUrl, gaeProject]
-    .filter(Boolean)
-    .join('-dot-')}.appspot.com`
+  const serviceUrl = `https://${[gaeService, gaeProject].join('-dot-')}.appspot.com`
 
   const deployInfo: DeployInfo = {
     gaeProject,
