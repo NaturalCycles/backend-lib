@@ -114,7 +114,9 @@ export class BaseAdminService {
   }
 
   async isAdmin (req: Request): Promise<boolean> {
-    return !!(await this.hasPermissions(req))
+    const adminToken = await this.getAdminToken(req)
+    const email = await this.getEmailByToken(adminToken)
+    return !!this.getEmailPermissions(email)
   }
 
   async getAdminInfo (req: Request): Promise<AdminInfo | undefined> {
