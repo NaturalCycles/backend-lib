@@ -1,3 +1,10 @@
+# [2.21.0](https://github.com/NaturalCycles/backend-lib/compare/v2.20.1...v2.21.0) (2019-08-29)
+
+
+### Features
+
+* **admin:** allow admin_token in http header ([306e8ac](https://github.com/NaturalCycles/backend-lib/commit/306e8ac))
+
 ## [2.20.1](https://github.com/NaturalCycles/backend-lib/compare/v2.20.0...v2.20.1) (2019-08-29)
 
 
