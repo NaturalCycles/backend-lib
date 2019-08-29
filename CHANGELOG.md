@@ -1,3 +1,10 @@
+# [2.23.0](https://github.com/NaturalCycles/backend-lib/compare/v2.22.0...v2.23.0) (2019-08-29)
+
+
+### Features
+
+* gaeServiceUrl to strip 'default' from ([7379bfe](https://github.com/NaturalCycles/backend-lib/commit/7379bfe))
+
 # [2.22.0](https://github.com/NaturalCycles/backend-lib/compare/v2.21.0...v2.22.0) (2019-08-29)
 
 
