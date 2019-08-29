@@ -14,6 +14,12 @@ export interface ReqAdminCfg {
    */
   loginHtmlPath?: string
 
+  /**
+   * If you host login.html outside of this server - you'll need to pass apiHost.
+   * login.html will call PUT ${apiHost}/sessions/adminToken with body={admin_token='...'}
+   */
+  apiHost?: string
+
   urlStartsWith?: string
 }
 
@@ -41,7 +47,7 @@ function reqAdminPermissions (
   reqPermissions: string[] = [],
   cfg: ReqAdminCfg = {},
 ): RequestHandler {
-  const { loginHtmlPath = '/login.html', urlStartsWith } = cfg
+  const { loginHtmlPath = '/login.html', urlStartsWith, apiHost } = cfg
 
   return async (req, res, next) => {
     if (urlStartsWith && !req.url.startsWith(urlStartsWith)) return next()
@@ -52,7 +58,9 @@ function reqAdminPermissions (
     } catch (err) {
       if (err instanceof HttpError && (err.data as Admin401ErrorData).adminAuthRequired) {
         // Redirect to login.html
-        const href = `${loginHtmlPath}?autoLogin=1&returnUrl=\${location.href}`
+        const href = `${loginHtmlPath}?autoLogin=1&returnUrl=\${location.href}${
+          apiHost ? '&apiHost=' + apiHost : ''
+        }`
         res.status(401).send(getLoginHtmlRedirect(href))
       } else {
         return next(err)
