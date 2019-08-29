@@ -81,11 +81,13 @@ export class BaseAdminService {
     reqPermissions: string[],
     required: boolean,
     granted: boolean,
+    meta: Record<string, any> = {},
   ): Promise<void> {
     log(
       `${c.dim(email)} ${required ? 'required' : 'optional'} permissions check [${c.dim(
         reqPermissions.join(', '),
       )}]: ${granted ? c.green('GRANTED') : c.red('DENIED')}`,
+      meta,
     )
   }
 
@@ -127,6 +129,7 @@ export class BaseAdminService {
   async hasPermissions (
     req: Request,
     reqPermissions: string[] = [],
+    meta: Record<string, any> = {},
   ): Promise<AdminInfo | undefined> {
     if (!this.cfg.authEnabled) return adminInfoDisabled()
 
@@ -137,7 +140,7 @@ export class BaseAdminService {
 
     const granted = reqPermissions.every(p => hasPermissions.has(p))
 
-    void this.onPermissionCheck(req, email!, reqPermissions, false, granted)
+    void this.onPermissionCheck(req, email!, reqPermissions, false, granted, meta)
 
     if (!granted) return
 
@@ -147,7 +150,11 @@ export class BaseAdminService {
     }
   }
 
-  async reqPermissions (req: Request, reqPermissions: string[] = []): Promise<AdminInfo> {
+  async requirePermissions (
+    req: Request,
+    reqPermissions: string[] = [],
+    meta: Record<string, any> = {},
+  ): Promise<AdminInfo> {
     if (!this.cfg.authEnabled) return adminInfoDisabled()
 
     const adminToken = await this.getAdminToken(req)
@@ -164,7 +171,7 @@ export class BaseAdminService {
     const hasPermissions = this.getEmailPermissions(email)
     const granted = !!hasPermissions && reqPermissions.every(p => hasPermissions.has(p))
 
-    void this.onPermissionCheck(req, email, reqPermissions, true, granted)
+    void this.onPermissionCheck(req, email, reqPermissions, true, granted, meta)
 
     if (!granted) {
       throw new HttpError<Admin403ErrorData>(
@@ -182,5 +189,22 @@ export class BaseAdminService {
       email,
       permissions: [...hasPermissions!],
     }
+  }
+
+  // convenience method
+  async hasPermission (
+    req: Request,
+    reqPermission: string,
+    meta?: Record<string, any>,
+  ): Promise<boolean> {
+    return !!(await this.hasPermissions(req, [reqPermission], meta))
+  }
+
+  async requirePermission (
+    req: Request,
+    reqPermission: string,
+    meta?: Record<string, any>,
+  ): Promise<AdminInfo> {
+    return this.requirePermissions(req, [reqPermission], meta)
   }
 }

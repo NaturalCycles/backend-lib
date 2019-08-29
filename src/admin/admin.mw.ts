@@ -8,7 +8,7 @@ import { FirebaseSharedServiceCfg } from './firebase.shared.service'
 
 const log = Debug('nc:backend-lib:admin')
 
-export interface ReqAdminCfg {
+export interface RequireAdminCfg {
   /**
    * @default '/login.html'
    */
@@ -23,14 +23,14 @@ export interface ReqAdminCfg {
   urlStartsWith?: string
 }
 
-export type AdminMiddleware = (reqPermissions?: string[], cfg?: ReqAdminCfg) => RequestHandler
+export type AdminMiddleware = (reqPermissions?: string[], cfg?: RequireAdminCfg) => RequestHandler
 
 export function createAdminMiddleware (
   adminService: BaseAdminService,
-  cfgDefaults: ReqAdminCfg = {},
+  cfgDefaults: RequireAdminCfg = {},
 ): AdminMiddleware {
   return (reqPermissions, cfg) =>
-    reqAdminPermissions(adminService, reqPermissions, {
+    requireAdminPermissions(adminService, reqPermissions, {
       ...cfgDefaults,
       ...cfg,
     })
@@ -42,10 +42,10 @@ export function createAdminMiddleware (
  * If authenticated, but not authorized - will throw 403.
  * Otherwise will just pass.
  */
-function reqAdminPermissions (
+function requireAdminPermissions (
   adminService: BaseAdminService,
   reqPermissions: string[] = [],
-  cfg: ReqAdminCfg = {},
+  cfg: RequireAdminCfg = {},
 ): RequestHandler {
   const { loginHtmlPath = '/login.html', urlStartsWith, apiHost } = cfg
 
@@ -53,7 +53,7 @@ function reqAdminPermissions (
     if (urlStartsWith && !req.url.startsWith(urlStartsWith)) return next()
 
     try {
-      await adminService.reqPermissions(req, reqPermissions)
+      await adminService.requirePermissions(req, reqPermissions)
       return next()
     } catch (err) {
       if (err instanceof HttpError && (err.data as Admin401ErrorData).adminAuthRequired) {
