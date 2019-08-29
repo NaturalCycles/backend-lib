@@ -18,6 +18,8 @@ export interface BackendCfg {
    */
   gaeService: string
 
+  gaeServiceByBranch?: Record<string, string>
+
   /**
    * @default true
    *
@@ -56,6 +58,7 @@ const backendCfgSchema = objectSchema<BackendCfg>({
   gaeProject: stringSchema,
   gaeProjectByBranch: anyObjectSchema.optional(),
   gaeService: stringSchema,
+  gaeServiceByBranch: anyObjectSchema.optional(),
   serviceWithBranchName: booleanSchema.optional(),
   prodBranch: stringSchema,
   files: arraySchema(stringSchema).optional(),

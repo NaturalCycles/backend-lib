@@ -186,6 +186,7 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
     gaeProject,
     gaeProjectByBranch = {},
     gaeService,
+    gaeServiceByBranch = {},
     serviceWithBranchName,
     prodBranch,
     branchesWithTimestampVersions = [],
@@ -193,11 +194,11 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
 
   gaeProject = gaeProjectByBranch[gitBranch] || gaeProject
 
-  gaeService = validateGAEServiceName(gaeService)
+  gaeService = validateGAEServiceName(gaeServiceByBranch[gitBranch] || gaeService)
 
   const prod = gitBranch === prodBranch
 
-  if (!prod && serviceWithBranchName) {
+  if (!prod && serviceWithBranchName && !gaeServiceByBranch[gitBranch]) {
     gaeService = validateGAEServiceName([gitBranch, gaeService].join('--'))
   }
 
