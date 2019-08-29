@@ -1,3 +1,11 @@
+# [2.17.0](https://github.com/NaturalCycles/backend-lib/compare/v2.16.0...v2.17.0) (2019-08-29)
+
+
+### Features
+
+* admin.mw to pass apiHost ([9aff4b7](https://github.com/NaturalCycles/backend-lib/commit/9aff4b7))
+* **deploy:** serviceWithBranchName boolean flag ([9670c00](https://github.com/NaturalCycles/backend-lib/commit/9670c00))
+
 # [2.16.0](https://github.com/NaturalCycles/backend-lib/compare/v2.15.1...v2.16.0) (2019-08-28)
 
 
