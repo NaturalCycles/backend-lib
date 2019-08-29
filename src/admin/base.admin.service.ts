@@ -37,7 +37,7 @@ const adminInfoDisabled = (): AdminInfo => ({
 /**
  * Base implementation based on Firebase Auth tokens passed as 'admin_token' cookie.
  */
-export class BaseAdminService<REQUEST = Request> {
+export class BaseAdminService {
   constructor (private firebaseAuth: FirebaseAdmin.auth.Auth, cfg: AdminServiceCfg) {
     this.cfg = {
       adminTokenKey: 'admin_token',
@@ -76,7 +76,7 @@ export class BaseAdminService<REQUEST = Request> {
    * To be extended.
    */
   protected async onPermissionCheck (
-    req: REQUEST,
+    req: Request,
     email: string,
     reqPermissions: string[],
     required: boolean,
@@ -109,15 +109,15 @@ export class BaseAdminService<REQUEST = Request> {
    * Current implementation is based on req=Request (from Express).
    * Override if needed.
    */
-  async getAdminToken (req: REQUEST): Promise<string | undefined> {
-    return ((req as any) as Request).cookies[this.cfg.adminTokenKey]
+  async getAdminToken (req: Request): Promise<string | undefined> {
+    return req.cookies[this.cfg.adminTokenKey]
   }
 
-  async isAdmin (req: REQUEST): Promise<boolean> {
+  async isAdmin (req: Request): Promise<boolean> {
     return !!(await this.hasPermissions(req))
   }
 
-  async getAdminInfo (req: REQUEST): Promise<AdminInfo | undefined> {
+  async getAdminInfo (req: Request): Promise<AdminInfo | undefined> {
     return this.hasPermissions(req)
   }
 
@@ -131,7 +131,7 @@ export class BaseAdminService<REQUEST = Request> {
    * Otherwise returns undefined
    */
   async hasPermissions (
-    req: REQUEST,
+    req: Request,
     reqPermissions: string[] = [],
     meta: Record<string, any> = {},
   ): Promise<AdminInfo | undefined> {
@@ -155,7 +155,7 @@ export class BaseAdminService<REQUEST = Request> {
   }
 
   async requirePermissions (
-    req: REQUEST,
+    req: Request,
     reqPermissions: string[] = [],
     meta: Record<string, any> = {},
   ): Promise<AdminInfo> {
@@ -197,7 +197,7 @@ export class BaseAdminService<REQUEST = Request> {
 
   // convenience method
   async hasPermission (
-    req: REQUEST,
+    req: Request,
     reqPermission: string,
     meta?: Record<string, any>,
   ): Promise<boolean> {
@@ -205,7 +205,7 @@ export class BaseAdminService<REQUEST = Request> {
   }
 
   async requirePermission (
-    req: REQUEST,
+    req: Request,
     reqPermission: string,
     meta?: Record<string, any>,
   ): Promise<AdminInfo> {
