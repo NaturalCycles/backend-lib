@@ -1,3 +1,10 @@
+# [2.24.0](https://github.com/NaturalCycles/backend-lib/compare/v2.23.0...v2.24.0) (2019-08-29)
+
+
+### Features
+
+* revert serviceUrl to include 'default' ([8971ccf](https://github.com/NaturalCycles/backend-lib/commit/8971ccf))
+
 # [2.23.0](https://github.com/NaturalCycles/backend-lib/compare/v2.22.0...v2.23.0) (2019-08-29)
 
 
