@@ -1,6 +1,7 @@
 import {
   anyObjectSchema,
   arraySchema,
+  booleanSchema,
   objectSchema,
   stringSchema,
   validate,
@@ -16,6 +17,16 @@ export interface BackendCfg {
    * @example default
    */
   gaeService: string
+
+  /**
+   * @default true
+   *
+   * If true - service name will look like ${branchName}--${gaeService}, similar to Netlify.
+   * If false - ${gaeService}.
+   *
+   * Prod branch NEVER includes branchName in service name.
+   */
+  serviceWithBranchName?: boolean
 
   /**
    * @example prod
@@ -45,6 +56,7 @@ const backendCfgSchema = objectSchema<BackendCfg>({
   gaeProject: stringSchema,
   gaeProjectByBranch: anyObjectSchema.optional(),
   gaeService: stringSchema,
+  serviceWithBranchName: booleanSchema.optional(),
   prodBranch: stringSchema,
   files: arraySchema(stringSchema).optional(),
   appEnvDefault: stringSchema,
@@ -59,5 +71,12 @@ export async function getBackendCfg (projectDir: string = '.'): Promise<BackendC
     throw new Error(`Failed to read ${backendCfgPath}`)
   })
 
-  return validate(backendCfg, backendCfgSchema, 'backend.cfg.json')
+  return validate(
+    {
+      serviceWithBranchName: true,
+      ...backendCfg,
+    },
+    backendCfgSchema,
+    'backend.cfg.json',
+  )
 }
