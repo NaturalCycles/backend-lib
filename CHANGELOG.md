@@ -1,3 +1,11 @@
+# [2.18.0](https://github.com/NaturalCycles/backend-lib/compare/v2.17.0...v2.18.0) (2019-08-29)
+
+
+### Features
+
+* adminService improvements ([f8fa4a9](https://github.com/NaturalCycles/backend-lib/commit/f8fa4a9))
+* createSecureHeaderMiddleware() ([5832903](https://github.com/NaturalCycles/backend-lib/commit/5832903))
+
 # [2.17.0](https://github.com/NaturalCycles/backend-lib/compare/v2.16.0...v2.17.0) (2019-08-29)
 
 
