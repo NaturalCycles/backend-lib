@@ -1,7 +1,13 @@
 import * as onFinished from 'on-finished'
-import { AdminMiddleware, createAdminMiddleware, loginHtml, ReqAdminCfg } from './admin/admin.mw'
+import {
+  AdminMiddleware,
+  createAdminMiddleware,
+  loginHtml,
+  RequireAdminCfg,
+} from './admin/admin.mw'
 import { AdminInfo, AdminServiceCfg, BaseAdminService } from './admin/base.admin.service'
 import { FirebaseSharedService } from './admin/firebase.shared.service'
+import { createSecureHeaderMiddleware, SecureHeaderMiddlewareCfg } from './admin/secureHeader.mw'
 import { BaseEnv } from './env/env.model'
 import { EnvSharedService, EnvSharedServiceCfg } from './env/env.shared.service'
 import { isGAE } from './gae/appEngine.util'
@@ -73,7 +79,9 @@ export {
   AdminInfo,
   BaseAdminService,
   loginHtml,
-  ReqAdminCfg,
+  RequireAdminCfg,
+  SecureHeaderMiddlewareCfg,
+  createSecureHeaderMiddleware,
   BodyParserTimeoutCfg,
   bodyParserTimeout,
   clearBodyParserTimeout,
