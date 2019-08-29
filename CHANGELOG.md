@@ -1,3 +1,10 @@
+# [2.20.0](https://github.com/NaturalCycles/backend-lib/compare/v2.19.0...v2.20.0) (2019-08-29)
+
+
+### Features
+
+* revert REQUEST type since it's incompatible with mw ([726dbd3](https://github.com/NaturalCycles/backend-lib/commit/726dbd3))
+
 # [2.19.0](https://github.com/NaturalCycles/backend-lib/compare/v2.18.0...v2.19.0) (2019-08-29)
 
 
