@@ -1,3 +1,10 @@
+## [2.24.1](https://github.com/NaturalCycles/backend-lib/compare/v2.24.0...v2.24.1) (2019-08-29)
+
+
+### Bug Fixes
+
+* backend.cfg schema to include branchesWithTimestampVersions ([99f1224](https://github.com/NaturalCycles/backend-lib/commit/99f1224))
+
 # [2.24.0](https://github.com/NaturalCycles/backend-lib/compare/v2.23.0...v2.24.0) (2019-08-29)
 
 
