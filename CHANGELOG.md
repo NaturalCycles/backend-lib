@@ -1,3 +1,10 @@
+# [2.19.0](https://github.com/NaturalCycles/backend-lib/compare/v2.18.0...v2.19.0) (2019-08-29)
+
+
+### Features
+
+* adminService to have generic REQUEST type ([85f2daa](https://github.com/NaturalCycles/backend-lib/commit/85f2daa))
+
 # [2.18.0](https://github.com/NaturalCycles/backend-lib/compare/v2.17.0...v2.18.0) (2019-08-29)
 
 
