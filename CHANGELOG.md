@@ -1,3 +1,10 @@
+## [2.24.2](https://github.com/NaturalCycles/backend-lib/compare/v2.24.1...v2.24.2) (2019-08-30)
+
+
+### Bug Fixes
+
+* req.cookies being undefined ([15fdf89](https://github.com/NaturalCycles/backend-lib/commit/15fdf89))
+
 ## [2.24.1](https://github.com/NaturalCycles/backend-lib/compare/v2.24.0...v2.24.1) (2019-08-29)
 
 
