@@ -1,3 +1,10 @@
+# [2.25.0](https://github.com/NaturalCycles/backend-lib/compare/v2.24.2...v2.25.0) (2019-09-10)
+
+
+### Features
+
+* RequestHandlerWithPath, RequestHandlerCfg ([4d474f2](https://github.com/NaturalCycles/backend-lib/commit/4d474f2))
+
 ## [2.24.2](https://github.com/NaturalCycles/backend-lib/compare/v2.24.1...v2.24.2) (2019-08-30)
 
 
