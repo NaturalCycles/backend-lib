@@ -15,6 +15,11 @@ import { SentrySharedServiceCfg } from './sentry/sentry.model'
 import { SentrySharedService } from './sentry/sentry.shared.service'
 import { catchWrapper } from './server/catchWrapper'
 import { createDefaultApp } from './server/createDefaultApp'
+import {
+  DefaultAppCfg,
+  RequestHandlerCfg,
+  RequestHandlerWithPath,
+} from './server/createDefaultApp.model'
 import { getDeployInfo } from './server/deployInfo.util'
 import { respondWithError } from './server/error.util'
 import { getDefaultRouter } from './server/getDefaultRouter'
@@ -50,6 +55,9 @@ export {
   sentryErrorHandler,
   SentrySharedService,
   SentrySharedServiceCfg,
+  RequestHandlerWithPath,
+  RequestHandlerCfg,
+  DefaultAppCfg,
   createDefaultApp,
   BackendServer,
   startServer,

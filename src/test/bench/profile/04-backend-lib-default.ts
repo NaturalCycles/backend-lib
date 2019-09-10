@@ -7,9 +7,7 @@ export async function createServer (): Promise<http.Server> {
   router.get('/', (req, res) => res.json({ hello: 'world' }))
 
   const app = createDefaultApp({
-    resources: {
-      '/': helloResource,
-    },
+    resources: [helloResource],
   })
 
   return http.createServer(app)

@@ -51,9 +51,7 @@ router.get('/error400', async (req, res) => {
 
 void startServer({
   expressApp: createDefaultApp({
-    resources: {
-      '/': rootResource,
-    },
+    resources: [rootResource],
   }),
   bootstrapStartedAt,
 })

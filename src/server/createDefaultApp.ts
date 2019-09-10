@@ -1,10 +1,10 @@
 import * as cookieParser from 'cookie-parser'
 import * as cors from 'cors'
-import { Application, RequestHandler } from 'express'
+import { Application } from 'express'
 import * as express from 'express'
 import * as helmet from 'helmet'
 import { methodOverride, SentrySharedService } from '..'
-import { DefaultAppCfg } from './createDefaultApp.model'
+import { DefaultAppCfg, RequestHandlerCfg, RequestHandlerWithPath } from './createDefaultApp.model'
 import { bodyParserTimeout, clearBodyParserTimeout } from './handlers/bodyParserTimeout.mw'
 import { genericErrorHandler } from './handlers/genericErrorHandler.mw'
 import { notFoundHandler } from './handlers/notFoundHandler.mw'
@@ -66,7 +66,7 @@ export function createDefaultApp (
   useHandlers(app, defaultAppCfg.handlers)
 
   // Resources
-  useResources(app, defaultAppCfg.resources)
+  useHandlers(app, defaultAppCfg.resources)
 
   // postHandlers
   useHandlers(app, defaultAppCfg.postHandlers)
@@ -95,14 +95,18 @@ export function createDefaultApp (
   return app
 }
 
-function useHandlers (app: Application, handlers: RequestHandler[] = []): void {
-  handlers.forEach(handler => {
-    app.use(handler)
-  })
-}
-
-function useResources (app: Application, resources: Record<string, RequestHandler> = {}): void {
-  Object.keys(resources).forEach(path => {
-    app.use(path, resources[path])
-  })
+function useHandlers (app: Application, handlers: RequestHandlerCfg[] = []): void {
+  handlers
+    .map<RequestHandlerWithPath>(cfg => {
+      if (typeof cfg === 'function') {
+        return {
+          path: '/',
+          handler: cfg,
+        }
+      }
+      return cfg
+    })
+    .forEach(cfg => {
+      app.use(cfg.path, cfg.handler)
+    })
 }
