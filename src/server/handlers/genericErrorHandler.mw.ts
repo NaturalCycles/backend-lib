@@ -12,7 +12,7 @@ const log = Debug('nc:backend-lib')
 export function genericErrorHandler (): ErrorRequestHandler {
   return (_err, req, res, next) => {
     if (res.headersSent) {
-      log(`genericErrorHandler, but headersSent=true`)
+      log(`genericErrorHandler, but headersSent=true`, _err)
       return next(_err)
     }
     log.error(_err)
