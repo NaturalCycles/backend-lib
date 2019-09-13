@@ -1,3 +1,10 @@
+# [2.26.0](https://github.com/NaturalCycles/backend-lib/compare/v2.25.0...v2.26.0) (2019-09-13)
+
+
+### Features
+
+* genericErrorHandler log error on "headersSent" ([8afa060](https://github.com/NaturalCycles/backend-lib/commit/8afa060))
+
 # [2.25.0](https://github.com/NaturalCycles/backend-lib/compare/v2.24.2...v2.25.0) (2019-09-10)
 
 
