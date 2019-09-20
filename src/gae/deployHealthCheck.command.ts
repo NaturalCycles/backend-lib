@@ -22,7 +22,7 @@ export interface DeployHealthCheckOptions {
 const log = Debug('nc:backend-lib:health')
 Debug.enable('nc:backend-lib*') // force-enable
 
-export async function deployHealthCheckCommand (): Promise<void> {
+export async function deployHealthCheckCommand(): Promise<void> {
   const opt = yargs.options({
     url: {
       type: 'string',
@@ -66,7 +66,7 @@ export async function deployHealthCheckCommand (): Promise<void> {
   await deployHealthCheck(opt)
 }
 
-export async function deployHealthCheck (opt: DeployHealthCheckOptions): Promise<void> {
+export async function deployHealthCheck(opt: DeployHealthCheckOptions): Promise<void> {
   const {
     url,
     repeat = 3,

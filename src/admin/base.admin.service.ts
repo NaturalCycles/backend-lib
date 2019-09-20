@@ -38,7 +38,7 @@ const adminInfoDisabled = (): AdminInfo => ({
  * Base implementation based on Firebase Auth tokens passed as 'admin_token' cookie.
  */
 export class BaseAdminService {
-  constructor (private firebaseAuth: FirebaseAdmin.auth.Auth, cfg: AdminServiceCfg) {
+  constructor(private firebaseAuth: FirebaseAdmin.auth.Auth, cfg: AdminServiceCfg) {
     this.cfg = {
       adminTokenKey: 'admin_token',
       authEnabled: true,
@@ -48,7 +48,7 @@ export class BaseAdminService {
 
   cfg!: Required<AdminServiceCfg>
 
-  adminInfoDisabled (): AdminInfo {
+  adminInfoDisabled(): AdminInfo {
     return {
       email: 'authDisabled',
       permissions: [],
@@ -62,7 +62,7 @@ export class BaseAdminService {
    * Otherwise returns Set of permissions.
    * Empty array means it IS and Admin, but has no permissions (except being an Admin).
    */
-  getEmailPermissions (email?: string): Set<string> | undefined {
+  getEmailPermissions(email?: string): Set<string> | undefined {
     if (!email) return
     log(
       `getEmailPermissions (${c.dim(
@@ -75,7 +75,7 @@ export class BaseAdminService {
   /**
    * To be extended.
    */
-  protected async onPermissionCheck (
+  protected async onPermissionCheck(
     req: Request,
     email: string,
     reqPermissions: string[],
@@ -91,7 +91,7 @@ export class BaseAdminService {
     )
   }
 
-  async getEmailByToken (adminToken?: string): Promise<string | undefined> {
+  async getEmailByToken(adminToken?: string): Promise<string | undefined> {
     if (!adminToken) return
 
     try {
@@ -109,17 +109,17 @@ export class BaseAdminService {
    * Current implementation is based on req=Request (from Express).
    * Override if needed.
    */
-  async getAdminToken (req: Request): Promise<string | undefined> {
+  async getAdminToken(req: Request): Promise<string | undefined> {
     return (req.cookies || {})[this.cfg.adminTokenKey] || req.header(this.cfg.adminTokenKey)
   }
 
-  async isAdmin (req: Request): Promise<boolean> {
+  async isAdmin(req: Request): Promise<boolean> {
     const adminToken = await this.getAdminToken(req)
     const email = await this.getEmailByToken(adminToken)
     return !!this.getEmailPermissions(email)
   }
 
-  async getAdminInfo (req: Request): Promise<AdminInfo | undefined> {
+  async getAdminInfo(req: Request): Promise<AdminInfo | undefined> {
     return this.hasPermissions(req)
   }
 
@@ -132,7 +132,7 @@ export class BaseAdminService {
    * Returns AdminInfo if it has all required permissions.
    * Otherwise returns undefined
    */
-  async hasPermissions (
+  async hasPermissions(
     req: Request,
     reqPermissions: string[] = [],
     meta: Record<string, any> = {},
@@ -156,7 +156,7 @@ export class BaseAdminService {
     }
   }
 
-  async requirePermissions (
+  async requirePermissions(
     req: Request,
     reqPermissions: string[] = [],
     meta: Record<string, any> = {},
@@ -198,7 +198,7 @@ export class BaseAdminService {
   }
 
   // convenience method
-  async hasPermission (
+  async hasPermission(
     req: Request,
     reqPermission: string,
     meta?: Record<string, any>,
@@ -206,7 +206,7 @@ export class BaseAdminService {
     return !!(await this.hasPermissions(req, [reqPermission], meta))
   }
 
-  async requirePermission (
+  async requirePermission(
     req: Request,
     reqPermission: string,
     meta?: Record<string, any>,

@@ -6,11 +6,11 @@ import { log } from '../log'
 import { StartServerCfg, StartServerData } from './startServer.model'
 
 export class BackendServer {
-  constructor (private cfg: StartServerCfg) {}
+  constructor(private cfg: StartServerCfg) {}
 
   server?: Server
 
-  async start (): Promise<StartServerData> {
+  async start(): Promise<StartServerData> {
     const { bootstrapStartedAt = Date.now(), port: cfgPort, expressApp } = this.cfg
 
     // 1. Register error handlers, etc.
@@ -57,7 +57,7 @@ export class BackendServer {
    * Does `process.exit()` in the end.
    */
   @memo()
-  async stop (): Promise<void> {
+  async stop(): Promise<void> {
     log(c.bold(`Server shutdown...`))
 
     setTimeout(() => {
@@ -85,7 +85,7 @@ export class BackendServer {
 /**
  * Convenience function.
  */
-export async function startServer (cfg: StartServerCfg): Promise<StartServerData> {
+export async function startServer(cfg: StartServerCfg): Promise<StartServerData> {
   const server = new BackendServer(cfg)
   return server.start()
 }

@@ -8,7 +8,7 @@ import { deployHealthCheck } from './deployHealthCheck.command'
 // const log = Debug('nc:backend-lib:deploy')
 Debug.enable('nc:backend-lib*') // force-enable
 
-export async function deployGaeCommand (): Promise<void> {
+export async function deployGaeCommand(): Promise<void> {
   const { logOnFailure, logOnSuccess } = yargs.options({
     logOnFailure: {
       type: 'boolean',
@@ -89,7 +89,7 @@ export async function deployGaeCommand (): Promise<void> {
   }
 }
 
-async function logs (gaeProject: string, gaeService: string, gaeVersion: string): Promise<void> {
+async function logs(gaeProject: string, gaeService: string, gaeVersion: string): Promise<void> {
   await execShell(
     `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
   ).catch(_ignored => {})

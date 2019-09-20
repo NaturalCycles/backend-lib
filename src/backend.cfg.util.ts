@@ -68,7 +68,7 @@ const backendCfgSchema = objectSchema<BackendCfg>({
   appYamlPassEnv: stringSchema.optional(),
 })
 
-export async function getBackendCfg (projectDir: string = '.'): Promise<BackendCfg> {
+export async function getBackendCfg(projectDir: string = '.'): Promise<BackendCfg> {
   const backendCfgPath = `${projectDir}/backend.cfg.json`
 
   const backendCfg: BackendCfg = await fs.readJson(backendCfgPath).catch(_err => {

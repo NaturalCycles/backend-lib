@@ -1,5 +1,5 @@
 import { filterFalsyValues } from '@naturalcycles/js-lib'
-import { processSharedUtil } from '@naturalcycles/nodejs-lib'
+import { memoryUsageFull, processSharedUtil } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
 import { RequestHandler } from 'express'
 import { getDeployInfo } from '../deployInfo.util'
@@ -12,7 +12,7 @@ type ServerStartedCallback = () => number | undefined
 const now = Date.now()
 const defaultServerStartedCallback = () => now
 
-export function statusHandler (
+export function statusHandler(
   serverStartedCallback?: ServerStartedCallback,
   projectDir?: string,
   extra?: any,
@@ -22,7 +22,7 @@ export function statusHandler (
   }
 }
 
-export function statusHandlerData (
+export function statusHandlerData(
   serverStartedCallback: ServerStartedCallback = defaultServerStartedCallback,
   projectDir: string = process.cwd(),
   extra?: any,
@@ -38,7 +38,7 @@ export function statusHandlerData (
     APP_ENV,
     prod,
     buildInfo,
-    mem: processSharedUtil.memoryUsage(),
+    mem: memoryUsageFull(),
     cpuAvg: processSharedUtil.cpuAvg(),
     GAE_APPLICATION: process.env.GAE_APPLICATION,
     GAE_SERVICE: process.env.GAE_SERVICE,
@@ -47,7 +47,7 @@ export function statusHandlerData (
   })
 }
 
-function getStartedStr (serverStarted?: number): string {
+function getStartedStr(serverStarted?: number): string {
   if (!serverStarted) return 'not started yet'
 
   const s1 = dayjs(serverStarted).toPretty()

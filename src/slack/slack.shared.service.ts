@@ -22,10 +22,10 @@ const log = Debug('nc:backend-lib:slack')
 export class SlackSharedService<CTX = any> {
   static INSTANCE_ALIAS = ['slackService']
 
-  constructor (private slackServiceCfg: SlackSharedServiceCfg) {}
+  constructor(private slackServiceCfg: SlackSharedServiceCfg) {}
 
   // Convenience method
-  async send (text: string, ctx?: CTX): Promise<void> {
+  async send(text: string, ctx?: CTX): Promise<void> {
     await this.sendMsg(
       {
         text,
@@ -37,7 +37,7 @@ export class SlackSharedService<CTX = any> {
   /**
    * Send error.
    */
-  async error (_err: any, opts: Partial<SlackMessage> = {}, ctx?: CTX): Promise<void> {
+  async error(_err: any, opts: Partial<SlackMessage> = {}, ctx?: CTX): Promise<void> {
     const err = anyToErrorObject(_err)
     const text = err.stack || err.message
     await this.sendMsg(
@@ -50,7 +50,7 @@ export class SlackSharedService<CTX = any> {
     )
   }
 
-  async sendMsg (_msg: SlackMessage, ctx?: CTX): Promise<void> {
+  async sendMsg(_msg: SlackMessage, ctx?: CTX): Promise<void> {
     const { webhookUrl } = this.slackServiceCfg
 
     log[_msg.level || DebugLogLevel.info](...[_msg.text, _msg.kv, _msg.attachments].filter(Boolean))
@@ -81,7 +81,7 @@ export class SlackSharedService<CTX = any> {
    * Mutates msg.
    * To be overridden.
    */
-  protected async decorateMsg (msg: SlackMessage, ctx?: CTX): Promise<void> {
+  protected async decorateMsg(msg: SlackMessage, ctx?: CTX): Promise<void> {
     const tokens = [dayjs().toPretty()]
 
     // AppEngine-specific decoration
@@ -96,7 +96,7 @@ export class SlackSharedService<CTX = any> {
     msg.text = [tokens.filter(Boolean).join(': '), msg.text].join('\n')
   }
 
-  kvToFields (kv: Record<string, any>): SlackAttachmentField[] {
+  kvToFields(kv: Record<string, any>): SlackAttachmentField[] {
     return Object.entries(kv).map(([k, v]) => ({
       title: k,
       value: String(v),
@@ -107,7 +107,7 @@ export class SlackSharedService<CTX = any> {
   /**
    * mutates
    */
-  private processKV (msg: SlackMessage): void {
+  private processKV(msg: SlackMessage): void {
     if (!msg.kv) return
 
     msg.attachments = (msg.attachments || []).concat({

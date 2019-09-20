@@ -10,15 +10,15 @@ export interface EnvSharedServiceCfg {
 }
 
 export class EnvSharedService<ENV extends BaseEnv = any> {
-  constructor (private cfg: EnvSharedServiceCfg) {}
+  constructor(private cfg: EnvSharedServiceCfg) {}
 
   private env?: ENV
 
-  init (): void {
+  init(): void {
     this.getEnv()
   }
 
-  getEnv (): ENV {
+  getEnv(): ENV {
     if (!this.env) {
       const { APP_ENV } = process.env
       if (!APP_ENV) {
@@ -41,7 +41,7 @@ export class EnvSharedService<ENV extends BaseEnv = any> {
     return this.env!
   }
 
-  setEnv (env?: ENV): void {
+  setEnv(env?: ENV): void {
     log(`setEnv APP_ENV=${c.dim(env ? env.name : 'undefined')}`)
     this.env = env
   }

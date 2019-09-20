@@ -3,7 +3,7 @@ import * as request from 'supertest'
 import { createDefaultApp } from '../index'
 
 class ResourceTestService {
-  createAppWithResource (resource: Router): request.SuperTest<request.Test> {
+  createAppWithResource(resource: Router): request.SuperTest<request.Test> {
     const app = createDefaultApp({
       resources: [resource],
     })

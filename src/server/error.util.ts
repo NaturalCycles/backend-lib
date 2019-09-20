@@ -12,7 +12,7 @@ export interface ResponseWithError extends Response {
 
 const { APP_ENV } = process.env
 
-export function respondWithError (req: Request, res: Response, _err: any): void {
+export function respondWithError(req: Request, res: Response, _err: any): void {
   if (_err) {
     // Attach error to response, so simpleRequestLogger can pick it up
     ;(res as ResponseWithError).__err = _err

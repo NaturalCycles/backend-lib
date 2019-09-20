@@ -22,7 +22,7 @@ export interface RequestTimeoutCfg {
 
 const code = 'REQUEST_TIMEOUT'
 
-export function requestTimeout (cfg: RequestTimeoutCfg = {}): RequestHandler {
+export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
   const { timeoutSeconds, httpStatusCode, httpStatus } = {
     timeoutSeconds: 60,
     httpStatusCode: 503,

@@ -12,7 +12,7 @@ import { requestTimeout } from './handlers/requestTimeout.mw'
 import { sentryErrorHandler } from './handlers/sentryErrorHandler.mw'
 import { simpleRequestLogger } from './handlers/simpleRequestLogger.mw'
 
-export function createDefaultApp (
+export function createDefaultApp(
   defaultAppCfg: DefaultAppCfg,
   sentryService?: SentrySharedService,
 ): Application {
@@ -95,7 +95,7 @@ export function createDefaultApp (
   return app
 }
 
-function useHandlers (app: Application, handlers: RequestHandlerCfg[] = []): void {
+function useHandlers(app: Application, handlers: RequestHandlerCfg[] = []): void {
   handlers
     .map<RequestHandlerWithPath>(cfg => {
       if (typeof cfg === 'function') {

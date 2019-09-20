@@ -4,19 +4,19 @@ import { Request } from 'express'
 
 const log = Debug('nc:backend-lib')
 
-export function logRequest (req: Request, statusCode: number, ...tokens: any[]): void {
+export function logRequest(req: Request, statusCode: number, ...tokens: any[]): void {
   log[logLevel(statusCode)](
     [coloredHttpCode(statusCode), req.method, c.bold(req.url), ...tokens].join(' '),
   )
 }
 
-export function coloredHttpCode (statusCode: number): string {
+export function coloredHttpCode(statusCode: number): string {
   if (statusCode < 400) return c.green(String(statusCode))
   if (statusCode < 500) return c.yellow(String(statusCode))
   return c.red(String(statusCode))
 }
 
-function logLevel (statusCode?: number): DebugLogLevel {
+function logLevel(statusCode?: number): DebugLogLevel {
   if (!statusCode || statusCode < 400) return DebugLogLevel.info
   if (statusCode < 500) return DebugLogLevel.warn
   return DebugLogLevel.error

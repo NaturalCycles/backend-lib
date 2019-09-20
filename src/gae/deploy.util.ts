@@ -98,7 +98,7 @@ interface DeployPrepareCommandOptions {
 const log = Debug('nc:backend-lib:deploy')
 Debug.enable('nc:backend-lib*')
 
-export async function deployPrepareCommand (): Promise<DeployInfo> {
+export async function deployPrepareCommand(): Promise<DeployInfo> {
   const opts = yargs.options({
     projectDir: {
       type: 'string',
@@ -123,7 +123,7 @@ export async function deployPrepareCommand (): Promise<DeployInfo> {
   return deployPrepare(opts)
 }
 
-export async function deployPrepare (opts: DeployPrepareCommandOptions = {}): Promise<DeployInfo> {
+export async function deployPrepare(opts: DeployPrepareCommandOptions = {}): Promise<DeployInfo> {
   const { projectDir = '.', targetDir = './tmp/deploy', createNpmrc = true } = opts
 
   const backendCfg = await getBackendCfg(projectDir)
@@ -163,7 +163,7 @@ export async function deployPrepare (opts: DeployPrepareCommandOptions = {}): Pr
   return deployInfo
 }
 
-export async function createAndSaveDeployInfo (
+export async function createAndSaveDeployInfo(
   backendCfg: BackendCfg,
   targetDir: string,
 ): Promise<DeployInfo> {
@@ -177,7 +177,7 @@ export async function createAndSaveDeployInfo (
   return deployInfo
 }
 
-export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployInfo> {
+export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployInfo> {
   const now = dayjs.utc()
   const { current: gitBranch } = await git.status()
   const gitRev = (await git.revparse(['HEAD'])).substr(0, 7)
@@ -233,7 +233,7 @@ export async function createDeployInfo (backendCfg: BackendCfg): Promise<DeployI
   return deployInfo
 }
 
-export async function createAndSaveAppYaml (
+export async function createAndSaveAppYaml(
   backendCfg: BackendCfg,
   deployInfo: DeployInfo,
   projectDir: string,
@@ -250,7 +250,7 @@ export async function createAndSaveAppYaml (
   return appYaml
 }
 
-export async function createAppYaml (
+export async function createAppYaml(
   backendCfg: BackendCfg,
   deployInfo: DeployInfo,
   projectDir: string,
@@ -320,14 +320,14 @@ export async function createAppYaml (
   return appYaml
 }
 
-function redactedAppYaml (appYaml: AppYaml): AppYaml {
+function redactedAppYaml(appYaml: AppYaml): AppYaml {
   return {
     ...appYaml,
     env_variables: _mapValues(appYaml.env_variables || {}, v => _truncate(String(v), 7)),
   }
 }
 
-export function validateGAEServiceName (serviceName: string): string {
+export function validateGAEServiceName(serviceName: string): string {
   // May only contain lowercase letters, digits, and hyphens. Must begin and end with a letter or digit. Must not exceed 63 characters.
   return replaceAll(serviceName, '_', '-')
     .toLowerCase()
@@ -335,6 +335,6 @@ export function validateGAEServiceName (serviceName: string): string {
     .substr(0, 40)
 }
 
-function replaceAll (str: string, search: string, replacement: string): string {
+function replaceAll(str: string, search: string, replacement: string): string {
   return str.split(search).join(replacement)
 }

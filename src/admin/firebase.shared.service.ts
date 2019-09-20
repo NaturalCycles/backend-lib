@@ -26,14 +26,14 @@ export interface FirebaseSharedServiceCfg {
 }
 
 export class FirebaseSharedService {
-  constructor (public cfg: FirebaseSharedServiceCfg) {}
+  constructor(public cfg: FirebaseSharedServiceCfg) {}
 
-  init (): void {
+  init(): void {
     this.admin()
   }
 
   @memo()
-  admin (): firebaseAdmin.app.App {
+  admin(): firebaseAdmin.app.App {
     const { serviceAccount } = this.cfg
 
     const credential = serviceAccount
@@ -45,7 +45,7 @@ export class FirebaseSharedService {
     })
   }
 
-  auth (): firebaseAdmin.auth.Auth {
+  auth(): firebaseAdmin.auth.Auth {
     return this.admin().auth()
   }
 }

@@ -25,7 +25,7 @@ export interface RequireAdminCfg {
 
 export type AdminMiddleware = (reqPermissions?: string[], cfg?: RequireAdminCfg) => RequestHandler
 
-export function createAdminMiddleware (
+export function createAdminMiddleware(
   adminService: BaseAdminService,
   cfgDefaults: RequireAdminCfg = {},
 ): AdminMiddleware {
@@ -42,7 +42,7 @@ export function createAdminMiddleware (
  * If authenticated, but not authorized - will throw 403.
  * Otherwise will just pass.
  */
-function requireAdminPermissions (
+function requireAdminPermissions(
   adminService: BaseAdminService,
   reqPermissions: string[] = [],
   cfg: RequireAdminCfg = {},
@@ -75,7 +75,7 @@ interface LoginHtmlCfg {
   firebaseAuthProvider: string
 }
 
-export function loginHtml (firebaseServiceCfg: FirebaseSharedServiceCfg): RequestHandler {
+export function loginHtml(firebaseServiceCfg: FirebaseSharedServiceCfg): RequestHandler {
   const {
     apiKey: firebaseApiKey,
     authDomain: firebaseAuthDomain,
@@ -99,7 +99,7 @@ const getLoginHtml = memoFn((cfg: LoginHtmlCfg) => {
   return ejs.render(tmpl, cfg)
 })
 
-export function getLoginHtmlRedirect (href: string): string {
+export function getLoginHtmlRedirect(href: string): string {
   return `
 <html>
 <body>

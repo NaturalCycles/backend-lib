@@ -9,7 +9,7 @@ const log = Debug('nc:backend-lib')
  * Returns HTTP code based on err.data.httpStatusCode (default to 500).
  * Sends json payload as ErrorResponse, transformed via errorSharedUtil.
  */
-export function genericErrorHandler (): ErrorRequestHandler {
+export function genericErrorHandler(): ErrorRequestHandler {
   return (_err, req, res, next) => {
     if (res.headersSent) {
       log(`genericErrorHandler, but headersSent=true`, _err)

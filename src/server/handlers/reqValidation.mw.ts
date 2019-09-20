@@ -3,7 +3,7 @@ import { HttpError } from '@naturalcycles/js-lib'
 import { getValidationResult } from '@naturalcycles/nodejs-lib'
 import { RequestHandler } from 'express'
 
-export function reqValidation (
+export function reqValidation(
   reqProperty: 'body' | 'params' | 'query',
   schema: AnySchema,
 ): RequestHandler {

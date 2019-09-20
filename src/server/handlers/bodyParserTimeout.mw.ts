@@ -29,7 +29,7 @@ const code = 'BODY_PARSER_TIMEOUT'
 /**
  * Should be called BEFORE bodyParser
  */
-export function bodyParserTimeout (cfg: BodyParserTimeoutCfg = {}): RequestHandler {
+export function bodyParserTimeout(cfg: BodyParserTimeoutCfg = {}): RequestHandler {
   const { timeoutSeconds, httpStatusCode, httpStatus } = {
     timeoutSeconds: 10,
     httpStatusCode: 400,
@@ -61,7 +61,7 @@ export function bodyParserTimeout (cfg: BodyParserTimeoutCfg = {}): RequestHandl
 /**
  * Should be called AFTER bodyParser
  */
-export function clearBodyParserTimeout (): RequestHandler {
+export function clearBodyParserTimeout(): RequestHandler {
   return (req: RequestWithTimeout, res, next) => {
     if (req._bodyParserTimeout) clearTimeout(req._bodyParserTimeout)
     next()

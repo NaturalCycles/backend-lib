@@ -19,7 +19,7 @@ const summaryJsonPath = `${__dirname}/summary.json`
 // Debug.enable('nc:bench')
 
 interface Profile {
-  createServer (): Promise<http.Server>
+  createServer(): Promise<http.Server>
 }
 
 interface BenchCfg {
@@ -64,7 +64,7 @@ const profiles = [
 
 void main()
 
-async function main () {
+async function main() {
   const { runs, connections, pipelining, duration, cooldown, host, verbose } = yargs.options({
     runs: {
       type: 'number',
@@ -113,7 +113,7 @@ async function main () {
   console.log(`saved ${summaryJsonPath}`)
 }
 
-async function runProfile (profileName: string, cfg: BenchCfg): Promise<AutocannonResult> {
+async function runProfile(profileName: string, cfg: BenchCfg): Promise<AutocannonResult> {
   const { connections, pipelining, duration, cooldown, runs, host, verbose } = cfg
   const { createServer } = require(`${profileDir}/${profileName}`) as Profile
   const server = await createServer()
@@ -163,7 +163,7 @@ async function runProfile (profileName: string, cfg: BenchCfg): Promise<Autocann
   return finalResult
 }
 
-function toSummary (profile: string, result: AutocannonResult): AutocannonSummary {
+function toSummary(profile: string, result: AutocannonResult): AutocannonSummary {
   return {
     profile,
     rpsAvg: result.requests.average,

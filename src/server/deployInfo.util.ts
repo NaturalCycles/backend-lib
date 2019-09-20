@@ -14,7 +14,7 @@ export const getDeployInfo = memoFn(
   },
 )
 
-function getDeployInfoStub (stub = ''): DeployInfo {
+function getDeployInfoStub(stub = ''): DeployInfo {
   return {
     gaeProject: stub,
     gaeService: stub,

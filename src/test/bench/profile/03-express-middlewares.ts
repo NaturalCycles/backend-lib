@@ -4,7 +4,7 @@ import * as http from 'http'
 /**
  * Based on: https://github.com/fastify/benchmarks/blob/master/benchmarks/express-with-middlewares.js
  */
-export async function createServer (): Promise<http.Server> {
+export async function createServer(): Promise<http.Server> {
   const app = express()
   app.disable('etag')
   app.disable('x-powered-by')

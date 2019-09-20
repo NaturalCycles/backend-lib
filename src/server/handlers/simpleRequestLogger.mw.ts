@@ -21,7 +21,7 @@ export interface SimpleRequestLoggerCfg {
   logFinish: boolean
 }
 
-export function simpleRequestLogger (_cfg: Partial<SimpleRequestLoggerCfg> = {}): RequestHandler {
+export function simpleRequestLogger(_cfg: Partial<SimpleRequestLoggerCfg> = {}): RequestHandler {
   const cfg: SimpleRequestLoggerCfg = {
     logStart: false,
     logFinish: true,

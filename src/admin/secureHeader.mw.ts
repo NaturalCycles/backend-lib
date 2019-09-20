@@ -12,11 +12,11 @@ export interface SecureHeaderMiddlewareCfg {
  * Secures the endpoint by requiring a secret header to be present.
  * Throws Error401Admin otherwise.
  */
-export function createSecureHeaderMiddleware (cfg: SecureHeaderMiddlewareCfg): AdminMiddleware {
+export function createSecureHeaderMiddleware(cfg: SecureHeaderMiddlewareCfg): AdminMiddleware {
   return () => requireSecureHeaderOrAdmin(cfg)
 }
 
-function requireSecureHeaderOrAdmin (cfg: SecureHeaderMiddlewareCfg): RequestHandler {
+function requireSecureHeaderOrAdmin(cfg: SecureHeaderMiddlewareCfg): RequestHandler {
   return async (req, _res, next) => {
     if (!cfg.adminService.cfg.authEnabled) return next()
 

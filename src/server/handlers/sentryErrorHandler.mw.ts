@@ -10,7 +10,7 @@ export interface SentryErrorMiddlewareCfg {
  * Mutates err with err.data.errorId.
  * Passes error further via next(err).
  */
-export function sentryErrorHandler (cfg: SentryErrorMiddlewareCfg): ErrorRequestHandler {
+export function sentryErrorHandler(cfg: SentryErrorMiddlewareCfg): ErrorRequestHandler {
   return (err, req, res, next) => {
     if (!err) return next(err)
 
@@ -32,7 +32,7 @@ export function sentryErrorHandler (cfg: SentryErrorMiddlewareCfg): ErrorRequest
   }
 }
 
-function shouldReportToSentry (httpCode: number): boolean {
+function shouldReportToSentry(httpCode: number): boolean {
   // Only report 5xx
   return httpCode >= 500
 }

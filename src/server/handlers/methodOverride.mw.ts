@@ -7,7 +7,7 @@ export interface MethodOverrideCfg {
   methodKey?: string
 }
 
-export function methodOverride (cfg: MethodOverrideCfg = {}): RequestHandler {
+export function methodOverride(cfg: MethodOverrideCfg = {}): RequestHandler {
   const { methodKey } = {
     methodKey: '_method',
     ...cfg,

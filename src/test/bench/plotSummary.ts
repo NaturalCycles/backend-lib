@@ -16,7 +16,7 @@ const plotDir = `${__dirname}/plot`
 
 void main()
 
-async function main () {
+async function main() {
   const { input } = yargs.options({
     input: {
       type: 'string',
@@ -39,7 +39,7 @@ async function main () {
   })
 }
 
-function summaryToVegaSpecs (summary: AutocannonSummary[]): Record<string, Spec> {
+function summaryToVegaSpecs(summary: AutocannonSummary[]): Record<string, Spec> {
   // console.log(summary)
   const fields = ['rpsAvg', 'latencyAvg', 'latency50', 'latency90', 'latency99', 'throughputAvg']
 

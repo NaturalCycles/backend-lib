@@ -4,7 +4,7 @@ import PromiseRouter from 'express-promise-router'
 /**
  * Convenience method.
  */
-export function getDefaultRouter (defaultHandlers: RequestHandler[] = []): Router {
+export function getDefaultRouter(defaultHandlers: RequestHandler[] = []): Router {
   const router = PromiseRouter()
 
   // Use default handlers
