@@ -1,3 +1,10 @@
+## [2.26.1](https://github.com/NaturalCycles/backend-lib/compare/v2.26.0...v2.26.1) (2019-09-20)
+
+
+### Bug Fixes
+
+* return await ([25ff61b](https://github.com/NaturalCycles/backend-lib/commit/25ff61b))
+
 # [2.26.0](https://github.com/NaturalCycles/backend-lib/compare/v2.25.0...v2.26.0) (2019-09-13)
 
 
