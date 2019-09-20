@@ -120,7 +120,7 @@ export class BaseAdminService {
   }
 
   async getAdminInfo(req: Request): Promise<AdminInfo | undefined> {
-    return this.hasPermissions(req)
+    return await this.hasPermissions(req)
   }
 
   // alias
@@ -211,6 +211,6 @@ export class BaseAdminService {
     reqPermission: string,
     meta?: Record<string, any>,
   ): Promise<AdminInfo> {
-    return this.requirePermissions(req, [reqPermission], meta)
+    return await this.requirePermissions(req, [reqPermission], meta)
   }
 }

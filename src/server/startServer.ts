@@ -87,5 +87,5 @@ export class BackendServer {
  */
 export async function startServer(cfg: StartServerCfg): Promise<StartServerData> {
   const server = new BackendServer(cfg)
-  return server.start()
+  return await server.start()
 }

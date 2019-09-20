@@ -120,7 +120,7 @@ export async function deployPrepareCommand(): Promise<DeployInfo> {
     },
   }).argv
 
-  return deployPrepare(opts)
+  return await deployPrepare(opts)
 }
 
 export async function deployPrepare(opts: DeployPrepareCommandOptions = {}): Promise<DeployInfo> {
