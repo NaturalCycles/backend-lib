@@ -1,3 +1,10 @@
+# [2.27.0](https://github.com/NaturalCycles/backend-lib/compare/v2.26.1...v2.27.0) (2019-09-21)
+
+
+### Features
+
+* cfg/tsconfig lib without "dom" (add it back if needed) ([6071eba](https://github.com/NaturalCycles/backend-lib/commit/6071eba))
+
 ## [2.26.1](https://github.com/NaturalCycles/backend-lib/compare/v2.26.0...v2.26.1) (2019-09-20)
 
 
