@@ -1,3 +1,10 @@
+# [2.29.0](https://github.com/NaturalCycles/backend-lib/compare/v2.28.0...v2.29.0) (2019-09-24)
+
+
+### Features
+
+* use 'x-cloud-trace-context' as requestId if available ([2a8f1ae](https://github.com/NaturalCycles/backend-lib/commit/2a8f1ae))
+
 # [2.28.0](https://github.com/NaturalCycles/backend-lib/compare/v2.27.0...v2.28.0) (2019-09-24)
 
 
