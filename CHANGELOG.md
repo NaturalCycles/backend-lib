@@ -1,3 +1,10 @@
+# [2.28.0](https://github.com/NaturalCycles/backend-lib/compare/v2.27.0...v2.28.0) (2019-09-24)
+
+
+### Features
+
+* requestContextMiddleware (powered by cls-hooked) ([17efe32](https://github.com/NaturalCycles/backend-lib/commit/17efe32))
+
 # [2.27.0](https://github.com/NaturalCycles/backend-lib/compare/v2.26.1...v2.27.0) (2019-09-21)
 
 
