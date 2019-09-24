@@ -2,6 +2,12 @@
 
 DEBUG=app*,nc:* yarn tsn-script ./src/test/server/server.ts
 
+Benchmark it like this:
+autocannon -c 100 -d 40 -p 10 localhost:8080
+
+Or set quicker duration:
+autocannon -c 100 -d 40 -p 10 localhost:8080
+
  */
 
 /* tslint:disable:ordered-imports */
@@ -18,6 +24,8 @@ import {
   okHandler,
 } from '../../index'
 import { loginHtml } from '../../admin/admin.mw'
+import { getRequestContextProperty } from '../../server/handlers/requestContext.mw'
+import { REQUEST_ID_KEY } from '../../server/handlers/requestId.mw'
 import { adminService, firebaseService, reqAdmin } from './admin'
 
 const router = getDefaultRouter()
@@ -32,6 +40,7 @@ router.get('/debug', reqAdmin(), async (req, res) => {
     adminInfo: await adminService.getAdminInfo(req),
     env: process.env,
     headers: req.headers,
+    requestId: getRequestContextProperty(REQUEST_ID_KEY),
   })
 })
 

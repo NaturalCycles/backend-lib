@@ -25,7 +25,7 @@ class AdminService extends BaseAdminService {
 
 // const firebaseAdmin
 export const adminService = new AdminService(firebaseService.auth(), {
-  authEnabled: true,
+  authEnabled: false,
 })
 
 export const reqAdmin = createAdminMiddleware(adminService)

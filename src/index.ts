@@ -32,6 +32,12 @@ import { genericErrorHandler } from './server/handlers/genericErrorHandler.mw'
 import { methodOverride, MethodOverrideCfg } from './server/handlers/methodOverride.mw'
 import { notFoundHandler } from './server/handlers/notFoundHandler.mw'
 import { okHandler } from './server/handlers/okHandler.mw'
+import {
+  getRequestContextProperty,
+  requestContextMiddleware,
+  setRequestContextProperty,
+} from './server/handlers/requestContext.mw'
+import { REQUEST_ID_KEY, requestIdMiddleware } from './server/handlers/requestId.mw'
 import { requestTimeout, RequestTimeoutCfg } from './server/handlers/requestTimeout.mw'
 import { reqValidation } from './server/handlers/reqValidation.mw'
 import { sentryErrorHandler } from './server/handlers/sentryErrorHandler.mw'
@@ -98,4 +104,9 @@ export {
   SimpleRequestLoggerCfg,
   simpleRequestLogger,
   coloredHttpCode,
+  getRequestContextProperty,
+  setRequestContextProperty,
+  requestContextMiddleware,
+  requestIdMiddleware,
+  REQUEST_ID_KEY,
 }

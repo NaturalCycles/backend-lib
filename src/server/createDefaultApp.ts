@@ -8,6 +8,8 @@ import { DefaultAppCfg, RequestHandlerCfg, RequestHandlerWithPath } from './crea
 import { bodyParserTimeout, clearBodyParserTimeout } from './handlers/bodyParserTimeout.mw'
 import { genericErrorHandler } from './handlers/genericErrorHandler.mw'
 import { notFoundHandler } from './handlers/notFoundHandler.mw'
+import { requestContextMiddleware } from './handlers/requestContext.mw'
+import { requestIdMiddleware } from './handlers/requestId.mw'
 import { requestTimeout } from './handlers/requestTimeout.mw'
 import { sentryErrorHandler } from './handlers/sentryErrorHandler.mw'
 import { simpleRequestLogger } from './handlers/simpleRequestLogger.mw'
@@ -24,6 +26,8 @@ export function createDefaultApp(
   // preHandlers
   useHandlers(app, defaultAppCfg.preHandlers)
 
+  app.use(requestContextMiddleware())
+  app.use(requestIdMiddleware())
   app.use(methodOverride())
   app.use(requestTimeout())
   app.use(bodyParserTimeout())
