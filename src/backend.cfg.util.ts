@@ -7,6 +7,7 @@ import {
   validate,
 } from '@naturalcycles/nodejs-lib'
 import * as fs from 'fs-extra'
+import * as yaml from 'js-yaml'
 
 export interface BackendCfg {
   gaeProject: string
@@ -69,11 +70,18 @@ const backendCfgSchema = objectSchema<BackendCfg>({
 })
 
 export async function getBackendCfg(projectDir: string = '.'): Promise<BackendCfg> {
-  const backendCfgPath = `${projectDir}/backend.cfg.json`
+  const backendCfgPath = `${projectDir}/backend.cfg`
+  const backendCfgYamlPath = `${backendCfgPath}.yaml`
+  const backendCfgJsonPath = `${backendCfgPath}.yaml`
+  let backendCfg: BackendCfg
 
-  const backendCfg: BackendCfg = await fs.readJson(backendCfgPath).catch(_err => {
-    throw new Error(`Failed to read ${backendCfgPath}`)
-  })
+  if (await fs.pathExists(backendCfgYamlPath)) {
+    backendCfg = yaml.safeLoad(await fs.readFile(backendCfgYamlPath, 'utf8'))
+  } else if (await fs.pathExists(backendCfgJsonPath)) {
+    backendCfg = await fs.readJson(backendCfgPath)
+  } else {
+    throw new Error(`Failed to read ${backendCfgPath}.{yaml,json}`)
+  }
 
   return validate(
     {

@@ -1,0 +1,14 @@
+gaeProject: test-project
+
+# gaeProjectByBranch:
+
+gaeService: test-service
+
+# gaeServiceByBranch
+
+# serviceWithBranchName
+
+prodBranch: prod
+
+appEnvDefault: prod
+appYamlPassEnv: AA,BB

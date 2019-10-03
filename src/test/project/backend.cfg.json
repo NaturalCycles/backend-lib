@@ -1,7 +1,0 @@
-{
-  "gaeProject": "test-project",
-  "gaeService": "test-service",
-  "prodBranch": "prod",
-  "appEnvDefault": "prod",
-  "appYamlPassEnv": "AA,BB"
-}
