@@ -1,6 +1,5 @@
-import { execShell } from '@naturalcycles/dev-lib'
 import { _range, pDelay } from '@naturalcycles/js-lib'
-import { Debug } from '@naturalcycles/nodejs-lib'
+import { Debug, execShell } from '@naturalcycles/nodejs-lib'
 import { since } from '@naturalcycles/time-lib'
 import c from 'chalk'
 import * as got from 'got'

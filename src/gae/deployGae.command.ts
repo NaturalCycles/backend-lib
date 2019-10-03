@@ -1,6 +1,5 @@
-import { execShell } from '@naturalcycles/dev-lib'
 import { buildProdCommand } from '@naturalcycles/dev-lib/dist/cmd/build-prod.command'
-import { Debug } from '@naturalcycles/nodejs-lib'
+import { Debug, execShell } from '@naturalcycles/nodejs-lib'
 import * as yargs from 'yargs'
 import { deployPrepareCommand } from './deploy.util'
 import { deployHealthCheck } from './deployHealthCheck.command'
