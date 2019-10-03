@@ -1,3 +1,11 @@
+# [2.30.0](https://github.com/NaturalCycles/backend-lib/compare/v2.29.0...v2.30.0) (2019-10-03)
+
+
+### Features
+
+* SlackService is moved to nodejs-lib ([0a8077e](https://github.com/NaturalCycles/backend-lib/commit/0a8077e))
+* support backend.cfg in yaml format ([3e13256](https://github.com/NaturalCycles/backend-lib/commit/3e13256))
+
 # [2.29.0](https://github.com/NaturalCycles/backend-lib/compare/v2.28.0...v2.29.0) (2019-09-24)
 
 
