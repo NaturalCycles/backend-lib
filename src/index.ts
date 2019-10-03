@@ -49,8 +49,6 @@ import { statusHandler, statusHandlerData } from './server/handlers/statusHandle
 import { coloredHttpCode, logRequest } from './server/request.log.util'
 import { BackendServer, startServer } from './server/startServer'
 import { StartServerCfg, StartServerData } from './server/startServer.model'
-import { SlackSharedService } from './slack/slack.shared.service'
-import { SlackMessage, SlackSharedServiceCfg } from './slack/slack.shared.service.model'
 
 export {
   reqValidation,
@@ -69,9 +67,6 @@ export {
   startServer,
   StartServerCfg,
   StartServerData,
-  SlackSharedService,
-  SlackSharedServiceCfg,
-  SlackMessage,
   catchWrapper,
   getDefaultRouter,
   // resourceTestService, // no, cause it will require 'supertest' production dependency
