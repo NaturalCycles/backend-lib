@@ -8,9 +8,11 @@ import {
 import { AdminInfo, AdminServiceCfg, BaseAdminService } from './admin/base.admin.service'
 import { FirebaseSharedService } from './admin/firebase.shared.service'
 import { createSecureHeaderMiddleware, SecureHeaderMiddlewareCfg } from './admin/secureHeader.mw'
+import { BackendCfg, getBackendCfg } from './backend.cfg.util'
 import { BaseEnv } from './env/env.model'
 import { EnvSharedService, EnvSharedServiceCfg } from './env/env.shared.service'
 import { isGAE } from './gae/appEngine.util'
+import { createAppYaml, createDeployInfo, DeployInfo } from './gae/deploy.util'
 import { SentrySharedServiceCfg } from './sentry/sentry.model'
 import { SentrySharedService } from './sentry/sentry.shared.service'
 import { catchWrapper } from './server/catchWrapper'
@@ -104,4 +106,9 @@ export {
   requestContextMiddleware,
   requestIdMiddleware,
   REQUEST_ID_KEY,
+  getBackendCfg,
+  BackendCfg,
+  createDeployInfo,
+  createAppYaml,
+  DeployInfo,
 }
