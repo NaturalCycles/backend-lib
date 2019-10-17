@@ -1,3 +1,10 @@
+## [2.31.1](https://github.com/NaturalCycles/backend-lib/compare/v2.31.0...v2.31.1) (2019-10-17)
+
+
+### Bug Fixes
+
+* `yargs` not found when doing `yarn deploy` ([04a4d13](https://github.com/NaturalCycles/backend-lib/commit/04a4d13))
+
 # [2.31.0](https://github.com/NaturalCycles/backend-lib/compare/v2.30.0...v2.31.0) (2019-10-17)
 
 
