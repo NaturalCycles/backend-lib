@@ -1,5 +1,5 @@
 import { _range, pDelay } from '@naturalcycles/js-lib'
-import { Debug, execShell } from '@naturalcycles/nodejs-lib'
+import { Debug, execCommand } from '@naturalcycles/nodejs-lib'
 import { since } from '@naturalcycles/time-lib'
 import c from 'chalk'
 import * as got from 'got'
@@ -97,7 +97,7 @@ export async function deployHealthCheck(opt: DeployHealthCheckOptions): Promise<
 
       if (logOnFailure) {
         // gcloud app logs read --project $deployInfo_gaeProject --service $deployInfo_gaeService --version $deployInfo_gaeVersion
-        await execShell(
+        await execCommand(
           `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
         ).catch(_ignored => {})
       }
@@ -109,7 +109,7 @@ export async function deployHealthCheck(opt: DeployHealthCheckOptions): Promise<
   }
 
   if (logOnSuccess) {
-    await execShell(
+    await execCommand(
       `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
     ).catch(_ignored => {})
   }

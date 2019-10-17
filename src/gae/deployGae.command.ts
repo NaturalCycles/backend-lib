@@ -1,5 +1,5 @@
 import { buildProdCommand } from '@naturalcycles/dev-lib/dist/cmd/build-prod.command'
-import { Debug, execShell } from '@naturalcycles/nodejs-lib'
+import { Debug, execCommand } from '@naturalcycles/nodejs-lib'
 import * as yargs from 'yargs'
 import { deployPrepareCommand } from './deploy.util'
 import { deployHealthCheck } from './deployHealthCheck.command'
@@ -37,7 +37,7 @@ export async function deployGaeCommand(): Promise<void> {
   const { gaeProject, gaeService, gaeVersion, versionUrl, serviceUrl } = deployInfo
 
   // gcloud app deploy ./tmp/deploy/app.yaml --project $deployInfo_gaeProject --version $deployInfo_gaeVersion --quiet --no-promote
-  await execShell(
+  await execCommand(
     `gcloud app deploy ${appYamlPath} --project ${gaeProject} --version ${gaeVersion} --quiet --no-promote`,
   ).catch(async err => {
     if (logOnFailure) {
@@ -64,7 +64,7 @@ export async function deployGaeCommand(): Promise<void> {
   if (gaeVersion !== '1') {
     // Rollout (promote versionUrl to serviceUrl)
     // gcloud app services set-traffic $deployInfo_gaeService --project $deployInfo_gaeProject --splits $deployInfo_gaeVersion=1 --quiet
-    await execShell(
+    await execCommand(
       `gcloud app services set-traffic ${gaeService} --project ${gaeProject} --splits ${gaeVersion}=1 --quiet`,
     )
 
@@ -89,7 +89,7 @@ export async function deployGaeCommand(): Promise<void> {
 }
 
 async function logs(gaeProject: string, gaeService: string, gaeVersion: string): Promise<void> {
-  await execShell(
+  await execCommand(
     `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
   ).catch(_ignored => {})
 }
