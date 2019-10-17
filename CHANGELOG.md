@@ -1,3 +1,16 @@
+# [2.31.0](https://github.com/NaturalCycles/backend-lib/compare/v2.30.0...v2.31.0) (2019-10-17)
+
+
+### Bug Fixes
+
+* @types/joi resolution bug ([5c6b0a5](https://github.com/NaturalCycles/backend-lib/commit/5c6b0a5))
+* use execCommand instead of execShell ([7598a40](https://github.com/NaturalCycles/backend-lib/commit/7598a40))
+
+
+### Features
+
+* export more deploy.util functions ([297a328](https://github.com/NaturalCycles/backend-lib/commit/297a328))
+
 # [2.30.0](https://github.com/NaturalCycles/backend-lib/compare/v2.29.0...v2.30.0) (2019-10-03)
 
 
