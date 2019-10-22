@@ -64,7 +64,7 @@ const DEFAULT_FILES = [
 const defaultFilesDir = `${srcDir}/gae/files-default`
 
 const APP_YAML_DEFAULT = (): AppYaml => ({
-  runtime: 'nodejs10',
+  runtime: 'nodejs12',
   service: 'default',
   inbound_services: ['warmup'],
   instance_class: 'F1',
