@@ -1,3 +1,10 @@
+# [2.32.0](https://github.com/NaturalCycles/backend-lib/compare/v2.31.1...v2.32.0) (2019-10-22)
+
+
+### Features
+
+* **deploy:** runtime=nodejs12 by default (was: nodejs10) ([827690d](https://github.com/NaturalCycles/backend-lib/commit/827690db10f6e2c256bcde0c975c225c26853d6c))
+
 ## [2.31.1](https://github.com/NaturalCycles/backend-lib/compare/v2.31.0...v2.31.1) (2019-10-17)
 
 
