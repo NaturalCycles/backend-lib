@@ -42,7 +42,7 @@
     "swagger-stats": "^0.95.7"
   },
   "devDependencies": {
-    "@naturalcycles/dev-lib": "^8.1.0",
+    "@naturalcycles/dev-lib": "^9.0.0",
     "@sentry/node": "^5.2.0",
     "@types/ejs": "^2.6.3",
     "@types/got": "^9.4.4",

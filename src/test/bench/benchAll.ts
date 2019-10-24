@@ -1,6 +1,6 @@
 /*
 
-yarn tsn-script ./src/test/bench/benchAll.ts
+yarn tsn ./src/test/bench/benchAll.ts
 
  */
 

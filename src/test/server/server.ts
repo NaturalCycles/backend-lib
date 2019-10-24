@@ -1,6 +1,6 @@
 /*
 
-DEBUG=app*,nc:* yarn tsn-script ./src/test/server/server.ts
+DEBUG=app*,nc:* yarn tsn ./src/test/server/server.ts
 
 Benchmark it like this:
 autocannon -c 100 -d 40 -p 10 localhost:8080

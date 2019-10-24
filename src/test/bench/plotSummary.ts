@@ -1,6 +1,6 @@
 /*
 
-yarn tsn-script ./src/test/bench/plotSummary.ts
+yarn tsn ./src/test/bench/plotSummary.ts
 
  */
 
