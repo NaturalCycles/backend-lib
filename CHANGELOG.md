@@ -1,3 +1,10 @@
+# [2.33.0](https://github.com/NaturalCycles/backend-lib/compare/v2.32.0...v2.33.0) (2019-10-24)
+
+
+### Features
+
+* statusHandler to include versions and resourceUsage ([e2fd86c](https://github.com/NaturalCycles/backend-lib/commit/e2fd86c534b05eac8c6ad93f50ed90aa9bb001c9))
+
 # [2.32.0](https://github.com/NaturalCycles/backend-lib/compare/v2.31.1...v2.32.0) (2019-10-22)
 
 
