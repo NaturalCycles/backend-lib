@@ -1,3 +1,10 @@
+## [2.33.1](https://github.com/NaturalCycles/backend-lib/compare/v2.33.0...v2.33.1) (2019-10-24)
+
+
+### Bug Fixes
+
+* process.resourceUsage is node12.6+ ([cb89358](https://github.com/NaturalCycles/backend-lib/commit/cb89358efe38dceb2c59ab96a9759908d8c440b2))
+
 # [2.33.0](https://github.com/NaturalCycles/backend-lib/compare/v2.32.0...v2.33.0) (2019-10-24)
 
 
