@@ -11,6 +11,7 @@ type ServerStartedCallback = () => number | undefined
 
 const now = Date.now()
 const defaultServerStartedCallback = () => now
+const { versions } = process
 
 export function statusHandler(
   serverStartedCallback?: ServerStartedCallback,
@@ -38,11 +39,13 @@ export function statusHandlerData(
     APP_ENV,
     prod,
     buildInfo,
-    mem: memoryUsageFull(),
-    cpuAvg: processSharedUtil.cpuAvg(),
     GAE_APPLICATION: process.env.GAE_APPLICATION,
     GAE_SERVICE: process.env.GAE_SERVICE,
     GAE_VERSION: process.env.GAE_VERSION,
+    mem: memoryUsageFull(),
+    cpuAvg: processSharedUtil.cpuAvg(),
+    resourceUsage: process.resourceUsage(),
+    versions,
     ...extra,
   })
 }
