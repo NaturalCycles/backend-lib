@@ -1,3 +1,10 @@
+# [2.34.0](https://github.com/NaturalCycles/backend-lib/compare/v2.33.1...v2.34.0) (2019-10-30)
+
+
+### Features
+
+* **sentry:** maxValueLength=2000 (was: 250), +breadcrumb ([3e0aa70](https://github.com/NaturalCycles/backend-lib/commit/3e0aa708d11e200bf32515250bccebe172bab59c))
+
 ## [2.33.1](https://github.com/NaturalCycles/backend-lib/compare/v2.33.0...v2.33.1) (2019-10-24)
 
 
