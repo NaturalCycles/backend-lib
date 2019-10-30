@@ -49,6 +49,7 @@ export class BackendServer {
       bootstrapStartedAt,
       serverStartedAt,
       bootstrapMillis,
+      server: this.server,
     }
   }
 

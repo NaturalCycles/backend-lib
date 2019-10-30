@@ -1,4 +1,5 @@
 import { Application } from 'express'
+import { Server } from 'http'
 
 export interface StartServerCfg {
   /**
@@ -31,4 +32,5 @@ export interface StartServerData {
   bootstrapStartedAt: number
   serverStartedAt: number
   bootstrapMillis: number
+  server: Server
 }
