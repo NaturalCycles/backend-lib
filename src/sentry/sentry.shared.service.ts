@@ -1,5 +1,6 @@
-import { memo } from '@naturalcycles/js-lib'
+import { AppError, memo } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
+import { Breadcrumb } from '@sentry/node'
 import * as SentryLib from '@sentry/node'
 import { ErrorRequestHandler, RequestHandler } from 'express'
 import { SentrySharedServiceCfg } from './sentry.model'
@@ -7,8 +8,6 @@ import { SentrySharedServiceCfg } from './sentry.model'
 const log = Debug('nc:backend-lib:sentry')
 
 export class SentrySharedService {
-  static INSTANCE_ALIAS = ['sentryService']
-
   constructor(private sentryServiceCfg: SentrySharedServiceCfg) {}
 
   init(): void {
@@ -29,6 +28,7 @@ export class SentrySharedService {
     }
 
     Sentry.init({
+      maxValueLength: 2000, // default is 250 characters
       ...this.sentryServiceCfg,
     })
 
@@ -57,22 +57,31 @@ export class SentrySharedService {
   /**
    * Returns "eventId"
    */
-  captureException(e: any): string | undefined {
-    log.error(e)
-    return this.sentry().captureException(e)
+  captureException(err: any): string {
+    log.error(err)
+
+    // This is to avoid Sentry cutting the err.message to 253 characters
+    // It will log additional "breadcrumb object" before the error
+    // It's a Breadcrumb, not a console.log, because console.log are NOT automatically attached as Breadcrumbs in cron-job environments (outside of Express)
+    if (err && err.message) {
+      this.sentry().addBreadcrumb({
+        message: err.message,
+        data: (err as AppError).data,
+      })
+    }
+
+    return this.sentry().captureException(err)
   }
 
   /**
    * Returns "eventId"
    */
-  captureMessage(msg: string, level?: SentryLib.Severity): string | undefined {
+  captureMessage(msg: string, level?: SentryLib.Severity): string {
     log.error(msg)
     return this.sentry().captureMessage(msg, level)
   }
 
-  captureBreadcrumb(data: any): void {
-    this.sentry().addBreadcrumb({
-      data,
-    })
+  addBreadcrumb(breadcrumb: Breadcrumb): void {
+    this.sentry().addBreadcrumb(breadcrumb)
   }
 }
