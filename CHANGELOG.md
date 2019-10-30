@@ -1,3 +1,10 @@
+# [2.35.0](https://github.com/NaturalCycles/backend-lib/compare/v2.34.0...v2.35.0) (2019-10-30)
+
+
+### Features
+
+* startServer to return instance of Server ([780a99d](https://github.com/NaturalCycles/backend-lib/commit/780a99d40354229a93465ffeb9d54e687448869e))
+
 # [2.34.0](https://github.com/NaturalCycles/backend-lib/compare/v2.33.1...v2.34.0) (2019-10-30)
 
 
