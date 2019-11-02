@@ -37,6 +37,9 @@ export class BackendServer {
       })
     })
 
+    // This is to fix GCP LoadBalancer race condition
+    this.server.keepAliveTimeout = 600 * 1000 // 10 minutes
+
     const serverStartedAt = Date.now()
 
     const bootstrapMillis = serverStartedAt - bootstrapStartedAt
