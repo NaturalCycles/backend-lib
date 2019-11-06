@@ -20,10 +20,6 @@ export interface RequestHandlerWithPath {
  * 4. postHandlers
  */
 export interface DefaultAppCfg {
-  /**
-   * @default false
-   */
-  swaggerStatsEnabled?: boolean
   preHandlers?: RequestHandlerCfg[]
   handlers?: RequestHandlerCfg[]
   resources?: RequestHandlerCfg[]

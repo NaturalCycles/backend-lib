@@ -54,16 +54,6 @@ export function createDefaultApp(
 
   app.use(clearBodyParserTimeout())
 
-  // GET /swagger-stats/stats
-  // GET /swagger-stats/ui
-  if (defaultAppCfg.swaggerStatsEnabled) {
-    const swaggerStats = require('swagger-stats')
-
-    const uriPath = '/swagger-stats'
-    // app.use(adminMiddleware(uriPath)) // todo
-    app.use(swaggerStats.getMiddleware({ uriPath }))
-  }
-
   app.use(express.static('static'))
 
   // Handlers
