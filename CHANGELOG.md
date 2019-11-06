@@ -1,3 +1,10 @@
+# [2.36.0](https://github.com/NaturalCycles/backend-lib/compare/v2.35.1...v2.36.0) (2019-11-06)
+
+
+### Features
+
+* remove swagger-stats support ([7a4e00d](https://github.com/NaturalCycles/backend-lib/commit/7a4e00d33a41c39aad0ba26ed75e3d1efd67e93a))
+
 ## [2.35.1](https://github.com/NaturalCycles/backend-lib/compare/v2.35.0...v2.35.1) (2019-11-02)
 
 
