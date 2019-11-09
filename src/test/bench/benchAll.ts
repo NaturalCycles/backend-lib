@@ -5,7 +5,7 @@ yarn tsn ./src/test/bench/benchAll.ts
  */
 
 import { _range, pDefer, pDelay } from '@naturalcycles/js-lib'
-import c from 'chalk'
+import * as c from 'chalk'
 import * as fs from 'fs-extra'
 import * as http from 'http'
 import { AddressInfo } from 'net'

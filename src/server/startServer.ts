@@ -1,6 +1,6 @@
 import { memo } from '@naturalcycles/js-lib'
 import { ms } from '@naturalcycles/time-lib'
-import c from 'chalk'
+import * as c from 'chalk'
 import { Server } from 'http'
 import { log } from '../log'
 import { StartServerCfg, StartServerData } from './startServer.model'

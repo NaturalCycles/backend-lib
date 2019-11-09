@@ -1,4 +1,4 @@
-import c from 'chalk'
+import * as c from 'chalk'
 import { log } from '../log'
 import { BaseEnv } from './env.model'
 

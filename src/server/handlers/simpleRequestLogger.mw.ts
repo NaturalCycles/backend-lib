@@ -1,7 +1,7 @@
 import { anyToErrorMessage } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import { since } from '@naturalcycles/time-lib'
-import c from 'chalk'
+import * as c from 'chalk'
 import { RequestHandler } from 'express'
 import { onFinished } from '../../index'
 import { ResponseWithError } from '../error.util'

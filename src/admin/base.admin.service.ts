@@ -5,7 +5,7 @@ import {
   HttpError,
 } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
-import c from 'chalk'
+import * as c from 'chalk'
 import { Request } from 'express'
 import * as FirebaseAdmin from 'firebase-admin'
 
