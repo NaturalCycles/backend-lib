@@ -1,3 +1,10 @@
+# [2.37.0](https://github.com/NaturalCycles/backend-lib/compare/v2.36.0...v2.37.0) (2019-11-09)
+
+
+### Features
+
+* update chalk ([cd8733e](https://github.com/NaturalCycles/backend-lib/commit/cd8733ec6ff9b2a49fba6da4fe1b300ecdebed97))
+
 # [2.36.0](https://github.com/NaturalCycles/backend-lib/compare/v2.35.1...v2.36.0) (2019-11-06)
 
 
