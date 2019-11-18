@@ -33,7 +33,7 @@
     "js-yaml": "^3.13.1",
     "on-finished": "^2.3.0",
     "simple-git": "^1.121.0",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.1"
   },
   "peerDependencies": {
     "@sentry/node": "^5.2.0"
