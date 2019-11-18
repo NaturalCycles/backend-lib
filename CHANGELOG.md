@@ -1,3 +1,10 @@
+## [2.37.1](https://github.com/NaturalCycles/backend-lib/compare/v2.37.0...v2.37.1) (2019-11-18)
+
+
+### Bug Fixes
+
+* deps ([bcebed6](https://github.com/NaturalCycles/backend-lib/commit/bcebed6a19fb069db83e195a885def8cc52d0988))
+
 # [2.37.0](https://github.com/NaturalCycles/backend-lib/compare/v2.36.0...v2.37.0) (2019-11-09)
 
 
