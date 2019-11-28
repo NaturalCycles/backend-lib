@@ -1,3 +1,10 @@
+## [2.37.2](https://github.com/NaturalCycles/backend-lib/compare/v2.37.1...v2.37.2) (2019-11-28)
+
+
+### Bug Fixes
+
+* **admin:** returnUrl=\${encodeURIComponent(location.href)} ([9a77385](https://github.com/NaturalCycles/backend-lib/commit/9a773853c59451c046a985e4f28a03fd4bd3ddd4))
+
 ## [2.37.1](https://github.com/NaturalCycles/backend-lib/compare/v2.37.0...v2.37.1) (2019-11-18)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@naturalcycles/backend-lib",
-  "version": "2.37.1",
+  "version": "2.37.2",
   "scripts": {
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
     "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts",
