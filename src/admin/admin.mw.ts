@@ -58,7 +58,7 @@ function requireAdminPermissions(
     } catch (err) {
       if (err instanceof HttpError && (err.data as Admin401ErrorData).adminAuthRequired) {
         // Redirect to login.html
-        const href = `${loginHtmlPath}?autoLogin=1&returnUrl=\${location.href}${
+        const href = `${loginHtmlPath}?autoLogin=1&returnUrl=\${encodeURIComponent(location.href)}${
           apiHost ? '&apiHost=' + apiHost : ''
         }`
         res.status(401).send(getLoginHtmlRedirect(href))
