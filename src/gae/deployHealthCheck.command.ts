@@ -2,7 +2,7 @@ import { _range, pDelay } from '@naturalcycles/js-lib'
 import { Debug, execCommand } from '@naturalcycles/nodejs-lib'
 import { since } from '@naturalcycles/time-lib'
 import * as c from 'chalk'
-import * as got from 'got'
+import got from 'got'
 import * as yargs from 'yargs'
 import { coloredHttpCode } from '../server/request.log.util'
 
@@ -83,7 +83,7 @@ export async function deployHealthCheck(opt: DeployHealthCheckOptions): Promise<
     const started = Date.now()
 
     const { statusCode } = await got(url, {
-      json: true,
+      responseType: 'json',
       timeout: timeoutSec * 1000,
       retry: 0, // no retries allowed
       followRedirect: false,
