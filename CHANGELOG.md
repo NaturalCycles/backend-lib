@@ -1,3 +1,11 @@
+# [2.38.0](https://github.com/NaturalCycles/backend-lib/compare/v2.37.2...v2.38.0) (2019-12-30)
+
+
+### Features
+
+* deps ([c02edba](https://github.com/NaturalCycles/backend-lib/commit/c02edba4a13a793096c93a9f5fcc815140c959d5))
+* got@10 ([28efe54](https://github.com/NaturalCycles/backend-lib/commit/28efe54849120fb46a1ab5ae180a110d4a9ecfab))
+
 ## [2.37.2](https://github.com/NaturalCycles/backend-lib/compare/v2.37.1...v2.37.2) (2019-11-28)
 
 
