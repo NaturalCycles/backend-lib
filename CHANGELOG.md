@@ -1,3 +1,10 @@
+# [2.39.0](https://github.com/NaturalCycles/backend-lib/compare/v2.38.0...v2.39.0) (2020-02-21)
+
+
+### Features
+
+* cfg/tsconfig.json uses es2019 now ([ff3136d](https://github.com/NaturalCycles/backend-lib/commit/ff3136dd1a95e733159f774c9e94fbf1ca66cc11))
+
 # [2.38.0](https://github.com/NaturalCycles/backend-lib/compare/v2.37.2...v2.38.0) (2019-12-30)
 
 
