@@ -1,4 +1,4 @@
-import { _range, pDelay } from '@naturalcycles/js-lib'
+import { pDelay, _range } from '@naturalcycles/js-lib'
 import { Debug, execCommand } from '@naturalcycles/nodejs-lib'
 import { since } from '@naturalcycles/time-lib'
 import * as c from 'chalk'

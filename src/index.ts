@@ -39,7 +39,7 @@ import {
   requestContextMiddleware,
   setRequestContextProperty,
 } from './server/handlers/requestContext.mw'
-import { REQUEST_ID_KEY, requestIdMiddleware } from './server/handlers/requestId.mw'
+import { requestIdMiddleware, REQUEST_ID_KEY } from './server/handlers/requestId.mw'
 import { requestTimeout, RequestTimeoutCfg } from './server/handlers/requestTimeout.mw'
 import { reqValidation } from './server/handlers/reqValidation.mw'
 import { sentryErrorHandler } from './server/handlers/sentryErrorHandler.mw'
