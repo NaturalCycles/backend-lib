@@ -6,8 +6,8 @@
 {
   "compilerOptions": {
     // Target/module
-    "target": "es2018",
-    "lib": ["es2018"], // add "dom" if needed
+    "target": "es2019",
+    "lib": ["es2019"], // add "dom" if needed
     "module": "commonjs",
     "moduleResolution": "node",
 
@@ -46,5 +46,5 @@
   }
   // Need to be specified in the project tsconfig
   // "include": ["src"],
-  // "exclude": ["**/__exclude", "**/@linked"]
+  // "exclude": ["**/__exclude"]
 }
