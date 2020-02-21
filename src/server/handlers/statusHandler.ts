@@ -44,7 +44,7 @@ export function statusHandlerData(
     GAE_VERSION: process.env.GAE_VERSION,
     mem: memoryUsageFull(),
     cpuAvg: processSharedUtil.cpuAvg(),
-    resourceUsage: process.resourceUsage && process.resourceUsage(),
+    resourceUsage: process.resourceUsage?.(),
     versions,
     ...extra,
   })

@@ -11,9 +11,7 @@ export const REQUEST_ID_KEY = 'requestId'
 export function requestIdMiddleware(requestContextKey = REQUEST_ID_KEY): RequestHandler {
   return (req, res, next) => {
     // Inspired by: https://stackoverflow.com/a/54568864/4919972
-    const requestId =
-      (req.header('x-cloud-trace-context') && req.header('x-cloud-trace-context')!.split('/')[0]) ||
-      stringIdUnsafe(10)
+    const requestId = req.header('x-cloud-trace-context')?.split('/')[0] || stringIdUnsafe(10)
     setRequestContextProperty(requestContextKey, requestId)
     next()
   }

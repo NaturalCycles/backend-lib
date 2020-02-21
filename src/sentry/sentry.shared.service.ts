@@ -63,7 +63,7 @@ export class SentrySharedService {
     // This is to avoid Sentry cutting the err.message to 253 characters
     // It will log additional "breadcrumb object" before the error
     // It's a Breadcrumb, not a console.log, because console.log are NOT automatically attached as Breadcrumbs in cron-job environments (outside of Express)
-    if (err && err.message) {
+    if (err?.message) {
       this.sentry().addBreadcrumb({
         message: err.message,
         data: (err as AppError).data,

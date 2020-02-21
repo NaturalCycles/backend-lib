@@ -96,7 +96,7 @@ export class BaseAdminService {
 
     try {
       const decodedToken = await this.firebaseAuth.verifyIdToken(adminToken)
-      const email = decodedToken && decodedToken.email
+      const email = decodedToken?.email
       log(`admin email: ${c.dim(email)}`)
       return email
     } catch (err) {
