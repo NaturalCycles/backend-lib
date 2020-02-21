@@ -5,5 +5,5 @@
     "skipLibCheck": true // because of vega-lite
   },
   "include": ["src"],
-  "exclude": ["**/__exclude", "**/@linked"]
+  "exclude": ["**/__exclude"]
 }
