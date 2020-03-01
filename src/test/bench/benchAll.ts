@@ -152,7 +152,7 @@ async function runProfile(profileName: string, cfg: BenchCfg): Promise<Autocanno
       renderLatencyTable: verbose,
     })
 
-    finalResult = await doneDefer.promise
+    finalResult = await doneDefer
 
     console.log(`cooldown ${cooldown} seconds...`)
     await pDelay(cooldown * 1000)
