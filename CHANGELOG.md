@@ -1,3 +1,10 @@
+# [2.40.0](https://github.com/NaturalCycles/backend-lib/compare/v2.39.0...v2.40.0) (2020-03-01)
+
+
+### Features
+
+* deps ([65af102](https://github.com/NaturalCycles/backend-lib/commit/65af1026e99f8697edba6ce82423efb3b1c8c1e1))
+
 # [2.39.0](https://github.com/NaturalCycles/backend-lib/compare/v2.38.0...v2.39.0) (2020-02-21)
 
 
