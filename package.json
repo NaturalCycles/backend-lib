@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@naturalcycles/fs-lib": "^2.3.0",
-    "@naturalcycles/js-lib": "^9.0.0",
+    "@naturalcycles/js-lib": "^10.0.0",
     "@naturalcycles/nodejs-lib": "^7.1.1",
     "@naturalcycles/time-lib": "^1.0.3",
     "@types/cls-hooked": "^4.3.0",
