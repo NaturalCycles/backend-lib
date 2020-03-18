@@ -1,3 +1,10 @@
+## [2.40.2](https://github.com/NaturalCycles/backend-lib/compare/v2.40.1...v2.40.2) (2020-03-18)
+
+
+### Bug Fixes
+
+* don't override DEBUG unnecessarily ([eb46644](https://github.com/NaturalCycles/backend-lib/commit/eb46644b8821d6faa7ef9166b1a77b9f7559196f))
+
 ## [2.40.1](https://github.com/NaturalCycles/backend-lib/compare/v2.40.0...v2.40.1) (2020-03-16)
 
 
