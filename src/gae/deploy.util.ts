@@ -96,9 +96,12 @@ interface DeployPrepareCommandOptions {
 }
 
 const log = Debug('nc:backend-lib:deploy')
-Debug.enable('nc:backend-lib*')
 
 export async function deployPrepareCommand(): Promise<DeployInfo> {
+  if (!Debug.enabled('nc:backend-lib')) {
+    Debug.enable('nc:backend-lib*')
+  }
+
   const opts = yargs.options({
     projectDir: {
       type: 'string',

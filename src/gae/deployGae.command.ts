@@ -5,9 +5,12 @@ import { deployPrepareCommand } from './deploy.util'
 import { deployHealthCheck } from './deployHealthCheck.command'
 
 // const log = Debug('nc:backend-lib:deploy')
-Debug.enable('nc:backend-lib*') // force-enable
 
 export async function deployGaeCommand(): Promise<void> {
+  if (!Debug.enabled('nc:backend-lib')) {
+    Debug.enable('nc:backend-lib*') // force-enable
+  }
+
   const { logOnFailure, logOnSuccess } = yargs.options({
     logOnFailure: {
       type: 'boolean',

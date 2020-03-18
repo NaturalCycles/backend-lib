@@ -19,9 +19,12 @@ export interface DeployHealthCheckOptions {
 }
 
 const log = Debug('nc:backend-lib:health')
-Debug.enable('nc:backend-lib*') // force-enable
 
 export async function deployHealthCheckCommand(): Promise<void> {
+  if (!Debug.enabled('nc:backend-lib')) {
+    Debug.enable('nc:backend-lib*') // force-enable
+  }
+
   const opt = yargs.options({
     url: {
       type: 'string',
