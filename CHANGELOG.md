@@ -1,3 +1,10 @@
+# [2.41.0](https://github.com/NaturalCycles/backend-lib/compare/v2.40.3...v2.41.0) (2020-03-22)
+
+
+### Features
+
+* bump nodejs-lib (joi 17) ([6f929a9](https://github.com/NaturalCycles/backend-lib/commit/6f929a935bd9b5046254a4e8deb6beccf1bd5dbb))
+
 ## [2.40.3](https://github.com/NaturalCycles/backend-lib/compare/v2.40.2...v2.40.3) (2020-03-20)
 
 
