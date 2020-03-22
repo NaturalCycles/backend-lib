@@ -53,7 +53,7 @@
         },
 
         methods: {
-          login: async function() {
+          login: async function () {
             try {
               await firebase.auth().signInWithRedirect(provider)
             } catch (err) {
@@ -61,7 +61,7 @@
             }
           },
 
-          logout: async function() {
+          logout: async function () {
             try {
               Cookies.remove(adminTokenKey)
               await firebase.auth().signOut()
