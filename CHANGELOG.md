@@ -1,3 +1,10 @@
+## [2.41.1](https://github.com/NaturalCycles/backend-lib/compare/v2.41.0...v2.41.1) (2020-03-27)
+
+
+### Bug Fixes
+
+* secureHeaderMw will do admin-redirect now ([b00aa11](https://github.com/NaturalCycles/backend-lib/commit/b00aa11b91885f510923b732c425cfc2f110dcb2))
+
 # [2.41.0](https://github.com/NaturalCycles/backend-lib/compare/v2.40.3...v2.41.0) (2020-03-22)
 
 
