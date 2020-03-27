@@ -1,4 +1,4 @@
-import { Admin401ErrorData, HttpError, memoFn } from '@naturalcycles/js-lib'
+import { Admin401ErrorData, memoFn } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import * as ejs from 'ejs'
 import { RequestHandler } from 'express'
@@ -42,7 +42,7 @@ export function createAdminMiddleware(
  * If authenticated, but not authorized - will throw 403.
  * Otherwise will just pass.
  */
-function requireAdminPermissions(
+export function requireAdminPermissions(
   adminService: BaseAdminService,
   reqPermissions: string[] = [],
   cfg: RequireAdminCfg = {},
@@ -56,7 +56,7 @@ function requireAdminPermissions(
       await adminService.requirePermissions(req, reqPermissions)
       return next()
     } catch (err) {
-      if (err instanceof HttpError && (err.data as Admin401ErrorData).adminAuthRequired) {
+      if ((err?.data as Admin401ErrorData).adminAuthRequired) {
         // Redirect to login.html
         const href = `${loginHtmlPath}?autoLogin=1&returnUrl=\${encodeURIComponent(location.href)}${
           apiHost ? '&apiHost=' + apiHost : ''
@@ -102,9 +102,9 @@ const getLoginHtml = memoFn((cfg: LoginHtmlCfg) => {
 export function getLoginHtmlRedirect(href: string): string {
   return `
 <html>
-<body>
+<body>401 Admin Authentication Required
 <script>
-  document.write(\`401 Admin Authentication Required: <a href="${href}" id="loginLink">Login</a>\`)
+  document.write(\`: <a href="${href}" id="loginLink">Login</a>\`)
   document.getElementById('loginLink').click()
 </script>
 </body>

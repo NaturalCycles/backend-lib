@@ -1,9 +1,9 @@
-import { HttpError } from '@naturalcycles/js-lib'
+import { Admin401ErrorData, HttpError } from '@naturalcycles/js-lib'
 import { RequestHandler } from 'express'
-import { AdminMiddleware } from './admin.mw'
+import { AdminMiddleware, RequireAdminCfg, requireAdminPermissions } from './admin.mw'
 import { BaseAdminService } from './base.admin.service'
 
-export interface SecureHeaderMiddlewareCfg {
+export interface SecureHeaderMiddlewareCfg extends RequireAdminCfg {
   adminService: BaseAdminService
   secureHeader: string
 }
@@ -17,20 +17,25 @@ export function createSecureHeaderMiddleware(cfg: SecureHeaderMiddlewareCfg): Ad
 }
 
 function requireSecureHeaderOrAdmin(cfg: SecureHeaderMiddlewareCfg): RequestHandler {
-  return async (req, _res, next) => {
-    if (!cfg.adminService.cfg.authEnabled) return next()
+  const requireAdmin = requireAdminPermissions(cfg.adminService, [], cfg)
 
-    if (req.get('Authorization') !== cfg.secureHeader) {
-      if (await cfg.adminService.isAdmin(req)) return next() // allow admins to login
+  return async (req, res, next) => {
+    const providedHeader = req.get('Authorization')
 
+    // pass
+    if (!cfg.adminService.cfg.authEnabled || providedHeader === cfg.secureHeader) return next()
+
+    // Header provided - don't check for Admin
+    if (providedHeader) {
       return next(
-        new HttpError('secureHeader or adminToken is required', {
+        new HttpError<Admin401ErrorData>('secureHeader or adminToken is required', {
           httpStatusCode: 401,
           adminAuthRequired: true,
         }),
       )
     }
 
-    next()
+    // Forward to AdminMiddleware (try Admin)
+    requireAdmin(req, res, next)
   }
 }
