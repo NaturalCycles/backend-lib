@@ -1,3 +1,10 @@
+## [2.41.2](https://github.com/NaturalCycles/backend-lib/compare/v2.41.1...v2.41.2) (2020-03-29)
+
+
+### Bug Fixes
+
+* avoiding memLeaks in jest tests ([d31667f](https://github.com/NaturalCycles/backend-lib/commit/d31667f20e6b1d49811b0961bcfc95d96d807b15))
+
 ## [2.41.1](https://github.com/NaturalCycles/backend-lib/compare/v2.41.0...v2.41.1) (2020-03-27)
 
 
