@@ -1,3 +1,10 @@
+## [2.41.3](https://github.com/NaturalCycles/backend-lib/compare/v2.41.2...v2.41.3) (2020-03-29)
+
+
+### Bug Fixes
+
+* resourceTest on 127.0.0.1 ([f10faab](https://github.com/NaturalCycles/backend-lib/commit/f10faaba086b4760e9c995901fbf2194dcc18392))
+
 ## [2.41.2](https://github.com/NaturalCycles/backend-lib/compare/v2.41.1...v2.41.2) (2020-03-29)
 
 
