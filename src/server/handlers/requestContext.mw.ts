@@ -1,4 +1,4 @@
-import * as cls from 'cls-hooked'
+import type * as clsLib from 'cls-hooked'
 import { RequestHandler } from 'express'
 
 // Inspired by: https://github.com/skonves/express-http-context
@@ -6,13 +6,25 @@ import { RequestHandler } from 'express'
 export const REQUEST_CONTEXT_NAMESPACE = 'requestContextNamespace'
 // const REQUEST_CONTEXT_KEY = 'requestContextKey'
 
-const namespace = cls.createNamespace(REQUEST_CONTEXT_NAMESPACE)
+// lazy property, to prevent memory leak just on `require('backend-lib')`
+export let _namespace: clsLib.Namespace
+function getNamespace(): clsLib.Namespace {
+  if (!_namespace) {
+    console.log(`Creating ${REQUEST_CONTEXT_NAMESPACE}`)
+    const cls = require('cls-hooked') as typeof clsLib
+    _namespace = cls.createNamespace(REQUEST_CONTEXT_NAMESPACE)
+  }
+
+  return _namespace
+}
 
 export function getRequestContextProperty<T = any>(key: string): T | undefined {
+  const namespace = getNamespace()
   return namespace.active && namespace.get(key)
 }
 
 export function setRequestContextProperty(key: string, value: any): void {
+  const namespace = getNamespace()
   if (namespace.active) {
     namespace.set(key, value)
   }
@@ -24,6 +36,6 @@ export function setRequestContextProperty(key: string, value: any): void {
  */
 export function requestContextMiddleware(): RequestHandler {
   return (req, res, next) => {
-    namespace.run(() => next())
+    getNamespace().run(() => next())
   }
 }

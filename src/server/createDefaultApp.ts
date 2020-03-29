@@ -2,7 +2,6 @@ import * as cookieParser from 'cookie-parser'
 import * as cors from 'cors'
 import { Application } from 'express'
 import * as express from 'express'
-import * as helmet from 'helmet'
 import { methodOverride, SentrySharedService } from '..'
 import { DefaultAppCfg, RequestHandlerCfg, RequestHandlerWithPath } from './createDefaultApp.model'
 import { bodyParserTimeout, clearBodyParserTimeout } from './handlers/bodyParserTimeout.mw'
@@ -13,6 +12,8 @@ import { requestIdMiddleware } from './handlers/requestId.mw'
 import { requestTimeout } from './handlers/requestTimeout.mw'
 import { sentryErrorHandler } from './handlers/sentryErrorHandler.mw'
 import { simpleRequestLogger } from './handlers/simpleRequestLogger.mw'
+
+const isTest = process.env.APP_ENV === 'test'
 
 export function createDefaultApp(
   defaultAppCfg: DefaultAppCfg,
@@ -26,8 +27,12 @@ export function createDefaultApp(
   // preHandlers
   useHandlers(app, defaultAppCfg.preHandlers)
 
-  app.use(requestContextMiddleware())
-  app.use(requestIdMiddleware())
+  if (!isTest) {
+    // These middlewares use 'cls-hooked' which leaks memory after Namespace is once created
+    app.use(requestContextMiddleware())
+    app.use(requestIdMiddleware())
+  }
+
   app.use(methodOverride())
   app.use(requestTimeout())
   app.use(bodyParserTimeout())
@@ -41,7 +46,11 @@ export function createDefaultApp(
   app.use(express.json({ limit: '1mb' }))
   app.use(express.urlencoded({ limit: '1mb', extended: true }))
   app.use(cookieParser())
-  app.use(helmet())
+  if (!isTest) {
+    // leaks, load lazily
+    app.use(require('helmet')())
+  }
+
   app.use(
     cors({
       origin: true,

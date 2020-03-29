@@ -51,6 +51,7 @@ import { statusHandler, statusHandlerData } from './server/handlers/statusHandle
 import { coloredHttpCode, logRequest } from './server/request.log.util'
 import { BackendServer, startServer } from './server/startServer'
 import { StartServerCfg, StartServerData } from './server/startServer.model'
+import { expressTestService } from './testing/express.test.service'
 
 export {
   reqValidation,
@@ -111,4 +112,5 @@ export {
   createDeployInfo,
   createAppYaml,
   DeployInfo,
+  expressTestService,
 }

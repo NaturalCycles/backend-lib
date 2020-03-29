@@ -2,9 +2,11 @@
 
 exports[`should handle async error 1`] = `
 Object {
-  "data": Object {
-    "httpStatusCode": 500,
+  "error": Object {
+    "data": Object {
+      "httpStatusCode": 500,
+    },
+    "message": "debug_async_error",
   },
-  "message": "debug_async_error",
 }
 `;

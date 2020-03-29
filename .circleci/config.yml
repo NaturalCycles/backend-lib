@@ -24,6 +24,7 @@ workflows:
               only: master
       - tools/test-job:
           CC_TEST_REPORTER_ID: eae2fa40ae9e3d34015331647b26e69813f4a5fa5ccd7657147166508f4db8f3
+      - tools/test-leaks-job
 
   nightly-workflow:
     triggers:
@@ -34,3 +35,4 @@ workflows:
               only: master
     jobs:
       - tools/nightly-job
+      - tools/test-leaks-job

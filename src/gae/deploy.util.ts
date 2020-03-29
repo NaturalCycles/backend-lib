@@ -1,15 +1,14 @@
-import { kpy } from '@naturalcycles/fs-lib'
+import type * as fsLibType from '@naturalcycles/fs-lib'
 import { _mapValues, _merge, _truncate } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
 import * as c from 'chalk'
 import * as fs from 'fs-extra'
 import * as yaml from 'js-yaml'
-import * as simpleGit from 'simple-git/promise'
+import type * as simpleGitLib from 'simple-git/promise'
 import * as yargs from 'yargs'
 import { BackendCfg, getBackendCfg } from '../backend.cfg.util'
 import { srcDir } from '../paths.cnst'
-const git = simpleGit('.')
 
 export interface DeployInfo {
   gaeProject: string
@@ -127,6 +126,8 @@ export async function deployPrepareCommand(): Promise<DeployInfo> {
 }
 
 export async function deployPrepare(opts: DeployPrepareCommandOptions = {}): Promise<DeployInfo> {
+  // lazy load (somehow fixes `yarn test-leaks`)
+  const { kpy } = require('@naturalcycles/fs-lib') as typeof fsLibType
   const { projectDir = '.', targetDir = './tmp/deploy', createNpmrc = true } = opts
 
   const backendCfg = await getBackendCfg(projectDir)
@@ -181,6 +182,9 @@ export async function createAndSaveDeployInfo(
 }
 
 export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployInfo> {
+  const simpleGit = require('simple-git/promise') as typeof simpleGitLib // lazy load
+  const git = simpleGit('.')
+
   const now = dayjs.utc()
   const { current: gitBranch } = await git.status()
   const gitRev = (await git.revparse(['HEAD'])).substr(0, 7)
