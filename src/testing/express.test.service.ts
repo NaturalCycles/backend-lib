@@ -26,15 +26,17 @@ class ExpressTestService {
     })
 
     const server = await new Promise<Server>((resolve, reject) => {
-      const server = app.listen(0, (err?: Error) => {
+      const server = app.listen(0, '127.0.0.1', (err?: Error) => {
         if (err) return reject(err)
         resolve(server)
       })
     })
-    const { port } = server.address() as AddressInfo
+    const { address, port } = server.address() as AddressInfo
+    // console.log({address, family, port})
 
     const got = getGot(opt).extend({
-      prefixUrl: `http://[::1]:${port}`,
+      // prefixUrl: `http://[::1]:${port}`,
+      prefixUrl: `http://${address}:${port}`,
     }) as CloseableGot
 
     got.close = () => new Promise(resolve => server.close(resolve as any))
