@@ -1,8 +1,8 @@
 diff --git a/node_modules/jest-runtime/build/index.js b/node_modules/jest-runtime/build/index.js
-index 9fd9eed..f009e8e 100644
+index 9fd9eed..7f36440 100644
 --- a/node_modules/jest-runtime/build/index.js
 +++ b/node_modules/jest-runtime/build/index.js
-@@ -1102,7 +1102,36 @@ class Runtime {
+@@ -1102,7 +1102,39 @@ class Runtime {
        return this._getMockedNativeModule();
      }
  
@@ -16,6 +16,7 @@ index 9fd9eed..f009e8e 100644
 +    }
 +
 +    const mod = require(moduleName);
++    const { JEST_WARN_ON_PATCH } = process.env
 +    const forbidden = ['http', 'https'];
 +    const warned = this._warned = this._warned || Object.create(null);
 +
@@ -29,14 +30,16 @@ index 9fd9eed..f009e8e 100644
 +      if (target !== mod || typeof value !== 'function' || value._isMockFunction || forbidden.some(s => s === moduleName))
 +        return Reflect.set(target, property, value, receiver);
 +      if (!warned[moduleName + '_' + property]){
-+        console.warn('Patching module not allowed', moduleName, property);
++        if (JEST_WARN_ON_PATCH) {
++          console.warn('Patching module not allowed', moduleName, property);
++        }
 +        warned[moduleName + '_' + property] = true;
 +      }
 +      return true;
 +    };
 +
 +    return this._coreModulesProxyCache[moduleName] = new Proxy(mod, {set});
-+  
++
    }
  
    _getMockedNativeModule() {

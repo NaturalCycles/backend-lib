@@ -2,11 +2,9 @@ import { debugResource } from '../test/debug.resource'
 import { CloseableGot, expressTestService } from '../testing/express.test.service'
 
 let app: CloseableGot
-
 beforeAll(async () => {
   app = await expressTestService.createAppWithResources([debugResource])
 })
-
 afterAll(async () => {
   await app.close()
 })

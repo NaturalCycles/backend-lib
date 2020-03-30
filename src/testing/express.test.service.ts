@@ -9,6 +9,23 @@ export interface CloseableGot extends Got {
   close(): Promise<void>
 }
 
+/*
+Example to copy-paste:
+
+let app: CloseableGot
+beforeAll(async () => {
+  app = await expressTestService.createAppWithResources([debugResource])
+})
+afterAll(async () => {
+  await app.close()
+})
+
+test('root resource ok', async () => {
+  const r = await app('').json()
+  expect(r).toEqual({ ok: 1 })
+})
+ */
+
 /**
  * Creates Express App via `createDefaultApp()`.
  * Creates an http server on random free port, gets the port.
