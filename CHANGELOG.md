@@ -1,3 +1,10 @@
+# [2.42.0](https://github.com/NaturalCycles/backend-lib/compare/v2.41.3...v2.42.0) (2020-03-30)
+
+
+### Features
+
+* testing to export expressTestService from sub-folder ([01f8549](https://github.com/NaturalCycles/backend-lib/commit/01f8549f9bb709b51cf564581a47193497bccf38))
+
 ## [2.41.3](https://github.com/NaturalCycles/backend-lib/compare/v2.41.2...v2.41.3) (2020-03-29)
 
 

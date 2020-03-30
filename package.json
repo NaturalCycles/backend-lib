@@ -1,6 +1,6 @@
 {
   "name": "@naturalcycles/backend-lib",
-  "version": "2.41.3",
+  "version": "2.42.0",
   "scripts": {
     "postinstall": "patch-package",
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
