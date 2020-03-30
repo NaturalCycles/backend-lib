@@ -1,3 +1,10 @@
+## [2.42.1](https://github.com/NaturalCycles/backend-lib/compare/v2.42.0...v2.42.1) (2020-03-30)
+
+
+### Bug Fixes
+
+* remove breaking postinstall ([e8f75f7](https://github.com/NaturalCycles/backend-lib/commit/e8f75f7d398a50f6d0e1a70491c930aedbcabcba))
+
 # [2.42.0](https://github.com/NaturalCycles/backend-lib/compare/v2.41.3...v2.42.0) (2020-03-30)
 
 
