@@ -1,3 +1,10 @@
+# [2.43.0](https://github.com/NaturalCycles/backend-lib/compare/v2.42.1...v2.43.0) (2020-03-30)
+
+
+### Features
+
+* radically simpler resource testing! ([020ad8d](https://github.com/NaturalCycles/backend-lib/commit/020ad8d4e1af9666aa11512c2cf83f457d4e9a96))
+
 ## [2.42.1](https://github.com/NaturalCycles/backend-lib/compare/v2.42.0...v2.42.1) (2020-03-30)
 
 
