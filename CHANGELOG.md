@@ -1,3 +1,11 @@
+# [2.44.0](https://github.com/NaturalCycles/backend-lib/compare/v2.43.0...v2.44.0) (2020-03-31)
+
+
+### Features
+
+* refactor /deploy commands, improve healthCheck ([3a7d4f1](https://github.com/NaturalCycles/backend-lib/commit/3a7d4f1fa1349654c2ff6e84bacccdbfbba80c07))
+* split exports into /, /testing, /deploy ([d2a59ea](https://github.com/NaturalCycles/backend-lib/commit/d2a59eae6da407de6c155b0c3f18d9e5a4c83bbe))
+
 # [2.43.0](https://github.com/NaturalCycles/backend-lib/compare/v2.42.1...v2.43.0) (2020-03-30)
 
 
