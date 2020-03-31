@@ -1,5 +1,6 @@
 import { filterFalsyValues, pDelay } from '@naturalcycles/js-lib'
-import { dimGrey, execCommand, red } from '@naturalcycles/nodejs-lib'
+import { dimGrey, red } from '@naturalcycles/nodejs-lib/dist/colors'
+import { execCommand } from '@naturalcycles/nodejs-lib/dist/exec'
 import { ms, since } from '@naturalcycles/time-lib'
 import got from 'got'
 import { inspect } from 'util'

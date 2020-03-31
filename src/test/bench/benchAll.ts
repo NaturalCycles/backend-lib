@@ -5,7 +5,7 @@ yarn tsn ./src/test/bench/benchAll.ts
  */
 
 import { pDefer, pDelay, _range } from '@naturalcycles/js-lib'
-import { boldRed } from '@naturalcycles/nodejs-lib'
+import { boldRed } from '@naturalcycles/nodejs-lib/dist/colors'
 import * as fs from 'fs-extra'
 import * as http from 'http'
 import { AddressInfo } from 'net'

@@ -1,5 +1,5 @@
 import { memo } from '@naturalcycles/js-lib'
-import { chalk, dimGrey, white } from '@naturalcycles/nodejs-lib'
+import { boldGrey, dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
 import { ms } from '@naturalcycles/time-lib'
 import { Server } from 'http'
 import { log } from '../log'
@@ -62,10 +62,10 @@ export class BackendServer {
    */
   @memo()
   async stop(): Promise<void> {
-    log(chalk.bold(`Server shutdown...`))
+    log(dimGrey(`Server shutdown...`))
 
     setTimeout(() => {
-      log(chalk.bold('Forceful shutdown after timeout'))
+      log(boldGrey('Forceful shutdown after timeout'))
       process.exit(1)
     }, this.cfg.forceShutdownTimeout || 3000)
 
@@ -77,7 +77,7 @@ export class BackendServer {
       if (this.server) {
         await new Promise(r => this.server!.close(r))
       }
-      log(chalk.bold('Shutdown completed.'))
+      log(dimGrey('Shutdown completed.'))
       process.exit(0)
     } catch (err) {
       log.error(err)

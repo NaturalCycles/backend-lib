@@ -4,9 +4,10 @@ import {
   anyToErrorMessage,
   HttpError,
 } from '@naturalcycles/js-lib'
-import { Debug, dimGrey, green, red } from '@naturalcycles/nodejs-lib'
+import { Debug } from '@naturalcycles/nodejs-lib'
+import { dimGrey, green, red } from '@naturalcycles/nodejs-lib/dist/colors'
 import { Request } from 'express'
-import * as FirebaseAdmin from 'firebase-admin'
+import type * as FirebaseAdmin from 'firebase-admin'
 
 const log = Debug('nc:backend-lib:admin')
 

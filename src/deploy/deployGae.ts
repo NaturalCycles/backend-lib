@@ -1,5 +1,5 @@
 import { buildProdCommand } from '@naturalcycles/dev-lib/dist/cmd/build-prod.command'
-import { execCommand } from '@naturalcycles/nodejs-lib'
+import { execCommand } from '@naturalcycles/nodejs-lib/dist/exec'
 import { deployHealthCheck, DeployHealthCheckOptions } from './deployHealthCheck'
 import { deployPrepare, DeployPrepareOptions } from './deployPrepare'
 

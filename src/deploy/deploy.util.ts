@@ -1,5 +1,5 @@
 import { _mapValues, _merge, _truncate } from '@naturalcycles/js-lib'
-import { dimGrey, white } from '@naturalcycles/nodejs-lib'
+import { dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
 import { dayjs } from '@naturalcycles/time-lib'
 import * as fs from 'fs-extra'
 import * as yaml from 'js-yaml'

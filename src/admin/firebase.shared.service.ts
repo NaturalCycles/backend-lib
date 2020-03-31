@@ -1,6 +1,6 @@
 import { memo } from '@naturalcycles/js-lib'
-import { ServiceAccount } from 'firebase-admin'
-import * as firebaseAdmin from 'firebase-admin'
+import type { ServiceAccount } from 'firebase-admin'
+import type * as FirebaseAdmin from 'firebase-admin'
 
 export interface FirebaseSharedServiceCfg {
   /**
@@ -33,19 +33,22 @@ export class FirebaseSharedService {
   }
 
   @memo()
-  admin(): firebaseAdmin.app.App {
+  admin(): FirebaseAdmin.app.App {
     const { serviceAccount } = this.cfg
 
-    const credential = serviceAccount
-      ? firebaseAdmin.credential.cert(serviceAccount)
-      : firebaseAdmin.credential.applicationDefault()
+    // lazy loading
+    const admin = require('firebase-admin') as typeof FirebaseAdmin
 
-    return firebaseAdmin.initializeApp({
+    const credential = serviceAccount
+      ? admin.credential.cert(serviceAccount)
+      : admin.credential.applicationDefault()
+
+    return admin.initializeApp({
       credential,
     })
   }
 
-  auth(): firebaseAdmin.auth.Auth {
+  auth(): FirebaseAdmin.auth.Auth {
     return this.admin().auth()
   }
 }

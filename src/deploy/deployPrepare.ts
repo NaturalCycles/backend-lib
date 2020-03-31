@@ -1,5 +1,5 @@
 import * as fsLibType from '@naturalcycles/fs-lib'
-import { dimGrey } from '@naturalcycles/nodejs-lib'
+import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import * as fs from 'fs-extra'
 import { srcDir } from '../paths.cnst'
 import { getBackendCfg } from './backend.cfg.util'

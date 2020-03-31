@@ -1,4 +1,4 @@
-import { dimGrey } from '@naturalcycles/nodejs-lib'
+import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { log } from '../log'
 import { BaseEnv } from './env.model'
 

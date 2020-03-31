@@ -714,21 +714,20 @@
     rimraf "^2.5.2"
 
 "@naturalcycles/dev-lib@^10.1.0":
-  version "10.11.1"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-10.11.1.tgz#028295e803f3e3a0fadd6a2f60fd7325d95d86e4"
-  integrity sha512-/4qUUVc2tJYiw8wlibe7ygIGSvUAgWQ8qQOqFRrRsiKxxEyecWM4//ZMrMuHHte0UnttnMn8ZweGGbIBC+qhUQ==
+  version "10.13.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-10.13.0.tgz#9555965369642c3ea5400aa448359a61fc514cc3"
+  integrity sha512-yl/sDw5gm2sP5C7Te0Ej9wlxsVYKt3Nrjv6GBeiueFgy9zX8bMTSLvjSEP6z9oXryiwxjNX2Sz7758Te2g171Q==
   dependencies:
     "@commitlint/cli" "^8.0.0"
     "@commitlint/config-conventional" "^8.0.0"
     "@naturalcycles/fs-lib" "^2.0.0"
     "@naturalcycles/js-lib" "^10.0.0"
-    "@naturalcycles/nodejs-lib" "^8.0.0"
+    "@naturalcycles/nodejs-lib" "^9.0.0"
     "@naturalcycles/time-lib" "^1.5.0"
     "@types/fs-extra" "^8.0.0"
     "@types/jest" "^25.1.0"
     "@types/node" "^13.1.1"
     "@types/yargs" "^15.0.0"
-    chalk "^3.0.0"
     command-exists "^1.2.8"
     dotenv "^8.1.0"
     execa "^4.0.0"
@@ -747,13 +746,13 @@
     yargs "^15.0.1"
 
 "@naturalcycles/fs-lib@^2.0.0", "@naturalcycles/fs-lib@^2.3.0":
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/fs-lib/-/fs-lib-2.6.2.tgz#05059256d2571985dd8e28a4c0e3d931e390efc1"
-  integrity sha512-J+WbPjKN5wfoRoWkkpUi6co8zHBCJxFUMvqrekTVr/L90dFymNTPx+3rZLoDn4XLjzGAsgVaQsWvp+PYS7MAZA==
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/fs-lib/-/fs-lib-2.7.0.tgz#5f69db5d98715cfa7861bfbdeee33a510bd5ca13"
+  integrity sha512-z2gXlIrzhRUyzkq/n47LXOUiMRUwOIkmhxwRFW2bO44x3lnmtDGY/9hKXWdLiwDvOaEu4VqjmBx85nKpY1rhXQ==
   dependencies:
     "@naturalcycles/js-lib" "^10.0.0"
+    "@naturalcycles/nodejs-lib" "^9.1.1"
     "@naturalcycles/time-lib" "^1.5.0"
-    chalk "^3.0.0"
     cp-file "^9.0.0"
     fs-extra "^9.0.0"
     globby "^11.0.0"
@@ -766,10 +765,10 @@
   resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-10.1.0.tgz#4a35d3db6b4e7da4f6d37a8e5b00a0521bd38457"
   integrity sha512-66uYnYCF4BIRAvgCqEv7XTX6mFgsgHtgqddBPkJkqKo6D7DAqPGbdaZq8duvhkddtmHHCeXJhbWPsrqSgQj6IQ==
 
-"@naturalcycles/nodejs-lib@^8.0.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-8.6.0.tgz#99d69636e4e74ad0496b61e3ca3e59fc69d2580b"
-  integrity sha512-ENxt+2r4igbOFPXvpm4Cgh4+Xm1apWeoAbFrrLeZXqjRpbzYooEs9JI1jZPj4Q2c5wo25JRvi2vKgP44BXNYkQ==
+"@naturalcycles/nodejs-lib@^9.0.0", "@naturalcycles/nodejs-lib@^9.1.1":
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-9.1.1.tgz#7a42bb9690a5e93c66b0c30df3ab9f99ad2c4abd"
+  integrity sha512-yxoLdSDn8o0COh3UPDnmHRYlY++BFCqv5Ruz6KQu7iqZxevOfjbvECabmeKwtYmx++j3oAAPHi8Nns9rn74MfA==
   dependencies:
     "@hapi/joi" "^17.1.1"
     "@naturalcycles/js-lib" "^10.0.0"
@@ -788,7 +787,6 @@
     got "^10.0.2"
     lru-cache "^5.1.1"
     nanoid "^3.0.0"
-    rxjs "^6.5.2"
     through2-concurrent "^2.0.0"
     yargs "^15.3.1"
 
@@ -6350,7 +6348,7 @@ rw@1:
   resolved "https://registry.yarnpkg.com/rw/-/rw-1.3.3.tgz#3f862dfa91ab766b14885ef4d01124bfda074fb4"
   integrity sha1-P4Yt+pGrdmsUiF700BEkv9oHT7Q=
 
-rxjs@^6.3.3, rxjs@^6.5.2:
+rxjs@^6.3.3:
   version "6.5.4"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.4.tgz#e0777fe0d184cec7872df147f303572d414e211c"
   integrity sha512-naMQXcgEo3csAEGvw/NydRA0fuS2nDZJiw1YUWFKU7aPPAPGZEsD4Iimit96qwCieH6y614MCLYwdkrWx7z/7Q==
