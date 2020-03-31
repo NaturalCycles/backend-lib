@@ -8,9 +8,14 @@ yarn deploy-prepare
 
 import { runScript } from '@naturalcycles/nodejs-lib'
 import 'loud-rejection/register'
-import { deployPrepareCommand } from '../deploy/deploy.util'
+import * as yargs from 'yargs'
+import { deployPrepare, deployPrepareYargsOptions } from '../deploy/deployPrepare'
 
-runScript(deployPrepareCommand)
+runScript(async () => {
+  const opt = yargs.options(deployPrepareYargsOptions).argv
+
+  await deployPrepare(opt)
+})
 
 // deploy strategy
 // gae project: from config

@@ -1,28 +1,12 @@
 import { buildProdCommand } from '@naturalcycles/dev-lib/dist/cmd/build-prod.command'
-import { Debug, execCommand } from '@naturalcycles/nodejs-lib'
-import * as yargs from 'yargs'
-import { deployPrepareCommand } from './deploy.util'
-import { deployHealthCheck } from './deployHealthCheck.command'
+import { execCommand } from '@naturalcycles/nodejs-lib'
+import { deployHealthCheck, DeployHealthCheckOptions } from './deployHealthCheck'
+import { deployPrepare, DeployPrepareOptions } from './deployPrepare'
 
-// const log = Debug('nc:backend-lib:deploy')
+export interface DeployGaeOptions extends DeployPrepareOptions, DeployHealthCheckOptions {}
 
-export async function deployGaeCommand(): Promise<void> {
-  if (!Debug.enabled('nc:backend-lib')) {
-    Debug.enable('nc:backend-lib*') // force-enable
-  }
-
-  const { logOnFailure, logOnSuccess } = yargs.options({
-    logOnFailure: {
-      type: 'boolean',
-      default: true,
-      descr: 'Show server logs on failure',
-    },
-    logOnSuccess: {
-      type: 'boolean',
-      default: false,
-      descr: 'Show server logs on success',
-    },
-  }).argv
+export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
+  const { thresholdHealthy, thresholdUnhealthy, maxTries, logOnFailure, logOnSuccess } = opt
 
   // 1. build-prod
 
@@ -32,7 +16,7 @@ export async function deployGaeCommand(): Promise<void> {
   // 2. deploy-prepare
 
   // await execCommand(`yarn`, ['deploy-prepare'])
-  const deployInfo = await deployPrepareCommand()
+  const deployInfo = await deployPrepare()
 
   const targetDir = './tmp/deploy'
   const appYamlPath = `${targetDir}/app.yaml`
@@ -52,9 +36,10 @@ export async function deployGaeCommand(): Promise<void> {
 
   // Health check (versionUrl)
   // yarn deploy-health-check --url $deployInfo_versionUrl --repeat 3 --timeoutSec 180 --intervalSec 2
-  await deployHealthCheck({
-    url: versionUrl,
-    repeat: 3,
+  await deployHealthCheck(versionUrl, {
+    thresholdHealthy,
+    thresholdUnhealthy,
+    maxTries,
     timeoutSec: 180,
     intervalSec: 2,
     logOnFailure,
@@ -73,9 +58,10 @@ export async function deployGaeCommand(): Promise<void> {
 
     // Health check (serviceUrl)
     // yarn deploy-health-check --url $deployInfo_serviceUrl --repeat 3 --timeoutSec 60 --intervalSec 2
-    await deployHealthCheck({
-      url: serviceUrl,
-      repeat: 3,
+    await deployHealthCheck(serviceUrl, {
+      thresholdHealthy,
+      thresholdUnhealthy,
+      maxTries,
       timeoutSec: 60,
       intervalSec: 2,
       logOnFailure,

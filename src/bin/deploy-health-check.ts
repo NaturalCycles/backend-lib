@@ -4,7 +4,6 @@
 
 yarn deploy-health-check --url https://service-dot-yourproject.appspot.com
 
---repeat 3
 --timeoutSec 30
 --intervalSec 2
 
@@ -12,6 +11,17 @@ yarn deploy-health-check --url https://service-dot-yourproject.appspot.com
 
 import { runScript } from '@naturalcycles/nodejs-lib'
 import 'loud-rejection/register'
-import { deployHealthCheckCommand } from '../deploy/deployHealthCheck.command'
+import * as yargs from 'yargs'
+import { deployHealthCheck, deployHealthCheckYargsOptions } from '../deploy/deployHealthCheck'
 
-runScript(deployHealthCheckCommand)
+runScript(async () => {
+  const { url, ...opt } = yargs.options({
+    ...deployHealthCheckYargsOptions,
+    url: {
+      type: 'string',
+      demandOption: true,
+    },
+  }).argv
+
+  await deployHealthCheck(url, opt)
+})

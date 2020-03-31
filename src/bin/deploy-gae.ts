@@ -2,6 +2,16 @@
 
 import { runScript } from '@naturalcycles/nodejs-lib'
 import 'loud-rejection/register'
-import { deployGaeCommand } from '../deploy/deployGae.command'
+import * as yargs from 'yargs'
+import { deployGae } from '../deploy/deployGae'
+import { deployHealthCheckYargsOptions } from '../deploy/deployHealthCheck'
+import { deployPrepareYargsOptions } from '../deploy/deployPrepare'
 
-runScript(deployGaeCommand)
+runScript(async () => {
+  const opt = yargs.options({
+    ...deployPrepareYargsOptions,
+    ...deployHealthCheckYargsOptions,
+  }).argv
+
+  await deployGae(opt)
+})

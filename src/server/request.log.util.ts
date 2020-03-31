@@ -10,8 +10,8 @@ export function logRequest(req: Request, statusCode: number, ...tokens: any[]): 
 }
 
 export function coloredHttpCode(statusCode: number): string {
-  if (statusCode < 400) return green(String(statusCode))
-  if (statusCode < 500) return yellow(String(statusCode))
+  if (statusCode >= 200 && statusCode < 400) return green(String(statusCode))
+  if (statusCode >= 400 && statusCode < 500) return yellow(String(statusCode))
   return red(String(statusCode))
 }
 

@@ -5,7 +5,8 @@
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
     "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts",
     "deploy-prepare-debug": "AA=AA1 BB=BB1 yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
-    "deploy-health-check": "yarn tsn ./src/bin/deploy-health-check.ts"
+    "deploy-health-check-debug1": "yarn tsn ./src/bin/deploy-health-check.ts --url https://api-master.naturalcycles.com",
+    "deploy-health-check-debug2": "yarn tsn ./src/bin/deploy-health-check.ts --url https://api-master2.naturalcycles.com --thresholdUnhealthy 5"
   },
   "dependencies": {
     "@naturalcycles/fs-lib": "^2.3.0",

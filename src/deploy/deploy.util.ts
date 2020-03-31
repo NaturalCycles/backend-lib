@@ -1,34 +1,11 @@
-import type * as fsLibType from '@naturalcycles/fs-lib'
 import { _mapValues, _merge, _truncate } from '@naturalcycles/js-lib'
-import { Debug, dimGrey, white } from '@naturalcycles/nodejs-lib'
+import { dimGrey, white } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
 import * as fs from 'fs-extra'
 import * as yaml from 'js-yaml'
 import type * as simpleGitLib from 'simple-git/promise'
-import * as yargs from 'yargs'
-import { srcDir } from '../paths.cnst'
-import { BackendCfg, getBackendCfg } from './backend.cfg.util'
+import { BackendCfg } from './backend.cfg.util'
 import { AppYaml, DeployInfo } from './deploy.model'
-
-const DEFAULT_FILES = [
-  'dist',
-  'src', // For Sentry
-  '!src/test',
-  '!src/**/*.test.*',
-  '!src/**/*.mock.*',
-  '!**/__snapshots__',
-  '!**/__exclude',
-  'static',
-  'secret/**/*.enc', // encrypted secrets
-  'package.json',
-  'yarn.lock',
-  'tsconfig.json', // for path-mapping to work!
-  'tsconfig.dist.json',
-  '.gcloudignore',
-  'app.yaml',
-]
-
-const defaultFilesDir = `${srcDir}/deploy/files-default`
 
 const APP_YAML_DEFAULT = (): AppYaml => ({
   runtime: 'nodejs12',
@@ -50,91 +27,6 @@ const APP_YAML_DEFAULT = (): AppYaml => ({
   },
 })
 
-interface DeployPrepareCommandOptions {
-  projectDir?: string
-  targetDir?: string
-  createNpmrc?: boolean
-
-  /**
-   * Comma-separated list of env variables that will be passed to app.yaml from process.env.
-   * Use it to pass secrets.
-   */
-  appYamlPassEnv?: string
-}
-
-const log = Debug('nc:backend-lib:deploy')
-
-export async function deployPrepareCommand(): Promise<DeployInfo> {
-  if (!Debug.enabled('nc:backend-lib')) {
-    Debug.enable('nc:backend-lib*')
-  }
-
-  const opts = yargs.options({
-    projectDir: {
-      type: 'string',
-      default: '.',
-    },
-    targetDir: {
-      type: 'string',
-      default: `./tmp/deploy`,
-    },
-    createNpmrc: {
-      type: 'boolean',
-      descr: 'Create .npmrc in targetDir if NPM_TOKEN env var is set',
-      default: true,
-    },
-    appYamlPassEnv: {
-      type: 'string',
-      descr:
-        'Comma-separated list of env variables that will be passed to app.yaml from process.env',
-    },
-  }).argv
-
-  return await deployPrepare(opts)
-}
-
-export async function deployPrepare(opts: DeployPrepareCommandOptions = {}): Promise<DeployInfo> {
-  // lazy load (somehow fixes `yarn test-leaks`)
-  const { kpy } = require('@naturalcycles/fs-lib') as typeof fsLibType
-  const { projectDir = '.', targetDir = './tmp/deploy', createNpmrc = true } = opts
-
-  const backendCfg = await getBackendCfg(projectDir)
-  const inputPatterns = backendCfg.files || DEFAULT_FILES
-  const appYamlPassEnv = opts.appYamlPassEnv || backendCfg.appYamlPassEnv
-
-  log(`1. Copy files to ${dimGrey(targetDir)}`)
-
-  // Clean targetDir
-  await fs.emptyDir(targetDir)
-
-  await kpy({
-    baseDir: defaultFilesDir,
-    outputDir: targetDir,
-    dotfiles: true,
-  })
-
-  await kpy({
-    baseDir: projectDir,
-    inputPatterns,
-    outputDir: targetDir,
-    dotfiles: true,
-  })
-
-  const { NPM_TOKEN } = process.env
-  if (NPM_TOKEN && createNpmrc) {
-    const npmrcPath = `${targetDir}/.npmrc`
-    const npmrc = `//registry.npmjs.org/:_authToken=${NPM_TOKEN}`
-    await fs.writeFile(npmrcPath, npmrc)
-  }
-
-  log(`2. Generate ${dimGrey('deployInfo.json')} and ${dimGrey('app.yaml')} in targetDir`)
-
-  const deployInfo = await createAndSaveDeployInfo(backendCfg, targetDir)
-  await createAndSaveAppYaml(backendCfg, deployInfo, projectDir, targetDir, appYamlPassEnv)
-
-  return deployInfo
-}
-
 export async function createAndSaveDeployInfo(
   backendCfg: BackendCfg,
   targetDir: string,
@@ -144,7 +36,7 @@ export async function createAndSaveDeployInfo(
   const deployInfoPath = `${targetDir}/deployInfo.json`
 
   await fs.writeJson(deployInfoPath, deployInfo, { spaces: 2 })
-  log(`saved ${dimGrey(deployInfoPath)}`)
+  console.log(`saved ${dimGrey(deployInfoPath)}`)
 
   return deployInfo
 }
@@ -203,7 +95,7 @@ export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployIn
     ts: now.unix(),
   }
 
-  log({ deployInfo })
+  console.log({ deployInfo })
 
   return deployInfo
 }
@@ -220,7 +112,7 @@ export async function createAndSaveAppYaml(
   const appYamlPath = `${targetDir}/app.yaml`
 
   await fs.writeFile(appYamlPath, yaml.safeDump(appYaml))
-  log(`saved ${dimGrey(appYamlPath)}`)
+  console.log(`saved ${dimGrey(appYamlPath)}`)
 
   return appYaml
 }
@@ -237,7 +129,7 @@ export async function createAppYaml(
   const { APP_ENV: processAppEnv } = process.env
   const APP_ENV = processAppEnv || appEnvByBranch[gitBranch] || appEnvDefault
   if (processAppEnv) {
-    log(`using APP_ENV=${dimGrey(processAppEnv)} from process.env`)
+    console.log(`using APP_ENV=${dimGrey(processAppEnv)} from process.env`)
   }
 
   const appYaml = APP_YAML_DEFAULT()
@@ -245,13 +137,13 @@ export async function createAppYaml(
   // Check existing app.yaml
   const appYamlPath = `${projectDir}/app.yaml`
   if (fs.existsSync(appYamlPath)) {
-    log(`merging-in ${dimGrey(appYamlPath)}`)
+    console.log(`merging-in ${dimGrey(appYamlPath)}`)
     _merge(appYaml, yaml.safeLoad(await fs.readFile(appYamlPath, 'utf8')))
   }
 
   const appEnvYamlPath = `${projectDir}/app.${APP_ENV}.yaml`
   if (fs.existsSync(appEnvYamlPath)) {
-    log(`merging-in ${dimGrey(appEnvYamlPath)}`)
+    console.log(`merging-in ${dimGrey(appEnvYamlPath)}`)
     _merge(appYaml, yaml.safeLoad(await fs.readFile(appEnvYamlPath, 'utf8')))
   }
 
@@ -267,7 +159,7 @@ export async function createAppYaml(
   }, {} as Record<string, string>)
 
   if (Object.keys(passEnv).length) {
-    log(
+    console.log(
       `will merge ${white(
         String(Object.keys(passEnv).length),
       )} process.env keys to app.yaml: ${dimGrey(Object.keys(passEnv).join(', '))}`,
@@ -283,7 +175,7 @@ export async function createAppYaml(
   })
 
   // Redacted appYaml to not show up secrets
-  log({
+  console.log({
     appYaml: redactedAppYaml(appYaml),
   })
 
