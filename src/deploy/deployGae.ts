@@ -6,7 +6,7 @@ import { deployPrepare, DeployPrepareOptions } from './deployPrepare'
 export interface DeployGaeOptions extends DeployPrepareOptions, DeployHealthCheckOptions {}
 
 export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
-  const { thresholdHealthy, thresholdUnhealthy, maxTries, logOnFailure, logOnSuccess } = opt
+  const { logOnFailure, logOnSuccess } = opt
 
   // 1. build-prod
 
@@ -36,17 +36,7 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
 
   // Health check (versionUrl)
   // yarn deploy-health-check --url $deployInfo_versionUrl --repeat 3 --timeoutSec 180 --intervalSec 2
-  await deployHealthCheck(versionUrl, {
-    thresholdHealthy,
-    thresholdUnhealthy,
-    maxTries,
-    timeoutSec: 180,
-    intervalSec: 2,
-    logOnFailure,
-    gaeProject,
-    gaeService,
-    gaeVersion,
-  })
+  await deployHealthCheck(versionUrl, opt)
 
   // Only if "timestamped version" is used ('1' is default)
   if (gaeVersion !== '1') {
@@ -58,17 +48,7 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
 
     // Health check (serviceUrl)
     // yarn deploy-health-check --url $deployInfo_serviceUrl --repeat 3 --timeoutSec 60 --intervalSec 2
-    await deployHealthCheck(serviceUrl, {
-      thresholdHealthy,
-      thresholdUnhealthy,
-      maxTries,
-      timeoutSec: 60,
-      intervalSec: 2,
-      logOnFailure,
-      gaeProject,
-      gaeService,
-      gaeVersion,
-    })
+    await deployHealthCheck(serviceUrl, opt)
   }
 
   // Logs

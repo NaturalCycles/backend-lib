@@ -1,6 +1,6 @@
 import { filterFalsyValues, pDelay } from '@naturalcycles/js-lib'
 import { dimGrey, execCommand, red } from '@naturalcycles/nodejs-lib'
-import { since } from '@naturalcycles/time-lib'
+import { ms, since } from '@naturalcycles/time-lib'
 import got from 'got'
 import { inspect } from 'util'
 import { coloredHttpCode } from '../server/request.log.util'
@@ -21,7 +21,7 @@ export interface DeployHealthCheckOptions {
 export const deployHealthCheckYargsOptions = {
   thresholdHealthy: {
     type: 'number',
-    default: 3,
+    default: 5,
   },
   thresholdUnhealthy: {
     type: 'number',
@@ -33,11 +33,11 @@ export const deployHealthCheckYargsOptions = {
   },
   timeoutSec: {
     type: 'number',
-    default: 30,
+    default: 180,
   },
   intervalSec: {
     type: 'number',
-    default: 2,
+    default: 1,
   },
   logOnFailure: {
     type: 'boolean',
@@ -75,11 +75,11 @@ export async function deployHealthCheck(
   opt: DeployHealthCheckOptions = {},
 ): Promise<void> {
   const {
-    thresholdHealthy = 3,
+    thresholdHealthy = 5,
     thresholdUnhealthy = 1,
     maxTries = 20,
     timeoutSec = 30,
-    intervalSec = 2,
+    intervalSec = 1,
     logOnFailure = true,
     logOnSuccess,
     gaeProject,
@@ -93,6 +93,7 @@ export async function deployHealthCheck(
   let done = false
   let doneReason: string | undefined
   let failed = false
+  let currentInterval = intervalSec * 1000
 
   while (!done) {
     await makeAttempt()
@@ -140,9 +141,11 @@ export async function deployHealthCheck(
     if (statusCode === 200) {
       countHealthy++
       countUnhealthy = 0
+      currentInterval = intervalSec * 1000 // reset
     } else {
       countUnhealthy++
       countHealthy = 0
+      currentInterval = Math.round(currentInterval * 1.5) // exponential back-off
     }
 
     if (countHealthy >= thresholdHealthy) {
@@ -172,7 +175,8 @@ export async function deployHealthCheck(
     if (done) {
       console.log(doneReason)
     } else {
-      await pDelay(intervalSec * 1000)
+      console.log(dimGrey(`... waiting ${ms(currentInterval)} ...`))
+      await pDelay(currentInterval)
     }
   }
 }
