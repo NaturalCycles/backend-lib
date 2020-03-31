@@ -1,3 +1,10 @@
+# [2.45.0](https://github.com/NaturalCycles/backend-lib/compare/v2.44.0...v2.45.0) (2020-03-31)
+
+
+### Features
+
+* health check exp back-off, change defaults ([ce776f5](https://github.com/NaturalCycles/backend-lib/commit/ce776f57c009d0f77d03ab8e4b67ac5b49866529))
+
 # [2.44.0](https://github.com/NaturalCycles/backend-lib/compare/v2.43.0...v2.44.0) (2020-03-31)
 
 
