@@ -1,3 +1,6 @@
+// tslint:disable:ordered-imports
+const started = Date.now()
+
 import { since } from '@naturalcycles/time-lib'
 import { Server } from 'http'
 import { AddressInfo } from 'net'
@@ -17,7 +20,6 @@ declare global {
 }
 
 export default async () => {
-  const started = Date.now()
   const resources = [debugResource]
 
   const app = createDefaultApp({

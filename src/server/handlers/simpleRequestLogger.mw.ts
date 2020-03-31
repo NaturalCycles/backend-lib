@@ -1,7 +1,6 @@
 import { anyToErrorMessage } from '@naturalcycles/js-lib'
-import { Debug } from '@naturalcycles/nodejs-lib'
+import { chalk, Debug, dimGrey } from '@naturalcycles/nodejs-lib'
 import { since } from '@naturalcycles/time-lib'
-import * as c from 'chalk'
 import { RequestHandler } from 'express'
 import { onFinished } from '../../index'
 import { ResponseWithError } from '../error.util'
@@ -33,15 +32,15 @@ export function simpleRequestLogger(_cfg: Partial<SimpleRequestLoggerCfg> = {}):
     const started = Date.now()
 
     if (logStart) {
-      log(['>>', req.method, c.bold(req.url)].join(' '))
+      log(['>>', req.method, chalk.bold(req.url)].join(' '))
     }
 
     if (logFinish) {
       onFinished(res, () => {
         if (res.__err) {
-          logRequest(req, res.statusCode, c.dim(since(started)), anyToErrorMessage(res.__err))
+          logRequest(req, res.statusCode, dimGrey(since(started)), anyToErrorMessage(res.__err))
         } else {
-          logRequest(req, res.statusCode, c.dim(since(started)))
+          logRequest(req, res.statusCode, dimGrey(since(started)))
         }
       })
     }

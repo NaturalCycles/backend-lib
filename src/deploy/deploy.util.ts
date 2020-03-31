@@ -1,46 +1,14 @@
 import type * as fsLibType from '@naturalcycles/fs-lib'
 import { _mapValues, _merge, _truncate } from '@naturalcycles/js-lib'
-import { Debug } from '@naturalcycles/nodejs-lib'
+import { Debug, dimGrey, white } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
-import * as c from 'chalk'
 import * as fs from 'fs-extra'
 import * as yaml from 'js-yaml'
 import type * as simpleGitLib from 'simple-git/promise'
 import * as yargs from 'yargs'
-import { BackendCfg, getBackendCfg } from '../backend.cfg.util'
 import { srcDir } from '../paths.cnst'
-
-export interface DeployInfo {
-  gaeProject: string
-  gaeService: string
-  gaeVersion: string
-  versionUrl: string
-  serviceUrl: string
-  gitRev: string
-  gitBranch: string
-  prod: boolean
-
-  /**
-   * Unix timestamp of deployInfo.json being generated.
-   */
-  ts: number
-}
-
-export interface AppYaml extends Record<string, any> {
-  runtime: string
-  service: string
-  inbound_services?: string[]
-  instance_class?: string
-  automatic_scaling?: {
-    min_instances?: number
-    max_instances?: number
-  }
-  env_variables: {
-    APP_ENV: string
-    DEBUG: string
-    [k: string]: string
-  }
-}
+import { BackendCfg, getBackendCfg } from './backend.cfg.util'
+import { AppYaml, DeployInfo } from './deploy.model'
 
 const DEFAULT_FILES = [
   'dist',
@@ -60,7 +28,7 @@ const DEFAULT_FILES = [
   'app.yaml',
 ]
 
-const defaultFilesDir = `${srcDir}/gae/files-default`
+const defaultFilesDir = `${srcDir}/deploy/files-default`
 
 const APP_YAML_DEFAULT = (): AppYaml => ({
   runtime: 'nodejs12',
@@ -134,7 +102,7 @@ export async function deployPrepare(opts: DeployPrepareCommandOptions = {}): Pro
   const inputPatterns = backendCfg.files || DEFAULT_FILES
   const appYamlPassEnv = opts.appYamlPassEnv || backendCfg.appYamlPassEnv
 
-  log(`1. Copy files to ${c.dim(targetDir)}`)
+  log(`1. Copy files to ${dimGrey(targetDir)}`)
 
   // Clean targetDir
   await fs.emptyDir(targetDir)
@@ -159,7 +127,7 @@ export async function deployPrepare(opts: DeployPrepareCommandOptions = {}): Pro
     await fs.writeFile(npmrcPath, npmrc)
   }
 
-  log(`2. Generate ${c.dim('deployInfo.json')} and ${c.dim('app.yaml')} in targetDir`)
+  log(`2. Generate ${dimGrey('deployInfo.json')} and ${dimGrey('app.yaml')} in targetDir`)
 
   const deployInfo = await createAndSaveDeployInfo(backendCfg, targetDir)
   await createAndSaveAppYaml(backendCfg, deployInfo, projectDir, targetDir, appYamlPassEnv)
@@ -176,7 +144,7 @@ export async function createAndSaveDeployInfo(
   const deployInfoPath = `${targetDir}/deployInfo.json`
 
   await fs.writeJson(deployInfoPath, deployInfo, { spaces: 2 })
-  log(`saved ${c.dim(deployInfoPath)}`)
+  log(`saved ${dimGrey(deployInfoPath)}`)
 
   return deployInfo
 }
@@ -252,7 +220,7 @@ export async function createAndSaveAppYaml(
   const appYamlPath = `${targetDir}/app.yaml`
 
   await fs.writeFile(appYamlPath, yaml.safeDump(appYaml))
-  log(`saved ${c.dim(appYamlPath)}`)
+  log(`saved ${dimGrey(appYamlPath)}`)
 
   return appYaml
 }
@@ -269,7 +237,7 @@ export async function createAppYaml(
   const { APP_ENV: processAppEnv } = process.env
   const APP_ENV = processAppEnv || appEnvByBranch[gitBranch] || appEnvDefault
   if (processAppEnv) {
-    log(`using APP_ENV=${c.dim(processAppEnv)} from process.env`)
+    log(`using APP_ENV=${dimGrey(processAppEnv)} from process.env`)
   }
 
   const appYaml = APP_YAML_DEFAULT()
@@ -277,13 +245,13 @@ export async function createAppYaml(
   // Check existing app.yaml
   const appYamlPath = `${projectDir}/app.yaml`
   if (fs.existsSync(appYamlPath)) {
-    log(`merging-in ${c.dim(appYamlPath)}`)
+    log(`merging-in ${dimGrey(appYamlPath)}`)
     _merge(appYaml, yaml.safeLoad(await fs.readFile(appYamlPath, 'utf8')))
   }
 
   const appEnvYamlPath = `${projectDir}/app.${APP_ENV}.yaml`
   if (fs.existsSync(appEnvYamlPath)) {
-    log(`merging-in ${c.dim(appEnvYamlPath)}`)
+    log(`merging-in ${dimGrey(appEnvYamlPath)}`)
     _merge(appYaml, yaml.safeLoad(await fs.readFile(appEnvYamlPath, 'utf8')))
   }
 
@@ -300,9 +268,9 @@ export async function createAppYaml(
 
   if (Object.keys(passEnv).length) {
     log(
-      `will merge ${c.white(
+      `will merge ${white(
         String(Object.keys(passEnv).length),
-      )} process.env keys to app.yaml: ${c.dim(Object.keys(passEnv).join(', '))}`,
+      )} process.env keys to app.yaml: ${dimGrey(Object.keys(passEnv).join(', '))}`,
     )
   }
 

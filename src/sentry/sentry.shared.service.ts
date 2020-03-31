@@ -1,7 +1,7 @@
 import { AppError, memo } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
-import { Breadcrumb } from '@sentry/node'
-import * as SentryLib from '@sentry/node'
+import type { Breadcrumb } from '@sentry/node'
+import type * as SentryLib from '@sentry/node'
 import { ErrorRequestHandler, RequestHandler } from 'express'
 import { SentrySharedServiceCfg } from './sentry.model'
 

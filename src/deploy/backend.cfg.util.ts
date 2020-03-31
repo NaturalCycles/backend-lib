@@ -3,6 +3,7 @@ import {
   arraySchema,
   booleanSchema,
   objectSchema,
+  requireFileToExist,
   stringSchema,
   validate,
 } from '@naturalcycles/nodejs-lib'
@@ -70,18 +71,11 @@ const backendCfgSchema = objectSchema<BackendCfg>({
 })
 
 export async function getBackendCfg(projectDir: string = '.'): Promise<BackendCfg> {
-  const backendCfgPath = `${projectDir}/backend.cfg`
-  const backendCfgYamlPath = `${backendCfgPath}.yaml`
-  const backendCfgJsonPath = `${backendCfgPath}.yaml`
-  let backendCfg: BackendCfg
+  const backendCfgYamlPath = `${projectDir}/backend.cfg.yaml`
 
-  if (await fs.pathExists(backendCfgYamlPath)) {
-    backendCfg = yaml.safeLoad(await fs.readFile(backendCfgYamlPath, 'utf8'))
-  } else if (await fs.pathExists(backendCfgJsonPath)) {
-    backendCfg = await fs.readJson(backendCfgPath)
-  } else {
-    throw new Error(`Failed to read ${backendCfgPath}.{yaml,json}`)
-  }
+  await requireFileToExist(backendCfgYamlPath)
+
+  const backendCfg = yaml.safeLoad(await fs.readFile(backendCfgYamlPath, 'utf8'))
 
   return validate(
     {

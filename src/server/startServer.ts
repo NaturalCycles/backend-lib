@@ -1,6 +1,6 @@
 import { memo } from '@naturalcycles/js-lib'
+import { chalk, dimGrey, white } from '@naturalcycles/nodejs-lib'
 import { ms } from '@naturalcycles/time-lib'
-import * as c from 'chalk'
 import { Server } from 'http'
 import { log } from '../log'
 import { StartServerCfg, StartServerData } from './startServer.model'
@@ -44,7 +44,7 @@ export class BackendServer {
 
     const bootstrapMillis = serverStartedAt - bootstrapStartedAt
     log(
-      `serverStarted on port ${c.white(String(port))}, bootstrapTime ${c.dim(ms(bootstrapMillis))}`,
+      `serverStarted on port ${white(String(port))}, bootstrapTime ${dimGrey(ms(bootstrapMillis))}`,
     )
 
     return {
@@ -62,10 +62,10 @@ export class BackendServer {
    */
   @memo()
   async stop(): Promise<void> {
-    log(c.bold(`Server shutdown...`))
+    log(chalk.bold(`Server shutdown...`))
 
     setTimeout(() => {
-      log(c.bold('Forceful shutdown after timeout'))
+      log(chalk.bold('Forceful shutdown after timeout'))
       process.exit(1)
     }, this.cfg.forceShutdownTimeout || 3000)
 
@@ -77,7 +77,7 @@ export class BackendServer {
       if (this.server) {
         await new Promise(r => this.server!.close(r))
       }
-      log(c.bold('Shutdown completed.'))
+      log(chalk.bold('Shutdown completed.'))
       process.exit(0)
     } catch (err) {
       log.error(err)

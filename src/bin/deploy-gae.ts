@@ -2,6 +2,6 @@
 
 import { runScript } from '@naturalcycles/nodejs-lib'
 import 'loud-rejection/register'
-import { deployGaeCommand } from '../gae/deployGae.command'
+import { deployGaeCommand } from '../deploy/deployGae.command'
 
 runScript(deployGaeCommand)

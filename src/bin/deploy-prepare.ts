@@ -8,7 +8,7 @@ yarn deploy-prepare
 
 import { runScript } from '@naturalcycles/nodejs-lib'
 import 'loud-rejection/register'
-import { deployPrepareCommand } from '../gae/deploy.util'
+import { deployPrepareCommand } from '../deploy/deploy.util'
 
 runScript(deployPrepareCommand)
 

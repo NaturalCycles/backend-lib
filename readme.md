@@ -16,9 +16,21 @@
 - `backend-lib`
 - `backend-lib:sentry`
 
+# Exports
+
+- `/` root
+- `/deploy`
+  - yargs
+  - fs-lib
+  - js-yaml
+  - simple-git
+  - got
+- `/testing`
+  - got
+
 # Packaging
 
 - `engines.node`: latest Node.js LTS
-- `main: dist/index.js`: commonjs, es2018
+- `main: dist/index.js`: commonjs, es2019
 - `types: dist/index.d.ts`: typescript types
 - `/src` folder with source `*.ts` files included

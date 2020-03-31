@@ -5,7 +5,7 @@ yarn tsn ./src/test/bench/benchAll.ts
  */
 
 import { pDefer, pDelay, _range } from '@naturalcycles/js-lib'
-import * as c from 'chalk'
+import { boldRed } from '@naturalcycles/nodejs-lib'
 import * as fs from 'fs-extra'
 import * as http from 'http'
 import { AddressInfo } from 'net'
@@ -125,7 +125,7 @@ async function runProfile(profileName: string, cfg: BenchCfg): Promise<Autocanno
   let finalResult: AutocannonResult = undefined as any
 
   for await (const run of _range(1, runs + 1)) {
-    console.log(`\n${c.bold.red('=== ' + profileName + ' ===')} run ${run}/${runs}\n`)
+    console.log(`\n${boldRed('=== ' + profileName + ' ===')} run ${run}/${runs}\n`)
 
     const doneDefer = pDefer<AutocannonResult>()
 

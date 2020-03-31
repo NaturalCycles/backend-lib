@@ -1,6 +1,6 @@
 import { memoFn } from '@naturalcycles/js-lib'
 import * as fs from 'fs-extra'
-import { DeployInfo } from '../gae/deploy.util'
+import type { DeployInfo } from '../deploy/deploy.model'
 
 export const getDeployInfo = memoFn(
   (projectDir: string): DeployInfo => {
