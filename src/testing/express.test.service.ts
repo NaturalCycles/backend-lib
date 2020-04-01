@@ -20,22 +20,27 @@ export interface ExpressApp extends Got {
 
 class ExpressTestService {
   createApp(resources: RequestHandlerCfg[]): ExpressApp {
-    const serverPromise = this.createTestServer(resources)
+    const server = this.createTestServer(resources)
+    let { address, port, family } = server.address() as AddressInfo
+    if (family === 'IPv6') address = `[${address}]`
+    const prefixUrl = `http://${address}:${port}`
 
     const got = getGot().extend({
-      prefixUrl: 'http://_call_connect_first:1234',
+      prefixUrl,
       responseType: 'json',
       mutableDefaults: true,
     }) as ExpressApp
 
     got.connect = async () => {
-      const server = await serverPromise
-      const { address, port } = server.address() as AddressInfo
-      got.defaults.options.prefixUrl = `http://${address}:${port}`
+      // const server = await serverPromise
+      // let { address, port, family } = server.address() as AddressInfo
+      // if (family === 'IPv6') address = `[${address}]`
+      // // if (address === '::') address = '[::]'
+      // got.defaults.options.prefixUrl = `http://${address}:${port}`
     }
 
     got.close = async () => {
-      const server = await serverPromise
+      // const server = await serverPromise
       await new Promise(resolve => server.close(resolve))
     }
 
@@ -57,17 +62,21 @@ class ExpressTestService {
    * const { address, port } = server.address() as AddressInfo
    * const url = `http://${address}:${port}`
    */
-  async createTestServer(resources: RequestHandlerCfg[]): Promise<Server> {
+  createTestServer(resources: RequestHandlerCfg[]): Server {
     const app = createDefaultApp({
       resources,
     })
 
-    return await new Promise<Server>((resolve, reject) => {
-      const server = app.listen(0, '127.0.0.1', (err?: Error) => {
-        if (err) return reject(err)
-        resolve(server)
-      })
-    })
+    const server = app.listen(0)
+    console.log(server.address())
+    return server
+
+    // return await new Promise<Server>((resolve, reject) => {
+    //   const server = app.listen(0, '127.0.0.1', (err?: Error) => {
+    //     if (err) return reject(err)
+    //     resolve(server)
+    //   })
+    // })
   }
 }
 
