@@ -1,3 +1,15 @@
+# [2.47.0](https://github.com/NaturalCycles/backend-lib/compare/v2.46.0...v2.47.0) (2020-04-01)
+
+
+### Bug Fixes
+
+* revert back to server creation in each test ([98af4ba](https://github.com/NaturalCycles/backend-lib/commit/98af4ba5fd73924896eabf05783072e4a43d3be3))
+
+
+### Features
+
+* HttpDB implementation ([d057f14](https://github.com/NaturalCycles/backend-lib/commit/d057f14beb6344806049d352f9fd9cd735d42032))
+
 # [2.46.0](https://github.com/NaturalCycles/backend-lib/compare/v2.45.1...v2.46.0) (2020-04-01)
 
 
