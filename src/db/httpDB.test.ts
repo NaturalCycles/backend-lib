@@ -10,19 +10,12 @@ import { httpDBRequestHandler } from './httpDBRequestHandler'
 
 const inMemoryDB = new InMemoryDB()
 
-const db = new HttpDB({
-  prefixUrl: 'to_be_defined',
-})
-
 const app = expressTestService.createApp([httpDBRequestHandler(inMemoryDB)])
-beforeAll(async () => {
-  await app.connect()
 
-  db.setCfg({
-    prefixUrl: app.defaults.options.prefixUrl as string,
-    maxResponseLength: 10000,
-  })
+const db = new HttpDB({
+  prefixUrl: app.defaults.options.prefixUrl as string,
 })
+
 afterAll(async () => {
   await app.close()
 })

@@ -8,9 +8,6 @@ import { expressTestService } from '../testing'
 // })
 
 const app = expressTestService.createApp([debugResource])
-beforeAll(async () => {
-  await app.connect()
-})
 afterAll(async () => {
   await app.close()
 })

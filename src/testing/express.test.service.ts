@@ -11,9 +11,6 @@ export interface ExpressApp extends Got {
 
 // Example:
 // const app = expressTestService.createApp([ debugResource ])
-// beforeAll(async () => {
-//   await app.connect()
-// })
 // afterAll(async () => {
 //   await app.close()
 // })
@@ -21,9 +18,8 @@ export interface ExpressApp extends Got {
 class ExpressTestService {
   createApp(resources: RequestHandlerCfg[]): ExpressApp {
     const server = this.createTestServer(resources)
-    let { address, port, family } = server.address() as AddressInfo
-    if (family === 'IPv6') address = `[${address}]`
-    const prefixUrl = `http://${address}:${port}`
+    const { port } = server.address() as AddressInfo
+    const prefixUrl = `http://127.0.0.1:${port}`
 
     const got = getGot().extend({
       prefixUrl,
@@ -31,16 +27,7 @@ class ExpressTestService {
       mutableDefaults: true,
     }) as ExpressApp
 
-    got.connect = async () => {
-      // const server = await serverPromise
-      // let { address, port, family } = server.address() as AddressInfo
-      // if (family === 'IPv6') address = `[${address}]`
-      // // if (address === '::') address = '[::]'
-      // got.defaults.options.prefixUrl = `http://${address}:${port}`
-    }
-
     got.close = async () => {
-      // const server = await serverPromise
       await new Promise(resolve => server.close(resolve))
     }
 
@@ -59,24 +46,19 @@ class ExpressTestService {
    * Starts an http server on '127.0.0.1' and random available port.
    *
    * To get a server url:
-   * const { address, port } = server.address() as AddressInfo
-   * const url = `http://${address}:${port}`
+   * const { port } = server.address() as AddressInfo
+   * const url = `http://127.0.0.1:${port}`
    */
   createTestServer(resources: RequestHandlerCfg[]): Server {
     const app = createDefaultApp({
       resources,
     })
 
-    const server = app.listen(0)
-    console.log(server.address())
-    return server
-
-    // return await new Promise<Server>((resolve, reject) => {
-    //   const server = app.listen(0, '127.0.0.1', (err?: Error) => {
-    //     if (err) return reject(err)
-    //     resolve(server)
-    //   })
-    // })
+    // Important!
+    // Only with this syntax `app.listen(0)` it allocates a port synchronously
+    // Trying to specify a hostname will make server.address() return null.
+    // This is how `supertest` is doing it.
+    return app.listen(0)
   }
 }
 
