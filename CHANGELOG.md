@@ -1,3 +1,10 @@
+# [2.46.0](https://github.com/NaturalCycles/backend-lib/compare/v2.45.1...v2.46.0) (2020-04-01)
+
+
+### Features
+
+* support overriding request timeout: ?requestTimeout=600000 ([c2bf2a8](https://github.com/NaturalCycles/backend-lib/commit/c2bf2a817f4f2310d5e9921a90dbbab34affbac3))
+
 ## [2.45.1](https://github.com/NaturalCycles/backend-lib/compare/v2.45.0...v2.45.1) (2020-03-31)
 
 
