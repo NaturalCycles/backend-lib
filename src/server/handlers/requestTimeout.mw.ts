@@ -17,29 +17,34 @@ export interface RequestTimeoutCfg {
   /**
    * @default 'Request timed out'
    */
-  httpStatus?: string
+  httpErrorMessage?: string
 }
 
 const code = 'REQUEST_TIMEOUT'
+const REQUEST_TIMEOUT_QUERY_KEY = 'requestTimeout'
 
 export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
-  const { timeoutSeconds, httpStatusCode, httpStatus } = {
+  const { timeoutSeconds, httpStatusCode, httpErrorMessage } = {
     timeoutSeconds: 60,
     httpStatusCode: 503,
-    httpStatus: 'Request timed out',
+    httpErrorMessage: 'Request timed out',
     ...cfg,
   }
 
-  const timeout = timeoutSeconds * 1000
+  const defTimeout = timeoutSeconds * 1000
 
   return (req, res, next) => {
+    const timeout = req.query[REQUEST_TIMEOUT_QUERY_KEY]
+      ? parseInt(req.query[REQUEST_TIMEOUT_QUERY_KEY])
+      : defTimeout
+
     const timer = setTimeout(() => {
       if (res.headersSent) return
 
       respondWithError(
         req,
         res,
-        new HttpError(httpStatus, {
+        new HttpError(httpErrorMessage, {
           code,
           httpStatusCode,
           userFriendly: true,
