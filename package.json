@@ -9,6 +9,7 @@
     "deploy-health-check-debug2": "yarn tsn ./src/bin/deploy-health-check.ts --url https://api-master2.naturalcycles.com --thresholdUnhealthy 5"
   },
   "dependencies": {
+    "@naturalcycles/db-lib": "^4.0.0",
     "@naturalcycles/fs-lib": "^2.3.0",
     "@naturalcycles/js-lib": "^10.0.0",
     "@naturalcycles/nodejs-lib": "^9.1.1",
@@ -75,9 +76,10 @@
     "url": "https://github.com/NaturalCycles/backend-lib"
   },
   "engines": {
-    "node": ">=10.13"
+    "node": ">=12.13"
   },
-  "description": "",
+  "type": "commonjs",
+  "description": "Standard library for making Express.js / AppEngine based backend services",
   "author": "Natural Cycles Team",
   "license": "MIT"
 }

@@ -27,6 +27,8 @@
   - got
 - `/testing`
   - got
+- `/db`
+  - HttpDB (got)
 
 # Packaging
 

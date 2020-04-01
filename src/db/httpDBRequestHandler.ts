@@ -1,0 +1,127 @@
+import {
+  CommonDB,
+  CommonDBOptions,
+  CommonDBSaveOptions,
+  DBQuery,
+  SavedDBEntity,
+} from '@naturalcycles/db-lib'
+import {
+  commonDBOptionsSchema,
+  commonDBSaveOptionsSchema,
+  dbQuerySchema,
+} from '@naturalcycles/db-lib/dist/validation'
+import { anyObjectSchema, arraySchema, objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
+import { Router } from 'express'
+import { getDefaultRouter, reqValidation } from '..'
+
+export interface GetByIdsInput {
+  table: string
+  ids: string[]
+  opt?: CommonDBOptions
+}
+
+const getByIdsInputSchema = objectSchema<GetByIdsInput>({
+  table: stringSchema,
+  ids: arraySchema(stringSchema),
+  opt: commonDBOptionsSchema.optional(),
+})
+
+export interface RunQueryInput {
+  query: Partial<DBQuery>
+  opt?: CommonDBOptions
+}
+
+const runQueryInputSchema = objectSchema<RunQueryInput>({
+  query: dbQuerySchema,
+  opt: commonDBOptionsSchema.optional(),
+})
+
+export interface SaveBatchInput {
+  table: string
+  dbms: SavedDBEntity[]
+  opt?: CommonDBSaveOptions
+}
+
+const saveBatchInputSchema = objectSchema<SaveBatchInput>({
+  table: stringSchema,
+  dbms: arraySchema(anyObjectSchema),
+  opt: commonDBSaveOptionsSchema.optional(),
+})
+
+// todo: read-only mode
+
+/**
+ * Exposes CommonDB interface from provided CommonDB as HTTP endpoint (Express RequestHandler).
+ */
+export function httpDBRequestHandler(db: CommonDB): Router {
+  const router = getDefaultRouter()
+
+  // resetCache
+  router.put('/resetCache/:table?', async (req, res) => {
+    await db.resetCache(req.params.table)
+    res.end()
+  })
+
+  // ping
+  router.get('/ping', async (req, res) => {
+    await db.ping()
+    res.end()
+  })
+
+  // getTables
+  router.get('/tables', async (req, res) => {
+    res.json(await db.getTables())
+  })
+
+  // getTableSchema
+  router.get('/:table/schema', async (req, res) => {
+    res.json(await db.getTableSchema(req.params.table))
+  })
+
+  // todo: createTable
+  // router.post('/tables/:table', async (req, res) => {
+  //
+  // })
+
+  // getByIds
+  router.put('/getByIds', reqValidation('body', getByIdsInputSchema), async (req, res) => {
+    const { table, ids, opt } = req.body as GetByIdsInput
+    res.json(await db.getByIds(table, ids, opt))
+  })
+
+  // runQuery
+  router.put('/runQuery', reqValidation('body', runQueryInputSchema), async (req, res) => {
+    const { query, opt } = req.body as RunQueryInput
+    const q = Object.assign(new DBQuery(query.table!), query)
+    res.json(await db.runQuery(q, opt))
+  })
+
+  // runQueryCount
+  router.put('/runQueryCount', reqValidation('body', runQueryInputSchema), async (req, res) => {
+    const { query, opt } = req.body as RunQueryInput
+    const q = Object.assign(new DBQuery(query.table!), query)
+    res.json(await db.runQueryCount(q, opt))
+  })
+
+  // saveBatch
+  router.put('/saveBatch', reqValidation('body', saveBatchInputSchema), async (req, res) => {
+    const { table, dbms, opt } = req.body as SaveBatchInput
+    await db.saveBatch(table, dbms, opt)
+    res.end()
+  })
+
+  // deleteByIds
+  router.put('/deleteByIds', reqValidation('body', getByIdsInputSchema), async (req, res) => {
+    const { table, ids, opt } = req.body as GetByIdsInput
+    res.json(await db.deleteByIds(table, ids, opt))
+  })
+
+  // deleteByQuery
+  router.put('/deleteByQuery', reqValidation('body', runQueryInputSchema), async (req, res) => {
+    const { query, opt } = req.body as RunQueryInput
+    const q = Object.assign(new DBQuery(query.table!), query)
+    res.json(await db.deleteByQuery(q, opt))
+  })
+
+  return router
+}
