@@ -1,3 +1,10 @@
+## [2.48.1](https://github.com/NaturalCycles/backend-lib/compare/v2.48.0...v2.48.1) (2020-04-01)
+
+
+### Bug Fixes
+
+* sync test server creation ([7ac0eb2](https://github.com/NaturalCycles/backend-lib/commit/7ac0eb2f098684fa76447e5fb019e055175913f1))
+
 # [2.48.0](https://github.com/NaturalCycles/backend-lib/compare/v2.47.0...v2.48.0) (2020-04-01)
 
 
