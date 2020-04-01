@@ -1,3 +1,10 @@
+# [2.48.0](https://github.com/NaturalCycles/backend-lib/compare/v2.47.0...v2.48.0) (2020-04-01)
+
+
+### Features
+
+* expressTestService.createApp ([28afe01](https://github.com/NaturalCycles/backend-lib/commit/28afe01946524e3aa69837603b8db986df5dea7d))
+
 # [2.47.0](https://github.com/NaturalCycles/backend-lib/compare/v2.46.0...v2.47.0) (2020-04-01)
 
 
