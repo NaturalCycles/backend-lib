@@ -1,3 +1,3 @@
-import { CloseableGot, expressTestService } from './express.test.service'
+import { ExpressApp, expressTestService } from './express.test.service'
 
-export { CloseableGot, expressTestService }
+export { ExpressApp, expressTestService }

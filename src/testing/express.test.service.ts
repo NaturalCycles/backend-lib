@@ -4,20 +4,38 @@ import { Server } from 'http'
 import { AddressInfo } from 'net'
 import { createDefaultApp, RequestHandlerCfg } from '..'
 
-export interface CloseableGot extends Got {
+export interface ExpressApp extends Got {
+  connect(): Promise<void>
   close(): Promise<void>
 }
 
+// Example:
+// const app = expressTestService.createApp([ debugResource ])
+// beforeAll(async () => {
+//   await app.connect()
+// })
+// afterAll(async () => {
+//   await app.close()
+// })
+
 class ExpressTestService {
-  async getGot(resources: RequestHandlerCfg[]): Promise<CloseableGot> {
-    const server = await this.createTestServer(resources)
-    const { address, port } = server.address() as AddressInfo
+  createApp(resources: RequestHandlerCfg[]): ExpressApp {
+    const serverPromise = this.createTestServer(resources)
 
     const got = getGot().extend({
-      prefixUrl: `http://${address}:${port}`,
-    }) as CloseableGot
+      prefixUrl: 'http://_call_connect_first:1234',
+      responseType: 'json',
+      mutableDefaults: true,
+    }) as ExpressApp
+
+    got.connect = async () => {
+      const server = await serverPromise
+      const { address, port } = server.address() as AddressInfo
+      got.defaults.options.prefixUrl = `http://${address}:${port}`
+    }
 
     got.close = async () => {
+      const server = await serverPromise
       await new Promise(resolve => server.close(resolve))
     }
 

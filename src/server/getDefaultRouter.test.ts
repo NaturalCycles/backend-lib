@@ -1,5 +1,5 @@
 import { debugResource } from '../test/debug.resource'
-import { CloseableGot, expressTestService } from '../testing'
+import { expressTestService } from '../testing'
 
 // This is too easy:
 // const app = expressTestService.getGot()
@@ -7,9 +7,9 @@ import { CloseableGot, expressTestService } from '../testing'
 //   prefixUrl: process.env.__EXPRESS_SERVER_URL__,
 // })
 
-let app: CloseableGot
+const app = expressTestService.createApp([debugResource])
 beforeAll(async () => {
-  app = await expressTestService.getGot([debugResource])
+  await app.connect()
 })
 afterAll(async () => {
   await app.close()

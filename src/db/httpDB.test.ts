@@ -4,9 +4,7 @@ import {
   runCommonDaoTest,
   runCommonDBTest,
 } from '@naturalcycles/db-lib/dist/testing'
-import { createTestItemsDBM, TEST_TABLE } from '@naturalcycles/db-lib/dist/testing'
-import { HTTPError } from 'got'
-import { CloseableGot, expressTestService } from '../testing'
+import { expressTestService } from '../testing'
 import { HttpDB } from './httpDB'
 import { httpDBRequestHandler } from './httpDBRequestHandler'
 
@@ -16,9 +14,9 @@ const db = new HttpDB({
   prefixUrl: 'to_be_defined',
 })
 
-let app: CloseableGot
+const app = expressTestService.createApp([httpDBRequestHandler(inMemoryDB)])
 beforeAll(async () => {
-  app = await expressTestService.getGot([httpDBRequestHandler(inMemoryDB)])
+  await app.connect()
 
   db.setCfg({
     prefixUrl: app.defaults.options.prefixUrl as string,
@@ -33,14 +31,6 @@ const features: CommonDBImplementationFeatures = {
   streaming: false,
   createTable: false,
 }
-
-test.skip('warmup', async () => {
-  const items = createTestItemsDBM(3)
-  await db.saveBatch(TEST_TABLE, items).catch((err: HTTPError) => {
-    // todo: print more proper errors!
-    console.log(err)
-  })
-})
 
 describe('runCommonDBTest', () => runCommonDBTest(db, features))
 
