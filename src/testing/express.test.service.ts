@@ -5,7 +5,6 @@ import { AddressInfo } from 'net'
 import { createDefaultApp, RequestHandlerCfg } from '..'
 
 export interface ExpressApp extends Got {
-  connect(): Promise<void>
   close(): Promise<void>
 }
 

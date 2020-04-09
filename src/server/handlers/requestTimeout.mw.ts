@@ -35,7 +35,7 @@ export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
 
   return (req, res, next) => {
     const timeout = req.query[REQUEST_TIMEOUT_QUERY_KEY]
-      ? parseInt(req.query[REQUEST_TIMEOUT_QUERY_KEY])
+      ? parseInt(req.query[REQUEST_TIMEOUT_QUERY_KEY] as string)
       : defTimeout
 
     const timer = setTimeout(() => {

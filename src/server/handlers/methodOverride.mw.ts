@@ -15,7 +15,7 @@ export function methodOverride(cfg: MethodOverrideCfg = {}): RequestHandler {
 
   return (req, res, next) => {
     if (req.query[methodKey]) {
-      req.method = req.query[methodKey]
+      req.method = req.query[methodKey] as string
       // delete req.query[methodKey]
     }
 

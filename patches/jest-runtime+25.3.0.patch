@@ -1,8 +1,8 @@
 diff --git a/node_modules/jest-runtime/build/index.js b/node_modules/jest-runtime/build/index.js
-index 9fd9eed..7f36440 100644
+index 15407cf..d82f451 100644
 --- a/node_modules/jest-runtime/build/index.js
 +++ b/node_modules/jest-runtime/build/index.js
-@@ -1102,7 +1102,39 @@ class Runtime {
+@@ -1103,7 +1103,39 @@ class Runtime {
        return this._getMockedNativeModule();
      }
  
