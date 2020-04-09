@@ -1,3 +1,10 @@
+## [2.48.2](https://github.com/NaturalCycles/backend-lib/compare/v2.48.1...v2.48.2) (2020-04-09)
+
+
+### Bug Fixes
+
+* breaking change introduced by @types/express:) ([3ff3b5a](https://github.com/NaturalCycles/backend-lib/commit/3ff3b5a86773f25ae062186f3f31191d7dd282bd))
+
 ## [2.48.1](https://github.com/NaturalCycles/backend-lib/compare/v2.48.0...v2.48.1) (2020-04-01)
 
 
