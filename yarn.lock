@@ -468,9 +468,9 @@
     teeny-request "^6.0.0"
 
 "@google-cloud/firestore@^3.0.0":
-  version "3.7.3"
-  resolved "https://registry.yarnpkg.com/@google-cloud/firestore/-/firestore-3.7.3.tgz#b8b69b39912e94ff0034218fdc961dd472ad735a"
-  integrity sha512-6ro45y5FjSbJCRHUQ8PfIu2EbnGNNVoQmKtBnI1YlhlVHaC7oMu+m0cuI0Cr3lLs1mT5iZ0QGyjHTeUYR8pygw==
+  version "3.7.4"
+  resolved "https://registry.yarnpkg.com/@google-cloud/firestore/-/firestore-3.7.4.tgz#8a9f3ace01d3bf29a8a1bad3c617035eb14b6cc6"
+  integrity sha512-RBMG4uZFHeQPFMHTRFMyQ7LDQTLa0f+U0hLAa/7XWjpZHgxKuOWBonsv+C3geymAwShIZSoV/NpNh9tBK7YF5g==
   dependencies:
     deep-equal "^2.0.0"
     functional-red-black-tree "^1.0.1"
@@ -525,9 +525,9 @@
     xdg-basedir "^4.0.0"
 
 "@grpc/grpc-js@^0.7.4":
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-0.7.7.tgz#aae157868d54122d1aeca4e488e4369095735d53"
-  integrity sha512-6FxMQaRPb173o6nYdg9ipjFu5NjcOk1lQwx17BFV6mXaXB3xElrqPyssiPa7NAFOm9Nc8/eBW7we4vBdL7pT8g==
+  version "0.7.9"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-0.7.9.tgz#a0fae94fecfd4a44fbde496f689c2b4179407bf5"
+  integrity sha512-ihn9xWOqubMPBlU77wcYpy7FFamGo5xtsK27EAILL/eoOvGEAq29UOrqRvqYPwWfl2+3laFmGKNR7uCdJhKu4Q==
   dependencies:
     semver "^6.2.0"
 
@@ -781,28 +781,28 @@
     typescript "^3.8.3"
 
 "@naturalcycles/db-lib@^4.0.0":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/db-lib/-/db-lib-4.4.2.tgz#e1942b407d07ae9cf561468258d52ff9f7c4bb11"
-  integrity sha512-aoZJi+Kh6jDr+F8O9PhQACuouI7f5QtEo4giKLqm+mXOr0TMWoaNRTR09UOvWpNbShsw1nOygpzryrRHMazkkw==
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/db-lib/-/db-lib-4.4.6.tgz#26a7266505f5629d9b67163550a8ec228f2878f3"
+  integrity sha512-EuYD/MTIpJILiujjCuu/aTgI8BfQdYz7KGqWsD7WkYckuqxV8UqAjzZ7wKE7D3M8UoPmYSqqDrRJbt2F+DmfKw==
   dependencies:
-    "@naturalcycles/js-lib" "^10.0.0"
-    "@naturalcycles/nodejs-lib" "^9.1.1"
-    "@naturalcycles/time-lib" "^1.4.3"
+    "@naturalcycles/js-lib" "^11.1.0"
+    "@naturalcycles/nodejs-lib" "^10.0.0"
+    "@naturalcycles/time-lib" "^2.0.0"
     fs-extra "^9.0.0"
-    type-fest "^0.12.0"
+    type-fest "^0.13.1"
 
 "@naturalcycles/dev-lib@^10.1.0":
-  version "10.14.4"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-10.14.4.tgz#e4bca9611f6e38008c0e150de4b0936ae2798fa1"
-  integrity sha512-wPN1+te6aW5BPxU2FMHzaK1i2+q1x4gATpp2mxE/NBqMTgpTQTVmaa6cjAK5pB3bv3jK1RTPdiNQ3HSFB/13dA==
+  version "10.14.6"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-10.14.6.tgz#4245eca6b99317b4e6f9773d837893d18000432f"
+  integrity sha512-Gt2Rgpc/42ikjiWUNeb7K3wXyD6Zh7XuSN6lzAZlvZPPwPgUalt8jXniGRvEaM7efpXbkptZoifTlDuTdUmbew==
   dependencies:
     "@commitlint/cli" "^8.0.0"
     "@commitlint/config-conventional" "^8.0.0"
     "@naturalcycles/cli" "^1.0.0"
     "@naturalcycles/fs-lib" "^2.0.0"
-    "@naturalcycles/js-lib" "^10.0.0"
-    "@naturalcycles/nodejs-lib" "^9.0.0"
-    "@naturalcycles/time-lib" "^1.5.0"
+    "@naturalcycles/js-lib" "^11.0.0"
+    "@naturalcycles/nodejs-lib" "^10.0.0"
+    "@naturalcycles/time-lib" "^2.0.0"
     "@types/fs-extra" "^8.0.0"
     "@types/jest" "^25.1.0"
     "@types/node" "^13.1.1"
@@ -822,13 +822,12 @@
     yargs "^15.0.1"
 
 "@naturalcycles/fs-lib@^2.0.0", "@naturalcycles/fs-lib@^2.3.0", "@naturalcycles/fs-lib@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/fs-lib/-/fs-lib-2.7.0.tgz#5f69db5d98715cfa7861bfbdeee33a510bd5ca13"
-  integrity sha512-z2gXlIrzhRUyzkq/n47LXOUiMRUwOIkmhxwRFW2bO44x3lnmtDGY/9hKXWdLiwDvOaEu4VqjmBx85nKpY1rhXQ==
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/fs-lib/-/fs-lib-2.7.1.tgz#9d1ac463fd67c4096d83e9b28bbbfc34758526b1"
+  integrity sha512-c9xmtzMafjpNCuCRc4dm0QZd8T5OtBet0xtv1oKw/8XV/F1kaGGDVY+5TDK6lmAoi1kubaWdzIyU5kXh3A8BeA==
   dependencies:
-    "@naturalcycles/js-lib" "^10.0.0"
+    "@naturalcycles/js-lib" "^11.0.0"
     "@naturalcycles/nodejs-lib" "^9.1.1"
-    "@naturalcycles/time-lib" "^1.5.0"
     cp-file "^9.0.0"
     fs-extra "^9.0.0"
     globby "^11.0.0"
@@ -836,19 +835,19 @@
     move-file "^1.2.0"
     yargs "^15.1.0"
 
-"@naturalcycles/js-lib@^10.0.0":
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-10.2.0.tgz#01d208bd4be8177b98f6211a5db1d0e4c20e96dc"
-  integrity sha512-213yzsfrGVJNoDHZz1pgkLEvtmJDdOjewDIAOFtiVwwkbT4RY315dpW5T3efof7emg7hrevjHKtrAliTO6lEtw==
+"@naturalcycles/js-lib@^11.0.0", "@naturalcycles/js-lib@^11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-11.1.0.tgz#dc34b10bc9b6d65721d7a8d1af7f0aa7a89883c6"
+  integrity sha512-ymR9P5IEmuijPhUy82YGuIxgPU5OPPX9BaoydEjBruFBshUtTO11bW3r5vDZr2eSBXDJrKv+H77STOUsHmF+mQ==
 
-"@naturalcycles/nodejs-lib@^9.0.0", "@naturalcycles/nodejs-lib@^9.1.1":
-  version "9.1.3"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-9.1.3.tgz#f743a63882ba97dd23adddd0ecd0bf6028d2facf"
-  integrity sha512-EBLt/hutADZIgUBGhpE6Tt6dFX5aRphHOR70tJYXjNstNiZfIOcgB5XLrwUzS9wZDUuXEScl3jBEw036jUUXLA==
+"@naturalcycles/nodejs-lib@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-10.0.0.tgz#b3d4e0c50bdac05459c74f5c6697dca3f263ed52"
+  integrity sha512-5blwtrbt1U3OgBRsMMz0+jq3UsZZma9jJhIaYRwCpeILuLrGSazVdZjXaUz/3r5YnmnZ8ww//4VdR/X12zYnYw==
   dependencies:
     "@hapi/joi" "^17.1.1"
-    "@naturalcycles/js-lib" "^10.0.0"
-    "@naturalcycles/time-lib" "^1.0.0"
+    "@naturalcycles/js-lib" "^11.0.0"
+    "@naturalcycles/time-lib" "^2.0.0"
     "@types/hapi__joi" "^16.0.1"
     "@types/lru-cache" "^5.1.0"
     "@types/through2-concurrent" "^2.0.0"
@@ -866,10 +865,35 @@
     through2-concurrent "^2.0.0"
     yargs "^15.3.1"
 
-"@naturalcycles/time-lib@^1.0.0", "@naturalcycles/time-lib@^1.0.3", "@naturalcycles/time-lib@^1.4.3", "@naturalcycles/time-lib@^1.5.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/time-lib/-/time-lib-1.11.0.tgz#26811ce9ffe46a03d897c5c87148ab72eecc756a"
-  integrity sha512-IS7GORzJ/jFQQRtWRqHZhBxELilR8ByFg3nbyZcXIxgNntVXNSpCg9operstWcoYRsPZPiQSCACMB6H6U1pabQ==
+"@naturalcycles/nodejs-lib@^9.1.1":
+  version "9.1.4"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-9.1.4.tgz#cbd989629403aa3a99b9bba802459810bb8fbc7f"
+  integrity sha512-YwfbGOktoWf7p/ZUYOmW6Oxi1w6ud9xxuUk0JWxRusWKeCPoaedsWL2xhjXgNEZtpd73SuDqYf3r9hXnK/7fsA==
+  dependencies:
+    "@hapi/joi" "^17.1.1"
+    "@naturalcycles/js-lib" "^11.0.0"
+    "@naturalcycles/time-lib" "^2.0.0"
+    "@types/hapi__joi" "^16.0.1"
+    "@types/lru-cache" "^5.1.0"
+    "@types/through2-concurrent" "^2.0.0"
+    binary-split "^1.0.5"
+    chalk "^4.0.0"
+    csv-parse "^4.8.5"
+    csv-stringify "^5.3.6"
+    debug "^4.1.1"
+    dotenv "^8.1.0"
+    execa "^4.0.0"
+    fs-extra "^9.0.0"
+    got "^10.0.2"
+    lru-cache "^5.1.1"
+    nanoid "^3.0.0"
+    through2-concurrent "^2.0.0"
+    yargs "^15.3.1"
+
+"@naturalcycles/time-lib@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/time-lib/-/time-lib-2.0.0.tgz#f3ede6e775e542911bfa9bc96f913466020875d2"
+  integrity sha512-UDWcJBR266ciQZYkO8h8Y2ziF+LPW6+fmnyTmI90oEkWl9IEmXEyyblxJcjddm5K3+CfDzkRScIsEiCWSlyepg==
   dependencies:
     dayjs "^1.8.14"
 
@@ -1160,9 +1184,9 @@
     "@types/range-parser" "*"
 
 "@types/express@*", "@types/express@^4.16.1":
-  version "4.17.5"
-  resolved "https://registry.yarnpkg.com/@types/express/-/express-4.17.5.tgz#f7457497c72ca7bf98b13bb6f1ef2898ed550bd9"
-  integrity sha512-u4Si7vYAjy5/UyRFa8EoqLHh6r82xOZPbWRQHlSf6alob0rlyza7EkU0RbR8kOZqgWp6R5+aRcHMYYby7w12Bg==
+  version "4.17.6"
+  resolved "https://registry.yarnpkg.com/@types/express/-/express-4.17.6.tgz#6bce49e49570507b86ea1b07b806f04697fac45e"
+  integrity sha512-n/mr9tZI83kd4azlPG5y997C/M4DNABK9yErhFM6hKdym4kkmd9j0vtsJyjFIwfRBxtrxZtAfGZCNRIBMFLK5w==
   dependencies:
     "@types/body-parser" "*"
     "@types/express-serve-static-core" "*"
@@ -2575,9 +2599,9 @@ date-fns@^1.27.2:
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
 dayjs@^1.8.14:
-  version "1.8.23"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.23.tgz#07b5a8e759c4d75ae07bdd0ad6977f851c01e510"
-  integrity sha512-NmYHMFONftoZbeOhVz6jfiXI4zSiPN6NoVWJgC0aZQfYVwzy/ZpESPHuCcI0B8BUMpSJQ08zenHDbofOLKq8hQ==
+  version "1.8.24"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.24.tgz#2ef8a2ab9425eaf3318fe78825be1c571027488d"
+  integrity sha512-bImQZbBv86zcOWOq6fLg7r4aqMx8fScdmykA7cSh+gH1Yh8AM0Dbw0gHYrsOrza6oBBnkK+/OaR+UAa9UsMrDw==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
@@ -5508,9 +5532,9 @@ ms@^2.0.0, ms@^2.1.1:
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
 nanoid@^3.0.0:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.0.2.tgz#37e91e6f5277ce22335be473e2a5db1bd96dd026"
-  integrity sha512-WOjyy/xu3199NlQiQWlx7VbspSFlGtOxa1bRX9ebmXOnp1fje4bJfjPs1wLQ8jZbJUfD+yceJmw879ZSaVJkdQ==
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.3.tgz#b2bcfcfda4b4d6838bc22a0c8dd3c0a17a204c20"
+  integrity sha512-Zw8rTOUfh6FlKgkEbHiB1buOF2zOPOQyGirABUWn+9Z7m9PpyoLVkh6Ksc53vBjndINQ2+9LfRPaHxb/u45EGg==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -6901,9 +6925,9 @@ string-width@^4.1.0, string-width@^4.2.0:
     strip-ansi "^6.0.0"
 
 string.prototype.trimend@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/string.prototype.trimend/-/string.prototype.trimend-1.0.0.tgz#ee497fd29768646d84be2c9b819e292439614373"
-  integrity sha512-EEJnGqa/xNfIg05SxiPSqRS7S9qwDhYts1TSLR1BQfYUfPe1stofgGKvwERK9+9yf+PpfBMlpBaCHucXGPQfUA==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/string.prototype.trimend/-/string.prototype.trimend-1.0.1.tgz#85812a6b847ac002270f5808146064c995fb6913"
+  integrity sha512-LRPxFUaTtpqYsTeNKaFOw3R4bxIzWOnbQ837QfBylo8jIxtcbK/A/sMV7Q+OAV/vWo+7s25pOE10KYSjaSO06g==
   dependencies:
     define-properties "^1.1.3"
     es-abstract "^1.17.5"
@@ -6927,9 +6951,9 @@ string.prototype.trimright@^2.1.1:
     string.prototype.trimend "^1.0.0"
 
 string.prototype.trimstart@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/string.prototype.trimstart/-/string.prototype.trimstart-1.0.0.tgz#afe596a7ce9de905496919406c9734845f01a2f2"
-  integrity sha512-iCP8g01NFYiiBOnwG1Xc3WZLyoo+RuBymwIlWncShXDDJYWN6DbnM3odslBJdgCdRlq94B5s63NWAZlcn2CS4w==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/string.prototype.trimstart/-/string.prototype.trimstart-1.0.1.tgz#14af6d9f34b053f7cfc89b72f8f2ee14b9039a54"
+  integrity sha512-XxZn+QpvrBI1FOcg6dIpxUPgWCPuNXvMD72aaRaUQv1eD4e/Qy8i/hFTe0BUmD60p/QA6bh1avmuPTfNjqVWRw==
   dependencies:
     define-properties "^1.1.3"
     es-abstract "^1.17.5"
@@ -7330,10 +7354,10 @@ type-fest@^0.11.0:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.11.0.tgz#97abf0872310fed88a5c466b25681576145e33f1"
   integrity sha512-OdjXJxnCN1AvyLSzeKIgXTXxV+99ZuXl3Hpo9XpJAv9MBcHrrJOQ5kV7ypXOuQie+AmWG25hLbiKdwYTifzcfQ==
 
-type-fest@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.12.0.tgz#f57a27ab81c68d136a51fd71467eff94157fa1ee"
-  integrity sha512-53RyidyjvkGpnWPMF9bQgFtWp+Sl8O2Rp13VavmJgfAP9WWG6q6TkrKU8iyJdnwnfgHI6k2hTlgqH4aSdjoTbg==
+type-fest@^0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.13.1.tgz#0172cb5bce80b0bd542ea348db50c7e21834d934"
+  integrity sha512-34R7HTnG0XIJcBSn5XhDd7nNFPRcXYRZrBB2O2jdKqYODldSzBAqzsWoZYYvduky73toYS/ESqxPvkDf/F0XMg==
 
 type-fest@^0.6.0:
   version "0.6.0"
@@ -7573,9 +7597,9 @@ vega-hierarchy@~4.0.3:
     vega-util "^1.11.0"
 
 vega-lite@^4.0.0:
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/vega-lite/-/vega-lite-4.10.1.tgz#18717daa263937f434cd0b6fd82f14d829c34c17"
-  integrity sha512-drEThXhlIQZBIWhM2X5Yqh59LdZktn+62NDcO+dUDe/RgkvggmzBLF4cmv+L+vhmDnQ9rVIAd/ryLcny8Ipjhw==
+  version "4.10.2"
+  resolved "https://registry.yarnpkg.com/vega-lite/-/vega-lite-4.10.2.tgz#4497a2a43140e684fdf8d1bc4056aa58ad7719d2"
+  integrity sha512-1EiPopdK5oQBQugpF1BZGBXh+hOsgb7O5+Ywn9/txHMxqNw6o3uCD7qKfbXu8b6JghFwbo4jGwPSDYg4GIpNqw==
   dependencies:
     "@types/clone" "~0.1.30"
     "@types/fast-json-stable-stringify" "^2.0.0"

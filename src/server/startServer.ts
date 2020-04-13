@@ -1,6 +1,5 @@
-import { memo } from '@naturalcycles/js-lib'
+import { memo, ms } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
-import { ms } from '@naturalcycles/time-lib'
 import { Server } from 'http'
 import { log } from '../log'
 import { StartServerCfg, StartServerData } from './startServer.model'

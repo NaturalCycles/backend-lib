@@ -1,4 +1,4 @@
-import { since } from '@naturalcycles/time-lib'
+import { since } from '@naturalcycles/js-lib'
 
 export default async () => {
   const started = Date.now()
