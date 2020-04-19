@@ -1,4 +1,4 @@
-import { AppError, memo } from '@naturalcycles/js-lib'
+import { AppError, _Memo } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import type { Breadcrumb } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
@@ -14,7 +14,7 @@ export class SentrySharedService {
     this.sentry()
   }
 
-  @memo()
+  @_Memo()
   sentry(): typeof SentryLib {
     // Lazy-loading `@sentry/node`
     // Reasons:

@@ -1,8 +1,8 @@
 import {
-  anyToErrorObject,
   ErrorObject,
   HttpErrorData,
   HttpErrorResponse,
+  _anyToErrorObject,
 } from '@naturalcycles/js-lib'
 import { Request, Response } from 'express'
 
@@ -18,7 +18,7 @@ export function respondWithError(req: Request, res: Response, _err: any): void {
     ;(res as ResponseWithError).__err = _err
   }
 
-  const error = anyToErrorObject(_err) as ErrorObject<HttpErrorData>
+  const error = _anyToErrorObject(_err) as ErrorObject<HttpErrorData>
   error.data = {
     httpStatusCode: 500, // default
     ...error.data,

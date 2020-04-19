@@ -1,4 +1,4 @@
-import { Admin401ErrorData, memoFn } from '@naturalcycles/js-lib'
+import { Admin401ErrorData, _memoFn } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import * as ejs from 'ejs'
 import { RequestHandler } from 'express'
@@ -93,7 +93,7 @@ export function loginHtml(firebaseServiceCfg: FirebaseSharedServiceCfg): Request
   }
 }
 
-const getLoginHtml = memoFn((cfg: LoginHtmlCfg) => {
+const getLoginHtml = _memoFn((cfg: LoginHtmlCfg) => {
   log(`reading login.html`)
   const tmpl = fs.readFileSync(`${__dirname}/login.html`, 'utf8')
   return ejs.render(tmpl, cfg)

@@ -1,4 +1,4 @@
-import { anyToErrorMessage, since } from '@naturalcycles/js-lib'
+import { _anyToErrorMessage, _since } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import { boldGrey, dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { RequestHandler } from 'express'
@@ -38,9 +38,9 @@ export function simpleRequestLogger(_cfg: Partial<SimpleRequestLoggerCfg> = {}):
     if (logFinish) {
       onFinished(res, () => {
         if (res.__err) {
-          logRequest(req, res.statusCode, dimGrey(since(started)), anyToErrorMessage(res.__err))
+          logRequest(req, res.statusCode, dimGrey(_since(started)), _anyToErrorMessage(res.__err))
         } else {
-          logRequest(req, res.statusCode, dimGrey(since(started)))
+          logRequest(req, res.statusCode, dimGrey(_since(started)))
         }
       })
     }

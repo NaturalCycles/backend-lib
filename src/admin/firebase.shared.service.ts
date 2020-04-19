@@ -1,4 +1,4 @@
-import { memo } from '@naturalcycles/js-lib'
+import { _Memo } from '@naturalcycles/js-lib'
 import type { ServiceAccount } from 'firebase-admin'
 import type * as FirebaseAdmin from 'firebase-admin'
 
@@ -32,7 +32,7 @@ export class FirebaseSharedService {
     this.admin()
   }
 
-  @memo()
+  @_Memo()
   admin(): FirebaseAdmin.app.App {
     const { serviceAccount } = this.cfg
 

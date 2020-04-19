@@ -1,7 +1,7 @@
 // tslint:disable:ordered-imports
 const started = Date.now()
 
-import { since } from '@naturalcycles/js-lib'
+import { _since } from '@naturalcycles/js-lib'
 import { Server } from 'http'
 import { AddressInfo } from 'net'
 import { createDefaultApp } from '..'
@@ -13,9 +13,9 @@ declare global {
       __EXPRESS_SERVER__: Server
     }
 
-    interface ProcessEnv {
-      __EXPRESS_SERVER_URL__: string
-    }
+    // interface ProcessEnv {
+    //   __EXPRESS_SERVER_URL__: string
+    // }
   }
 }
 
@@ -38,5 +38,5 @@ export default async () => {
   process.env.__EXPRESS_SERVER_URL__ = url
   global.__EXPRESS_SERVER__ = server
 
-  console.log(`\nglobalSetup.ts started ${url} in ${since(started)}\n`)
+  console.log(`\nglobalSetup.ts started ${url} in ${_since(started)}\n`)
 }

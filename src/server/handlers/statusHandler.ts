@@ -1,4 +1,4 @@
-import { filterFalsyValues } from '@naturalcycles/js-lib'
+import { _filterFalsyValues } from '@naturalcycles/js-lib'
 import { memoryUsageFull, processSharedUtil } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
 import { RequestHandler } from 'express'
@@ -33,7 +33,7 @@ export function statusHandlerData(
   const deployBuildTimeUTC = dayjs.unix(ts).toPretty()
   const buildInfo = [dayjs.unix(ts).toCompactTime(), gitBranch, gitRev].filter(Boolean).join('_')
 
-  return filterFalsyValues({
+  return _filterFalsyValues({
     started: getStartedStr(serverStartedCallback()),
     deployBuildTimeUTC,
     APP_ENV,

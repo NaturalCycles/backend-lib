@@ -1,8 +1,8 @@
 import {
   Admin401ErrorData,
   Admin403ErrorData,
-  anyToErrorMessage,
   HttpError,
+  _anyToErrorMessage,
 } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import { dimGrey, green, red } from '@naturalcycles/nodejs-lib/dist/colors'
@@ -100,7 +100,7 @@ export class BaseAdminService {
       log(`admin email: ${dimGrey(email)}`)
       return email
     } catch (err) {
-      log(`getEmailByToken error: ${anyToErrorMessage(err)}`)
+      log(`getEmailByToken error: ${_anyToErrorMessage(err)}`)
       return
     }
   }

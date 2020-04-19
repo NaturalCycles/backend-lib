@@ -1,4 +1,4 @@
-import { filterFalsyValues, ms, pDelay, since } from '@naturalcycles/js-lib'
+import { pDelay, _filterFalsyValues, _ms, _since } from '@naturalcycles/js-lib'
 import { dimGrey, red } from '@naturalcycles/nodejs-lib/dist/colors'
 import { execCommand } from '@naturalcycles/nodejs-lib/dist/exec'
 import got from 'got'
@@ -161,8 +161,8 @@ export async function deployHealthCheck(
       [
         `<< HTTP`,
         coloredHttpCode(statusCode),
-        dimGrey(since(started)),
-        inspect(filterFalsyValues({ countHealthy, countUnhealthy }), inspectOpt),
+        dimGrey(_since(started)),
+        inspect(_filterFalsyValues({ countHealthy, countUnhealthy }), inspectOpt),
       ].join(' '),
     )
 
@@ -175,7 +175,7 @@ export async function deployHealthCheck(
     if (done) {
       console.log(doneReason)
     } else {
-      console.log(dimGrey(`... waiting ${ms(currentInterval)} ...`))
+      console.log(dimGrey(`... waiting ${_ms(currentInterval)} ...`))
       await pDelay(currentInterval)
     }
   }

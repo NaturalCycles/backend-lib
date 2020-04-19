@@ -1,4 +1,4 @@
-import { memo, ms } from '@naturalcycles/js-lib'
+import { _Memo, _ms } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
 import { Server } from 'http'
 import { log } from '../log'
@@ -43,7 +43,9 @@ export class BackendServer {
 
     const bootstrapMillis = serverStartedAt - bootstrapStartedAt
     log(
-      `serverStarted on port ${white(String(port))}, bootstrapTime ${dimGrey(ms(bootstrapMillis))}`,
+      `serverStarted on port ${white(String(port))}, bootstrapTime ${dimGrey(
+        _ms(bootstrapMillis),
+      )}`,
     )
 
     return {
@@ -59,7 +61,7 @@ export class BackendServer {
    * Gracefully shuts down the server.
    * Does `process.exit()` in the end.
    */
-  @memo()
+  @_Memo()
   async stop(): Promise<void> {
     log(dimGrey(`Server shutdown...`))
 
