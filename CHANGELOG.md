@@ -1,3 +1,10 @@
+## [2.48.5](https://github.com/NaturalCycles/backend-lib/compare/v2.48.4...v2.48.5) (2020-04-20)
+
+
+### Bug Fixes
+
+* deps ([e0ea4b6](https://github.com/NaturalCycles/backend-lib/commit/e0ea4b6f58f12ec777fb99e0870ed1f8b85f8d8c))
+
 ## [2.48.4](https://github.com/NaturalCycles/backend-lib/compare/v2.48.3...v2.48.4) (2020-04-19)
 
 
