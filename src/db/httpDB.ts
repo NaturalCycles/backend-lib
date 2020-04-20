@@ -10,7 +10,7 @@ import {
   SavedDBEntity,
 } from '@naturalcycles/db-lib'
 import { getGot, GetGotOptions, ReadableTyped } from '@naturalcycles/nodejs-lib'
-import { Got } from 'got'
+import type { Got } from 'got'
 import { Readable } from 'stream'
 
 export interface HttpDBCfg extends GetGotOptions {
