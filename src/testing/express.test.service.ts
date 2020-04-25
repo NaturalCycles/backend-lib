@@ -4,6 +4,10 @@ import { Server } from 'http'
 import { AddressInfo } from 'net'
 import { createDefaultApp, RequestHandlerCfg } from '..'
 
+interface DestroyableServer extends Server {
+  destroy(): void
+}
+
 export interface ExpressApp extends Got {
   close(): Promise<void>
 }
@@ -28,6 +32,8 @@ class ExpressTestService {
 
     got.close = async () => {
       await new Promise(resolve => server.close(resolve))
+      // server.destroy()
+      // await pDelay(1000)
     }
 
     return got
@@ -48,7 +54,7 @@ class ExpressTestService {
    * const { port } = server.address() as AddressInfo
    * const url = `http://127.0.0.1:${port}`
    */
-  createTestServer(resources: RequestHandlerCfg[]): Server {
+  createTestServer(resources: RequestHandlerCfg[]): DestroyableServer {
     const app = createDefaultApp({
       resources,
     })
@@ -57,8 +63,29 @@ class ExpressTestService {
     // Only with this syntax `app.listen(0)` it allocates a port synchronously
     // Trying to specify a hostname will make server.address() return null.
     // This is how `supertest` is doing it.
-    return app.listen(0)
+    const server = app.listen(0) as DestroyableServer
+    // enableDestroy(server)
+    return server
   }
 }
 
 export const expressTestService = new ExpressTestService()
+
+// function enableDestroy(server: DestroyableServer): void {
+//   const connections: StringMap<Socket> = {}
+//
+//   server.on('connection', function(conn) {
+//     const key = conn.remoteAddress + ':' + conn.remotePort;
+//     connections[key] = conn;
+//     console.log(`con created: ${key}, cons: ${Object.keys(connections).length}`)
+//     conn.on('close', function() {
+//       delete connections[key];
+//       console.log(`con closed: ${key}, cons: ${Object.keys(connections).length}`)
+//     });
+//   });
+//
+//   server.destroy = function() {
+//     for (let key in connections)
+//       connections[key]!.destroy();
+//   };
+// }
