@@ -1,8 +1,8 @@
 # Benchmark results
 
 ```
-MacBook Pro mid 2014, 16Gb RAM
-Node.js 10.16.2
+MacBook Pro 16" 2019, 32Gb RAM
+Node.js 12.16.2
 ```
 
 ![](./plot/rpsAvg.svg) ![](./plot/latencyAvg.svg) ![](./plot/latency50.svg)
