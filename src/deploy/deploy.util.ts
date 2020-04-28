@@ -46,7 +46,7 @@ export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployIn
   const git = simpleGit('.')
 
   const now = dayjs.utc()
-  const { current: gitBranch } = await git.status()
+  const gitBranch = (await git.status()).current!
   const gitRev = (await git.revparse(['HEAD'])).substr(0, 7)
 
   let {
