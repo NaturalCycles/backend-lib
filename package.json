@@ -46,7 +46,7 @@
     "@types/js-yaml": "^3.12.1",
     "@types/node": "^13.1.1",
     "autocannon": "^4.0.0",
-    "jest": "^25.1.0",
+    "jest": "^26.0.1",
     "patch-package": "^6.2.1",
     "vega": "^5.4.0",
     "vega-lite": "^4.0.0",
