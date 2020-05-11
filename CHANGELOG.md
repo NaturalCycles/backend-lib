@@ -1,3 +1,10 @@
+## [2.48.9](https://github.com/NaturalCycles/backend-lib/compare/v2.48.8...v2.48.9) (2020-05-11)
+
+
+### Bug Fixes
+
+* use exported dev-lib api ([22d10b4](https://github.com/NaturalCycles/backend-lib/commit/22d10b4f673b4e42bd8a82af4476640a07eb02b3))
+
 ## [2.48.8](https://github.com/NaturalCycles/backend-lib/compare/v2.48.7...v2.48.8) (2020-04-28)
 
 
