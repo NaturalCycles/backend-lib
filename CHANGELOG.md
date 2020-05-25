@@ -1,3 +1,10 @@
+## [2.48.11](https://github.com/NaturalCycles/backend-lib/compare/v2.48.10...v2.48.11) (2020-05-25)
+
+
+### Bug Fixes
+
+* deps ([f8ca6a3](https://github.com/NaturalCycles/backend-lib/commit/f8ca6a3cc79a5b5cd35d86edb5e17f199d92e9d6))
+
 ## [2.48.10](https://github.com/NaturalCycles/backend-lib/compare/v2.48.9...v2.48.10) (2020-05-11)
 
 
