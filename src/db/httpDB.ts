@@ -6,11 +6,11 @@ import {
   CommonDBStreamOptions,
   CommonSchema,
   DBQuery,
+  DBTransaction,
+  ObjectWithId,
   RunQueryResult,
-  SavedDBEntity,
 } from '@naturalcycles/db-lib'
-import { getGot, GetGotOptions, ReadableTyped } from '@naturalcycles/nodejs-lib'
-import type { Got } from 'got'
+import { getGot, GetGotOptions, Got, ReadableTyped } from '@naturalcycles/nodejs-lib'
 import { Readable } from 'stream'
 
 export interface HttpDBCfg extends GetGotOptions {
@@ -26,11 +26,7 @@ export class HttpDB implements CommonDB {
   }
 
   setCfg(cfg: HttpDBCfg): void {
-    const { prefixUrl } = cfg
-
-    this.got = getGot(cfg).extend({
-      prefixUrl,
-    })
+    this.got = getGot(cfg)
   }
 
   private got!: Got
@@ -43,7 +39,7 @@ export class HttpDB implements CommonDB {
     return await this.got(`tables`).json()
   }
 
-  async getTableSchema<DBM extends SavedDBEntity>(table: string): Promise<CommonSchema<DBM>> {
+  async getTableSchema<DBM extends ObjectWithId>(table: string): Promise<CommonSchema<DBM>> {
     return await this.got(`${table}/schema`).json()
   }
 
@@ -51,7 +47,7 @@ export class HttpDB implements CommonDB {
     await this.got.put(`resetCache/${table}`)
   }
 
-  async getByIds<DBM extends SavedDBEntity>(
+  async getByIds<DBM extends ObjectWithId>(
     table: string,
     ids: string[],
     opt?: CommonDBOptions,
@@ -67,8 +63,8 @@ export class HttpDB implements CommonDB {
       .json()
   }
 
-  async runQuery<DBM extends SavedDBEntity, OUT = DBM>(
-    query: DBQuery<any, DBM>,
+  async runQuery<DBM extends ObjectWithId, OUT = DBM>(
+    query: DBQuery<DBM>,
     opt?: CommonDBOptions,
   ): Promise<RunQueryResult<OUT>> {
     return await this.got
@@ -92,7 +88,7 @@ export class HttpDB implements CommonDB {
       .json()
   }
 
-  async saveBatch<DBM extends SavedDBEntity>(
+  async saveBatch<DBM extends ObjectWithId>(
     table: string,
     dbms: DBM[],
     opt?: CommonDBSaveOptions,
@@ -133,11 +129,15 @@ export class HttpDB implements CommonDB {
     console.warn(`createTable not implemented`)
   }
 
-  streamQuery<DBM extends SavedDBEntity, OUT = DBM>(
-    q: DBQuery<any, DBM>,
+  streamQuery<DBM extends ObjectWithId, OUT = DBM>(
+    q: DBQuery<DBM>,
     opt?: CommonDBStreamOptions,
   ): ReadableTyped<OUT> {
     console.warn(`streamQuery not implemented`)
     return Readable.from([])
+  }
+
+  transaction(): DBTransaction {
+    return new DBTransaction(this)
   }
 }

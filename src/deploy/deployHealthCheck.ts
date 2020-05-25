@@ -1,7 +1,7 @@
 import { pDelay, _filterFalsyValues, _ms, _since } from '@naturalcycles/js-lib'
+import { getGot } from '@naturalcycles/nodejs-lib'
 import { dimGrey, red } from '@naturalcycles/nodejs-lib/dist/colors'
 import { execCommand } from '@naturalcycles/nodejs-lib/dist/exec'
-import got from 'got'
 import { inspect } from 'util'
 import { coloredHttpCode } from '../server/request.log.util'
 
@@ -94,6 +94,8 @@ export async function deployHealthCheck(
   let doneReason: string | undefined
   let failed = false
   let currentInterval = intervalSec * 1000
+
+  const got = getGot()
 
   while (!done) {
     await makeAttempt()

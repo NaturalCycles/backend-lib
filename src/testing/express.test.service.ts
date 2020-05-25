@@ -1,5 +1,4 @@
-import { getGot } from '@naturalcycles/nodejs-lib'
-import type { Got } from 'got'
+import { getGot, Got } from '@naturalcycles/nodejs-lib'
 import { Server } from 'http'
 import { AddressInfo } from 'net'
 import { createDefaultApp, RequestHandlerCfg } from '..'

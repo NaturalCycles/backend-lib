@@ -20,6 +20,7 @@ export function respondWithError(req: Request, res: Response, _err: any): void {
 
   const error = _anyToErrorObject(_err) as ErrorObject<HttpErrorData>
   error.data = {
+    // @ts-ignore
     httpStatusCode: 500, // default
     ...error.data,
   }
