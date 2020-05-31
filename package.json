@@ -12,7 +12,7 @@
     "@sentry/node": "^5.2.0"
   },
   "dependencies": {
-    "@naturalcycles/db-lib": "^6.2.1",
+    "@naturalcycles/db-lib": "^7.0.0",
     "@naturalcycles/fs-lib": "^2.3.0",
     "@naturalcycles/js-lib": "^13.0.0",
     "@naturalcycles/nodejs-lib": "^10.0.0",

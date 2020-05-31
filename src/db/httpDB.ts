@@ -1,4 +1,5 @@
 import {
+  BaseCommonDB,
   CommonDB,
   CommonDBCreateOptions,
   CommonDBOptions,
@@ -6,7 +7,6 @@ import {
   CommonDBStreamOptions,
   CommonSchema,
   DBQuery,
-  DBTransaction,
   ObjectWithId,
   RunQueryResult,
 } from '@naturalcycles/db-lib'
@@ -20,8 +20,9 @@ export interface HttpDBCfg extends GetGotOptions {
 /**
  * Implementation of CommonDB that proxies all requests via HTTP to "httpDBRequestHandler".
  */
-export class HttpDB implements CommonDB {
+export class HttpDB extends BaseCommonDB implements CommonDB {
   constructor(public cfg: HttpDBCfg) {
+    super()
     this.setCfg(cfg)
   }
 
@@ -39,7 +40,7 @@ export class HttpDB implements CommonDB {
     return await this.got(`tables`).json()
   }
 
-  async getTableSchema<DBM extends ObjectWithId>(table: string): Promise<CommonSchema<DBM>> {
+  async getTableSchema<ROW extends ObjectWithId>(table: string): Promise<CommonSchema<ROW>> {
     return await this.got(`${table}/schema`).json()
   }
 
@@ -47,11 +48,11 @@ export class HttpDB implements CommonDB {
     await this.got.put(`resetCache/${table}`)
   }
 
-  async getByIds<DBM extends ObjectWithId>(
+  async getByIds<ROW extends ObjectWithId>(
     table: string,
     ids: string[],
     opt?: CommonDBOptions,
-  ): Promise<DBM[]> {
+  ): Promise<ROW[]> {
     return await this.got
       .put(`getByIds`, {
         json: {
@@ -63,8 +64,8 @@ export class HttpDB implements CommonDB {
       .json()
   }
 
-  async runQuery<DBM extends ObjectWithId, OUT = DBM>(
-    query: DBQuery<DBM>,
+  async runQuery<ROW extends ObjectWithId, OUT = ROW>(
+    query: DBQuery<ROW>,
     opt?: CommonDBOptions,
   ): Promise<RunQueryResult<OUT>> {
     return await this.got
@@ -88,15 +89,15 @@ export class HttpDB implements CommonDB {
       .json()
   }
 
-  async saveBatch<DBM extends ObjectWithId>(
+  async saveBatch<ROW extends ObjectWithId>(
     table: string,
-    dbms: DBM[],
+    rows: ROW[],
     opt?: CommonDBSaveOptions,
   ): Promise<void> {
     await this.got.put(`saveBatch`, {
       json: {
         table,
-        dbms,
+        rows,
         opt,
       },
     })
@@ -129,15 +130,11 @@ export class HttpDB implements CommonDB {
     console.warn(`createTable not implemented`)
   }
 
-  streamQuery<DBM extends ObjectWithId, OUT = DBM>(
-    q: DBQuery<DBM>,
+  streamQuery<ROW extends ObjectWithId, OUT = ROW>(
+    q: DBQuery<ROW>,
     opt?: CommonDBStreamOptions,
   ): ReadableTyped<OUT> {
     console.warn(`streamQuery not implemented`)
     return Readable.from([])
-  }
-
-  transaction(): DBTransaction {
-    return new DBTransaction(this)
   }
 }

@@ -50,7 +50,7 @@ function summaryToVegaSpecs(summary: AutocannonSummary[]): Record<string, Spec> 
       // title: 'title',
       // "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
       data: {
-        values: summary,
+        values: summary as any,
       },
       mark: 'bar',
       encoding: {

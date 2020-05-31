@@ -3,7 +3,8 @@ import {
   CommonDBOptions,
   CommonDBSaveOptions,
   DBQuery,
-  SavedDBEntity,
+  InMemoryDB,
+  ObjectWithId,
 } from '@naturalcycles/db-lib'
 import {
   commonDBOptionsSchema,
@@ -38,13 +39,13 @@ const runQueryInputSchema = objectSchema<RunQueryInput>({
 
 export interface SaveBatchInput {
   table: string
-  dbms: SavedDBEntity[]
+  rows: ObjectWithId[]
   opt?: CommonDBSaveOptions
 }
 
 const saveBatchInputSchema = objectSchema<SaveBatchInput>({
   table: stringSchema,
-  dbms: arraySchema(anyObjectSchema),
+  rows: arraySchema(anyObjectSchema),
   opt: commonDBSaveOptionsSchema.optional(),
 })
 
@@ -56,9 +57,11 @@ const saveBatchInputSchema = objectSchema<SaveBatchInput>({
 export function httpDBRequestHandler(db: CommonDB): Router {
   const router = getDefaultRouter()
 
-  // resetCache
+  // resetCache, only applicable to InMemoryDB
   router.put('/resetCache/:table?', async (req, res) => {
-    await db.resetCache(req.params.table)
+    if (db instanceof InMemoryDB) {
+      await db.resetCache(req.params.table)
+    }
     res.end()
   })
 
@@ -105,8 +108,8 @@ export function httpDBRequestHandler(db: CommonDB): Router {
 
   // saveBatch
   router.put('/saveBatch', reqValidation('body', saveBatchInputSchema), async (req, res) => {
-    const { table, dbms, opt } = req.body as SaveBatchInput
-    await db.saveBatch(table, dbms, opt)
+    const { table, rows, opt } = req.body as SaveBatchInput
+    await db.saveBatch(table, rows, opt)
     res.end()
   })
 
