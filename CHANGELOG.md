@@ -1,3 +1,10 @@
+## [2.48.12](https://github.com/NaturalCycles/backend-lib/compare/v2.48.11...v2.48.12) (2020-05-31)
+
+
+### Bug Fixes
+
+* db-lib@7 ([0f8b86d](https://github.com/NaturalCycles/backend-lib/commit/0f8b86d2c2833635c650c759061cd6627a89b575))
+
 ## [2.48.11](https://github.com/NaturalCycles/backend-lib/compare/v2.48.10...v2.48.11) (2020-05-25)
 
 
