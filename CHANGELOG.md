@@ -1,3 +1,10 @@
+## [2.48.14](https://github.com/NaturalCycles/backend-lib/compare/v2.48.13...v2.48.14) (2020-06-17)
+
+
+### Bug Fixes
+
+* requestTimeout middleware to consistently use seconds ([6a0b9a0](https://github.com/NaturalCycles/backend-lib/commit/6a0b9a024ec12350ab8237c4b0aab16e5d615843))
+
 ## [2.48.13](https://github.com/NaturalCycles/backend-lib/compare/v2.48.12...v2.48.13) (2020-06-17)
 
 
