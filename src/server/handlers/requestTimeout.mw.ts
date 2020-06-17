@@ -24,19 +24,17 @@ const code = 'REQUEST_TIMEOUT'
 const REQUEST_TIMEOUT_QUERY_KEY = 'requestTimeout'
 
 export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
-  const { timeoutSeconds, httpStatusCode, httpErrorMessage } = {
+  const { timeoutSeconds: defTimeoutSeconds, httpStatusCode, httpErrorMessage } = {
     timeoutSeconds: 60,
     httpStatusCode: 503,
     httpErrorMessage: 'Request timed out',
     ...cfg,
   }
 
-  const defTimeout = timeoutSeconds * 1000
-
   return (req, res, next) => {
-    const timeout = req.query[REQUEST_TIMEOUT_QUERY_KEY]
+    const timeoutSeconds = req.query[REQUEST_TIMEOUT_QUERY_KEY]
       ? parseInt(req.query[REQUEST_TIMEOUT_QUERY_KEY] as string)
-      : defTimeout
+      : defTimeoutSeconds
 
     const timer = setTimeout(() => {
       if (res.headersSent) return
@@ -50,7 +48,7 @@ export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
           userFriendly: true,
         }),
       )
-    }, timeout)
+    }, timeoutSeconds * 1000)
 
     onFinished(res, () => clearTimeout(timer))
 
