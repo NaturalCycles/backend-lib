@@ -110,7 +110,11 @@ export class BaseAdminService {
    * Override if needed.
    */
   async getAdminToken(req: Request): Promise<string | undefined> {
-    return (req.cookies || {})[this.cfg.adminTokenKey] || req.header(this.cfg.adminTokenKey)
+    return (
+      (req.cookies || {})[this.cfg.adminTokenKey] ||
+      req.header(this.cfg.adminTokenKey) ||
+      req.header('x-admin-token')
+    )
   }
 
   async isAdmin(req: Request): Promise<boolean> {
