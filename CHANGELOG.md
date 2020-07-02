@@ -1,3 +1,10 @@
+# [2.49.0](https://github.com/NaturalCycles/backend-lib/compare/v2.48.14...v2.49.0) (2020-07-02)
+
+
+### Features
+
+* getAdminToken to allow fallback 'x-admin-token' header ([aad94d5](https://github.com/NaturalCycles/backend-lib/commit/aad94d5221f72817e6f595b27e5fe933995a8074))
+
 ## [2.48.14](https://github.com/NaturalCycles/backend-lib/compare/v2.48.13...v2.48.14) (2020-06-17)
 
 
