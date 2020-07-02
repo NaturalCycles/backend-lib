@@ -75,7 +75,7 @@ export async function getBackendCfg(projectDir: string = '.'): Promise<BackendCf
 
   await requireFileToExist(backendCfgYamlPath)
 
-  const backendCfg = yaml.safeLoad(await fs.readFile(backendCfgYamlPath, 'utf8'))
+  const backendCfg = yaml.safeLoad(await fs.readFile(backendCfgYamlPath, 'utf8')) as any
 
   return validate(
     {
