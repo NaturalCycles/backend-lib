@@ -1,3 +1,4 @@
+import { StringMap } from '@naturalcycles/js-lib'
 import {
   anyObjectSchema,
   arraySchema,
@@ -13,14 +14,14 @@ import * as yaml from 'js-yaml'
 export interface BackendCfg {
   gaeProject: string
 
-  gaeProjectByBranch?: Record<string, string>
+  gaeProjectByBranch?: StringMap
 
   /**
    * @example default
    */
   gaeService: string
 
-  gaeServiceByBranch?: Record<string, string>
+  gaeServiceByBranch?: StringMap
 
   /**
    * @default true
@@ -43,7 +44,7 @@ export interface BackendCfg {
   files?: string[]
 
   appEnvDefault: string
-  appEnvByBranch?: Record<string, string>
+  appEnvByBranch?: StringMap
 
   /**
    * List of branches to use timestamps in gae version names (to keep previous versions).
