@@ -48,7 +48,11 @@ export function createDefaultApp(
   app.use(cookieParser())
   if (!isTest) {
     // leaks, load lazily
-    app.use(require('helmet')())
+    app.use(
+      require('helmet')({
+        contentSecurityPolicy: false, // to allow "admin 401 auto-redirect"
+      }),
+    )
   }
 
   app.use(
