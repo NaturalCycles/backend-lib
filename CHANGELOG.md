@@ -1,3 +1,10 @@
+## [2.49.4](https://github.com/NaturalCycles/backend-lib/compare/v2.49.3...v2.49.4) (2020-08-03)
+
+
+### Bug Fixes
+
+* disable helmet csp to allow "admin 401 redirect" ([638dfcb](https://github.com/NaturalCycles/backend-lib/commit/638dfcbfda91fef456f89dde78c1778302bd0d78))
+
 ## [2.49.3](https://github.com/NaturalCycles/backend-lib/compare/v2.49.2...v2.49.3) (2020-08-02)
 
 
