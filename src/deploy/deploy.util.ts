@@ -185,7 +185,7 @@ export async function createAppYaml(
 function redactedAppYaml(appYaml: AppYaml): AppYaml {
   return {
     ...appYaml,
-    env_variables: _mapValues(appYaml.env_variables || {}, v => _truncate(String(v), 7)),
+    env_variables: _mapValues(appYaml.env_variables || {}, (_k, v) => _truncate(String(v), 7)),
   }
 }
 
