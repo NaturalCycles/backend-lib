@@ -1,6 +1,5 @@
-import { AnySchema } from '@hapi/joi'
 import { HttpError } from '@naturalcycles/js-lib'
-import { getValidationResult } from '@naturalcycles/nodejs-lib'
+import { AnySchema, getValidationResult } from '@naturalcycles/nodejs-lib'
 import { RequestHandler } from 'express'
 
 export function reqValidation(
