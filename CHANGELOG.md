@@ -1,3 +1,10 @@
+## [2.49.10](https://github.com/NaturalCycles/backend-lib/compare/v2.49.9...v2.49.10) (2020-10-13)
+
+
+### Bug Fixes
+
+* adopt db-lib@8 ([f9e7d0d](https://github.com/NaturalCycles/backend-lib/commit/f9e7d0d9002e74a797970bec4d584948f243331b))
+
 ## [2.49.9](https://github.com/NaturalCycles/backend-lib/compare/v2.49.8...v2.49.9) (2020-09-21)
 
 
