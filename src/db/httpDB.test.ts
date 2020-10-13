@@ -23,6 +23,7 @@ afterAll(async () => {
 const features: CommonDBImplementationFeatures = {
   streaming: false,
   createTable: false,
+  bufferSupport: false,
 }
 
 describe('runCommonDBTest', () => runCommonDBTest(db, features))
