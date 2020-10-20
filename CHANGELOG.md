@@ -1,3 +1,10 @@
+# [2.50.0](https://github.com/NaturalCycles/backend-lib/compare/v2.49.10...v2.50.0) (2020-10-20)
+
+
+### Features
+
+* default RequestTimeout is set to 120 seconds (was: 60) ([9ee5ca9](https://github.com/NaturalCycles/backend-lib/commit/9ee5ca965091112b26380643657dfa194d8e1e3e))
+
 ## [2.49.10](https://github.com/NaturalCycles/backend-lib/compare/v2.49.9...v2.49.10) (2020-10-13)
 
 
