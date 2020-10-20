@@ -5,7 +5,7 @@ import { respondWithError } from '../error.util'
 
 export interface RequestTimeoutCfg {
   /**
-   * @default 60
+   * @default 120
    */
   timeoutSeconds?: number
 
@@ -25,7 +25,11 @@ const REQUEST_TIMEOUT_QUERY_KEY = 'requestTimeout'
 
 export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
   const { timeoutSeconds: defTimeoutSeconds, httpStatusCode, httpErrorMessage } = {
-    timeoutSeconds: 60,
+    // Considerations about the default value of the timeout.
+    // Ideally the default value here would be HIGHER than the default timeout for getGot (in nodejs-lib),
+    // so, cross-service communication has a chance to fail SOONER than server times out,
+    // so, proper error from exact service is shown, rather than generic "503 request timed out"
+    timeoutSeconds: 120,
     httpStatusCode: 503,
     httpErrorMessage: 'Request timed out',
     ...cfg,
