@@ -28,7 +28,7 @@ const getByIdsInputSchema = objectSchema<GetByIdsInput>({
 })
 
 export interface RunQueryInput {
-  query: Partial<DBQuery>
+  query: Partial<DBQuery> & { table: string }
   opt?: CommonDBOptions
 }
 
@@ -48,8 +48,6 @@ const saveBatchInputSchema = objectSchema<SaveBatchInput>({
   rows: arraySchema(anyObjectSchema),
   opt: commonDBSaveOptionsSchema.optional(),
 })
-
-// todo: read-only mode
 
 /**
  * Exposes CommonDB interface from provided CommonDB as HTTP endpoint (Express RequestHandler).
@@ -95,14 +93,14 @@ export function httpDBRequestHandler(db: CommonDB): Router {
   // runQuery
   router.put('/runQuery', reqValidation('body', runQueryInputSchema), async (req, res) => {
     const { query, opt } = req.body as RunQueryInput
-    const q = Object.assign(new DBQuery(query.table!), query)
+    const q = DBQuery.fromPlainObject(query)
     res.json(await db.runQuery(q, opt))
   })
 
   // runQueryCount
   router.put('/runQueryCount', reqValidation('body', runQueryInputSchema), async (req, res) => {
     const { query, opt } = req.body as RunQueryInput
-    const q = Object.assign(new DBQuery(query.table!), query)
+    const q = DBQuery.fromPlainObject(query)
     res.json(await db.runQueryCount(q, opt))
   })
 
@@ -122,7 +120,7 @@ export function httpDBRequestHandler(db: CommonDB): Router {
   // deleteByQuery
   router.put('/deleteByQuery', reqValidation('body', runQueryInputSchema), async (req, res) => {
     const { query, opt } = req.body as RunQueryInput
-    const q = Object.assign(new DBQuery(query.table!), query)
+    const q = DBQuery.fromPlainObject(query)
     res.json(await db.deleteByQuery(q, opt))
   })
 
