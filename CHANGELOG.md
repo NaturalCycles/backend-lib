@@ -1,3 +1,10 @@
+## [2.50.2](https://github.com/NaturalCycles/backend-lib/compare/v2.50.1...v2.50.2) (2020-10-25)
+
+
+### Bug Fixes
+
+* FirebaseSharedServiceCfg.appName?: string ([eb08d99](https://github.com/NaturalCycles/backend-lib/commit/eb08d992a4085956a3711617a25c75fcbeb0b6b8))
+
 ## [2.50.1](https://github.com/NaturalCycles/backend-lib/compare/v2.50.0...v2.50.1) (2020-10-25)
 
 
