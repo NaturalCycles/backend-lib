@@ -1,5 +1,5 @@
 import { _Memo } from '@naturalcycles/js-lib'
-import type { ServiceAccount } from 'firebase-admin'
+import type { AppOptions, ServiceAccount } from 'firebase-admin'
 import type * as FirebaseAdmin from 'firebase-admin'
 
 export interface FirebaseSharedServiceCfg {
@@ -23,6 +23,11 @@ export interface FirebaseSharedServiceCfg {
    * @default 'GoogleAuthProvider'
    */
   adminAuthProvider?: string
+
+  /**
+   * Will be passed to .initializeApp
+   */
+  opt?: AppOptions
 }
 
 export class FirebaseSharedService {
@@ -45,6 +50,7 @@ export class FirebaseSharedService {
 
     return admin.initializeApp({
       credential,
+      ...this.cfg.opt,
     })
   }
 
