@@ -25,9 +25,15 @@ export interface FirebaseSharedServiceCfg {
   adminAuthProvider?: string
 
   /**
-   * Will be passed to .initializeApp
+   * Will be passed to .initializeApp()
    */
   opt?: AppOptions
+
+  /**
+   * Second argument to .initializeApp()
+   * When you need more-than-one firebase instance
+   */
+  appName?: string
 }
 
 export class FirebaseSharedService {
@@ -48,10 +54,13 @@ export class FirebaseSharedService {
       ? admin.credential.cert(serviceAccount)
       : admin.credential.applicationDefault()
 
-    return admin.initializeApp({
-      credential,
-      ...this.cfg.opt,
-    })
+    return admin.initializeApp(
+      {
+        credential,
+        ...this.cfg.opt,
+      },
+      this.cfg.appName,
+    )
   }
 
   auth(): FirebaseAdmin.auth.Auth {
