@@ -1,3 +1,10 @@
+## [2.50.1](https://github.com/NaturalCycles/backend-lib/compare/v2.50.0...v2.50.1) (2020-10-25)
+
+
+### Bug Fixes
+
+* FirebaseSharedServiceCfg.opt ([b6d6952](https://github.com/NaturalCycles/backend-lib/commit/b6d6952430b29d6d77cab31edc3d644e08508b68))
+
 # [2.50.0](https://github.com/NaturalCycles/backend-lib/compare/v2.49.10...v2.50.0) (2020-10-20)
 
 
