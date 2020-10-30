@@ -1,3 +1,10 @@
+## [2.50.3](https://github.com/NaturalCycles/backend-lib/compare/v2.50.2...v2.50.3) (2020-10-30)
+
+
+### Bug Fixes
+
+* use es6-compliant imports ([54eef33](https://github.com/NaturalCycles/backend-lib/commit/54eef331290cf2f0c6b8ac495193f8c862dbaed4))
+
 ## [2.50.2](https://github.com/NaturalCycles/backend-lib/compare/v2.50.1...v2.50.2) (2020-10-25)
 
 
