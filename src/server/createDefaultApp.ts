@@ -1,7 +1,7 @@
-import * as cookieParser from 'cookie-parser'
-import * as cors from 'cors'
-import { Application } from 'express'
-import * as express from 'express'
+import cookieParser = require('cookie-parser')
+import cors = require('cors')
+import type { Application } from 'express'
+import express = require('express')
 import { methodOverride, SentrySharedService } from '..'
 import { DefaultAppCfg, RequestHandlerCfg, RequestHandlerWithPath } from './createDefaultApp.model'
 import { bodyParserTimeout, clearBodyParserTimeout } from './handlers/bodyParserTimeout.mw'

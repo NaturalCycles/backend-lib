@@ -1,4 +1,4 @@
-import * as express from 'express'
+import express = require('express')
 import * as http from 'http'
 
 export async function createServer(): Promise<http.Server> {

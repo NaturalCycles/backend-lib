@@ -1,4 +1,4 @@
-import * as onFinished from 'on-finished'
+import onFinished = require('on-finished')
 import {
   AdminMiddleware,
   createAdminMiddleware,
