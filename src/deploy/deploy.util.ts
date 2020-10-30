@@ -100,29 +100,29 @@ export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployIn
   return deployInfo
 }
 
-export async function createAndSaveAppYaml(
+export function createAndSaveAppYaml(
   backendCfg: BackendCfg,
   deployInfo: DeployInfo,
   projectDir: string,
   targetDir: string,
   appYamlPassEnv = '',
-): Promise<AppYaml> {
-  const appYaml = await createAppYaml(backendCfg, deployInfo, projectDir, appYamlPassEnv)
+): AppYaml {
+  const appYaml = createAppYaml(backendCfg, deployInfo, projectDir, appYamlPassEnv)
 
   const appYamlPath = `${targetDir}/app.yaml`
 
-  await fs.writeFile(appYamlPath, yaml.safeDump(appYaml))
+  fs.writeFileSync(appYamlPath, yaml.safeDump(appYaml))
   console.log(`saved ${dimGrey(appYamlPath)}`)
 
   return appYaml
 }
 
-export async function createAppYaml(
+export function createAppYaml(
   backendCfg: BackendCfg,
   deployInfo: DeployInfo,
   projectDir: string,
   appYamlPassEnv = '',
-): Promise<AppYaml> {
+): AppYaml {
   const { appEnvDefault, appEnvByBranch = {} } = backendCfg
   const { gaeService: service, gitBranch } = deployInfo
 
@@ -138,13 +138,13 @@ export async function createAppYaml(
   const appYamlPath = `${projectDir}/app.yaml`
   if (fs.existsSync(appYamlPath)) {
     console.log(`merging-in ${dimGrey(appYamlPath)}`)
-    _merge(appYaml, yaml.safeLoad(await fs.readFile(appYamlPath, 'utf8')))
+    _merge(appYaml, yaml.safeLoad(fs.readFileSync(appYamlPath, 'utf8')))
   }
 
   const appEnvYamlPath = `${projectDir}/app.${APP_ENV}.yaml`
   if (fs.existsSync(appEnvYamlPath)) {
     console.log(`merging-in ${dimGrey(appEnvYamlPath)}`)
-    _merge(appYaml, yaml.safeLoad(await fs.readFile(appEnvYamlPath, 'utf8')))
+    _merge(appYaml, yaml.safeLoad(fs.readFileSync(appEnvYamlPath, 'utf8')))
   }
 
   // appYamlPassEnv

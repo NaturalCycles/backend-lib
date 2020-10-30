@@ -70,7 +70,7 @@ export async function deployPrepare(opt: DeployPrepareOptions = {}): Promise<Dep
   console.log(`1. Copy files to ${dimGrey(targetDir)}`)
 
   // Clean targetDir
-  await fs.emptyDir(targetDir)
+  fs.emptyDirSync(targetDir)
 
   await kpy({
     baseDir: defaultFilesDir,
@@ -89,7 +89,7 @@ export async function deployPrepare(opt: DeployPrepareOptions = {}): Promise<Dep
   if (NPM_TOKEN && createNpmrc) {
     const npmrcPath = `${targetDir}/.npmrc`
     const npmrc = `//registry.npmjs.org/:_authToken=${NPM_TOKEN}`
-    await fs.writeFile(npmrcPath, npmrc)
+    fs.writeFileSync(npmrcPath, npmrc)
   }
 
   console.log(`2. Generate ${dimGrey('deployInfo.json')} and ${dimGrey('app.yaml')} in targetDir`)
