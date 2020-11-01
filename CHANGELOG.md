@@ -1,3 +1,10 @@
+## [2.50.4](https://github.com/NaturalCycles/backend-lib/compare/v2.50.3...v2.50.4) (2020-11-01)
+
+
+### Bug Fixes
+
+* some more async=>sync fs.* conversion ([0f7af5c](https://github.com/NaturalCycles/backend-lib/commit/0f7af5c12f049aa7904184c9ad11276e25814564))
+
 ## [2.50.3](https://github.com/NaturalCycles/backend-lib/compare/v2.50.2...v2.50.3) (2020-10-30)
 
 
