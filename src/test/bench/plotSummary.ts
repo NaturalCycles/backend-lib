@@ -35,7 +35,7 @@ async function main() {
     const svg = await view.toSVG()
     // console.log(svg)
 
-    await fs.writeFile(`${plotDir}/${specName}.svg`, svg)
+    fs.writeFileSync(`${plotDir}/${specName}.svg`, svg)
   })
 }
 

@@ -71,12 +71,12 @@ const backendCfgSchema = objectSchema<BackendCfg>({
   appYamlPassEnv: stringSchema.optional(),
 })
 
-export async function getBackendCfg(projectDir: string = '.'): Promise<BackendCfg> {
+export function getBackendCfg(projectDir: string = '.'): BackendCfg {
   const backendCfgYamlPath = `${projectDir}/backend.cfg.yaml`
 
-  await requireFileToExist(backendCfgYamlPath)
+  requireFileToExist(backendCfgYamlPath)
 
-  const backendCfg = yaml.safeLoad(await fs.readFile(backendCfgYamlPath, 'utf8')) as any
+  const backendCfg = yaml.safeLoad(fs.readFileSync(backendCfgYamlPath, 'utf8')) as any
 
   return validate(
     {

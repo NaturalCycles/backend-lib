@@ -109,7 +109,7 @@ async function main() {
 
   console.table(summary)
 
-  await fs.writeJson(summaryJsonPath, summary, { spaces: 2 })
+  fs.writeJsonSync(summaryJsonPath, summary, { spaces: 2 })
   console.log(`saved ${summaryJsonPath}`)
 }
 

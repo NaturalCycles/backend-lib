@@ -60,10 +60,10 @@ const defaultFilesDir = `${srcDir}/deploy/files-default`
 
 export async function deployPrepare(opt: DeployPrepareOptions = {}): Promise<DeployInfo> {
   // lazy load (somehow fixes `yarn test-leaks`)
-  const { kpy } = require('@naturalcycles/fs-lib') as typeof fsLibType
+  const { kpySync } = require('@naturalcycles/fs-lib') as typeof fsLibType
   const { projectDir = '.', targetDir = './tmp/deploy', createNpmrc = true } = opt
 
-  const backendCfg = await getBackendCfg(projectDir)
+  const backendCfg = getBackendCfg(projectDir)
   const inputPatterns = backendCfg.files || DEFAULT_FILES
   const appYamlPassEnv = opt.appYamlPassEnv || backendCfg.appYamlPassEnv
 
@@ -72,13 +72,13 @@ export async function deployPrepare(opt: DeployPrepareOptions = {}): Promise<Dep
   // Clean targetDir
   fs.emptyDirSync(targetDir)
 
-  await kpy({
+  kpySync({
     baseDir: defaultFilesDir,
     outputDir: targetDir,
     dotfiles: true,
   })
 
-  await kpy({
+  kpySync({
     baseDir: projectDir,
     inputPatterns,
     outputDir: targetDir,
@@ -95,7 +95,7 @@ export async function deployPrepare(opt: DeployPrepareOptions = {}): Promise<Dep
   console.log(`2. Generate ${dimGrey('deployInfo.json')} and ${dimGrey('app.yaml')} in targetDir`)
 
   const deployInfo = await createAndSaveDeployInfo(backendCfg, targetDir)
-  await createAndSaveAppYaml(backendCfg, deployInfo, projectDir, targetDir, appYamlPassEnv)
+  createAndSaveAppYaml(backendCfg, deployInfo, projectDir, targetDir, appYamlPassEnv)
 
   return deployInfo
 }

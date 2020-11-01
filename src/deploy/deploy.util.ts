@@ -35,7 +35,7 @@ export async function createAndSaveDeployInfo(
 
   const deployInfoPath = `${targetDir}/deployInfo.json`
 
-  await fs.writeJson(deployInfoPath, deployInfo, { spaces: 2 })
+  fs.writeJsonSync(deployInfoPath, deployInfo, { spaces: 2 })
   console.log(`saved ${dimGrey(deployInfoPath)}`)
 
   return deployInfo
