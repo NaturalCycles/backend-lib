@@ -14,7 +14,6 @@
   "dependencies": {
     "@naturalcycles/db-lib": "^8.0.2",
     "@naturalcycles/fs-lib": "^2.3.0",
-    "@naturalcycles/js-lib": "^14.0.0",
     "@naturalcycles/nodejs-lib": "^12.0.0",
     "@naturalcycles/time-lib": "^3.0.1",
     "@types/cls-hooked": "^4.3.0",

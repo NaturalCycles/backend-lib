@@ -1,5 +1,5 @@
-import * as fsLibType from '@naturalcycles/fs-lib'
 import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
+import { kpySync } from '@naturalcycles/nodejs-lib/dist/fs'
 import * as fs from 'fs-extra'
 import { srcDir } from '../paths.cnst'
 import { getBackendCfg } from './backend.cfg.util'
@@ -60,7 +60,6 @@ const defaultFilesDir = `${srcDir}/deploy/files-default`
 
 export async function deployPrepare(opt: DeployPrepareOptions = {}): Promise<DeployInfo> {
   // lazy load (somehow fixes `yarn test-leaks`)
-  const { kpySync } = require('@naturalcycles/fs-lib') as typeof fsLibType
   const { projectDir = '.', targetDir = './tmp/deploy', createNpmrc = true } = opt
 
   const backendCfg = getBackendCfg(projectDir)

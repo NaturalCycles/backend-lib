@@ -21,7 +21,7 @@
 - `/` root
 - `/deploy`
   - yargs
-  - fs-lib
+  - nodejs-lib/fs
   - js-yaml
   - simple-git
   - got
