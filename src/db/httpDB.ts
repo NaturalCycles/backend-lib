@@ -64,10 +64,10 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
       .json()
   }
 
-  async runQuery<ROW extends ObjectWithId, OUT = ROW>(
+  async runQuery<ROW extends ObjectWithId>(
     query: DBQuery<ROW>,
     opt?: CommonDBOptions,
-  ): Promise<RunQueryResult<OUT>> {
+  ): Promise<RunQueryResult<ROW>> {
     return await this.got
       .put(`runQuery`, {
         json: {
@@ -78,7 +78,10 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
       .json()
   }
 
-  async runQueryCount(query: DBQuery, opt?: CommonDBOptions): Promise<number> {
+  async runQueryCount<ROW extends ObjectWithId>(
+    query: DBQuery<ROW>,
+    opt?: CommonDBOptions,
+  ): Promise<number> {
     return await this.got
       .put(`runQueryCount`, {
         json: {
@@ -115,7 +118,10 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
       .json()
   }
 
-  async deleteByQuery(query: DBQuery, opt?: CommonDBOptions): Promise<number> {
+  async deleteByQuery<ROW extends ObjectWithId>(
+    query: DBQuery<ROW>,
+    opt?: CommonDBOptions,
+  ): Promise<number> {
     return await this.got
       .put(`deleteByQuery`, {
         json: {
@@ -130,10 +136,10 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
     console.warn(`createTable not implemented`)
   }
 
-  streamQuery<ROW extends ObjectWithId, OUT = ROW>(
+  streamQuery<ROW extends ObjectWithId>(
     q: DBQuery<ROW>,
     opt?: CommonDBStreamOptions,
-  ): ReadableTyped<OUT> {
+  ): ReadableTyped<ROW> {
     console.warn(`streamQuery not implemented`)
     return Readable.from([])
   }

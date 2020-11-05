@@ -28,7 +28,7 @@ const getByIdsInputSchema = objectSchema<GetByIdsInput>({
 })
 
 export interface RunQueryInput {
-  query: Partial<DBQuery> & { table: string }
+  query: Partial<DBQuery<any>> & { table: string }
   opt?: CommonDBOptions
 }
 
