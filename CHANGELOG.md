@@ -1,3 +1,10 @@
+## [2.50.7](https://github.com/NaturalCycles/backend-lib/compare/v2.50.6...v2.50.7) (2020-11-10)
+
+
+### Bug Fixes
+
+* remove fs-lib dep ([184088b](https://github.com/NaturalCycles/backend-lib/commit/184088b0f2c442f82fa124f13d3fb329275500bb))
+
 ## [2.50.6](https://github.com/NaturalCycles/backend-lib/compare/v2.50.5...v2.50.6) (2020-11-05)
 
 
