@@ -4,7 +4,7 @@ yarn tsn ./src/test/bench/plotSummary.ts
 
  */
 
-import { pMap } from '@naturalcycles/js-lib'
+import { pMap, StringMap } from '@naturalcycles/js-lib'
 import * as fs from 'fs-extra'
 import * as vega from 'vega'
 import { Spec } from 'vega'
@@ -29,7 +29,7 @@ async function main() {
 
   await pMap(Object.keys(specs), async specName => {
     // create a new view instance for a given Vega JSON spec
-    const view = new vega.View(vega.parse(specs[specName]), { renderer: 'none' })
+    const view = new vega.View(vega.parse(specs[specName]!), { renderer: 'none' })
 
     // generate a static SVG image
     const svg = await view.toSVG()
@@ -39,7 +39,7 @@ async function main() {
   })
 }
 
-function summaryToVegaSpecs(summary: AutocannonSummary[]): Record<string, Spec> {
+function summaryToVegaSpecs(summary: AutocannonSummary[]): StringMap<Spec> {
   // console.log(summary)
   const fields = ['rpsAvg', 'latencyAvg', 'latency50', 'latency90', 'latency99', 'throughputAvg']
 

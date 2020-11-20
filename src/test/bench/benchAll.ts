@@ -4,7 +4,7 @@ yarn tsn ./src/test/bench/benchAll.ts
 
  */
 
-import { pDefer, pDelay, _range } from '@naturalcycles/js-lib'
+import { pDefer, pDelay, StringMap, _range } from '@naturalcycles/js-lib'
 import { boldRed } from '@naturalcycles/nodejs-lib/dist/colors'
 import * as fs from 'fs-extra'
 import * as http from 'http'
@@ -99,12 +99,12 @@ async function main() {
 
   console.log(cfg)
 
-  const resultByProfile: Record<string, AutocannonResult> = {}
+  const resultByProfile: StringMap<AutocannonResult> = {}
   const summary: AutocannonSummary[] = []
 
   for await (const profile of profiles) {
     resultByProfile[profile] = await runProfile(profile, cfg)
-    summary.push(toSummary(profile, resultByProfile[profile]))
+    summary.push(toSummary(profile, resultByProfile[profile]!))
   }
 
   console.table(summary)
@@ -117,7 +117,7 @@ async function runProfile(profileName: string, cfg: BenchCfg): Promise<Autocanno
   const { connections, pipelining, duration, cooldown, runs, host, verbose } = cfg
   const { createServer } = require(`${profileDir}/${profileName}`) as Profile
   const server = await createServer()
-  await new Promise(resolve => server.listen(0, resolve))
+  await new Promise<void>(resolve => server.listen(0, resolve))
   const { port } = server.address() as AddressInfo
   const url = `${host}:${port}`
   // log(`started ${profileName} on port ${port}`)

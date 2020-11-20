@@ -21,6 +21,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "suppressImplicitAnyIndexErrors": true,
+    "noUncheckedIndexedAccess": false, // set to true later
 
     // Enabled should be faster, but will catch less errors
     // "skipLibCheck": true,
