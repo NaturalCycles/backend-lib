@@ -1,3 +1,10 @@
+# [2.51.0](https://github.com/NaturalCycles/backend-lib/compare/v2.50.7...v2.51.0) (2020-11-20)
+
+
+### Features
+
+* noUncheckedIndexedAccess=true is by default now ([4dc9e3c](https://github.com/NaturalCycles/backend-lib/commit/4dc9e3c62db7721fb1eac0edf59a7c49aa0a38be))
+
 ## [2.50.7](https://github.com/NaturalCycles/backend-lib/compare/v2.50.6...v2.50.7) (2020-11-10)
 
 
