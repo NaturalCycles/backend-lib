@@ -1,3 +1,10 @@
+## [2.51.1](https://github.com/NaturalCycles/backend-lib/compare/v2.51.0...v2.51.1) (2020-11-23)
+
+
+### Bug Fixes
+
+* export DeployHealthCheckOptions ([fcf1e94](https://github.com/NaturalCycles/backend-lib/commit/fcf1e9462026f580e107ce04675d821c97579705))
+
 # [2.51.0](https://github.com/NaturalCycles/backend-lib/compare/v2.50.7...v2.51.0) (2020-11-20)
 
 
