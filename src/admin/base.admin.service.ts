@@ -82,7 +82,6 @@ export class BaseAdminService {
     required: boolean,
     granted: boolean,
     meta: Record<string, any> = {},
-    andComparison: boolean = false,
   ): Promise<void> {
     log(
       `${dimGrey(email)} ${required ? 'required' : 'optional'} permissions check [${dimGrey(
@@ -184,13 +183,16 @@ export class BaseAdminService {
     const grantedPermissions = hasPermissions
       ? reqPermissions.filter(p => hasPermissions.has(p))
       : []
-    let granted = !!hasPermissions && grantedPermissions.length === reqPermissions.length // All permissions granted
 
-    if (andComparison === false) {
+    let granted = false
+    if (andComparison) {
+      const granted = !!hasPermissions && grantedPermissions.length === reqPermissions.length // All permissions granted
+      void this.onPermissionCheck(req, email, reqPermissions, true, granted, meta)
+    } else {
       granted = !!hasPermissions && grantedPermissions.length > 0
+      // Require the permission(s), but only the ones the user was actually granted. 1+ is required
+      void this.onPermissionCheck(req, email, grantedPermissions, true, granted, meta)
     }
-
-    void this.onPermissionCheck(req, email, reqPermissions, true, granted, meta, andComparison)
 
     if (!granted) {
       throw new HttpError<Admin403ErrorData>(
