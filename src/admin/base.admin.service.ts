@@ -164,6 +164,7 @@ export class BaseAdminService {
     req: Request,
     reqPermissions: string[] = [],
     meta: Record<string, any> = {},
+    andComparison: boolean = true,
   ): Promise<AdminInfo> {
     if (!this.cfg.authEnabled) return adminInfoDisabled()
 
@@ -179,9 +180,23 @@ export class BaseAdminService {
     }
 
     const hasPermissions = this.getEmailPermissions(email)
-    const granted = !!hasPermissions && reqPermissions.every(p => hasPermissions.has(p))
+    const grantedPermissions = hasPermissions
+      ? reqPermissions.filter(p => hasPermissions.has(p))
+      : []
 
-    void this.onPermissionCheck(req, email, reqPermissions, true, granted, meta)
+    let granted = false
+    if (andComparison) {
+      const granted = !!hasPermissions && grantedPermissions.length === reqPermissions.length // All permissions granted
+      void this.onPermissionCheck(req, email, reqPermissions, true, granted, meta)
+    } else {
+      granted = !!hasPermissions && grantedPermissions.length > 0
+      if (granted) {
+        // Require the permission(s), but only the ones the user was actually granted. 1+ is required
+        void this.onPermissionCheck(req, email, grantedPermissions, true, granted, meta)
+      } else {
+        void this.onPermissionCheck(req, email, reqPermissions, true, granted, meta)
+      }
+    }
 
     if (!granted) {
       throw new HttpError<Admin403ErrorData>(
