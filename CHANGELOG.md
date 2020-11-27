@@ -1,3 +1,10 @@
+## [2.52.1](https://github.com/NaturalCycles/backend-lib/compare/v2.52.0...v2.52.1) (2020-11-27)
+
+
+### Bug Fixes
+
+* var overwrite bug ([c872a39](https://github.com/NaturalCycles/backend-lib/commit/c872a39163de68337a663f787091796b11d7c8af))
+
 # [2.52.0](https://github.com/NaturalCycles/backend-lib/compare/v2.51.1...v2.52.0) (2020-11-27)
 
 
