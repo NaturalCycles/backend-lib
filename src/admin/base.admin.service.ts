@@ -190,8 +190,12 @@ export class BaseAdminService {
       void this.onPermissionCheck(req, email, reqPermissions, true, granted, meta)
     } else {
       granted = !!hasPermissions && grantedPermissions.length > 0
-      // Require the permission(s), but only the ones the user was actually granted. 1+ is required
-      void this.onPermissionCheck(req, email, grantedPermissions, true, granted, meta)
+      if (granted) {
+        // Require the permission(s), but only the ones the user was actually granted. 1+ is required
+        void this.onPermissionCheck(req, email, grantedPermissions, true, granted, meta)
+      } else {
+        void this.onPermissionCheck(req, email, reqPermissions, true, granted, meta)
+      }
     }
 
     if (!granted) {
