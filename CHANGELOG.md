@@ -1,3 +1,17 @@
+# [2.52.0](https://github.com/NaturalCycles/backend-lib/compare/v2.51.1...v2.52.0) (2020-11-27)
+
+
+### Bug Fixes
+
+* bad default ([a27d0c4](https://github.com/NaturalCycles/backend-lib/commit/a27d0c4d8000ee36161d0b938d8df1b24f834768))
+* handle or-scenario where granted === false ([066dff8](https://github.com/NaturalCycles/backend-lib/commit/066dff8ff708e977f7313de1cb0f145b33aff7af))
+* onPermissionCheck to point at proper permission(s) ([919db4b](https://github.com/NaturalCycles/backend-lib/commit/919db4bb931dea3875ba55fbc424242a4b6cdefc))
+
+
+### Features
+
+* simplify requiring one of many (e.g. or rather than and comparison) ([f187717](https://github.com/NaturalCycles/backend-lib/commit/f18771799b09e29f37cb2f5e4e71c48e1d22e323))
+
 ## [2.51.1](https://github.com/NaturalCycles/backend-lib/compare/v2.51.0...v2.51.1) (2020-11-23)
 
 
