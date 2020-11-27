@@ -186,7 +186,7 @@ export class BaseAdminService {
 
     let granted = false
     if (andComparison) {
-      const granted = !!hasPermissions && grantedPermissions.length === reqPermissions.length // All permissions granted
+      granted = !!hasPermissions && grantedPermissions.length === reqPermissions.length // All permissions granted
       void this.onPermissionCheck(req, email, reqPermissions, true, granted, meta)
     } else {
       granted = !!hasPermissions && grantedPermissions.length > 0
