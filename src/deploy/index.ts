@@ -5,14 +5,13 @@ import { deployGae } from './deployGae'
 import { deployHealthCheck, DeployHealthCheckOptions } from './deployHealthCheck'
 import { deployPrepare } from './deployPrepare'
 
+export type { BackendCfg, DeployInfo, DeployHealthCheckOptions }
+
 export {
   getBackendCfg,
-  BackendCfg,
   createDeployInfo,
   createAppYaml,
-  DeployInfo,
   deployGae,
   deployPrepare,
   deployHealthCheck,
-  DeployHealthCheckOptions,
 }
