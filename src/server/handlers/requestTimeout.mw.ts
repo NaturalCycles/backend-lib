@@ -49,7 +49,7 @@ export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
         new HttpError(httpErrorMessage, {
           code,
           httpStatusCode,
-          userFriendly: true,
+          // userFriendly: true, // no, cause this error is not expected
         }),
       )
     }, timeoutSeconds * 1000)

@@ -49,7 +49,7 @@ export function bodyParserTimeout(cfg: BodyParserTimeoutCfg = {}): RequestHandle
         new HttpError(httpStatus, {
           code,
           httpStatusCode,
-          userFriendly: true,
+          // userFriendly: true, // no, cause this error is not expected
         }),
       )
     }, timeout)
