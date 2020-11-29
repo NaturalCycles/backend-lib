@@ -1,3 +1,10 @@
+## [2.52.2](https://github.com/NaturalCycles/backend-lib/compare/v2.52.1...v2.52.2) (2020-11-29)
+
+
+### Bug Fixes
+
+* clarify `userFriendly` flag on errors ([78560f8](https://github.com/NaturalCycles/backend-lib/commit/78560f889f42cc1334de5bc6beafc5ac424834df))
+
 ## [2.52.1](https://github.com/NaturalCycles/backend-lib/compare/v2.52.0...v2.52.1) (2020-11-27)
 
 
