@@ -1,3 +1,11 @@
+## [2.52.3](https://github.com/NaturalCycles/backend-lib/compare/v2.52.2...v2.52.3) (2020-11-30)
+
+
+### Bug Fixes
+
+* support passing reqPermissions ([4daa0c5](https://github.com/NaturalCycles/backend-lib/commit/4daa0c5e68de9cec6bf8c653f52d9d5c0aaf25f9))
+* support passing reqPermissions ([3492e53](https://github.com/NaturalCycles/backend-lib/commit/3492e5386d3e3661d3f20cd523c3fce0507a3440))
+
 ## [2.52.2](https://github.com/NaturalCycles/backend-lib/compare/v2.52.1...v2.52.2) (2020-11-29)
 
 
