@@ -13,11 +13,14 @@ export interface SecureHeaderMiddlewareCfg extends RequireAdminCfg {
  * Throws Error401Admin otherwise.
  */
 export function createSecureHeaderMiddleware(cfg: SecureHeaderMiddlewareCfg): AdminMiddleware {
-  return () => requireSecureHeaderOrAdmin(cfg)
+  return reqPermissions => requireSecureHeaderOrAdmin(cfg, reqPermissions)
 }
 
-function requireSecureHeaderOrAdmin(cfg: SecureHeaderMiddlewareCfg): RequestHandler {
-  const requireAdmin = requireAdminPermissions(cfg.adminService, [], cfg)
+function requireSecureHeaderOrAdmin(
+  cfg: SecureHeaderMiddlewareCfg,
+  reqPermissions: string[] | undefined,
+): RequestHandler {
+  const requireAdmin = requireAdminPermissions(cfg.adminService, reqPermissions, cfg)
 
   return async (req, res, next) => {
     const providedHeader = req.get('Authorization')
