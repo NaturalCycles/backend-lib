@@ -18,7 +18,7 @@ export function createSecureHeaderMiddleware(cfg: SecureHeaderMiddlewareCfg): Ad
 
 function requireSecureHeaderOrAdmin(
   cfg: SecureHeaderMiddlewareCfg,
-  reqPermissions: string[] | undefined,
+  reqPermissions?: string[],
 ): RequestHandler {
   const requireAdmin = requireAdminPermissions(cfg.adminService, reqPermissions, cfg)
 
