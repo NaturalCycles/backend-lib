@@ -1,3 +1,10 @@
+## [2.52.4](https://github.com/NaturalCycles/backend-lib/compare/v2.52.3...v2.52.4) (2020-12-10)
+
+
+### Bug Fixes
+
+* return granted permissions, not all ([998592e](https://github.com/NaturalCycles/backend-lib/commit/998592ef4c8a03b8581cf069237082aca9936a79))
+
 ## [2.52.3](https://github.com/NaturalCycles/backend-lib/compare/v2.52.2...v2.52.3) (2020-11-30)
 
 
