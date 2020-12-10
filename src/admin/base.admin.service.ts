@@ -212,7 +212,7 @@ export class BaseAdminService {
 
     return {
       email,
-      permissions: [...hasPermissions!],
+      permissions: [...grantedPermissions!],
     }
   }
 
