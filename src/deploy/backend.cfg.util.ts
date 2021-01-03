@@ -76,7 +76,7 @@ export function getBackendCfg(projectDir: string = '.'): BackendCfg {
 
   requireFileToExist(backendCfgYamlPath)
 
-  const backendCfg = yaml.safeLoad(fs.readFileSync(backendCfgYamlPath, 'utf8')) as any
+  const backendCfg = yaml.load(fs.readFileSync(backendCfgYamlPath, 'utf8')) as any
 
   return validate(
     {

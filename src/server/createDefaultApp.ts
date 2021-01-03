@@ -63,7 +63,7 @@ export function createDefaultApp(
       maxAge: 86400,
     }),
   )
-  app.options('*', cors()) // enable pre-flight for all requests
+  app.options('*', cors() as any) // enable pre-flight for all requests
 
   app.use(clearBodyParserTimeout())
 
