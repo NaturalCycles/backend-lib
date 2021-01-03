@@ -111,7 +111,7 @@ export function createAndSaveAppYaml(
 
   const appYamlPath = `${targetDir}/app.yaml`
 
-  fs.writeFileSync(appYamlPath, yaml.safeDump(appYaml))
+  fs.writeFileSync(appYamlPath, yaml.dump(appYaml))
   console.log(`saved ${dimGrey(appYamlPath)}`)
 
   return appYaml
@@ -138,13 +138,13 @@ export function createAppYaml(
   const appYamlPath = `${projectDir}/app.yaml`
   if (fs.existsSync(appYamlPath)) {
     console.log(`merging-in ${dimGrey(appYamlPath)}`)
-    _merge(appYaml, yaml.safeLoad(fs.readFileSync(appYamlPath, 'utf8')))
+    _merge(appYaml, yaml.load(fs.readFileSync(appYamlPath, 'utf8')))
   }
 
   const appEnvYamlPath = `${projectDir}/app.${APP_ENV}.yaml`
   if (fs.existsSync(appEnvYamlPath)) {
     console.log(`merging-in ${dimGrey(appEnvYamlPath)}`)
-    _merge(appYaml, yaml.safeLoad(fs.readFileSync(appEnvYamlPath, 'utf8')))
+    _merge(appYaml, yaml.load(fs.readFileSync(appEnvYamlPath, 'utf8')))
   }
 
   // appYamlPassEnv
