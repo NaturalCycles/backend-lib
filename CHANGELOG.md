@@ -1,3 +1,10 @@
+## [2.52.5](https://github.com/NaturalCycles/backend-lib/compare/v2.52.4...v2.52.5) (2021-01-03)
+
+
+### Bug Fixes
+
+* deps ([9cb80f7](https://github.com/NaturalCycles/backend-lib/commit/9cb80f7d80935d164783ff33313505e88c8f38e9))
+
 ## [2.52.4](https://github.com/NaturalCycles/backend-lib/compare/v2.52.3...v2.52.4) (2020-12-10)
 
 
