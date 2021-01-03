@@ -1,3 +1,10 @@
+## [2.52.6](https://github.com/NaturalCycles/backend-lib/compare/v2.52.5...v2.52.6) (2021-01-03)
+
+
+### Bug Fixes
+
+* yaml dep ([795d5d0](https://github.com/NaturalCycles/backend-lib/commit/795d5d06944cce468f570d6ab8f25c817437e7d7))
+
 ## [2.52.5](https://github.com/NaturalCycles/backend-lib/compare/v2.52.4...v2.52.5) (2021-01-03)
 
 
