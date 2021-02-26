@@ -1,3 +1,10 @@
+# [2.53.0](https://github.com/NaturalCycles/backend-lib/compare/v2.52.7...v2.53.0) (2021-02-26)
+
+
+### Features
+
+* noPropertyAccessFromIndexSignature=true in shared tsconfig.json ([8cbb464](https://github.com/NaturalCycles/backend-lib/commit/8cbb464a9f20bb21a2fe9368a39372a24ff41a7d))
+
 ## [2.52.7](https://github.com/NaturalCycles/backend-lib/compare/v2.52.6...v2.52.7) (2021-02-26)
 
 
