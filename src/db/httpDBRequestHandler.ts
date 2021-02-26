@@ -58,7 +58,7 @@ export function httpDBRequestHandler(db: CommonDB): Router {
   // resetCache, only applicable to InMemoryDB
   router.put('/resetCache/:table?', async (req, res) => {
     if (db instanceof InMemoryDB) {
-      await db.resetCache(req.params.table)
+      await db.resetCache(req.params['table'])
     }
     res.end()
   })
@@ -76,7 +76,7 @@ export function httpDBRequestHandler(db: CommonDB): Router {
 
   // getTableSchema
   router.get('/:table/schema', async (req, res) => {
-    res.json(await db.getTableSchema(req.params.table!))
+    res.json(await db.getTableSchema(req.params['table']!))
   })
 
   // todo: createTable

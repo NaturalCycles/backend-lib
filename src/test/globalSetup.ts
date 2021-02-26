@@ -13,9 +13,9 @@ declare global {
       __EXPRESS_SERVER__: Server
     }
 
-    // interface ProcessEnv {
-    //   __EXPRESS_SERVER_URL__: string
-    // }
+    interface ProcessEnv {
+      __EXPRESS_SERVER_URL__: string
+    }
   }
 }
 

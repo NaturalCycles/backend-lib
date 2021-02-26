@@ -107,3 +107,14 @@ export {
   requestIdMiddleware,
   REQUEST_ID_KEY,
 }
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      PORT?: string
+      GAE_APPLICATION?: string
+      GAE_SERVICE?: string
+      GAE_VERSION?: string
+    }
+  }
+}
