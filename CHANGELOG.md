@@ -1,3 +1,10 @@
+# [2.54.0](https://github.com/NaturalCycles/backend-lib/compare/v2.53.0...v2.54.0) (2021-03-26)
+
+
+### Features
+
+* nodejs14 by default, as it was released to GA ([ed43544](https://github.com/NaturalCycles/backend-lib/commit/ed4354413e02184d2abfa07cac1b68d638310e9c))
+
 # [2.53.0](https://github.com/NaturalCycles/backend-lib/compare/v2.52.7...v2.53.0) (2021-02-26)
 
 
