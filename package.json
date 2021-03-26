@@ -72,7 +72,7 @@
     "url": "https://github.com/NaturalCycles/backend-lib"
   },
   "engines": {
-    "node": ">=12.13"
+    "node": ">=14.15.0"
   },
   "type": "commonjs",
   "description": "Standard library for making Express.js / AppEngine based backend services",
