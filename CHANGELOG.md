@@ -1,3 +1,10 @@
+# [2.55.0](https://github.com/NaturalCycles/backend-lib/compare/v2.54.0...v2.55.0) (2021-03-26)
+
+
+### Features
+
+* es2020, node14 lts+ ([3219fd6](https://github.com/NaturalCycles/backend-lib/commit/3219fd6f50c841a8c25d276fb512da835cbe1ca1))
+
 # [2.54.0](https://github.com/NaturalCycles/backend-lib/compare/v2.53.0...v2.54.0) (2021-03-26)
 
 
