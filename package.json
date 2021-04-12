@@ -2,6 +2,8 @@
   "name": "@naturalcycles/backend-lib",
   "version": "2.55.0",
   "scripts": {
+    "docs-serve": "vuepress dev docs",
+    "docs-build": "vuepress build docs",
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
     "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts",
     "deploy-prepare-debug": "AA=AA1 BB=BB1 yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
@@ -46,7 +48,13 @@
     "patch-package": "^6.2.1",
     "vega": "^5.4.0",
     "vega-lite": "^5.0.0",
+    "vue-class-component": "^7.2.6",
+    "vuepress": "^1.7.1",
+    "vuepress-plugin-typescript": "^0.3.1",
     "weak-napi": "^2.0.0"
+  },
+  "resolutions": {
+    "prettier": "^2.0.0"
   },
   "files": [
     "dist",
