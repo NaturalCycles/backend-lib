@@ -1,3 +1,15 @@
+## [2.55.2](https://github.com/NaturalCycles/backend-lib/compare/v2.55.1...v2.55.2) (2021-05-24)
+
+
+### Bug Fixes
+
+* deps, adopt eslint ([1c90821](https://github.com/NaturalCycles/backend-lib/commit/1c90821d75cbe26a86a16661aea838a524069a04))
+
+
+### Performance Improvements
+
+* use more plain `fs` vs `fs-extra` ([b10044b](https://github.com/NaturalCycles/backend-lib/commit/b10044b4a31ba4f82b8b3c2d3d3a7bfae5cbb441))
+
 ## [2.55.1](https://github.com/NaturalCycles/backend-lib/compare/v2.55.0...v2.55.1) (2021-05-03)
 
 

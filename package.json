@@ -1,6 +1,6 @@
 {
   "name": "@naturalcycles/backend-lib",
-  "version": "2.55.1",
+  "version": "2.55.2",
   "scripts": {
     "docs-serve": "vuepress dev docs",
     "docs-build": "vuepress build docs",
