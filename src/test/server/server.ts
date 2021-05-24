@@ -48,12 +48,12 @@ router.get('/timeout', () => {
   // just hang on
 })
 
-router.get('/error500', async (req, res) => {
+router.get('/error500', async () => {
   await new Promise(r => setTimeout(r, 500))
   throw new Error('my error 5xx')
 })
 
-router.get('/error400', async (req, res) => {
+router.get('/error400', async () => {
   await new Promise(r => setTimeout(r, 500))
   throw new Error('my error 4xx')
 })

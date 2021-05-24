@@ -98,6 +98,7 @@ export async function deployHealthCheck(
   const got = getGot()
 
   while (!done) {
+    // eslint-disable-next-line no-await-in-loop
     await makeAttempt()
   }
 

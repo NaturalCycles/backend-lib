@@ -9,6 +9,7 @@ export interface StartServerCfg {
 
   /**
    * Unix millisecond timestamp of when bootstrap has started.
+   *
    * @default to Date.now()
    */
   bootstrapStartedAt?: number

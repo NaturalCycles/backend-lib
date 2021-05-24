@@ -47,7 +47,7 @@ export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployIn
 
   const now = dayjs.utc()
   const gitBranch = (await git.status()).current!
-  const gitRev = (await git.revparse(['HEAD'])).substr(0, 7)
+  const gitRev = (await git.revparse(['HEAD'])).slice(0, 7)
 
   let {
     gaeProject,
@@ -149,6 +149,7 @@ export function createAppYaml(
 
   // appYamlPassEnv
   require('dotenv').config() // ensure .env is read
+  // eslint-disable-next-line unicorn/no-array-reduce
   const passEnv = appYamlPassEnv.split(',').reduce((map, key) => {
     const v = process.env[key]
     if (!v) {
@@ -194,7 +195,7 @@ export function validateGAEServiceName(serviceName: string): string {
   return replaceAll(serviceName, '_', '-')
     .toLowerCase()
     .replace(/[^0-9a-z-]/gi, '')
-    .substr(0, 40)
+    .slice(0, 40)
 }
 
 function replaceAll(str: string, search: string, replacement: string): string {

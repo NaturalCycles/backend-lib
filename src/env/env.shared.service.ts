@@ -31,7 +31,7 @@ export class EnvSharedService<ENV extends BaseEnv = any> {
       try {
         const module = require(envFilePath)
         this.env = module.default
-      } catch (err) {
+      } catch {
         throw new Error(`Cannot read envFile ${envFilePath}`)
       }
 

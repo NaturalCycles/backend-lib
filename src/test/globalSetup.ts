@@ -19,7 +19,7 @@ declare global {
   }
 }
 
-export default async () => {
+export default async (): Promise<void> => {
   const resources = [debugResource]
 
   const app = createDefaultApp({

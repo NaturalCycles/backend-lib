@@ -24,7 +24,11 @@ const code = 'REQUEST_TIMEOUT'
 const REQUEST_TIMEOUT_QUERY_KEY = 'requestTimeout'
 
 export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
-  const { timeoutSeconds: defTimeoutSeconds, httpStatusCode, httpErrorMessage } = {
+  const {
+    timeoutSeconds: defTimeoutSeconds,
+    httpStatusCode,
+    httpErrorMessage,
+  } = {
     // Considerations about the default value of the timeout.
     // Ideally the default value here would be HIGHER than the default timeout for getGot (in nodejs-lib),
     // so, cross-service communication has a chance to fail SOONER than server times out,
@@ -37,7 +41,7 @@ export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
 
   return (req, res, next) => {
     const timeoutSeconds = req.query[REQUEST_TIMEOUT_QUERY_KEY]
-      ? parseInt(req.query[REQUEST_TIMEOUT_QUERY_KEY] as string)
+      ? Number.parseInt(req.query[REQUEST_TIMEOUT_QUERY_KEY] as string)
       : defTimeoutSeconds
 
     const timer = setTimeout(() => {

@@ -19,6 +19,7 @@ export interface AdminServiceCfg {
 
   /**
    * If false - disables auth completely (useful for debugging locally, but never in production).
+   *
    * @default true
    */
   authEnabled?: boolean
@@ -212,7 +213,7 @@ export class BaseAdminService {
 
     return {
       email,
-      permissions: [...grantedPermissions!],
+      permissions: [...grantedPermissions],
     }
   }
 

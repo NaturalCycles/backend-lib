@@ -132,13 +132,13 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
       .json()
   }
 
-  async createTable(schema: CommonSchema, opt?: CommonDBCreateOptions): Promise<void> {
+  async createTable(_schema: CommonSchema, _opt?: CommonDBCreateOptions): Promise<void> {
     console.warn(`createTable not implemented`)
   }
 
   streamQuery<ROW extends ObjectWithId>(
-    q: DBQuery<ROW>,
-    opt?: CommonDBStreamOptions,
+    _q: DBQuery<ROW>,
+    _opt?: CommonDBStreamOptions,
   ): ReadableTyped<ROW> {
     console.warn(`streamQuery not implemented`)
     return Readable.from([])
