@@ -8,7 +8,7 @@ import {
   stringSchema,
   validate,
 } from '@naturalcycles/nodejs-lib'
-import * as fs from 'fs-extra'
+import * as fs from 'fs'
 import * as yaml from 'js-yaml'
 
 export interface BackendCfg {

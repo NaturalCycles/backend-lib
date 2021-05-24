@@ -1,7 +1,7 @@
 import { _mapValues, _merge, _truncate } from '@naturalcycles/js-lib'
 import { dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
 import { dayjs } from '@naturalcycles/time-lib'
-import * as fs from 'fs-extra'
+import * as fs from 'fs'
 import * as yaml from 'js-yaml'
 import type * as simpleGitLib from 'simple-git/promise'
 import { BackendCfg } from './backend.cfg.util'
@@ -35,7 +35,7 @@ export async function createAndSaveDeployInfo(
 
   const deployInfoPath = `${targetDir}/deployInfo.json`
 
-  fs.writeJsonSync(deployInfoPath, deployInfo, { spaces: 2 })
+  fs.writeFileSync(deployInfoPath, JSON.stringify(deployInfo, null, 2))
   console.log(`saved ${dimGrey(deployInfoPath)}`)
 
   return deployInfo
