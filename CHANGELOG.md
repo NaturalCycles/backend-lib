@@ -1,3 +1,10 @@
+# [2.56.0](https://github.com/NaturalCycles/backend-lib/compare/v2.55.2...v2.56.0) (2021-05-31)
+
+
+### Features
+
+* isolatedModules=true in cfg/tsconfig.json ([dc92a14](https://github.com/NaturalCycles/backend-lib/commit/dc92a14b405e78e157812d9fa75ebe091f282200))
+
 ## [2.55.2](https://github.com/NaturalCycles/backend-lib/compare/v2.55.1...v2.55.2) (2021-05-24)
 
 
