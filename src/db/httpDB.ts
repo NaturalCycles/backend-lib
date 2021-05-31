@@ -32,15 +32,15 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
 
   private got!: Got
 
-  async ping(): Promise<void> {
+  override async ping(): Promise<void> {
     await this.got(`ping`)
   }
 
-  async getTables(): Promise<string[]> {
+  override async getTables(): Promise<string[]> {
     return await this.got(`tables`).json()
   }
 
-  async getTableSchema<ROW extends ObjectWithId>(table: string): Promise<CommonSchema<ROW>> {
+  override async getTableSchema<ROW extends ObjectWithId>(table: string): Promise<CommonSchema<ROW>> {
     return await this.got(`${table}/schema`).json()
   }
 
@@ -48,7 +48,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
     await this.got.put(`resetCache/${table}`)
   }
 
-  async getByIds<ROW extends ObjectWithId>(
+  override async getByIds<ROW extends ObjectWithId>(
     table: string,
     ids: string[],
     opt?: CommonDBOptions,
@@ -64,7 +64,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
       .json()
   }
 
-  async runQuery<ROW extends ObjectWithId>(
+  override async runQuery<ROW extends ObjectWithId>(
     query: DBQuery<ROW>,
     opt?: CommonDBOptions,
   ): Promise<RunQueryResult<ROW>> {
@@ -78,7 +78,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
       .json()
   }
 
-  async runQueryCount<ROW extends ObjectWithId>(
+  override async runQueryCount<ROW extends ObjectWithId>(
     query: DBQuery<ROW>,
     opt?: CommonDBOptions,
   ): Promise<number> {
@@ -92,7 +92,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
       .json()
   }
 
-  async saveBatch<ROW extends ObjectWithId>(
+  override async saveBatch<ROW extends ObjectWithId>(
     table: string,
     rows: ROW[],
     opt?: CommonDBSaveOptions,
@@ -106,7 +106,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
     })
   }
 
-  async deleteByIds(table: string, ids: string[], opt?: CommonDBOptions): Promise<number> {
+  override async deleteByIds(table: string, ids: string[], opt?: CommonDBOptions): Promise<number> {
     return await this.got
       .put(`deleteByIds`, {
         json: {
@@ -118,7 +118,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
       .json()
   }
 
-  async deleteByQuery<ROW extends ObjectWithId>(
+  override async deleteByQuery<ROW extends ObjectWithId>(
     query: DBQuery<ROW>,
     opt?: CommonDBOptions,
   ): Promise<number> {
@@ -132,11 +132,11 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
       .json()
   }
 
-  async createTable(_schema: CommonSchema, _opt?: CommonDBCreateOptions): Promise<void> {
+  override async createTable(_schema: CommonSchema, _opt?: CommonDBCreateOptions): Promise<void> {
     console.warn(`createTable not implemented`)
   }
 
-  streamQuery<ROW extends ObjectWithId>(
+  override streamQuery<ROW extends ObjectWithId>(
     _q: DBQuery<ROW>,
     _opt?: CommonDBStreamOptions,
   ): ReadableTyped<ROW> {

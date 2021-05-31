@@ -17,7 +17,7 @@ export const firebaseService = new FirebaseSharedService({
 })
 
 class AdminService extends BaseAdminService {
-  getEmailPermissions(_email?: string): Set<string> | undefined {
+  override getEmailPermissions(_email?: string): Set<string> | undefined {
     return new Set() // allow all
     // return // deny all
   }
