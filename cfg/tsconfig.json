@@ -21,11 +21,17 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "suppressImplicitAnyIndexErrors": true,
+    // "noImplicitOverride": true, // todo: enable when ready
     "noUncheckedIndexedAccess": true,
     "noPropertyAccessFromIndexSignature": true,
 
     // Enabled should be faster, but will catch less errors
     // "skipLibCheck": true,
+
+    // Faster compilation in general
+    // Support for external compilers (e.g esbuild)
+    // Speedup in Jest by using "isolatedModules" in 'ts-jest' config
+    "isolatedModules": true,
 
     // Disabled because of https://github.com/Microsoft/TypeScript/issues/29172
     // Need to be specified in the project tsconfig

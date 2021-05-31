@@ -2,6 +2,7 @@
   "extends": "@naturalcycles/dev-lib/cfg/tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "noImplicitOverride": false,
     "skipLibCheck": true // because of vega-lite
   },
   "include": ["src"],
