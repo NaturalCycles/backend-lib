@@ -1,3 +1,11 @@
+## [2.56.1](https://github.com/NaturalCycles/backend-lib/compare/v2.56.0...v2.56.1) (2021-06-05)
+
+
+### Bug Fixes
+
+* adopt noImplicitOverride ([d14a83f](https://github.com/NaturalCycles/backend-lib/commit/d14a83f08c0089a529a679cc9c454ed776811f3f))
+* noImplicitOverride=true ([5f0c0fb](https://github.com/NaturalCycles/backend-lib/commit/5f0c0fbe53078fba2b21a0db199f7dd26086fcd0))
+
 # [2.56.0](https://github.com/NaturalCycles/backend-lib/compare/v2.55.2...v2.56.0) (2021-05-31)
 
 
