@@ -40,7 +40,9 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
     return await this.got(`tables`).json()
   }
 
-  override async getTableSchema<ROW extends ObjectWithId>(table: string): Promise<CommonSchema<ROW>> {
+  override async getTableSchema<ROW extends ObjectWithId>(
+    table: string,
+  ): Promise<CommonSchema<ROW>> {
     return await this.got(`${table}/schema`).json()
   }
 
