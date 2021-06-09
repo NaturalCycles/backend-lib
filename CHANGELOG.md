@@ -1,3 +1,10 @@
+## [2.57.1](https://github.com/NaturalCycles/backend-lib/compare/v2.57.0...v2.57.1) (2021-06-09)
+
+
+### Bug Fixes
+
+* reqValidation to support multiple paths ([023dd53](https://github.com/NaturalCycles/backend-lib/commit/023dd5397c99a461c344c1105b6aab88b6b5e8e8))
+
 # [2.57.0](https://github.com/NaturalCycles/backend-lib/compare/v2.56.1...v2.57.0) (2021-06-09)
 
 
