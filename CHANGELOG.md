@@ -1,3 +1,10 @@
+# [2.57.0](https://github.com/NaturalCycles/backend-lib/compare/v2.56.1...v2.57.0) (2021-06-09)
+
+
+### Features
+
+* reqValidation to support `redactPath` ([428bc13](https://github.com/NaturalCycles/backend-lib/commit/428bc1300c36606f3b7999b82fff6bd08ec35e6d))
+
 ## [2.56.1](https://github.com/NaturalCycles/backend-lib/compare/v2.56.0...v2.56.1) (2021-06-05)
 
 
