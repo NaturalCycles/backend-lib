@@ -39,7 +39,7 @@ import {
 } from './server/handlers/requestContext.mw'
 import { requestIdMiddleware, REQUEST_ID_KEY } from './server/handlers/requestId.mw'
 import { requestTimeout, RequestTimeoutCfg } from './server/handlers/requestTimeout.mw'
-import { reqValidation } from './server/handlers/reqValidation.mw'
+import { reqValidation, ReqValidationOptions } from './server/handlers/reqValidation.mw'
 import { sentryErrorHandler } from './server/handlers/sentryErrorHandler.mw'
 import {
   simpleRequestLogger,
@@ -68,6 +68,7 @@ export type {
   BodyParserTimeoutCfg,
   RequestTimeoutCfg,
   SimpleRequestLoggerCfg,
+  ReqValidationOptions,
 }
 
 export {

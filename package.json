@@ -11,10 +11,11 @@
     "deploy-health-check-debug2": "yarn tsn ./src/bin/deploy-health-check.ts --url https://api-master2.naturalcycles.com --thresholdUnhealthy 5"
   },
   "peerDependencies": {
-    "@sentry/node": "^5.2.0"
+    "@sentry/node": "^6.5.1"
   },
   "dependencies": {
     "@naturalcycles/db-lib": "^8.0.2",
+    "@naturalcycles/js-lib": "^14.27.0",
     "@naturalcycles/nodejs-lib": "^12.0.0",
     "@naturalcycles/time-lib": "^3.0.1",
     "@types/cls-hooked": "^4.3.0",
@@ -39,7 +40,7 @@
   },
   "devDependencies": {
     "@naturalcycles/dev-lib": "^11.0.6",
-    "@sentry/node": "5.21.4",
+    "@sentry/node": "^6.5.1",
     "@types/ejs": "^3.0.0",
     "@types/js-yaml": "^4.0.0",
     "@types/node": "^15.0.1",
