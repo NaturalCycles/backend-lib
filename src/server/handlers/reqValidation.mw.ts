@@ -6,10 +6,10 @@ const REDACTED = 'REDACTED'
 
 export interface ReqValidationOptions {
   /**
-   * Pass a 'dot-path' (e.g `pw`, or `input.pw`) that needs to be redacted from the output, in case of error.
+   * Pass a 'dot-paths' (e.g `pw`, or `input.pw`) that needs to be redacted from the output, in case of error.
    * Useful e.g to redact (prevent leaking) plaintext passwords in error messages.
    */
-  redactPath?: string
+  redactPaths?: string[]
 }
 
 export function reqValidation(
@@ -20,11 +20,16 @@ export function reqValidation(
   return (req, res, next) => {
     const { value, error } = getValidationResult(req[reqProperty], schema, `req.${reqProperty}`)
     if (error) {
-      if (opt.redactPath) {
-        const secret = _get(req[reqProperty], opt.redactPath)
-        if (secret) {
-          error.message = error.message.replace(secret, REDACTED)
-        }
+      if (opt.redactPaths) {
+        opt.redactPaths
+          .map(path => _get(req[reqProperty], path))
+          .filter(Boolean)
+          .forEach(secret => {
+            if (secret) {
+              error.message = error.message.replace(secret, REDACTED)
+            }
+          })
+
         error.data.joiValidationErrorItems.length = 0 // clears the array
       }
 

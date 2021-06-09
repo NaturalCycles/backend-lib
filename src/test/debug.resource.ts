@@ -18,7 +18,7 @@ const pwInputSchema = objectSchema<PwInput>({
 
 router.put(
   '/changePassword',
-  reqValidation('body', pwInputSchema, { redactPath: 'pw' }),
+  reqValidation('body', pwInputSchema, { redactPaths: ['pw'] }),
   async (_req, res) => {
     res.json({ ok: 1 })
   },
