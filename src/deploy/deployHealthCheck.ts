@@ -2,7 +2,7 @@ import { pDelay, _filterFalsyValues, _ms, _since } from '@naturalcycles/js-lib'
 import { getGot } from '@naturalcycles/nodejs-lib'
 import { dimGrey, red } from '@naturalcycles/nodejs-lib/dist/colors'
 import { execCommand } from '@naturalcycles/nodejs-lib/dist/exec'
-import { inspect } from 'util'
+import { inspect, InspectOptions } from 'util'
 import { coloredHttpCode } from '../server/request.log.util'
 
 export interface DeployHealthCheckOptions {
@@ -60,7 +60,7 @@ export const deployHealthCheckYargsOptions = {
   },
 } as const
 
-const inspectOpt: NodeJS.InspectOptions = {
+const inspectOpt: InspectOptions = {
   colors: true,
   breakLength: 120,
 }

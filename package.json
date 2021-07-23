@@ -2,6 +2,7 @@
   "name": "@naturalcycles/backend-lib",
   "version": "2.57.1",
   "scripts": {
+    "prepare": "husky install",
     "docs-serve": "vuepress dev docs",
     "docs-build": "vuepress build docs",
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
@@ -39,11 +40,11 @@
     "yargs": "^17.0.0"
   },
   "devDependencies": {
-    "@naturalcycles/dev-lib": "^11.0.6",
+    "@naturalcycles/dev-lib": "^12.0.3",
     "@sentry/node": "^6.5.1",
     "@types/ejs": "^3.0.0",
     "@types/js-yaml": "^4.0.0",
-    "@types/node": "^15.0.1",
+    "@types/node": "^16.4.1",
     "autocannon": "^7.0.1",
     "jest": "^27.0.1",
     "patch-package": "^6.2.1",
