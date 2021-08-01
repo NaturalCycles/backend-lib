@@ -1,3 +1,10 @@
+# [2.58.0](https://github.com/NaturalCycles/backend-lib/compare/v2.57.1...v2.58.0) (2021-08-01)
+
+
+### Features
+
+* backendCfg.schema.json ([934fc7d](https://github.com/NaturalCycles/backend-lib/commit/934fc7d71b1300ec15f00de8b2ab578dc9e420f4))
+
 ## [2.57.1](https://github.com/NaturalCycles/backend-lib/compare/v2.57.0...v2.57.1) (2021-06-09)
 
 
