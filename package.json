@@ -62,6 +62,7 @@
   "files": [
     "dist",
     "cfg",
+    "resources",
     "src",
     "!src/test",
     "!src/**/*.test.ts",

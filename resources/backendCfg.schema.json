@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://unpkg.com/@naturalcycles/backend-lib/resources/backendCfg.schema.json",
+  "type": "object",
+  "properties": {
+    "gaeProject": { "type": "string" },
+    "gaeProjectByBranch": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": "string" }
+      }
+    },
+    "gaeService": { "type": "string" },
+    "gaeServiceByBranch": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": "string" }
+      }
+    },
+    "serviceWithBranchName": { "type": "boolean", "default": true },
+    "prodBranch": { "type": "string" },
+    "files": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "appEnvDefault": { "type": "string" },
+    "appEnvByBranch": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": "string" }
+      }
+    },
+    "branchesWithTimestampVersions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "appYamlPassEnv": { "type": "string" }
+  },
+  "required": [
+    "gaeProject", "gaeService", "prodBranch", "appEnvDefault"
+  ]
+}
