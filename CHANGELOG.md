@@ -1,3 +1,10 @@
+## [2.58.1](https://github.com/NaturalCycles/backend-lib/compare/v2.58.0...v2.58.1) (2021-08-04)
+
+
+### Bug Fixes
+
+* deploy-prepare to exclude dist/test, also *.script.* ([7bcb982](https://github.com/NaturalCycles/backend-lib/commit/7bcb98293bf1477730f01b9a41ef8f1b5fc8261f))
+
 # [2.58.0](https://github.com/NaturalCycles/backend-lib/compare/v2.57.1...v2.58.0) (2021-08-01)
 
 
