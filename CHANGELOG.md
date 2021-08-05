@@ -1,3 +1,10 @@
+## [2.58.2](https://github.com/NaturalCycles/backend-lib/compare/v2.58.1...v2.58.2) (2021-08-05)
+
+
+### Bug Fixes
+
+* unexclude dist/test and *.mock* temporarily ([b3fd6a7](https://github.com/NaturalCycles/backend-lib/commit/b3fd6a7e65c128ad9dcef8be8a51acd73fac9ce2))
+
 ## [2.58.1](https://github.com/NaturalCycles/backend-lib/compare/v2.58.0...v2.58.1) (2021-08-04)
 
 
