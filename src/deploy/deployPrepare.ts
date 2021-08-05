@@ -40,9 +40,9 @@ export const deployPrepareYargsOptions = {
 
 const DEFAULT_FILES = [
   'dist',
-  '!dist/test',
-  '!dist/**/*.test.*',
-  '!dist/**/*.mock.*',
+  // '!dist/test',
+  // '!dist/**/*.test.*',
+  // '!dist/**/*.mock.*',
   '!dist/**/*.script.*',
   'src', // For Sentry
   '!src/test',
