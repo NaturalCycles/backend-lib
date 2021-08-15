@@ -23,14 +23,13 @@ runScript(async () => {
     },
     {
       name: 'Benchmark',
-      // runs: 2,
+      runs: 2,
       // duration: 10,
-      duration: 2,
+      duration: 10,
       cooldown: 1,
-      // silent: true,
+      writeRawSummary: false,
       reportDirPath: './scripts/bench',
-      // renderResultsTable: false,
-      renderLatencyTable: false,
+      beforeText: `Ran with Node.js \`14.17.4\` on MacBook Pro 16" 2019`,
     },
   )
 })

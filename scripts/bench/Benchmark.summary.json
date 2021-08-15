@@ -1,57 +1,52 @@
 [
   {
     "name": "01-bare-node",
-    "rpsAvg": 28688,
-    "latencyAvg": 34.44,
-    "latency50": 37,
-    "latency90": 42,
-    "latency99": 78,
-    "throughputAvg": 5.12,
+    "rpsAvg": 27977.6,
+    "latencyAvg": 35.42,
+    "throughputAvg": 4.99,
     "errors": 0,
-    "timeouts": 0
+    "timeouts": 0,
+    "non2xx": 0,
+    "2xx": 279785
   },
   {
-    "name": "02-bare-fastory",
-    "rpsAvg": 20080,
-    "latencyAvg": 49.44,
-    "latency50": 55,
-    "latency90": 60,
-    "latency99": 78,
-    "throughputAvg": 4.54,
+    "name": "02-bare-fastify",
+    "rpsAvg": 28500.8,
+    "latencyAvg": 34.77,
+    "throughputAvg": 5.08,
     "errors": 0,
-    "timeouts": 0
+    "timeouts": 0,
+    "non2xx": 0,
+    "2xx": 285006
   },
   {
     "name": "03-bare-express",
-    "rpsAvg": 10612,
-    "latencyAvg": 92.34,
-    "latency50": 96,
-    "latency90": 114,
-    "latency99": 148,
-    "throughputAvg": 1.89,
+    "rpsAvg": 10748.8,
+    "latencyAvg": 94.17,
+    "throughputAvg": 1.92,
     "errors": 0,
-    "timeouts": 0
+    "timeouts": 0,
+    "non2xx": 0,
+    "2xx": 107477
   },
   {
     "name": "04-express-middlewares",
-    "rpsAvg": 7912,
-    "latencyAvg": 121.58,
-    "latency50": 124,
-    "latency90": 165,
-    "latency99": 237,
-    "throughputAvg": 2.94,
+    "rpsAvg": 8736.6,
+    "latencyAvg": 115.13,
+    "throughputAvg": 3.25,
     "errors": 0,
-    "timeouts": 0
+    "timeouts": 0,
+    "non2xx": 0,
+    "2xx": 87350
   },
   {
     "name": "05-backend-lib",
-    "rpsAvg": 3937.5,
-    "latencyAvg": 250.77,
-    "latency50": 248,
-    "latency90": 302,
-    "latency99": 443,
-    "throughputAvg": 2.02,
+    "rpsAvg": 4554.3,
+    "latencyAvg": 228.29,
+    "throughputAvg": 2.34,
     "errors": 0,
-    "timeouts": 0
+    "timeouts": 0,
+    "non2xx": 0,
+    "2xx": 45538
   }
 ]

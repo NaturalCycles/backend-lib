@@ -33,5 +33,6 @@ export async function createServerFastify(): Promise<http.Server> {
     return { hello: 'world' }
   })
 
+  await fastify.ready()
   return fastify.server
 }

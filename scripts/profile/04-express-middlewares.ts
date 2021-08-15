@@ -10,6 +10,7 @@ export async function createServerExpressMiddlewares(): Promise<http.Server> {
   app.disable('etag')
   app.disable('x-powered-by')
 
+  app.use(express.json())
   app.use(require('cors')())
   app.use(helmet.dnsPrefetchControl())
   app.use(helmet.frameguard())
