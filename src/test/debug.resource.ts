@@ -1,5 +1,7 @@
+import { jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
 import { getDefaultRouter, reqValidation } from '..'
+import { validateBody } from '../server/handlers/validate.mw'
 
 const router = getDefaultRouter()
 export const debugResource = router
@@ -12,13 +14,28 @@ interface PwInput {
   pw: string
 }
 
-const pwInputSchema = objectSchema<PwInput>({
-  pw: stringSchema.min(8),
-})
-
 router.put(
   '/changePassword',
-  reqValidation('body', pwInputSchema, { redactPaths: ['pw'] }),
+  reqValidation(
+    'body',
+    objectSchema<PwInput>({
+      pw: stringSchema.min(8),
+    }),
+    { redactPaths: ['pw'] },
+  ),
+  async (_req, res) => {
+    res.json({ ok: 1 })
+  },
+)
+
+router.put(
+  '/changePassword2',
+  validateBody(
+    jsonSchema.object<PwInput>({
+      pw: jsonSchema.string().min(8),
+    }),
+    { redactPaths: ['pw'] },
+  ),
   async (_req, res) => {
     res.json({ ok: 1 })
   },

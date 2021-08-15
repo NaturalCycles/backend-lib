@@ -1,21 +1,22 @@
 import express = require('express')
+import * as helmet from 'helmet'
 import * as http from 'http'
 
 /**
  * Based on: https://github.com/fastify/benchmarks/blob/master/benchmarks/express-with-middlewares.js
  */
-export async function createServer(): Promise<http.Server> {
+export async function createServerExpressMiddlewares(): Promise<http.Server> {
   const app = express()
   app.disable('etag')
   app.disable('x-powered-by')
 
   app.use(require('cors')())
-  app.use(require('dns-prefetch-control')())
-  app.use(require('frameguard')())
-  app.use(require('hide-powered-by')())
-  app.use(require('hsts')())
-  app.use(require('ienoopen')())
-  app.use(require('x-xss-protection')())
+  app.use(helmet.dnsPrefetchControl())
+  app.use(helmet.frameguard())
+  app.use(helmet.hidePoweredBy())
+  app.use(helmet.hsts())
+  app.use(helmet.ieNoOpen())
+  app.use(helmet.xssFilter())
 
   app.get('/', (req, res) => res.json({ hello: 'world' }))
 

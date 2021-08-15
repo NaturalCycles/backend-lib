@@ -46,6 +46,7 @@ import {
   SimpleRequestLoggerCfg,
 } from './server/handlers/simpleRequestLogger.mw'
 import { statusHandler, statusHandlerData } from './server/handlers/statusHandler'
+import { validateBody, validateParams, validateQuery } from './server/handlers/validate.mw'
 import { coloredHttpCode, logRequest } from './server/request.log.util'
 import { BackendServer, startServer } from './server/startServer'
 import { StartServerCfg, StartServerData } from './server/startServer.model'
@@ -107,6 +108,9 @@ export {
   requestContextMiddleware,
   requestIdMiddleware,
   REQUEST_ID_KEY,
+  validateBody,
+  validateParams,
+  validateQuery,
 }
 
 declare global {

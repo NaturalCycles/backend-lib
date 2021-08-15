@@ -13,7 +13,7 @@ import { requestTimeout } from './handlers/requestTimeout.mw'
 import { sentryErrorHandler } from './handlers/sentryErrorHandler.mw'
 import { simpleRequestLogger } from './handlers/simpleRequestLogger.mw'
 
-const isTest = process.env.APP_ENV === 'test'
+const isTest = process.env['APP_ENV'] === 'test'
 
 export function createDefaultApp(
   defaultAppCfg: DefaultAppCfg,

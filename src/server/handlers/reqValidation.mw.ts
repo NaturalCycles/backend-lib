@@ -21,15 +21,7 @@ export function reqValidation(
     const { value, error } = getValidationResult(req[reqProperty], schema, `req.${reqProperty}`)
     if (error) {
       if (opt.redactPaths) {
-        opt.redactPaths
-          .map(path => _get(req[reqProperty], path))
-          .filter(Boolean)
-          .forEach(secret => {
-            if (secret) {
-              error.message = error.message.replace(secret, REDACTED)
-            }
-          })
-
+        redact(opt.redactPaths, req[reqProperty], error)
         error.data.joiValidationErrorItems.length = 0 // clears the array
       }
 
@@ -45,4 +37,18 @@ export function reqValidation(
     req[reqProperty] = value
     next()
   }
+}
+
+/**
+ * Mutates error
+ */
+function redact(redactPaths: string[], obj: any, error: Error): void {
+  redactPaths
+    .map(path => _get(obj, path))
+    .filter(Boolean)
+    .forEach(secret => {
+      if (secret) {
+        error.message = error.message.replace(secret, REDACTED)
+      }
+    })
 }

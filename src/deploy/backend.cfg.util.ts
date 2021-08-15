@@ -1,15 +1,8 @@
 import { StringMap } from '@naturalcycles/js-lib'
-import {
-  anyObjectSchema,
-  arraySchema,
-  booleanSchema,
-  objectSchema,
-  requireFileToExist,
-  stringSchema,
-  validate,
-} from '@naturalcycles/nodejs-lib'
-import * as fs from 'fs'
+import { AjvSchema, requireFileToExist } from '@naturalcycles/nodejs-lib'
+import * as fs from 'fs-extra'
 import * as yaml from 'js-yaml'
+import { resourcesDir } from '../paths.cnst'
 
 export interface BackendCfg {
   gaeProject: string
@@ -57,33 +50,23 @@ export interface BackendCfg {
   appYamlPassEnv?: string
 }
 
-const backendCfgSchema = objectSchema<BackendCfg>({
-  gaeProject: stringSchema,
-  gaeProjectByBranch: anyObjectSchema.optional(),
-  gaeService: stringSchema,
-  gaeServiceByBranch: anyObjectSchema.optional(),
-  serviceWithBranchName: booleanSchema.optional(),
-  prodBranch: stringSchema,
-  files: arraySchema(stringSchema).optional(),
-  appEnvDefault: stringSchema,
-  appEnvByBranch: anyObjectSchema.optional(),
-  branchesWithTimestampVersions: arraySchema(stringSchema).optional(),
-  appYamlPassEnv: stringSchema.optional(),
-})
+const backendCfgSchema = AjvSchema.readJsonSync<BackendCfg>(
+  `${resourcesDir}/backendCfg.schema.json`,
+  {
+    objectName: 'backend.cfg.yaml',
+  },
+)
 
 export function getBackendCfg(projectDir: string = '.'): BackendCfg {
   const backendCfgYamlPath = `${projectDir}/backend.cfg.yaml`
 
   requireFileToExist(backendCfgYamlPath)
 
-  const backendCfg = yaml.load(fs.readFileSync(backendCfgYamlPath, 'utf8')) as any
+  const backendCfg: BackendCfg = {
+    serviceWithBranchName: true,
+    ...(yaml.load(fs.readFileSync(backendCfgYamlPath, 'utf8')) as any),
+  }
 
-  return validate(
-    {
-      serviceWithBranchName: true,
-      ...backendCfg,
-    },
-    backendCfgSchema,
-    'backend.cfg.json',
-  )
+  backendCfgSchema.validate(backendCfg)
+  return backendCfg
 }
