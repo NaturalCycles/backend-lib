@@ -1,3 +1,10 @@
+# [2.59.0](https://github.com/NaturalCycles/backend-lib/compare/v2.58.2...v2.59.0) (2021-08-15)
+
+
+### Features
+
+* new validation middlewares that support ajv/json schema ([62af5d4](https://github.com/NaturalCycles/backend-lib/commit/62af5d4dcc7fd23622382e7109401d18a920055f))
+
 ## [2.58.2](https://github.com/NaturalCycles/backend-lib/compare/v2.58.1...v2.58.2) (2021-08-05)
 
 
