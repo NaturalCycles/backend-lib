@@ -1,3 +1,11 @@
+## [2.59.1](https://github.com/NaturalCycles/backend-lib/compare/v2.59.0...v2.59.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* build error ([f4096db](https://github.com/NaturalCycles/backend-lib/commit/f4096db6e59303ed21caedf860491ebb466e6527))
+* deps ([bbe3254](https://github.com/NaturalCycles/backend-lib/commit/bbe325446931e31c2d74fba6b0ac2101bde3b985))
+
 # [2.59.0](https://github.com/NaturalCycles/backend-lib/compare/v2.58.2...v2.59.0) (2021-08-15)
 
 
