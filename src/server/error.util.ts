@@ -1,4 +1,4 @@
-import { HttpErrorResponse, _anyToErrorObject } from '@naturalcycles/js-lib'
+import { HttpErrorData, HttpErrorResponse, _anyToErrorObject } from '@naturalcycles/js-lib'
 import { Request, Response } from 'express'
 
 export interface ResponseWithError extends Response {
@@ -14,7 +14,7 @@ export function respondWithError(req: Request, res: Response, _err: any): void {
     ;(res as ResponseWithError).__err = _err
   }
 
-  const error = _anyToErrorObject(_err, {
+  const error = _anyToErrorObject<HttpErrorData>(_err, {
     includeErrorStack,
     includeErrorData: true,
   })
