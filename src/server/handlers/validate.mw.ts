@@ -41,7 +41,7 @@ function validateObject(
     schema instanceof AjvSchema
       ? schema
       : new AjvSchema(schema, {
-          objectName: prop,
+          objectName: `request ${prop}`,
         })
 
   return (req, res, next) => {

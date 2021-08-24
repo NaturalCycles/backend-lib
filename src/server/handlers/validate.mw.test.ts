@@ -33,13 +33,12 @@ Object {
     "data": Object {
       "errors": Array [],
       "httpStatusCode": 400,
-      "objectName": "body",
+      "objectName": "request body",
       "userFriendly": true,
     },
-    "message": "body/pw must NOT have fewer than 8 characters
-Input: {
-  \\"pw\\": \\"REDACTED\\"
-}",
+    "message": "request body/pw must NOT have fewer than 8 characters
+Input: { pw: 'REDACTED' }",
+    "name": "HttpError",
   },
 }
 `)

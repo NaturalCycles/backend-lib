@@ -18,7 +18,7 @@ export function reqValidation(
   opt: ReqValidationOptions = {},
 ): RequestHandler {
   return (req, res, next) => {
-    const { value, error } = getValidationResult(req[reqProperty], schema, `req.${reqProperty}`)
+    const { value, error } = getValidationResult(req[reqProperty], schema, `request ${reqProperty}`)
     if (error) {
       if (opt.redactPaths) {
         redact(opt.redactPaths, req[reqProperty], error)

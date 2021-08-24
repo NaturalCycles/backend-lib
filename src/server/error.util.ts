@@ -1,9 +1,4 @@
-import {
-  ErrorObject,
-  HttpErrorData,
-  HttpErrorResponse,
-  _anyToErrorObject,
-} from '@naturalcycles/js-lib'
+import { HttpErrorResponse, _anyToErrorObject } from '@naturalcycles/js-lib'
 import { Request, Response } from 'express'
 
 export interface ResponseWithError extends Response {
@@ -11,6 +6,7 @@ export interface ResponseWithError extends Response {
 }
 
 const { APP_ENV } = process.env
+const includeErrorStack = APP_ENV !== 'prod' && APP_ENV !== 'test'
 
 export function respondWithError(req: Request, res: Response, _err: any): void {
   if (_err) {
@@ -18,16 +14,12 @@ export function respondWithError(req: Request, res: Response, _err: any): void {
     ;(res as ResponseWithError).__err = _err
   }
 
-  const error = _anyToErrorObject(_err) as ErrorObject<HttpErrorData>
-  error.data = {
-    // @ts-ignore
-    httpStatusCode: 500, // default
-    ...error.data,
-  }
+  const error = _anyToErrorObject(_err, {
+    includeErrorStack,
+    includeErrorData: true,
+  })
 
-  if (APP_ENV === 'prod' || APP_ENV === 'test') {
-    delete error.stack
-  }
+  error.data.httpStatusCode ||= 500 // default to 500
 
   res.status(error.data.httpStatusCode).json({
     error,

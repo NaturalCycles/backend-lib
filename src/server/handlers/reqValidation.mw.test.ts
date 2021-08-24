@@ -1,3 +1,4 @@
+import { inspectAny } from '@naturalcycles/nodejs-lib'
 import { debugResource } from '../../test/debug.resource'
 import { expressTestService } from '../../testing'
 
@@ -28,20 +29,30 @@ test('reqValidation', async () => {
   expect(bodyStr).not.toContain(pw)
   expect(bodyStr).toContain('REDACTED')
   expect(body).toMatchInlineSnapshot(`
-    Object {
-      "error": Object {
-        "data": Object {
-          "httpStatusCode": 400,
-          "joiValidationErrorItems": Array [],
-          "joiValidationObjectName": "req.body",
-        },
-        "message": "req.body
-    {
-      \\"pw\\" [1]: \\"REDACTED\\"
-    }
+Object {
+  "error": Object {
+    "data": Object {
+      "httpStatusCode": 400,
+      "joiValidationErrorItems": Array [],
+      "joiValidationObjectName": "request body",
+    },
+    "message": "Invalid request body
+{
+  \\"pw\\" [1]: \\"REDACTED\\"
+}
 
-    [1] \\"pw\\" length must be at least 8 characters long",
-      },
-    }
-  `)
+[1] \\"pw\\" length must be at least 8 characters long",
+    "name": "HttpError",
+  },
+}
+`)
+
+  expect(inspectAny(body)).toMatchInlineSnapshot(`
+"HttpError(400): Invalid request body
+{
+  \\"pw\\" [1]: \\"REDACTED\\"
+}
+
+[1] \\"pw\\" length must be at least 8 characters long"
+`)
 })

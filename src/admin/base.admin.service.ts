@@ -1,10 +1,5 @@
-import {
-  Admin401ErrorData,
-  Admin403ErrorData,
-  HttpError,
-  _anyToErrorMessage,
-} from '@naturalcycles/js-lib'
-import { Debug } from '@naturalcycles/nodejs-lib'
+import { Admin401ErrorData, Admin403ErrorData, HttpError } from '@naturalcycles/js-lib'
+import { Debug, inspectAny } from '@naturalcycles/nodejs-lib'
 import { dimGrey, green, red } from '@naturalcycles/nodejs-lib/dist/colors'
 import { Request } from 'express'
 import type * as FirebaseAdmin from 'firebase-admin'
@@ -101,7 +96,7 @@ export class BaseAdminService {
       log(`admin email: ${dimGrey(email)}`)
       return email
     } catch (err) {
-      log(`getEmailByToken error: ${_anyToErrorMessage(err)}`)
+      log(`getEmailByToken error: ${inspectAny(err)}`)
       return
     }
   }
