@@ -1,3 +1,10 @@
+## [2.59.2](https://github.com/NaturalCycles/backend-lib/compare/v2.59.1...v2.59.2) (2021-08-27)
+
+
+### Bug Fixes
+
+* adapt Errors to typescript 4.4 ([fcf409d](https://github.com/NaturalCycles/backend-lib/commit/fcf409d7e70d053f46bba9220ff356918cbade9b))
+
 ## [2.59.1](https://github.com/NaturalCycles/backend-lib/compare/v2.59.0...v2.59.1) (2021-08-24)
 
 
