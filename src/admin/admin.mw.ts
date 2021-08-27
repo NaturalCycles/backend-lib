@@ -1,4 +1,4 @@
-import { Admin401ErrorData, _memoFn } from '@naturalcycles/js-lib'
+import { Admin401ErrorData, HttpError, _memoFn } from '@naturalcycles/js-lib'
 import { Debug } from '@naturalcycles/nodejs-lib'
 import * as ejs from 'ejs'
 import { RequestHandler } from 'express'
@@ -56,7 +56,7 @@ export function requireAdminPermissions(
       await adminService.requirePermissions(req, reqPermissions)
       return next()
     } catch (err) {
-      if ((err?.data as Admin401ErrorData).adminAuthRequired) {
+      if (err instanceof HttpError && (err.data as Admin401ErrorData).adminAuthRequired) {
         // Redirect to login.html
         const href = `${loginHtmlPath}?autoLogin=1&returnUrl=\${encodeURIComponent(location.href)}${
           apiHost ? '&apiHost=' + apiHost : ''
