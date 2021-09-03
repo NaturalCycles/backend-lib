@@ -150,14 +150,19 @@ export function createAppYaml(
   // appYamlPassEnv
   require('dotenv').config() // ensure .env is read
   // eslint-disable-next-line unicorn/no-array-reduce
-  const passEnv = appYamlPassEnv.split(',').reduce((map, key) => {
-    const v = process.env[key]
-    if (!v) {
-      throw new Error(`appYamlPassEnv.${key} is requested, but process.env.${key} is not defined!`)
-    }
-    map[key] = v
-    return map
-  }, {} as Record<string, string>)
+  const passEnv = appYamlPassEnv
+    .split(',')
+    .filter(Boolean)
+    .reduce((map, key) => {
+      const v = process.env[key]
+      if (!v) {
+        throw new Error(
+          `appYamlPassEnv.${key} is requested, but process.env.${key} is not defined!`,
+        )
+      }
+      map[key] = v
+      return map
+    }, {} as Record<string, string>)
 
   if (Object.keys(passEnv).length) {
     console.log(
