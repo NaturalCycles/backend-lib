@@ -1,3 +1,10 @@
+## [2.59.3](https://github.com/NaturalCycles/backend-lib/compare/v2.59.2...v2.59.3) (2021-09-03)
+
+
+### Bug Fixes
+
+* `yarn deploy` with empty `appYamlPassEnv` ([eadb22b](https://github.com/NaturalCycles/backend-lib/commit/eadb22b595e2d5d07a122a8ec0685128c74db6ee))
+
 ## [2.59.2](https://github.com/NaturalCycles/backend-lib/compare/v2.59.1...v2.59.2) (2021-08-27)
 
 
