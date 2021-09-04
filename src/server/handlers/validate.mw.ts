@@ -1,4 +1,4 @@
-import { HttpError, JsonSchema, _get } from '@naturalcycles/js-lib'
+import { HttpError, JsonSchema, JsonSchemaBuilder, _get } from '@naturalcycles/js-lib'
 import { AjvSchema } from '@naturalcycles/nodejs-lib'
 import { RequestHandler } from 'express'
 import { ReqValidationOptions } from './reqValidation.mw'
@@ -6,21 +6,21 @@ import { ReqValidationOptions } from './reqValidation.mw'
 const REDACTED = 'REDACTED'
 
 export function validateBody(
-  schema: AjvSchema | JsonSchema,
+  schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
   opt: ReqValidationOptions = {},
 ): RequestHandler {
   return validateObject('body', schema, opt)
 }
 
 export function validateParams(
-  schema: AjvSchema | JsonSchema,
+  schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
   opt: ReqValidationOptions = {},
 ): RequestHandler {
   return validateObject('params', schema, opt)
 }
 
 export function validateQuery(
-  schema: AjvSchema | JsonSchema,
+  schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
   opt: ReqValidationOptions = {},
 ): RequestHandler {
   return validateObject('query', schema, opt)
@@ -34,15 +34,12 @@ export function validateQuery(
  */
 function validateObject(
   prop: 'body' | 'params' | 'query',
-  schema: AjvSchema | JsonSchema,
+  schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
   opt: ReqValidationOptions = {},
 ): RequestHandler {
-  const ajvSchema =
-    schema instanceof AjvSchema
-      ? schema
-      : new AjvSchema(schema, {
-          objectName: `request ${prop}`,
-        })
+  const ajvSchema = AjvSchema.create(schema, {
+    objectName: `request ${prop}`,
+  })
 
   return (req, res, next) => {
     const error = ajvSchema.getValidationError(req[prop])
