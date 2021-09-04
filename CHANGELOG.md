@@ -1,3 +1,11 @@
+# [2.60.0](https://github.com/NaturalCycles/backend-lib/compare/v2.59.3...v2.60.0) (2021-09-04)
+
+
+### Features
+
+* allow JsonSchemaBuilder in validate mw ([fb7d723](https://github.com/NaturalCycles/backend-lib/commit/fb7d723067b053616ca7165d92cf6e47728ba100))
+* disable some middlewares in `createDefaultApp` ([17ae725](https://github.com/NaturalCycles/backend-lib/commit/17ae72531e09a425e8cdd95247ec5840f04c812a))
+
 ## [2.59.3](https://github.com/NaturalCycles/backend-lib/compare/v2.59.2...v2.59.3) (2021-09-03)
 
 

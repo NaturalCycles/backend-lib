@@ -1,6 +1,6 @@
 {
   "name": "@naturalcycles/backend-lib",
-  "version": "2.59.3",
+  "version": "2.60.0",
   "scripts": {
     "prepare": "husky install",
     "docs-serve": "vuepress dev docs",
