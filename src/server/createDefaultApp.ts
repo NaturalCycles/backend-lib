@@ -4,11 +4,8 @@ import type { Application } from 'express'
 import express = require('express')
 import { methodOverride, SentrySharedService } from '..'
 import { DefaultAppCfg, RequestHandlerCfg, RequestHandlerWithPath } from './createDefaultApp.model'
-import { bodyParserTimeout, clearBodyParserTimeout } from './handlers/bodyParserTimeout.mw'
 import { genericErrorHandler } from './handlers/genericErrorHandler.mw'
 import { notFoundHandler } from './handlers/notFoundHandler.mw'
-import { requestContextMiddleware } from './handlers/requestContext.mw'
-import { requestIdMiddleware } from './handlers/requestId.mw'
 import { requestTimeout } from './handlers/requestTimeout.mw'
 import { sentryErrorHandler } from './handlers/sentryErrorHandler.mw'
 import { simpleRequestLogger } from './handlers/simpleRequestLogger.mw'
@@ -22,6 +19,7 @@ export function createDefaultApp(
   const app = express()
 
   app.disable('etag')
+  app.disable('x-powered-by')
   app.set('trust proxy', true)
 
   // preHandlers
@@ -29,13 +27,15 @@ export function createDefaultApp(
 
   if (!isTest) {
     // These middlewares use 'cls-hooked' which leaks memory after Namespace is once created
-    app.use(requestContextMiddleware())
-    app.use(requestIdMiddleware())
+    // Currently removed, because they're not used
+    // Next attempt should probably be using `async_hooks` (which were graduated to Stable)
+    // app.use(requestContextMiddleware())
+    // app.use(requestIdMiddleware())
   }
 
   app.use(methodOverride())
   app.use(requestTimeout())
-  app.use(bodyParserTimeout())
+  // app.use(bodyParserTimeout()) // removed by default
   app.use(simpleRequestLogger())
 
   // The request handler must be the first middleware on the app
@@ -65,7 +65,7 @@ export function createDefaultApp(
   )
   app.options('*', cors() as any) // enable pre-flight for all requests
 
-  app.use(clearBodyParserTimeout())
+  // app.use(clearBodyParserTimeout()) // removed by default
 
   app.use(express.static('static'))
 
