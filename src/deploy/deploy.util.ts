@@ -1,7 +1,7 @@
+import * as fs from 'fs'
 import { _mapValues, _merge, _truncate } from '@naturalcycles/js-lib'
 import { dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
 import { dayjs } from '@naturalcycles/time-lib'
-import * as fs from 'fs'
 import * as yaml from 'js-yaml'
 import type * as simpleGitLib from 'simple-git/promise'
 import { BackendCfg } from './backend.cfg.util'
@@ -149,10 +149,10 @@ export function createAppYaml(
 
   // appYamlPassEnv
   require('dotenv').config() // ensure .env is read
-  // eslint-disable-next-line unicorn/no-array-reduce
   const passEnv = appYamlPassEnv
     .split(',')
     .filter(Boolean)
+    // eslint-disable-next-line unicorn/no-array-reduce
     .reduce((map, key) => {
       const v = process.env[key]
       if (!v) {

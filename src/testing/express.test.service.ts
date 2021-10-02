@@ -1,6 +1,6 @@
-import { getGot, Got } from '@naturalcycles/nodejs-lib'
 import { Server } from 'http'
 import { AddressInfo } from 'net'
+import { getGot, Got } from '@naturalcycles/nodejs-lib'
 import { createDefaultApp, RequestHandlerCfg } from '..'
 
 interface DestroyableServer extends Server {

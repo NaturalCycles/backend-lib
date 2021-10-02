@@ -1,5 +1,5 @@
-import { Application } from 'express'
 import { Server } from 'http'
+import { Application } from 'express'
 
 export interface StartServerCfg {
   /**

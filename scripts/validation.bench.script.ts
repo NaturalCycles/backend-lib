@@ -4,12 +4,12 @@ yarn tsn validation.bench
 
  */
 
+import * as http from 'http'
 import { runCannon } from '@naturalcycles/bench-lib'
 import { jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
 import { runScript } from '@naturalcycles/nodejs-lib/dist/script'
 import express = require('express')
-import * as http from 'http'
 import { reqValidation, validateBody } from '../src'
 
 interface PwInput {

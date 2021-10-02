@@ -1,17 +1,16 @@
+import { Readable } from 'stream'
+import { JsonSchemaObject } from '@naturalcycles/js-lib'
 import {
   BaseCommonDB,
   CommonDB,
-  CommonDBCreateOptions,
   CommonDBOptions,
   CommonDBSaveOptions,
   CommonDBStreamOptions,
-  CommonSchema,
   DBQuery,
   ObjectWithId,
   RunQueryResult,
 } from '@naturalcycles/db-lib'
 import { getGot, GetGotOptions, Got, ReadableTyped } from '@naturalcycles/nodejs-lib'
-import { Readable } from 'stream'
 
 export interface HttpDBCfg extends GetGotOptions {
   prefixUrl: string
@@ -42,7 +41,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
 
   override async getTableSchema<ROW extends ObjectWithId>(
     table: string,
-  ): Promise<CommonSchema<ROW>> {
+  ): Promise<JsonSchemaObject<ROW>> {
     return await this.got(`${table}/schema`).json()
   }
 
@@ -132,10 +131,6 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
         },
       })
       .json()
-  }
-
-  override async createTable(_schema: CommonSchema, _opt?: CommonDBCreateOptions): Promise<void> {
-    console.warn(`createTable not implemented`)
   }
 
   override streamQuery<ROW extends ObjectWithId>(

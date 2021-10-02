@@ -1,9 +1,8 @@
-// tslint:disable:ordered-imports
 const started = Date.now()
 
-import { _since } from '@naturalcycles/js-lib'
 import { Server } from 'http'
 import { AddressInfo } from 'net'
+import { _since } from '@naturalcycles/js-lib'
 import { createDefaultApp } from '..'
 import { debugResource } from './debug.resource'
 

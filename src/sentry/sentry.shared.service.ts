@@ -20,19 +20,19 @@ export class SentrySharedService {
     // Reasons:
     // 1. Can be useful is this module is imported but never actually used
     // 2. Works around memory leak when used with Jest
-    const Sentry = require('@sentry/node') as typeof SentryLib
+    const sentry = require('@sentry/node') as typeof SentryLib
 
     if (this.sentryServiceCfg.dsn) {
       // Sentry enabled
       log('SentryService init...')
     }
 
-    Sentry.init({
+    sentry.init({
       maxValueLength: 2000, // default is 250 characters
       ...this.sentryServiceCfg,
     })
 
-    return Sentry
+    return sentry
   }
 
   getRequestHandler(): RequestHandler {

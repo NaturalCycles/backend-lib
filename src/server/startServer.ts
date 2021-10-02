@@ -1,6 +1,6 @@
+import { Server } from 'http'
 import { _Memo, _ms } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
-import { Server } from 'http'
 import { log } from '../log'
 import { StartServerCfg, StartServerData } from './startServer.model'
 

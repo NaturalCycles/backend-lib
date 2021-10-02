@@ -1,5 +1,5 @@
-import { _memoFn } from '@naturalcycles/js-lib'
 import * as fs from 'fs'
+import { _memoFn } from '@naturalcycles/js-lib'
 import type { DeployInfo } from '../deploy/deploy.model'
 
 export const getDeployInfo = _memoFn((projectDir: string): DeployInfo => {

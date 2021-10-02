@@ -1,5 +1,5 @@
-import fastifyLib from 'fastify'
 import * as http from 'http'
+import fastifyLib from 'fastify'
 
 export async function createServerFastify(): Promise<http.Server> {
   const fastify = fastifyLib()

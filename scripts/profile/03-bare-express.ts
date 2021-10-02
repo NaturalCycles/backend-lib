@@ -1,5 +1,5 @@
-import express = require('express')
 import * as http from 'http'
+import express = require('express')
 
 export async function createServerBareExpress(): Promise<http.Server> {
   const app = express()

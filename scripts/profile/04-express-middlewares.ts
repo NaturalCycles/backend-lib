@@ -1,6 +1,6 @@
+import * as http from 'http'
 import express = require('express')
 import * as helmet from 'helmet'
-import * as http from 'http'
 
 /**
  * Based on: https://github.com/fastify/benchmarks/blob/master/benchmarks/express-with-middlewares.js
