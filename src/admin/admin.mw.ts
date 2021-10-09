@@ -21,6 +21,12 @@ export interface RequireAdminCfg {
   apiHost?: string
 
   urlStartsWith?: string
+
+  /**
+   * Defaults to `true`.
+   * Set to `false` to debug login issues.
+   */
+  autoLogin?: boolean
 }
 
 export type AdminMiddleware = (reqPermissions?: string[], cfg?: RequireAdminCfg) => RequestHandler
@@ -47,7 +53,7 @@ export function requireAdminPermissions(
   reqPermissions: string[] = [],
   cfg: RequireAdminCfg = {},
 ): RequestHandler {
-  const { loginHtmlPath = '/login.html', urlStartsWith, apiHost } = cfg
+  const { loginHtmlPath = '/login.html', urlStartsWith, apiHost, autoLogin = true } = cfg
 
   return async (req, res, next) => {
     if (urlStartsWith && !req.url.startsWith(urlStartsWith)) return next()
@@ -58,9 +64,9 @@ export function requireAdminPermissions(
     } catch (err) {
       if (err instanceof HttpError && (err.data as Admin401ErrorData).adminAuthRequired) {
         // Redirect to login.html
-        const href = `${loginHtmlPath}?autoLogin=1&returnUrl=\${encodeURIComponent(location.href)}${
-          apiHost ? '&apiHost=' + apiHost : ''
-        }`
+        const href = `${loginHtmlPath}?${
+          autoLogin ? 'autoLogin=1&' : ''
+        }returnUrl=\${encodeURIComponent(location.href)}${apiHost ? '&apiHost=' + apiHost : ''}`
         res.status(401).send(getLoginHtmlRedirect(href))
       } else {
         return next(err)

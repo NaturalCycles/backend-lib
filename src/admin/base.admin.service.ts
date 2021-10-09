@@ -1,7 +1,7 @@
-import { Admin401ErrorData, Admin403ErrorData, HttpError } from '@naturalcycles/js-lib'
+import { _assert, Admin401ErrorData, Admin403ErrorData, HttpError } from '@naturalcycles/js-lib'
 import { Debug, inspectAny } from '@naturalcycles/nodejs-lib'
 import { dimGrey, green, red } from '@naturalcycles/nodejs-lib/dist/colors'
-import { Request } from 'express'
+import { Request, RequestHandler } from 'express'
 import type * as FirebaseAdmin from 'firebase-admin'
 
 const log = Debug('nc:backend-lib:admin')
@@ -227,5 +227,43 @@ export class BaseAdminService {
     meta?: Record<string, any>,
   ): Promise<AdminInfo> {
     return await this.requirePermissions(req, [reqPermission], meta)
+  }
+
+  /**
+   * Install it on POST /admin/login url
+   *
+   * It takes a POST request with `Authentication` header, that contains `accessToken` from Firebase Auth.
+   * Backend doesn't validate the token, but only does `setCookie` (secure, httpOnly), returns http 204 (ok, empty response).
+   * Frontend (login.html page) will then proceed with redirecting to `returnUrl`.
+   *
+   * Same endpoint is used to logout, but the `Authentication` header should contain `logout` magic string.
+   */
+  getFirebaseAuthLoginHandler(): RequestHandler {
+    return async (req, res) => {
+      const token = req.header('authentication')
+      _assert(token, `401 Unauthenticated`, {
+        userFriendly: true,
+        httpStatusCode: 401,
+      })
+
+      let maxAge = 1000 * 60 * 60 * 24 * 30 // 30 days
+
+      // Special case
+      if (token === 'logout') {
+        // delete the cookie
+        maxAge = 0
+      }
+
+      res
+        .cookie(this.cfg.adminTokenKey, token, {
+          maxAge,
+          sameSite: 'lax', // can be: none, lax, strict
+          // comment these 2 lines to debug on localhost
+          httpOnly: true,
+          secure: true,
+        })
+        .status(204)
+        .end()
+    }
   }
 }

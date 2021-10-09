@@ -6,11 +6,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
-    <script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
-
-    <link href="https://unpkg.com/bootstrap@4.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <div id="app" style="padding: 40px 50px">
@@ -28,33 +29,54 @@
       </div>
     </div>
 
-    <script>
+    <script type="module">
+      import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3.2.20/dist/vue.esm-browser.prod.js'
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js'
+      import {
+        getAuth,
+        GoogleAuthProvider,
+        onAuthStateChanged,
+        signInWithRedirect,
+      } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js'
+
       const apiKey = '<%= firebaseApiKey %>'
       const authDomain = '<%= firebaseAuthDomain %>'
-      const authProvider = '<%= firebaseAuthProvider %>'
+      // const authProvider = '<%= firebaseAuthProvider %>'
 
       if (!apiKey || !authDomain) {
         alert(`Error: 'apiKey' or 'authDomain' is missing!`)
       }
 
-      const qs = parseQuery(location.search)
+      // Initialize Firebase
+      initializeApp({
+        apiKey,
+        authDomain,
+      })
+
+      const auth = getAuth()
+      const provider = new GoogleAuthProvider()
+
+      onAuthStateChanged(auth, user => {
+        // console.log('onAuthStateChanged, user: ', JSON.stringify(user, null, 2))
+        console.log('onAuthStateChanged, user: ', user)
+        onUser(user)
+      })
+
+      const qs = Object.fromEntries(new URLSearchParams(location.search))
       const { autoLogin, logout, returnUrl, adminTokenKey = 'admin_token' } = qs
       console.log(qs)
 
-      const provider = new firebase.auth[authProvider]()
-
-      const app = new Vue({
-        el: '#app',
-
-        data: {
-          loading: 'Loading...',
-          user: undefined,
+      const app = createApp({
+        data() {
+          return {
+            loading: 'Loading...',
+            user: undefined,
+          }
         },
-
         methods: {
           login: async function () {
             try {
-              await firebase.auth().signInWithRedirect(provider)
+              await signInWithRedirect(auth, provider)
             } catch (err) {
               logError(err)
             }
@@ -62,7 +84,9 @@
 
           logout: async function () {
             try {
-              await firebase.auth().signOut()
+              await auth.signOut()
+
+              await postToken('logout') // magic string
 
               if (logout && returnUrl) {
                 alert('Logged out, redurecting back...')
@@ -73,20 +97,7 @@
             }
           },
         },
-      })
-
-      // Initialize Firebase
-      const config = {
-        apiKey,
-        authDomain,
-      }
-      firebase.initializeApp(config)
-
-      firebase.auth().onAuthStateChanged(user => {
-        // console.log('onAuthStateChanged, user: ', JSON.stringify(user, null, 2))
-        console.log('onAuthStateChanged, user: ', user)
-        onUser(user)
-      })
+      }).mount('#app')
 
       if (logout) app.logout()
 
@@ -100,12 +111,15 @@
           if (!user) {
             if (autoLogin) app.login()
           } else {
-            const token = await firebase.auth().currentUser.getIdToken(true)
+            const token = await auth.currentUser.getIdToken()
+
             // alert('idToken')
             // console.log(idToken)
             app.user = Object.assign({}, app.user, {
               token,
             })
+
+            await postToken(token)
 
             // Redirect if needed
             if (returnUrl) {
@@ -118,19 +132,18 @@
         }
       }
 
-      function parseQuery(queryString) {
-        const query = {}
-        const pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&')
-        for (let i = 0; i < pairs.length; i++) {
-          const pair = pairs[i].split('=')
-          query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '')
-        }
-        return query
-      }
-
       function logError(err) {
         console.error(err)
         alert('Error\n ' + JSON.stringify(err, null, 2))
+      }
+
+      async function postToken(token) {
+        await fetch(`/admin/login`, {
+          method: 'post',
+          headers: {
+            Authentication: token,
+          },
+        })
       }
     </script>
   </body>

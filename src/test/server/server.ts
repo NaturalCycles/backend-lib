@@ -33,14 +33,26 @@ router.get('/', okHandler())
 router.get('/status', statusHandler())
 router.get('/login.html', loginHtml(firebaseService.cfg))
 
-router.get('/debug', reqAdmin(), async (req, res) => {
-  res.json({
-    adminInfo: await adminService.getAdminInfo(req),
-    env: process.env,
-    headers: req.headers,
-    requestId: getRequestContextProperty(REQUEST_ID_KEY),
-  })
+router.get('/admin/info', async (req, res) => {
+  res.json(await adminService.getAdminInfo(req))
 })
+
+router.post('/admin/login', adminService.getFirebaseAuthLoginHandler())
+
+router.get(
+  '/debug',
+  reqAdmin([], {
+    autoLogin: false, // uncomment to debug
+  }),
+  async (req, res) => {
+    res.json({
+      adminInfo: await adminService.getAdminInfo(req),
+      env: process.env,
+      headers: req.headers,
+      requestId: getRequestContextProperty(REQUEST_ID_KEY),
+    })
+  },
+)
 
 router.get('/timeout', () => {
   // just hang on
