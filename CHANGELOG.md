@@ -1,3 +1,10 @@
+## [2.60.2](https://github.com/NaturalCycles/backend-lib/compare/v2.60.1...v2.60.2) (2021-10-09)
+
+
+### Bug Fixes
+
+* login.html by inroducing an `/admin/login` endpoint ([6e16d0f](https://github.com/NaturalCycles/backend-lib/commit/6e16d0fd8f26d35dd562687a29a120b32d9f2717))
+
 ## [2.60.1](https://github.com/NaturalCycles/backend-lib/compare/v2.60.0...v2.60.1) (2021-10-04)
 
 
