@@ -1,3 +1,10 @@
+## [2.60.3](https://github.com/NaturalCycles/backend-lib/compare/v2.60.2...v2.60.3) (2021-10-15)
+
+
+### Bug Fixes
+
+* deps (firebase-admin@10) ([50fe05b](https://github.com/NaturalCycles/backend-lib/commit/50fe05be92cb4345b809096d3b45b1b099bc2ea5))
+
 ## [2.60.2](https://github.com/NaturalCycles/backend-lib/compare/v2.60.1...v2.60.2) (2021-10-09)
 
 
