@@ -1,5 +1,5 @@
 import { Readable } from 'stream'
-import { JsonSchemaRootObject } from '@naturalcycles/js-lib'
+import { JsonSchemaRootObject, ObjectWithId } from '@naturalcycles/js-lib'
 import {
   BaseCommonDB,
   CommonDB,
@@ -7,7 +7,6 @@ import {
   CommonDBSaveOptions,
   CommonDBStreamOptions,
   DBQuery,
-  ObjectWithId,
   RunQueryResult,
 } from '@naturalcycles/db-lib'
 import { getGot, GetGotOptions, Got, ReadableTyped } from '@naturalcycles/nodejs-lib'

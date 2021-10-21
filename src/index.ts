@@ -112,14 +112,3 @@ export {
   validateParams,
   validateQuery,
 }
-
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      PORT?: string
-      GAE_APPLICATION?: string
-      GAE_SERVICE?: string
-      GAE_VERSION?: string
-    }
-  }
-}

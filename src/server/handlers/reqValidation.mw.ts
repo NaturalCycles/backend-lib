@@ -23,6 +23,7 @@ export function reqValidation(
       if (opt.redactPaths) {
         redact(opt.redactPaths, req[reqProperty], error)
         error.data.joiValidationErrorItems.length = 0 // clears the array
+        delete error.data.annotation
       }
 
       return next(

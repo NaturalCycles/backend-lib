@@ -27,7 +27,7 @@ export class BackendServer {
     // sentryService.install()
 
     // 2. Start Express Server
-    const port = Number(process.env.PORT) || cfgPort || 8080
+    const port = Number(process.env['PORT']) || cfgPort || 8080
 
     this.server = await new Promise<Server>((resolve, reject) => {
       const server = expressApp.listen(port, (err?: Error) => {

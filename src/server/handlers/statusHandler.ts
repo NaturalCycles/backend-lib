@@ -4,27 +4,16 @@ import { dayjs } from '@naturalcycles/time-lib'
 import { RequestHandler } from 'express'
 import { getDeployInfo } from '../deployInfo.util'
 
-/**
- * @returns unix timestamp in millis
- */
-type ServerStartedCallback = () => number | undefined
-
-const now = Date.now()
-const defaultServerStartedCallback = () => now
 const { versions } = process
+const { GAE_APPLICATION, GAE_SERVICE, GAE_VERSION } = process.env
 
-export function statusHandler(
-  serverStartedCallback?: ServerStartedCallback,
-  projectDir?: string,
-  extra?: any,
-): RequestHandler {
+export function statusHandler(projectDir?: string, extra?: any): RequestHandler {
   return async (req, res) => {
-    res.json(statusHandlerData(serverStartedCallback, projectDir, extra))
+    res.json(statusHandlerData(projectDir, extra))
   }
 }
 
 export function statusHandlerData(
-  serverStartedCallback: ServerStartedCallback = defaultServerStartedCallback,
   projectDir: string = process.cwd(),
   extra?: any,
 ): Record<string, any> {
@@ -34,14 +23,14 @@ export function statusHandlerData(
   const buildInfo = [dayjs.unix(ts).toCompactTime(), gitBranch, gitRev].filter(Boolean).join('_')
 
   return _filterFalsyValues({
-    started: getStartedStr(serverStartedCallback()),
+    started: getStartedStr(),
     deployBuildTimeUTC,
     APP_ENV,
     prod,
     buildInfo,
-    GAE_APPLICATION: process.env.GAE_APPLICATION,
-    GAE_SERVICE: process.env.GAE_SERVICE,
-    GAE_VERSION: process.env.GAE_VERSION,
+    GAE_APPLICATION,
+    GAE_SERVICE,
+    GAE_VERSION,
     mem: memoryUsageFull(),
     cpuAvg: processSharedUtil.cpuAvg(),
     // resourceUsage: process.resourceUsage?.(),
@@ -50,8 +39,8 @@ export function statusHandlerData(
   })
 }
 
-function getStartedStr(serverStarted?: number): string {
-  if (!serverStarted) return 'not started yet'
+function getStartedStr(): string {
+  const serverStarted = dayjs.utc().subtract(process.uptime(), 's')
 
   const s1 = dayjs(serverStarted).toPretty()
   const s2 = dayjs(serverStarted).fromNow()
