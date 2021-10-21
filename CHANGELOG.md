@@ -1,3 +1,10 @@
+## [2.60.4](https://github.com/NaturalCycles/backend-lib/compare/v2.60.3...v2.60.4) (2021-10-21)
+
+
+### Bug Fixes
+
+* deps, use process.uptime in statusHandler ([8d3389d](https://github.com/NaturalCycles/backend-lib/commit/8d3389d8908954af9a375a6d7fb95aefc1b08e5f))
+
 ## [2.60.3](https://github.com/NaturalCycles/backend-lib/compare/v2.60.2...v2.60.3) (2021-10-15)
 
 
