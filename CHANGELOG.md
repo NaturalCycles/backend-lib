@@ -1,3 +1,10 @@
+# [2.61.0](https://github.com/NaturalCycles/backend-lib/compare/v2.60.4...v2.61.0) (2021-10-23)
+
+
+### Features
+
+* clarify startServer cfg, use process.uptime() ([9185603](https://github.com/NaturalCycles/backend-lib/commit/9185603bec23f5bcccfe764125d8af1efcfc3c11))
+
 ## [2.60.4](https://github.com/NaturalCycles/backend-lib/compare/v2.60.3...v2.60.4) (2021-10-21)
 
 
