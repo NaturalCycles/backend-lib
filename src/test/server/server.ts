@@ -10,7 +10,6 @@ autocannon -c 100 -d 40 -p 10 localhost:8080
 
  */
 
-const bootstrapStartedAt = Date.now()
 import { log } from '../../log'
 log('startServer... ')
 
@@ -72,5 +71,4 @@ void startServer({
   expressApp: createDefaultApp({
     resources: [rootResource],
   }),
-  bootstrapStartedAt,
 })

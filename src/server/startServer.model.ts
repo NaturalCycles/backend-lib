@@ -7,13 +7,6 @@ export interface StartServerCfg {
    */
   port?: number
 
-  /**
-   * Unix millisecond timestamp of when bootstrap has started.
-   *
-   * @default to Date.now()
-   */
-  bootstrapStartedAt?: number
-
   expressApp: Application
 
   /**
@@ -30,8 +23,9 @@ export interface StartServerCfg {
 
 export interface StartServerData {
   port: number
-  bootstrapStartedAt: number
-  serverStartedAt: number
-  bootstrapMillis: number
   server: Server
+  /**
+   * "Processed" server.address() as a string, ready to Cmd+click in MacOS Terminal
+   */
+  address: string
 }

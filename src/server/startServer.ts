@@ -10,7 +10,7 @@ export class BackendServer {
   server?: Server
 
   async start(): Promise<StartServerData> {
-    const { bootstrapStartedAt = Date.now(), port: cfgPort, expressApp } = this.cfg
+    const { port: cfgPort, expressApp } = this.cfg
 
     // 1. Register error handlers, etc.
     process.on('uncaughtException', err => {
@@ -39,21 +39,23 @@ export class BackendServer {
     // This is to fix GCP LoadBalancer race condition
     this.server.keepAliveTimeout = 600 * 1000 // 10 minutes
 
-    const serverStartedAt = Date.now()
+    let address = `http://localhost:${port}` // default
 
-    const bootstrapMillis = serverStartedAt - bootstrapStartedAt
-    log(
-      `serverStarted on port ${white(String(port))}, bootstrapTime ${dimGrey(
-        _ms(bootstrapMillis),
-      )}`,
-    )
+    const addr = this.server.address()
+    if (addr) {
+      if (typeof addr === 'string') {
+        address = addr
+      } else if (addr.address !== '::') {
+        address = `http://${addr.address}:${port}`
+      }
+    }
+
+    log(`serverStarted on ${white(address)} in ${dimGrey(_ms(process.uptime() * 1000))}`)
 
     return {
       port,
-      bootstrapStartedAt,
-      serverStartedAt,
-      bootstrapMillis,
       server: this.server,
+      address,
     }
   }
 
@@ -70,9 +72,7 @@ export class BackendServer {
       process.exit(1)
     }, this.cfg.forceShutdownTimeout || 3000)
 
-    if (this.cfg.onShutdown) {
-      void this.cfg.onShutdown()
-    }
+    void this.cfg.onShutdown?.()
 
     try {
       if (this.server) {
@@ -81,7 +81,7 @@ export class BackendServer {
       log(dimGrey('Shutdown completed.'))
       process.exit(0)
     } catch (err) {
-      log.error(err)
+      console.error(err)
       process.exit(1)
     }
   }
