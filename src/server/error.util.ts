@@ -8,13 +8,13 @@ export interface ResponseWithError extends Response {
 const { APP_ENV } = process.env
 const includeErrorStack = APP_ENV !== 'prod' && APP_ENV !== 'test'
 
-export function respondWithError(req: Request, res: Response, _err: any): void {
-  if (_err) {
+export function respondWithError(req: Request, res: Response, err: any): void {
+  if (err) {
     // Attach error to response, so simpleRequestLogger can pick it up
-    ;(res as ResponseWithError).__err = _err
+    ;(res as ResponseWithError).__err = err
   }
 
-  const error = _anyToErrorObject<HttpErrorData>(_err, {
+  const error = _anyToErrorObject<HttpErrorData>(err, {
     includeErrorStack,
     includeErrorData: true,
   })

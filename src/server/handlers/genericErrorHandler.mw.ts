@@ -1,8 +1,5 @@
-import { Debug } from '@naturalcycles/nodejs-lib'
 import { ErrorRequestHandler } from 'express'
 import { respondWithError } from '../error.util'
-
-const log = Debug('nc:backend-lib')
 
 /**
  * Generic error handler.
@@ -10,13 +7,13 @@ const log = Debug('nc:backend-lib')
  * Sends json payload as ErrorResponse, transformed via errorSharedUtil.
  */
 export function genericErrorHandler(): ErrorRequestHandler {
-  return (_err, req, res, next) => {
+  return (err, req, res, next) => {
     if (res.headersSent) {
-      log(`genericErrorHandler, but headersSent=true`, _err)
-      return next(_err)
+      console.warn(`genericErrorHandler, but headersSent=true`, err)
+      return next(err)
     }
-    log.error(_err)
+    console.error(err)
 
-    respondWithError(req, res, _err)
+    respondWithError(req, res, err)
   }
 }

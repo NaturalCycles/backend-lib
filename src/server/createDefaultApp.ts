@@ -2,8 +2,10 @@ import cookieParser = require('cookie-parser')
 import cors = require('cors')
 import type { Application } from 'express'
 import express = require('express')
-import { methodOverride, SentrySharedService } from '..'
+import { isGAE, methodOverride, SentrySharedService } from '..'
 import { DefaultAppCfg, RequestHandlerCfg, RequestHandlerWithPath } from './createDefaultApp.model'
+import { createAsyncLocalStorage } from './handlers/asyncLocalStorage.mw'
+import { createGAELogMiddleware } from './handlers/createGaeLogMiddleware'
 import { genericErrorHandler } from './handlers/genericErrorHandler.mw'
 import { notFoundHandler } from './handlers/notFoundHandler.mw'
 import { requestTimeout } from './handlers/requestTimeout.mw'
@@ -26,17 +28,17 @@ export function createDefaultApp(
   useHandlers(app, defaultAppCfg.preHandlers)
 
   if (!isTest) {
-    // These middlewares use 'cls-hooked' which leaks memory after Namespace is once created
-    // Currently removed, because they're not used
-    // Next attempt should probably be using `async_hooks` (which were graduated to Stable)
-    // app.use(requestContextMiddleware())
-    // app.use(requestIdMiddleware())
+    app.use(createGAELogMiddleware())
+    app.use(createAsyncLocalStorage())
   }
 
   app.use(methodOverride())
   app.use(requestTimeout())
   // app.use(bodyParserTimeout()) // removed by default
-  app.use(simpleRequestLogger())
+
+  if (!isGAE()) {
+    app.use(simpleRequestLogger())
+  }
 
   // The request handler must be the first middleware on the app
   if (sentryService) {
@@ -48,26 +50,29 @@ export function createDefaultApp(
   app.use(cookieParser())
   if (!isTest) {
     // leaks, load lazily
-    app.use(
-      require('helmet')({
-        contentSecurityPolicy: false, // to allow "admin 401 auto-redirect"
-      }),
-    )
+    // app.use(
+    //   require('helmet')({
+    //     contentSecurityPolicy: false, // to allow "admin 401 auto-redirect"
+    //   }),
+    // )
   }
 
   app.use(
     cors({
       origin: true,
       credentials: true,
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // default
       maxAge: 86400,
     }),
   )
-  app.options('*', cors() as any) // enable pre-flight for all requests
+  // app.options('*', cors() as any) // enable pre-flight for all requests
 
   // app.use(clearBodyParserTimeout()) // removed by default
 
-  app.use(express.static('static'))
+  // Static is now disabled by default due to performance
+  // Without: 6500 rpsAvg
+  // With: 5200 rpsAvg (-20%)
+  // app.use(express.static('static'))
 
   // Handlers
   useHandlers(app, defaultAppCfg.handlers)

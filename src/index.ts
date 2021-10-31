@@ -32,12 +32,6 @@ import { genericErrorHandler } from './server/handlers/genericErrorHandler.mw'
 import { methodOverride, MethodOverrideCfg } from './server/handlers/methodOverride.mw'
 import { notFoundHandler } from './server/handlers/notFoundHandler.mw'
 import { okHandler } from './server/handlers/okHandler.mw'
-import {
-  getRequestContextProperty,
-  requestContextMiddleware,
-  setRequestContextProperty,
-} from './server/handlers/requestContext.mw'
-import { requestIdMiddleware, REQUEST_ID_KEY } from './server/handlers/requestId.mw'
 import { requestTimeout, RequestTimeoutCfg } from './server/handlers/requestTimeout.mw'
 import { reqValidation, ReqValidationOptions } from './server/handlers/reqValidation.mw'
 import { sentryErrorHandler } from './server/handlers/sentryErrorHandler.mw'
@@ -50,6 +44,12 @@ import { validateBody, validateParams, validateQuery } from './server/handlers/v
 import { coloredHttpCode, logRequest } from './server/request.log.util'
 import { BackendServer, startServer } from './server/startServer'
 import { StartServerCfg, StartServerData } from './server/startServer.model'
+import {
+  createAsyncLocalStorage,
+  getRequest,
+  getRequestLogger,
+} from './server/handlers/asyncLocalStorage.mw'
+import { createGAELogMiddleware } from './server/handlers/createGaeLogMiddleware'
 
 export type {
   MethodOverrideCfg,
@@ -103,12 +103,11 @@ export {
   requestTimeout,
   simpleRequestLogger,
   coloredHttpCode,
-  getRequestContextProperty,
-  setRequestContextProperty,
-  requestContextMiddleware,
-  requestIdMiddleware,
-  REQUEST_ID_KEY,
   validateBody,
   validateParams,
   validateQuery,
+  createAsyncLocalStorage,
+  createGAELogMiddleware,
+  getRequest,
+  getRequestLogger,
 }

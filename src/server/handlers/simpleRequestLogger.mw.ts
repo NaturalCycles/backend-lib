@@ -2,7 +2,7 @@ import { _since } from '@naturalcycles/js-lib'
 import { Debug, inspectAny } from '@naturalcycles/nodejs-lib'
 import { boldGrey, dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { RequestHandler } from 'express'
-import { onFinished } from '../../index'
+import { isGAE, onFinished } from '../../index'
 import { ResponseWithError } from '../error.util'
 import { logRequest } from '../request.log.util'
 
@@ -21,6 +21,9 @@ export interface SimpleRequestLoggerCfg {
 }
 
 export function simpleRequestLogger(_cfg: Partial<SimpleRequestLoggerCfg> = {}): RequestHandler {
+  // Disable logger in AppEngine, as it doesn't make sense there
+  if (isGAE()) return (req, res, next) => next()
+
   const cfg: SimpleRequestLoggerCfg = {
     logStart: false,
     logFinish: true,
