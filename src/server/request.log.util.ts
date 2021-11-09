@@ -3,7 +3,7 @@ import { boldGrey, green, red, yellow } from '@naturalcycles/nodejs-lib/dist/col
 import { Request } from 'express'
 
 export function logRequest(req: Request, statusCode: number, ...tokens: any[]): void {
-  req.log[logLevel(statusCode)](
+  req[logLevel(statusCode)](
     [coloredHttpCode(statusCode), req.method, boldGrey(req.url), ...tokens].join(' '),
   )
 }

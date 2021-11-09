@@ -93,7 +93,9 @@ export class BaseAdminService {
       req.log(`admin email: ${dimGrey(email)}`)
       return email
     } catch (err) {
-      req.log.error(`getEmailByToken error:`, err)
+      // todo: handle specific common error:
+      // FirebaseAuthError: Firebase ID token has expired. Get a fresh ID token from your client app and try again (auth/id-token-expired).
+      req.error(`getEmailByToken error:`, err)
       return
     }
   }

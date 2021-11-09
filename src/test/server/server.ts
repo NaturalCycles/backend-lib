@@ -114,10 +114,10 @@ void startServer({
 })
 
 async function someAsyncFunction(): Promise<void> {
-  let log = getRequestLogger()
-  log('logging from asyncFunction', { a: 'a' }, 42)
+  let logger = getRequestLogger()
+  logger.log('logging from asyncFunction', { a: 'a' }, 42)
 
   // just to test different way of obtaining the log
-  log = getRequest().log
-  log.warn('and some warn')
+  logger = getRequest()
+  logger.log('and some warn')
 }

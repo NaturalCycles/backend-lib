@@ -22,7 +22,7 @@ export function genericErrorHandler(): ErrorRequestHandler {
       // return next(err)
       return next()
     }
-    req.log.error('genericErrorHandler:', err)
+    req.error('genericErrorHandler:', err)
 
     respondWithError(req, res, err)
   }
