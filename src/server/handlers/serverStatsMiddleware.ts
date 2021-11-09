@@ -100,9 +100,12 @@ export function serverStatsMiddleware(): RequestHandler {
       const now = Date.now()
       const latency = now - started
 
-      let endpoint = [req.method, (req.route?.path || req.path).toLowerCase()].join(' ')
-      if (endpoint.length > 1 && endpoint.endsWith('/'))
-        endpoint = endpoint.slice(0, endpoint.length - 1)
+      let path = (req.route?.path || req.path).toLowerCase()
+      if (path.length > 1 && path.endsWith('/')) {
+        path = path.slice(0, path.length - 1)
+      }
+
+      const endpoint = [req.method, path].join(' ')
 
       serverStatsMap[endpoint] ||= {
         stack: new SizeLimitedStack<number>(SIZE),
@@ -132,10 +135,9 @@ function cleanupServerStats(): void {
   const endpoint = _sortBy(
     _stringMapEntries(serverStatsMap),
     ([_, stat]) => stat['2xx'] + stat['4xx'] + stat['5xx'],
-  )[0]?.[0]
-  if (endpoint) {
-    delete serverStatsMap[endpoint]
-  }
+  )[0]![0]
+
+  delete serverStatsMap[endpoint]
 }
 
 function getStatusFamily(statusCode: number): '2xx' | '4xx' | '5xx' {
