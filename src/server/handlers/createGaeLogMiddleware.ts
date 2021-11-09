@@ -1,31 +1,8 @@
 import { inspect } from 'util'
 import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { inspectAny } from '@naturalcycles/nodejs-lib'
-import { _defineLazyProperty, _objectKeys, AnyObject } from '@naturalcycles/js-lib'
+import { _defineLazyProperty, AnyObject, SimpleLogger } from '@naturalcycles/js-lib'
 import { RequestHandler } from 'express'
-
-const severityMap: Record<SimpleLogLevel, string> = {
-  debug: 'DEBUG',
-  info: 'INFO',
-  warn: 'WARNING',
-  error: 'ERROR',
-}
-
-export enum SimpleLogLevel {
-  debug = 'debug',
-  info = 'info',
-  warn = 'warn',
-  error = 'error',
-}
-
-export type SimpleLoggerFn = (...args: any[]) => void
-
-export interface SimpleLogger extends SimpleLoggerFn {
-  debug: SimpleLoggerFn
-  info: SimpleLoggerFn
-  warn: SimpleLoggerFn
-  error: SimpleLoggerFn
-}
 
 declare module 'http' {
   interface IncomingMessage {
@@ -45,33 +22,42 @@ const isGAE = !!GAE_INSTANCE
 let reqNum = 0
 
 // Documented here: https://cloud.google.com/logging/docs/structured-logging
-function logSimple(meta: AnyObject, args: any[]): void {
-  if (!isGAE) {
-    // Run on local machine
-    console.log(
-      [
-        meta['reqNum'] ? [dimGrey('[' + meta['reqNum'] + ']')] : [],
-        ...args.map(a => inspectAny(a, { includeErrorStack: true, colors: true })),
-      ].join(' '),
-    )
-  } else {
-    console.log(
-      JSON.stringify({
-        message: args.map(a => (typeof a === 'string' ? a : inspect(a))).join(' '),
-        ...meta,
-      }),
-    )
-  }
+function logToAppEngine(meta: AnyObject, args: any[]): void {
+  console.log(
+    JSON.stringify({
+      message: args.map(a => (typeof a === 'string' ? a : inspect(a))).join(' '),
+      ...meta,
+    }),
+  )
 }
 
-export function createSimpleLogger(meta: AnyObject = {}): SimpleLogger {
-  const loggerFn: SimpleLoggerFn = (...args) => logSimple(meta, args)
-  const logger = loggerFn as SimpleLogger
-  _objectKeys(SimpleLogLevel).forEach(
-    level =>
-      (logger[level] = (...args) => logSimple({ ...meta, severity: severityMap[level] }, args)),
+function logToAppEngineDev(meta: AnyObject, args: any[]): void {
+  // Run on local machine
+  console.log(
+    [
+      meta['reqNum'] ? [dimGrey('[' + meta['reqNum'] + ']')] : [],
+      ...args.map(a => inspectAny(a, { includeErrorStack: true, colors: true })),
+    ].join(' '),
   )
-  return logger
+}
+
+export function createAppEngineLogger(meta: AnyObject = {}): SimpleLogger {
+  if (!isGAE) {
+    return Object.assign(
+      (...args: any[]) => logToAppEngineDev({ ...meta, severity: 'INFO' }, args),
+      {
+        log: (...args: any[]) => logToAppEngineDev({ ...meta, severity: 'INFO' }, args),
+        warn: (...args: any[]) => logToAppEngineDev({ ...meta, severity: 'WARNING' }, args),
+        error: (...args: any[]) => logToAppEngineDev({ ...meta, severity: 'ERROR' }, args),
+      },
+    )
+  }
+
+  return Object.assign((...args: any[]) => logToAppEngine({ ...meta, severity: 'INFO' }, args), {
+    log: (...args: any[]) => logToAppEngine({ ...meta, severity: 'INFO' }, args),
+    warn: (...args: any[]) => logToAppEngine({ ...meta, severity: 'WARNING' }, args),
+    error: (...args: any[]) => logToAppEngine({ ...meta, severity: 'ERROR' }, args),
+  })
 }
 
 export function createGAELogMiddleware(): RequestHandler {
@@ -91,10 +77,8 @@ export function createGAELogMiddleware(): RequestHandler {
         meta['reqNum'] = ++reqNum
       }
 
-      return createSimpleLogger(meta)
+      return createAppEngineLogger(meta)
     })
-
-    // req.log = createSimpleLogger(meta)
 
     next()
   }

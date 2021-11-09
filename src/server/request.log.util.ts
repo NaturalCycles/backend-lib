@@ -1,3 +1,4 @@
+import { CommonLogLevel } from '@naturalcycles/js-lib'
 import { boldGrey, green, red, yellow } from '@naturalcycles/nodejs-lib/dist/colors'
 import { Request } from 'express'
 
@@ -13,8 +14,8 @@ export function coloredHttpCode(statusCode: number): string {
   return red(statusCode)
 }
 
-function logLevel(statusCode?: number): 'info' | 'warn' | 'error' {
-  if (!statusCode || statusCode < 400) return 'info'
+function logLevel(statusCode?: number): CommonLogLevel {
+  if (!statusCode || statusCode < 400) return 'log'
   if (statusCode < 500) return 'warn'
   return 'error'
 }

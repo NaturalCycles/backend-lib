@@ -1,7 +1,7 @@
 import { AsyncLocalStorage } from 'async_hooks'
-import { _lazyValue } from '@naturalcycles/js-lib'
+import { _lazyValue, SimpleLogger } from '@naturalcycles/js-lib'
 import { Request, RequestHandler } from 'express'
-import { createSimpleLogger, SimpleLogger } from './createGaeLogMiddleware'
+import { createAppEngineLogger } from './createGaeLogMiddleware'
 
 export interface RequestLocalStorage {
   req: Request
@@ -29,5 +29,5 @@ export function getRequest(): Request {
  * It requires both `createAsyncLocalStorage` and `createGAELogMiddleware` to be in use to work.
  */
 export function getRequestLogger(): SimpleLogger {
-  return storage().getStore()?.req.log || createSimpleLogger()
+  return storage().getStore()?.req.log || createAppEngineLogger()
 }
