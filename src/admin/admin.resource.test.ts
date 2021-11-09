@@ -77,7 +77,7 @@ describe('login', () => {
 })
 
 describe('getAdminInfo', () => {
-  jest.spyOn(adminService, 'getEmailByToken').mockImplementation(async token => {
+  jest.spyOn(adminService, 'getEmailByToken').mockImplementation(async (_, token) => {
     if (token === 'good') return 'good@mail.com'
     if (token === 'second') return 'second@mail.com'
   })

@@ -1,12 +1,8 @@
 import { _since } from '@naturalcycles/js-lib'
-import { Debug, inspectAny } from '@naturalcycles/nodejs-lib'
 import { boldGrey, dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
-import { RequestHandler } from 'express'
+import { RequestHandler, Response } from 'express'
 import { isGAE, onFinished } from '../../index'
-import { ResponseWithError } from '../error.util'
 import { logRequest } from '../request.log.util'
-
-const log = Debug('nc:backend-lib')
 
 export interface SimpleRequestLoggerCfg {
   /**
@@ -31,20 +27,23 @@ export function simpleRequestLogger(_cfg: Partial<SimpleRequestLoggerCfg> = {}):
   }
   const { logStart, logFinish } = cfg
 
-  return (req, res: ResponseWithError, next) => {
+  return (req, res: Response, next) => {
     const started = Date.now()
 
     if (logStart) {
-      log(['>>', req.method, boldGrey(req.url)].join(' '))
+      req.log(['>>', req.method, boldGrey(req.url)].join(' '))
     }
 
     if (logFinish) {
       onFinished(res, () => {
-        if (res.__err) {
-          logRequest(req, res.statusCode, dimGrey(_since(started)), inspectAny(res.__err))
-        } else {
-          logRequest(req, res.statusCode, dimGrey(_since(started)))
-        }
+        logRequest(req, res.statusCode, dimGrey(_since(started)))
+
+        // Avoid logging twice. It was previously logged by genericErrorHandler
+        // if (res.__err) {
+        //   logRequest(req, res.statusCode, dimGrey(_since(started)), inspectAny(res.__err))
+        // } else {
+        //   logRequest(req, res.statusCode, dimGrey(_since(started)))
+        // }
       })
     }
 

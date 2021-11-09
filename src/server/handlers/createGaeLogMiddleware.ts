@@ -1,8 +1,8 @@
 import { inspect } from 'util'
+import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { inspectAny } from '@naturalcycles/nodejs-lib'
 import { _defineLazyProperty, _objectKeys, AnyObject } from '@naturalcycles/js-lib'
 import { RequestHandler } from 'express'
-import { isGAE } from '../../gae/appEngine.util'
 
 const severityMap: Record<SimpleLogLevel, string> = {
   debug: 'DEBUG',
@@ -38,17 +38,26 @@ declare module 'http' {
   // }
 }
 
-const { GOOGLE_CLOUD_PROJECT } = process.env
+const { GOOGLE_CLOUD_PROJECT, GAE_INSTANCE } = process.env
+const isGAE = !!GAE_INSTANCE
+
+// Simple "request number" (poor man's "correlation id") counter, to use on dev machine (not in the cloud)
+let reqNum = 0
 
 // Documented here: https://cloud.google.com/logging/docs/structured-logging
 function logSimple(meta: AnyObject, args: any[]): void {
-  if (!isGAE()) {
+  if (!isGAE) {
     // Run on local machine
-    args.forEach(a => console.log(inspectAny(a, { includeErrorStack: true, colors: true })))
+    console.log(
+      [
+        meta['reqNum'] ? [dimGrey('[' + meta['reqNum'] + ']')] : [],
+        ...args.map(a => inspectAny(a, { includeErrorStack: true, colors: true })),
+      ].join(' '),
+    )
   } else {
     console.log(
       JSON.stringify({
-        message: args.map(a => (typeof a === 'string' ? a : inspect(a))).join('\n'),
+        message: args.map(a => (typeof a === 'string' ? a : inspect(a))).join(' '),
         ...meta,
       }),
     )
@@ -78,6 +87,8 @@ export function createGAELogMiddleware(): RequestHandler {
           'logging.googleapis.com/trace': `projects/${GOOGLE_CLOUD_PROJECT}/traces/${trace}`,
           'appengine.googleapis.com/request_id': req.header('x-appengine-request-log-id'),
         })
+      } else if (!isGAE) {
+        meta['reqNum'] = ++reqNum
       }
 
       return createSimpleLogger(meta)

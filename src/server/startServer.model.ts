@@ -1,13 +1,18 @@
 import { Server } from 'http'
 import { Application } from 'express'
+import { SentrySharedService } from '../sentry/sentry.shared.service'
+import { DefaultAppCfg } from './createDefaultApp.model'
 
-export interface StartServerCfg {
+/**
+ * If DefaultAppCfg.resources is passed and `expressApp` is not passed - it will call createDefaultApp(cfg).
+ */
+export interface StartServerCfg extends DefaultAppCfg {
   /**
    * @default process.env.PORT || 8080
    */
   port?: number
 
-  expressApp: Application
+  expressApp?: Application
 
   /**
    * Server will wait for promise to resolve until shutting down.
@@ -19,6 +24,8 @@ export interface StartServerCfg {
    * @default 3000
    */
   forceShutdownTimeout?: number
+
+  sentryService?: SentrySharedService
 }
 
 export interface StartServerData {

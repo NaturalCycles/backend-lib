@@ -1,11 +1,11 @@
-import { AppError, _Memo } from '@naturalcycles/js-lib'
-import { Debug } from '@naturalcycles/nodejs-lib'
-import type { Breadcrumb } from '@sentry/node'
+import { _Memo } from '@naturalcycles/js-lib'
+import { inspectAny } from '@naturalcycles/nodejs-lib'
+import type { Breadcrumb, NodeOptions } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
 import { ErrorRequestHandler, RequestHandler } from 'express'
-import { SentrySharedServiceCfg } from './sentry.model'
+import { getRequestLogger } from '../index'
 
-const log = Debug('nc:backend-lib:sentry')
+export interface SentrySharedServiceCfg extends NodeOptions {}
 
 export class SentrySharedService {
   constructor(private sentryServiceCfg: SentrySharedServiceCfg) {}
@@ -24,7 +24,7 @@ export class SentrySharedService {
 
     if (this.sentryServiceCfg.dsn) {
       // Sentry enabled
-      log('SentryService init...')
+      console.log('SentryService init...')
     }
 
     sentry.init({
@@ -55,20 +55,26 @@ export class SentrySharedService {
   }
 
   /**
+   * Does console.error(err)
    * Returns "eventId"
    */
-  captureException(err: any): string {
-    log.error(err)
+  captureException(err: any, logError = true): string {
+    // console.error(err)
+    // Using request-aware logger here
+    if (logError) {
+      getRequestLogger().error('captureException:', err)
+    }
 
     // This is to avoid Sentry cutting the err.message to 253 characters
     // It will log additional "breadcrumb object" before the error
     // It's a Breadcrumb, not a console.log, because console.log are NOT automatically attached as Breadcrumbs in cron-job environments (outside of Express)
-    if (err?.message) {
-      this.sentry().addBreadcrumb({
-        message: err.message,
-        data: (err as AppError).data,
-      })
-    }
+    this.sentry().addBreadcrumb({
+      message: inspectAny(err, {
+        includeErrorData: true,
+        colors: false,
+      }),
+      // data: (err as AppError).data, // included in message
+    })
 
     return this.sentry().captureException(err)
   }
@@ -77,7 +83,7 @@ export class SentrySharedService {
    * Returns "eventId"
    */
   captureMessage(msg: string, level?: SentryLib.Severity): string {
-    log.error(msg)
+    getRequestLogger().error('captureMessage:', msg)
     return this.sentry().captureMessage(msg, level)
   }
 

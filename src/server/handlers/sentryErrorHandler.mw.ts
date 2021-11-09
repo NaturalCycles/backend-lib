@@ -12,7 +12,7 @@ export interface SentryErrorMiddlewareCfg {
  */
 export function sentryErrorHandler(cfg: SentryErrorMiddlewareCfg): ErrorRequestHandler {
   return (err, req, res, next) => {
-    if (!err) return next(err)
+    if (!err) return next()
 
     err.data = {
       ...err.data,
@@ -21,11 +21,7 @@ export function sentryErrorHandler(cfg: SentryErrorMiddlewareCfg): ErrorRequestH
     const httpStatusCode = (err.data as HttpErrorData).httpStatusCode || 500
 
     if (shouldReportToSentry(httpStatusCode)) {
-      const errorId = cfg.sentryService.captureException(err)
-
-      Object.assign(err.data, {
-        errorId,
-      })
+      err.data.errorId = cfg.sentryService.captureException(err)
     }
 
     next(err)

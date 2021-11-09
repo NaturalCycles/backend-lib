@@ -1,6 +1,6 @@
 /*
 
-DEBUG=app*,nc:* yarn tsn ./src/test/server/server.ts
+yarn serve
 
 Benchmark it like this:
 autocannon -c 100 -d 40 -p 10 localhost:8080
@@ -15,13 +15,17 @@ console.log('startServer... ')
 import { pDelay } from '@naturalcycles/js-lib'
 import {
   startServer,
-  createDefaultApp,
   getDefaultRouter,
   statusHandler,
   okHandler,
+  SentrySharedService,
 } from '../../index'
 import { loginHtml } from '../../admin/admin.mw'
 import { getRequest, getRequestLogger } from '../../server/handlers/asyncLocalStorage.mw'
+import {
+  serverStatsHTMLHandler,
+  serverStatsMiddleware,
+} from '../../server/handlers/serverStatsMiddleware'
 import { adminService, firebaseService, reqAdmin } from './admin'
 
 const router = getDefaultRouter()
@@ -29,6 +33,7 @@ export const rootResource = router
 
 router.get('/', okHandler())
 router.get('/status', statusHandler())
+router.get('/stats', serverStatsHTMLHandler)
 router.get('/login.html', loginHtml(firebaseService.cfg))
 
 router.get('/admin/info', async (req, res) => {
@@ -76,10 +81,36 @@ router.get('/log', async (req, res) => {
   res.json({})
 })
 
+async function failingFunction() {
+  // setTimeout(() => {
+  //   throw new Error('failing function error')
+  // }, 5000)
+  console.log('inside failingFunction')
+  await pDelay(0)
+  console.log('inside2 failingFunction')
+  throw new Error('failing function error')
+}
+
+router.get('/testVoid', async (req, res) => {
+  req.log('testVoid start')
+  await pDelay(50)
+  void failingFunction()
+  console.log('just after failingFunction')
+  // throw new Error('sync error')
+  await pDelay(0)
+  console.log('just after2 failingFunction')
+  res.json({ ok: 1 })
+})
+
+const sentryService = new SentrySharedService({
+  autoSessionTracking: false,
+})
+
 void startServer({
-  expressApp: createDefaultApp({
-    resources: [rootResource],
-  }),
+  handlers: [serverStatsMiddleware()],
+  resources: [rootResource],
+  forceShutdownTimeout: 0,
+  sentryService,
 })
 
 async function someAsyncFunction(): Promise<void> {

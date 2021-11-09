@@ -14,7 +14,7 @@ test('envService', () => {
   expect(() => envService.getEnv()).toThrow('Cannot read envFile')
 
   // test1
-  process.env.APP_ENV = 'test1'
+  process.env['APP_ENV'] = 'test1'
   let env = envService.getEnv()
   expect(env).toEqual({
     name: 'test1',
@@ -22,7 +22,7 @@ test('envService', () => {
   })
 
   // test2, env cached
-  process.env.APP_ENV = 'test2'
+  process.env['APP_ENV'] = 'test2'
   env = envService.getEnv()
   expect(env).toEqual({
     name: 'test1',

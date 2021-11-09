@@ -11,8 +11,7 @@ import { createSecureHeaderMiddleware, SecureHeaderMiddlewareCfg } from './admin
 import { BaseEnv } from './env/env.model'
 import { EnvSharedService, EnvSharedServiceCfg } from './env/env.shared.service'
 import { isGAE } from './gae/appEngine.util'
-import { SentrySharedServiceCfg } from './sentry/sentry.model'
-import { SentrySharedService } from './sentry/sentry.shared.service'
+import { SentrySharedService, SentrySharedServiceCfg } from './sentry/sentry.shared.service'
 import { catchWrapper } from './server/catchWrapper'
 import { createDefaultApp } from './server/createDefaultApp'
 import {
@@ -21,14 +20,17 @@ import {
   RequestHandlerWithPath,
 } from './server/createDefaultApp.model'
 import { getDeployInfo } from './server/deployInfo.util'
-import { respondWithError } from './server/error.util'
 import { getDefaultRouter } from './server/getDefaultRouter'
 import {
   bodyParserTimeout,
   BodyParserTimeoutCfg,
   clearBodyParserTimeout,
 } from './server/handlers/bodyParserTimeout.mw'
-import { genericErrorHandler } from './server/handlers/genericErrorHandler.mw'
+import { genericErrorHandler, respondWithError } from './server/handlers/genericErrorHandler.mw'
+import {
+  serverStatsHTMLHandler,
+  serverStatsMiddleware,
+} from './server/handlers/serverStatsMiddleware'
 import { methodOverride, MethodOverrideCfg } from './server/handlers/methodOverride.mw'
 import { notFoundHandler } from './server/handlers/notFoundHandler.mw'
 import { okHandler } from './server/handlers/okHandler.mw'
@@ -110,4 +112,6 @@ export {
   createGAELogMiddleware,
   getRequest,
   getRequestLogger,
+  serverStatsHTMLHandler,
+  serverStatsMiddleware,
 }

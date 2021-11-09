@@ -3,6 +3,7 @@
   "version": "2.61.0",
   "scripts": {
     "prepare": "husky install",
+    "serve": "APP_ENV=dev nodemon",
     "docs-serve": "vuepress dev docs",
     "docs-build": "vuepress build docs",
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
@@ -46,6 +47,7 @@
     "@types/node": "^16.4.1",
     "fastify": "^3.20.1",
     "jest": "^27.0.1",
+    "nodemon": "^2.0.14",
     "patch-package": "^6.2.1",
     "prettier": "^2.0.0",
     "vue-class-component": "^7.2.6",

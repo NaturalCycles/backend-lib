@@ -58,13 +58,13 @@
 
       onAuthStateChanged(auth, user => {
         // console.log('onAuthStateChanged, user: ', JSON.stringify(user, null, 2))
-        console.log('onAuthStateChanged, user: ', user)
+        // console.log('onAuthStateChanged, user: ', user)
         onUser(user)
       })
 
       const qs = Object.fromEntries(new URLSearchParams(location.search))
       const { autoLogin, logout, returnUrl, adminTokenKey = 'admin_token' } = qs
-      console.log(qs)
+      // console.log(qs)
 
       const app = createApp({
         data() {

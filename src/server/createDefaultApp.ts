@@ -2,7 +2,7 @@ import cookieParser = require('cookie-parser')
 import cors = require('cors')
 import type { Application } from 'express'
 import express = require('express')
-import { isGAE, methodOverride, SentrySharedService } from '..'
+import { isGAE, methodOverride } from '..'
 import { DefaultAppCfg, RequestHandlerCfg, RequestHandlerWithPath } from './createDefaultApp.model'
 import { createAsyncLocalStorage } from './handlers/asyncLocalStorage.mw'
 import { createGAELogMiddleware } from './handlers/createGaeLogMiddleware'
@@ -14,10 +14,9 @@ import { simpleRequestLogger } from './handlers/simpleRequestLogger.mw'
 
 const isTest = process.env['APP_ENV'] === 'test'
 
-export function createDefaultApp(
-  defaultAppCfg: DefaultAppCfg,
-  sentryService?: SentrySharedService,
-): Application {
+export function createDefaultApp(cfg: DefaultAppCfg): Application {
+  const { sentryService } = cfg
+
   const app = express()
 
   app.disable('etag')
@@ -25,15 +24,17 @@ export function createDefaultApp(
   app.set('trust proxy', true)
 
   // preHandlers
-  useHandlers(app, defaultAppCfg.preHandlers)
+  useHandlers(app, cfg.preHandlers)
+
+  app.use(createGAELogMiddleware())
 
   if (!isTest) {
-    app.use(createGAELogMiddleware())
     app.use(createAsyncLocalStorage())
   }
 
   app.use(methodOverride())
   app.use(requestTimeout())
+  // app.use(serverStatsMiddleware()) // disabled by default
   // app.use(bodyParserTimeout()) // removed by default
 
   if (!isGAE()) {
@@ -42,7 +43,9 @@ export function createDefaultApp(
 
   // The request handler must be the first middleware on the app
   if (sentryService) {
-    app.use(sentryService.getRequestHandler())
+    // On error - this handler will set res.headers,
+    // which will trigger genericErrorHandler "headers already sent"
+    // app.use(sentryService.getRequestHandler())
   }
 
   app.use(express.json({ limit: '1mb' }))
@@ -50,11 +53,11 @@ export function createDefaultApp(
   app.use(cookieParser())
   if (!isTest) {
     // leaks, load lazily
-    // app.use(
-    //   require('helmet')({
-    //     contentSecurityPolicy: false, // to allow "admin 401 auto-redirect"
-    //   }),
-    // )
+    app.use(
+      require('helmet')({
+        contentSecurityPolicy: false, // to allow "admin 401 auto-redirect"
+      }),
+    )
   }
 
   app.use(
@@ -75,13 +78,13 @@ export function createDefaultApp(
   // app.use(express.static('static'))
 
   // Handlers
-  useHandlers(app, defaultAppCfg.handlers)
+  useHandlers(app, cfg.handlers)
 
   // Resources
-  useHandlers(app, defaultAppCfg.resources)
+  useHandlers(app, cfg.resources)
 
   // postHandlers
-  useHandlers(app, defaultAppCfg.postHandlers)
+  useHandlers(app, cfg.postHandlers)
 
   // Generic 404 handler
   app.use(notFoundHandler())
@@ -91,6 +94,11 @@ export function createDefaultApp(
   // OR: another handler that will selectively report to Sentry and pass error further via next(err)
   // app.use(sentryService.getErrorHandler())
   if (sentryService) {
+    // app.use(sentryService.getErrorHandler())
+
+    // Does 2 things:
+    // 1. Calls sentry.captureException(err) (but only for 5xx)
+    // 2. Attaches err.data.errorId
     app.use(
       sentryErrorHandler({
         sentryService,

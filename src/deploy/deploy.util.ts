@@ -22,7 +22,6 @@ const APP_YAML_DEFAULT = (): AppYaml => ({
     DEBUG_HIDE_DATE: 'true',
     // DEBUG_COLORS: 'true',
     TZ: 'UTC',
-    // NODE_ICU_DATA: './node_modules/full-icu',
     TS_NODE_PROJECT: './tsconfig.dist.json',
   },
 })

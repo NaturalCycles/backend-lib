@@ -1,12 +1,9 @@
 import * as fs from 'fs'
 import { Admin401ErrorData, HttpError, _memoFn } from '@naturalcycles/js-lib'
-import { Debug } from '@naturalcycles/nodejs-lib'
 import * as ejs from 'ejs'
 import { RequestHandler } from 'express'
 import { BaseAdminService } from './base.admin.service'
 import { FirebaseSharedServiceCfg } from './firebase.shared.service'
-
-const log = Debug('nc:backend-lib:admin')
 
 export interface RequireAdminCfg {
   /**
@@ -100,7 +97,7 @@ export function loginHtml(firebaseServiceCfg: FirebaseSharedServiceCfg): Request
 }
 
 const getLoginHtml = _memoFn((cfg: LoginHtmlCfg) => {
-  log(`reading login.html`)
+  console.log(`reading login.html`)
   const tmpl = fs.readFileSync(`${__dirname}/login.html`, 'utf8')
   return ejs.render(tmpl, cfg)
 })

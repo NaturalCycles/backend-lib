@@ -1,11 +1,8 @@
-import { Debug, DebugLogLevel } from '@naturalcycles/nodejs-lib'
 import { boldGrey, green, red, yellow } from '@naturalcycles/nodejs-lib/dist/colors'
 import { Request } from 'express'
 
-const log = Debug('nc:backend-lib')
-
 export function logRequest(req: Request, statusCode: number, ...tokens: any[]): void {
-  log[logLevel(statusCode)](
+  req.log[logLevel(statusCode)](
     [coloredHttpCode(statusCode), req.method, boldGrey(req.url), ...tokens].join(' '),
   )
 }
@@ -16,8 +13,8 @@ export function coloredHttpCode(statusCode: number): string {
   return red(statusCode)
 }
 
-function logLevel(statusCode?: number): DebugLogLevel {
-  if (!statusCode || statusCode < 400) return DebugLogLevel.info
-  if (statusCode < 500) return DebugLogLevel.warn
-  return DebugLogLevel.error
+function logLevel(statusCode?: number): 'info' | 'warn' | 'error' {
+  if (!statusCode || statusCode < 400) return 'info'
+  if (statusCode < 500) return 'warn'
+  return 'error'
 }

@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express'
+import { SentrySharedService } from '../sentry/sentry.shared.service'
 
 /**
  * Plain RequestHandler can be provided - then it's mounted to /
@@ -24,4 +25,5 @@ export interface DefaultAppCfg {
   handlers?: RequestHandlerCfg[]
   resources?: RequestHandlerCfg[]
   postHandlers?: RequestHandlerCfg[]
+  sentryService?: SentrySharedService
 }

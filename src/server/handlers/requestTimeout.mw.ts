@@ -1,7 +1,6 @@
 import { HttpError } from '@naturalcycles/js-lib'
 import { RequestHandler } from 'express'
-import { onFinished } from '../../index'
-import { respondWithError } from '../error.util'
+import { onFinished, respondWithError } from '../../index'
 
 export interface RequestTimeoutCfg {
   /**

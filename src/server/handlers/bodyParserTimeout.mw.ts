@@ -1,6 +1,6 @@
 import { HttpError } from '@naturalcycles/js-lib'
 import { RequestHandler, Request } from 'express'
-import { respondWithError } from '../error.util'
+import { respondWithError } from '../../index'
 
 export interface BodyParserTimeoutCfg {
   /**

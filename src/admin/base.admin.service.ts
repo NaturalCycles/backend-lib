@@ -1,10 +1,7 @@
 import { _assert, Admin401ErrorData, Admin403ErrorData, HttpError } from '@naturalcycles/js-lib'
-import { Debug, inspectAny } from '@naturalcycles/nodejs-lib'
 import { dimGrey, green, red } from '@naturalcycles/nodejs-lib/dist/colors'
 import { Request, RequestHandler } from 'express'
 import type * as FirebaseAdmin from 'firebase-admin'
-
-const log = Debug('nc:backend-lib:admin')
 
 export interface AdminServiceCfg {
   /**
@@ -60,7 +57,7 @@ export class BaseAdminService {
    */
   getEmailPermissions(email?: string): Set<string> | undefined {
     if (!email) return
-    log(
+    console.log(
       `getEmailPermissions (${dimGrey(
         email,
       )}) returning undefined (please override the implementation)`,
@@ -79,7 +76,7 @@ export class BaseAdminService {
     granted: boolean,
     meta: Record<string, any> = {},
   ): Promise<void> {
-    log(
+    req.log(
       `${dimGrey(email)} ${required ? 'required' : 'optional'} permissions check [${dimGrey(
         reqPermissions.join(', '),
       )}]: ${granted ? green('GRANTED') : red('DENIED')}`,
@@ -87,16 +84,16 @@ export class BaseAdminService {
     )
   }
 
-  async getEmailByToken(adminToken?: string): Promise<string | undefined> {
+  async getEmailByToken(req: Request, adminToken?: string): Promise<string | undefined> {
     if (!adminToken) return
 
     try {
       const decodedToken = await this.firebaseAuth.verifyIdToken(adminToken)
       const email = decodedToken?.email
-      log(`admin email: ${dimGrey(email)}`)
+      req.log(`admin email: ${dimGrey(email)}`)
       return email
     } catch (err) {
-      log(`getEmailByToken error: ${inspectAny(err)}`)
+      req.log.error(`getEmailByToken error:`, err)
       return
     }
   }
@@ -115,7 +112,7 @@ export class BaseAdminService {
 
   async isAdmin(req: Request): Promise<boolean> {
     const adminToken = await this.getAdminToken(req)
-    const email = await this.getEmailByToken(adminToken)
+    const email = await this.getEmailByToken(req, adminToken)
     return !!this.getEmailPermissions(email)
   }
 
@@ -140,7 +137,7 @@ export class BaseAdminService {
     if (!this.cfg.authEnabled) return adminInfoDisabled()
 
     const adminToken = await this.getAdminToken(req)
-    const email = await this.getEmailByToken(adminToken)
+    const email = await this.getEmailByToken(req, adminToken)
     const hasPermissions = this.getEmailPermissions(email)
     if (!hasPermissions) return
 
@@ -165,7 +162,7 @@ export class BaseAdminService {
     if (!this.cfg.authEnabled) return adminInfoDisabled()
 
     const adminToken = await this.getAdminToken(req)
-    const email = await this.getEmailByToken(adminToken)
+    const email = await this.getEmailByToken(req, adminToken)
 
     if (!email) {
       throw new HttpError<Admin401ErrorData>('adminToken required', {

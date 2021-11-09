@@ -5,7 +5,7 @@ import { RequestHandler } from 'express'
 import { getDeployInfo } from '../deployInfo.util'
 
 const { versions } = process
-const { GAE_APPLICATION, GAE_SERVICE, GAE_VERSION } = process.env
+const { GAE_APPLICATION, GAE_SERVICE, GAE_VERSION, APP_ENV } = process.env
 
 export function statusHandler(projectDir?: string, extra?: any): RequestHandler {
   return async (req, res) => {
@@ -17,7 +17,6 @@ export function statusHandlerData(
   projectDir: string = process.cwd(),
   extra?: any,
 ): Record<string, any> {
-  const { APP_ENV } = process.env
   const { gitRev, gitBranch, prod, ts } = getDeployInfo(projectDir)
   const deployBuildTimeUTC = dayjs.unix(ts).toPretty()
   const buildInfo = [dayjs.unix(ts).toCompactTime(), gitBranch, gitRev].filter(Boolean).join('_')

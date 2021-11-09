@@ -1,8 +1,10 @@
 import { Server } from 'http'
 import { _Memo, _ms } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
-import { log } from '../log'
+import { createDefaultApp } from '../index'
 import { StartServerCfg, StartServerData } from './startServer.model'
+
+const { NODE_OPTIONS, APP_ENV } = process.env
 
 export class BackendServer {
   constructor(private cfg: StartServerCfg) {}
@@ -10,19 +12,21 @@ export class BackendServer {
   server?: Server
 
   async start(): Promise<StartServerData> {
-    const { port: cfgPort, expressApp } = this.cfg
+    const { port: cfgPort, expressApp = createDefaultApp(this.cfg) } = this.cfg
 
     // 1. Register error handlers, etc.
     process.on('uncaughtException', err => {
-      log.error('uncaughtException:', err)
+      console.error('uncaughtException:', err)
+      this.cfg.sentryService?.captureException(err, false)
     })
 
     process.on('unhandledRejection', err => {
-      log.error('unhandledRejection:', err)
+      console.error('unhandledRejection:', err)
+      this.cfg.sentryService?.captureException(err, false)
     })
 
-    process.once('SIGINT', () => this.stop())
-    process.once('SIGTERM', () => this.stop())
+    process.once('SIGINT', () => this.stop('SIGINT'))
+    process.once('SIGTERM', () => this.stop('SIGTERM'))
 
     // sentryService.install()
 
@@ -50,7 +54,14 @@ export class BackendServer {
       }
     }
 
-    log(`serverStarted on ${white(address)} in ${dimGrey(_ms(process.uptime() * 1000))}`)
+    console.log(
+      dimGrey(
+        `node ${process.version}, NODE_OPTIONS: ${NODE_OPTIONS || 'undefined'}, APP_ENV: ${
+          APP_ENV || 'undefined'
+        }`,
+      ),
+    )
+    console.log(`serverStarted on ${white(address)} in ${dimGrey(_ms(process.uptime() * 1000))}`)
 
     return {
       port,
@@ -64,21 +75,22 @@ export class BackendServer {
    * Does `process.exit()` in the end.
    */
   @_Memo()
-  async stop(): Promise<void> {
-    log(dimGrey(`Server shutdown...`))
+  async stop(reason: string): Promise<void> {
+    console.log(dimGrey(`Server shutdown (${reason})...`))
 
-    setTimeout(() => {
-      log(boldGrey('Forceful shutdown after timeout'))
-      process.exit(1)
-    }, this.cfg.forceShutdownTimeout || 3000)
-
-    void this.cfg.onShutdown?.()
+    const shutdownTimeout = setTimeout(() => {
+      console.log(boldGrey('Forceful shutdown after timeout'))
+      process.exit(0)
+    }, this.cfg.forceShutdownTimeout ?? 10_000)
 
     try {
-      if (this.server) {
-        await new Promise(r => this.server!.close(r))
-      }
-      log(dimGrey('Shutdown completed.'))
+      await Promise.all([
+        this.server && new Promise(r => this.server!.close(r)),
+        this.cfg.onShutdown?.(),
+      ])
+
+      clearTimeout(shutdownTimeout)
+      console.log(dimGrey('Shutdown completed.'))
       process.exit(0)
     } catch (err) {
       console.error(err)
@@ -91,6 +103,11 @@ export class BackendServer {
  * Convenience function.
  */
 export async function startServer(cfg: StartServerCfg): Promise<StartServerData> {
-  const server = new BackendServer(cfg)
-  return await server.start()
+  try {
+    const server = new BackendServer(cfg)
+    return await server.start()
+  } catch (err) {
+    cfg.sentryService?.captureException(err)
+    throw err
+  }
 }
