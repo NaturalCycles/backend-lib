@@ -1,7 +1,7 @@
 import { _since } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { RequestHandler, Response } from 'express'
-import { isGAE, onFinished } from '../../index'
+import { isGAE, onFinished, RequestWithLog } from '../../index'
 import { logRequest } from '../request.log.util'
 
 export interface SimpleRequestLoggerCfg {
@@ -31,7 +31,7 @@ export function simpleRequestLogger(_cfg: Partial<SimpleRequestLoggerCfg> = {}):
     const started = Date.now()
 
     if (logStart) {
-      req.log(['>>', req.method, boldGrey(req.url)].join(' '))
+      ;(req as RequestWithLog).log(['>>', req.method, boldGrey(req.url)].join(' '))
     }
 
     if (logFinish) {

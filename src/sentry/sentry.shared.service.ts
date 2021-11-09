@@ -35,10 +35,20 @@ export class SentrySharedService {
     return sentry
   }
 
+  /**
+   * Currently not recommended, because it makes `void` requests throw user-facing errors.
+   *
+   * @deprecated
+   */
   getRequestHandler(): RequestHandler {
     return this.sentry().Handlers.requestHandler()
   }
 
+  /**
+   * Currently not recommended, as it's replaced by our custom sentryErrorHandler.
+   *
+   * @deprecated
+   */
   getErrorHandler(): ErrorRequestHandler {
     return this.sentry().Handlers.errorHandler()
   }

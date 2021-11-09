@@ -1,5 +1,6 @@
 import { _anyToErrorObject, HttpErrorData, HttpErrorResponse } from '@naturalcycles/js-lib'
-import { ErrorRequestHandler, Request, Response } from 'express'
+import { ErrorRequestHandler, Response } from 'express'
+import { RequestWithLog } from './createGaeLogMiddleware'
 
 const { APP_ENV } = process.env
 const includeErrorStack = APP_ENV !== 'prod' && APP_ENV !== 'test'
@@ -10,7 +11,7 @@ const includeErrorStack = APP_ENV !== 'prod' && APP_ENV !== 'test'
  * Sends json payload as ErrorResponse, transformed via errorSharedUtil.
  */
 export function genericErrorHandler(): ErrorRequestHandler {
-  return (err, req, res, next) => {
+  return (err, req: RequestWithLog, res, next) => {
     if (res.headersSent) {
       // Here we don't even log this error
       // It's known that it comes from sentry.requestHandler()
@@ -22,6 +23,7 @@ export function genericErrorHandler(): ErrorRequestHandler {
       // return next(err)
       return next()
     }
+
     req.error('genericErrorHandler:', err)
 
     respondWithError(req, res, err)
@@ -31,7 +33,7 @@ export function genericErrorHandler(): ErrorRequestHandler {
 // export interface ResponseWithError extends Response {
 //   __err?: any
 // }
-export function respondWithError(_req: Request, res: Response, err: any): void {
+export function respondWithError(_req: RequestWithLog, res: Response, err: any): void {
   // if (err) {
   //   // Attach error to response, so simpleRequestLogger can pick it up
   //   ;(res as ResponseWithError).__err = err

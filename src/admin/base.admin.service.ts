@@ -2,6 +2,7 @@ import { _assert, Admin401ErrorData, Admin403ErrorData, HttpError } from '@natur
 import { dimGrey, green, red } from '@naturalcycles/nodejs-lib/dist/colors'
 import { Request, RequestHandler } from 'express'
 import type * as FirebaseAdmin from 'firebase-admin'
+import { RequestWithLog } from '../server/handlers/createGaeLogMiddleware'
 
 export interface AdminServiceCfg {
   /**
@@ -69,7 +70,7 @@ export class BaseAdminService {
    * To be extended.
    */
   protected async onPermissionCheck(
-    req: Request,
+    req: RequestWithLog,
     email: string,
     reqPermissions: string[],
     required: boolean,
@@ -84,7 +85,7 @@ export class BaseAdminService {
     )
   }
 
-  async getEmailByToken(req: Request, adminToken?: string): Promise<string | undefined> {
+  async getEmailByToken(req: RequestWithLog, adminToken?: string): Promise<string | undefined> {
     if (!adminToken) return
 
     try {

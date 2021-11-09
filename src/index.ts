@@ -51,7 +51,7 @@ import {
   getRequest,
   getRequestLogger,
 } from './server/handlers/asyncLocalStorage.mw'
-import { createGAELogMiddleware } from './server/handlers/createGaeLogMiddleware'
+import { createGAELogMiddleware, RequestWithLog } from './server/handlers/createGaeLogMiddleware'
 
 export type {
   MethodOverrideCfg,
@@ -72,6 +72,7 @@ export type {
   RequestTimeoutCfg,
   SimpleRequestLoggerCfg,
   ReqValidationOptions,
+  RequestWithLog,
 }
 
 export {
