@@ -30,7 +30,24 @@ export function getRequest(): Request {
 
 /**
  * It requires both `createAsyncLocalStorage` and `createGAELogMiddleware` to be in use to work.
+ *
+ * @experimental
  */
 export function getRequestLogger(): CommonLogger {
   return storage().getStore()?.req || (isGAE ? defaultAppEngineLogger : defaultDevLogger)
+}
+
+/**
+ * CommonLogger implementation that is Request-bound.
+ * Should work the same as `req.log`, except that you don't have to have `req` available - it'll get it
+ * from AsyncLocalStorage.
+ *
+ * It does `getRequestLogger` call on EVERY log call (may be slow, but worth trying).
+ *
+ * @experimental
+ */
+export const requestLogger: CommonLogger = {
+  log: (...args) => getRequestLogger().log(...args),
+  warn: (...args) => getRequestLogger().warn(...args),
+  error: (...args) => getRequestLogger().error(...args),
 }

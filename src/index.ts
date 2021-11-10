@@ -50,6 +50,7 @@ import {
   createAsyncLocalStorage,
   getRequest,
   getRequestLogger,
+  requestLogger,
 } from './server/handlers/asyncLocalStorage.mw'
 import { createGAELogMiddleware, RequestWithLog } from './server/handlers/createGaeLogMiddleware'
 import { safeJsonMiddleware } from './server/handlers/safeJsonMiddleware'
@@ -114,6 +115,7 @@ export {
   createGAELogMiddleware,
   getRequest,
   getRequestLogger,
+  requestLogger,
   serverStatsHTMLHandler,
   serverStatsMiddleware,
   safeJsonMiddleware,

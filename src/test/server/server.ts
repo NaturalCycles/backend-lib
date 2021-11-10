@@ -21,7 +21,11 @@ import {
   SentrySharedService,
 } from '../../index'
 import { loginHtml } from '../../admin/admin.mw'
-import { getRequest, getRequestLogger } from '../../server/handlers/asyncLocalStorage.mw'
+import {
+  getRequest,
+  getRequestLogger,
+  requestLogger,
+} from '../../server/handlers/asyncLocalStorage.mw'
 import {
   serverStatsHTMLHandler,
   serverStatsMiddleware,
@@ -78,6 +82,13 @@ router.get('/log', async (req, res) => {
   await someAsyncFunction()
   await pDelay(100)
   req.log('logging at the end')
+  res.json({})
+})
+
+router.get('/log2', async (req, res) => {
+  requestLogger.log('yo')
+  requestLogger.log('yo2')
+  requestLogger.log('yo3')
   res.json({})
 })
 

@@ -11,6 +11,8 @@ export interface RequestWithLog {
   log: CommonLogFunction
   warn: CommonLogFunction
   error: CommonLogFunction
+
+  requestId?: string
 }
 
 declare module 'http' {
@@ -18,14 +20,16 @@ declare module 'http' {
     log: CommonLogFunction
     warn: CommonLogFunction
     error: CommonLogFunction
+
+    requestId?: string
   }
 }
 
 const { GOOGLE_CLOUD_PROJECT, GAE_INSTANCE } = process.env
 const isGAE = !!GAE_INSTANCE
 
-// Simple "request number" (poor man's "correlation id") counter, to use on dev machine (not in the cloud)
-let reqNum = 0
+// Simple "request counter" (poor man's "correlation id") counter, to use on dev machine (not in the cloud)
+let reqCounter = 0
 
 /**
  * Outside-of-request logger.
@@ -55,11 +59,11 @@ function logToAppEngine(meta: AnyObject, args: any[]): void {
   )
 }
 
-function logToDev(reqNumber: number | null, args: any[]): void {
+function logToDev(requestId: string | null, args: any[]): void {
   // Run on local machine
   console.log(
     [
-      reqNumber ? [dimGrey('[' + reqNumber + ']')] : [],
+      requestId ? [dimGrey(`[${requestId}]`)] : [],
       ...args.map(a => inspectAny(a, { includeErrorStack: true, colors: true })),
     ].join(' '),
   )
@@ -70,8 +74,8 @@ export function createGAELogMiddleware(): RequestHandler {
     // Local machine, return "simple" logToDev middleware with request numbering
     return function gaeLogMiddlewareDev(req, res, next) {
       // Local machine
-      const reqNumber = ++reqNum
-      req.log = req.warn = req.error = (...args: any[]) => logToDev(reqNumber, args)
+      req.requestId = String(++reqCounter)
+      req.log = req.warn = req.error = (...args: any[]) => logToDev(req.requestId!, args)
       next()
     }
   }
@@ -93,6 +97,7 @@ export function createGAELogMiddleware(): RequestHandler {
         warn: (...args: any[]) => logToAppEngine({ ...meta, severity: 'WARNING' }, args),
         error: (...args: any[]) => logToAppEngine({ ...meta, severity: 'ERROR' }, args),
       })
+      req.requestId = trace
     } else {
       Object.assign(req, defaultAppEngineLogger)
     }
