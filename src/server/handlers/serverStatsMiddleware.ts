@@ -100,7 +100,7 @@ export function serverStatsMiddleware(): RequestHandler {
       const now = Date.now()
       const latency = now - started
 
-      let path = (req.route?.path || req.path).toLowerCase()
+      let path = (req.baseUrl + (req.route?.path || req.path)).toLowerCase()
       if (path.length > 1 && path.endsWith('/')) {
         path = path.slice(0, path.length - 1)
       }

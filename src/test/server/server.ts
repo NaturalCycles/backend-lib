@@ -113,13 +113,33 @@ router.get('/testVoid', async (req, res) => {
   res.json({ ok: 1 })
 })
 
+const sub = getDefaultRouter()
+sub.get('/some/:extra', (req, res) => {
+  const { baseUrl, originalUrl, path, method, route, params } = req
+
+  res.json({
+    baseUrl,
+    originalUrl,
+    path,
+    method,
+    route,
+    params,
+  })
+})
+
 const sentryService = new SentrySharedService({
   autoSessionTracking: false,
 })
 
 void startServer({
   handlers: [serverStatsMiddleware()],
-  resources: [rootResource],
+  resources: [
+    rootResource,
+    {
+      path: '/sub',
+      handler: sub,
+    },
+  ],
   forceShutdownTimeout: 0,
   sentryService,
 })
