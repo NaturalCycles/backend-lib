@@ -52,6 +52,7 @@ import {
   getRequestLogger,
 } from './server/handlers/asyncLocalStorage.mw'
 import { createGAELogMiddleware, RequestWithLog } from './server/handlers/createGaeLogMiddleware'
+import { safeJsonMiddleware } from './server/handlers/safeJsonMiddleware'
 
 export type {
   MethodOverrideCfg,
@@ -115,4 +116,5 @@ export {
   getRequestLogger,
   serverStatsHTMLHandler,
   serverStatsMiddleware,
+  safeJsonMiddleware,
 }

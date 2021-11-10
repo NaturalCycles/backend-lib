@@ -37,7 +37,7 @@ export function createDefaultApp(cfg: DefaultAppCfg): Application {
   // app.use(serverStatsMiddleware()) // disabled by default
   // app.use(bodyParserTimeout()) // removed by default
 
-  if (!isGAE()) {
+  if (!isGAE() && !isTest) {
     app.use(simpleRequestLogger())
   }
 
@@ -48,6 +48,7 @@ export function createDefaultApp(cfg: DefaultAppCfg): Application {
     // app.use(sentryService.getRequestHandler())
   }
 
+  // app.use(safeJsonMiddleware()) // optional
   app.use(express.json({ limit: '1mb' }))
   app.use(express.urlencoded({ limit: '1mb', extended: true }))
   app.use(cookieParser())
@@ -68,7 +69,6 @@ export function createDefaultApp(cfg: DefaultAppCfg): Application {
       maxAge: 86400,
     }),
   )
-  // app.options('*', cors() as any) // enable pre-flight for all requests
 
   // app.use(clearBodyParserTimeout()) // removed by default
 

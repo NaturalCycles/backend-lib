@@ -10,7 +10,7 @@ import { httpDBRequestHandler } from './httpDBRequestHandler'
 
 const inMemoryDB = new InMemoryDB()
 
-const app = expressTestService.createApp([httpDBRequestHandler(inMemoryDB)])
+const app = expressTestService.createAppFromResource(httpDBRequestHandler(inMemoryDB))
 
 const db = new HttpDB({
   prefixUrl: app.defaults.options.prefixUrl,

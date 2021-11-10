@@ -1,7 +1,7 @@
 import { debugResource } from '../../test/debug.resource'
 import { expressTestService } from '../../testing'
 
-const app = expressTestService.createApp([debugResource])
+const app = expressTestService.createAppFromResource(debugResource)
 afterAll(async () => {
   await app.close()
 })

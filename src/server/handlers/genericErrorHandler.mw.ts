@@ -1,4 +1,5 @@
 import { _anyToErrorObject, HttpErrorData, HttpErrorResponse } from '@naturalcycles/js-lib'
+import { inspectAnyStringifyFn } from '@naturalcycles/nodejs-lib'
 import { ErrorRequestHandler, Response } from 'express'
 import { RequestWithLog } from './createGaeLogMiddleware'
 
@@ -40,6 +41,7 @@ export function respondWithError(_req: RequestWithLog, res: Response, err: any):
   // }
 
   const error = _anyToErrorObject<HttpErrorData>(err, {
+    stringifyFn: inspectAnyStringifyFn,
     includeErrorStack,
     includeErrorData: true,
   })

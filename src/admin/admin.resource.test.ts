@@ -32,7 +32,7 @@ beforeEach(() => {
   mockTime()
 })
 
-const app = expressTestService.createApp([adminResource])
+const app = expressTestService.createAppFromResource(adminResource)
 afterAll(async () => {
   await app.close()
 })

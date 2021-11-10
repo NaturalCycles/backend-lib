@@ -1,13 +1,7 @@
 import { debugResource } from '../test/debug.resource'
 import { expressTestService } from '../testing'
 
-// This is too easy:
-// const app = expressTestService.getGot()
-// const app = getGot().extend({
-//   prefixUrl: process.env.__EXPRESS_SERVER_URL__,
-// })
-
-const app = expressTestService.createApp([debugResource])
+const app = expressTestService.createAppFromResource(debugResource)
 afterAll(async () => {
   await app.close()
 })
