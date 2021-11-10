@@ -132,12 +132,9 @@ export function serverStatsMiddleware(): RequestHandler {
 function cleanupServerStats(): void {
   if (Object.keys(serverStatsMap).length <= MAX_ENDPOINTS) return
 
-  const endpoint = _sortBy(
-    _stringMapEntries(serverStatsMap),
-    ([_, stat]) => stat['2xx'] + stat['4xx'] + stat['5xx'],
-  )[0]![0]
-
-  delete serverStatsMap[endpoint]
+  _sortBy(_stringMapEntries(serverStatsMap), ([_, stat]) => stat['2xx'] + stat['4xx'] + stat['5xx'])
+    .slice(0, Object.keys(serverStatsMap).length - MAX_ENDPOINTS)
+    .forEach(([k]) => delete serverStatsMap[k])
 }
 
 function getStatusFamily(statusCode: number): '2xx' | '4xx' | '5xx' {
