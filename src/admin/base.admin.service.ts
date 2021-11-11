@@ -2,7 +2,6 @@ import { _assert, Admin401ErrorData, Admin403ErrorData, HttpError } from '@natur
 import { dimGrey, green, red } from '@naturalcycles/nodejs-lib/dist/colors'
 import { Request, RequestHandler } from 'express'
 import type * as FirebaseAdmin from 'firebase-admin'
-import { FirebaseAuthError } from 'firebase-admin/lib/utils/error'
 import { RequestWithLog } from '../server/handlers/createGaeLogMiddleware'
 
 export interface AdminServiceCfg {
@@ -95,10 +94,11 @@ export class BaseAdminService {
       req.log(`admin email: ${dimGrey(email)}`)
       return email
     } catch (err) {
+      // example:
+      // FirebaseAuthError: Firebase ID token has expired. Get a fresh ID token from your client app and try again (auth/id-token-expired).
       if (
-        err instanceof FirebaseAuthError && // example:
-        // FirebaseAuthError: Firebase ID token has expired. Get a fresh ID token from your client app and try again (auth/id-token-expired).
-        err.hasCode('id-token-expired')
+        // err instanceof FirebaseAuthError && err.hasCode('id-token-expired')
+        (err as any)?.code?.includes('id-token-expired')
       ) {
         return // skip logging, expected error
       }
