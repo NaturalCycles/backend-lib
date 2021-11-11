@@ -9,7 +9,6 @@ import { createGAELogMiddleware } from './handlers/createGaeLogMiddleware'
 import { genericErrorHandler } from './handlers/genericErrorHandler.mw'
 import { notFoundHandler } from './handlers/notFoundHandler.mw'
 import { requestTimeout } from './handlers/requestTimeout.mw'
-import { sentryErrorHandler } from './handlers/sentryErrorHandler.mw'
 import { simpleRequestLogger } from './handlers/simpleRequestLogger.mw'
 
 const isTest = process.env['APP_ENV'] === 'test'
@@ -89,28 +88,10 @@ export function createDefaultApp(cfg: DefaultAppCfg): Application {
   // Generic 404 handler
   app.use(notFoundHandler())
 
-  // The error handler must be before any other error middleware
-  // NO: Generic error handler chooses which errors to report to sentry
-  // OR: another handler that will selectively report to Sentry and pass error further via next(err)
-  // app.use(sentryService.getErrorHandler())
-  if (sentryService) {
-    // app.use(sentryService.getErrorHandler())
-
-    // Does 2 things:
-    // 1. Calls sentry.captureException(err) (but only for 5xx)
-    // 2. Attaches err.data.errorId
-    app.use(
-      sentryErrorHandler({
-        sentryService,
-      }),
-    )
-  }
-
   // Generic error handler
-  // It handles errors, returns proper status, does sentry.captureException()
-  // It only rethrows error that happen in errorHandlerMiddleware itself ("error in errorHandler"),
-  // otherwise there is no more error propagation behind it
-  app.use(genericErrorHandler())
+  // It handles errors, returns proper status, does sentry.captureException(),
+  // assigns err.data.errorId from sentry
+  app.use(genericErrorHandler({ sentryService }))
 
   return app
 }

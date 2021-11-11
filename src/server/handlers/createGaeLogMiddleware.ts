@@ -2,12 +2,12 @@ import { inspect } from 'util'
 import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { inspectAny } from '@naturalcycles/nodejs-lib'
 import { AnyObject, CommonLogFunction, CommonLogger } from '@naturalcycles/js-lib'
-import { RequestHandler } from 'express'
+import { Request, RequestHandler } from 'express'
 
 /**
  * Use this interface instead of express.Request in cases when TypeScript gives an error, because it haven't "included" this very file
  */
-export interface RequestWithLog {
+export interface RequestWithLog extends Request {
   log: CommonLogFunction
   warn: CommonLogFunction
   error: CommonLogFunction

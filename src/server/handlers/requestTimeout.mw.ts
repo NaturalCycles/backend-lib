@@ -44,8 +44,6 @@ export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
       : defTimeoutSeconds
 
     const timer = setTimeout(() => {
-      if (res.headersSent) return
-
       respondWithError(
         req,
         res,

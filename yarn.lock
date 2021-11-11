@@ -1576,9 +1576,9 @@
     fs-extra "^10.0.0"
 
 "@naturalcycles/dev-lib@^12.0.3":
-  version "12.12.1"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-12.12.1.tgz#9c784b1c133edb9ec50ce70f3bee78c302267a06"
-  integrity sha512-9+RqHNeq2BiKg/82FKr3/zm/CH29RrI3BjVn9lr03sXar2YuNaZPIGIrt9S2QouN0TcHw5Z+aIVV+a5NtiwAmw==
+  version "12.12.2"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-12.12.2.tgz#517a8eb97abe082641f1ddedb12b0651d86673aa"
+  integrity sha512-6VSr4hLHh9kv61LMneDI6JFe1g2fYR/8fFD5G2VfnX6pP2z+BjobPVippMZq+LwKRgYIIIDjElkPMtoPieTKPQ==
   dependencies:
     "@commitlint/cli" "^14.1.0"
     "@commitlint/config-conventional" "^14.1.0"
@@ -1599,7 +1599,7 @@
     eslint-plugin-jest "^25.0.5"
     eslint-plugin-jsdoc "^37.0.0"
     eslint-plugin-unicorn "^38.0.0"
-    eslint-plugin-unused-imports "^1.1.1"
+    eslint-plugin-unused-imports "^2.0.0"
     eslint-plugin-vue "^8.0.1"
     execa "^5.0.0"
     fs-extra "^10.0.0"
@@ -1617,9 +1617,9 @@
     yargs "^17.0.0"
 
 "@naturalcycles/js-lib@^14.0.0", "@naturalcycles/js-lib@^14.27.0", "@naturalcycles/js-lib@^14.6.1":
-  version "14.61.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.61.0.tgz#5cb5ef257671a9a3a77d5d5ece438f9b89b1418e"
-  integrity sha512-0Nwow9HuCoOZ0OH7ViQSlRGICK8hZQpjNCUANVsz4ncTUNPuZ7iK8T30inZuA6H8n+uLMVEdcnIauX9I/8CK/g==
+  version "14.64.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.64.0.tgz#582fbc2a55cb08a36ab12005f27e8d86d9e83c60"
+  integrity sha512-tz2rtQTtf9mVkoTsKzZgK5HVc0n/B6U55KcgPJuUhH9atApZfD7VgCGPDTbdOAplfTJfnB1muRLlglnA30TRzw==
   dependencies:
     tslib "^2.0.0"
 
@@ -5602,10 +5602,10 @@ eslint-plugin-unicorn@^38.0.0:
     semver "^7.3.5"
     strip-indent "^3.0.0"
 
-eslint-plugin-unused-imports@^1.1.1:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unused-imports/-/eslint-plugin-unused-imports-1.1.5.tgz#a2b992ef0faf6c6c75c3815cc47bde76739513c2"
-  integrity sha512-TeV8l8zkLQrq9LBeYFCQmYVIXMjfHgdRQLw7dEZp4ZB3PeR10Y5Uif11heCsHRmhdRIYMoewr1d9ouUHLbLHew==
+eslint-plugin-unused-imports@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unused-imports/-/eslint-plugin-unused-imports-2.0.0.tgz#d8db8c4d0cfa0637a8b51ce3fd7d1b6bc3f08520"
+  integrity sha512-3APeS/tQlTrFa167ThtP0Zm0vctjr4M44HMpeg1P4bK6wItarumq0Ma82xorMKdFsWpphQBlRPzw/pxiVELX1A==
   dependencies:
     eslint-rule-composer "^0.3.0"
 

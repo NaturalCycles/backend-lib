@@ -36,7 +36,6 @@ import { notFoundHandler } from './server/handlers/notFoundHandler.mw'
 import { okHandler } from './server/handlers/okHandler.mw'
 import { requestTimeout, RequestTimeoutCfg } from './server/handlers/requestTimeout.mw'
 import { reqValidation, ReqValidationOptions } from './server/handlers/reqValidation.mw'
-import { sentryErrorHandler } from './server/handlers/sentryErrorHandler.mw'
 import {
   simpleRequestLogger,
   SimpleRequestLoggerCfg,
@@ -85,7 +84,6 @@ export {
   notFoundHandler,
   genericErrorHandler,
   methodOverride,
-  sentryErrorHandler,
   createDefaultApp,
   startServer,
   catchWrapper,

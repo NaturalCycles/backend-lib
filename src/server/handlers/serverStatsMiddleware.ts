@@ -11,6 +11,7 @@ import {
 } from '@naturalcycles/js-lib'
 import { RequestHandler } from 'express'
 import { onFinished } from '../../index'
+import { getRequestEndpoint } from '../request.util'
 
 const { GAE_INSTANCE } = process.env
 
@@ -117,12 +118,7 @@ export function serverStatsMiddleware(): RequestHandler {
       const now = Date.now()
       const latency = now - started
 
-      let path = (req.baseUrl + (req.route?.path || req.path)).toLowerCase()
-      if (path.length > 1 && path.endsWith('/')) {
-        path = path.slice(0, path.length - 1)
-      }
-
-      const endpoint = [req.method, path].join(' ')
+      const endpoint = getRequestEndpoint(req)
 
       serverStatsMap[endpoint] ||= {
         stack: new SizeLimitedStack<number>(SIZE),

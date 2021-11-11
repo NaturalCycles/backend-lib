@@ -1,25 +1,35 @@
 import { HttpError, _get } from '@naturalcycles/js-lib'
-import { AnySchema, getValidationResult } from '@naturalcycles/nodejs-lib'
+import { AnySchema, getValidationResult, JoiValidationError } from '@naturalcycles/nodejs-lib'
 import { RequestHandler } from 'express'
 
 const REDACTED = 'REDACTED'
 
-export interface ReqValidationOptions {
+export interface ReqValidationOptions<ERR extends Error> {
   /**
    * Pass a 'dot-paths' (e.g `pw`, or `input.pw`) that needs to be redacted from the output, in case of error.
    * Useful e.g to redact (prevent leaking) plaintext passwords in error messages.
    */
   redactPaths?: string[]
+
+  /**
+   * Set to true, or a function that returns true/false based on the error generated.
+   * If true - `genericErrorHandler` will report it to errorReporter (aka Sentry).
+   */
+  report?: boolean | ((err: ERR) => boolean)
 }
 
 export function reqValidation(
   reqProperty: 'body' | 'params' | 'query',
   schema: AnySchema,
-  opt: ReqValidationOptions = {},
+  opt: ReqValidationOptions<JoiValidationError> = {},
 ): RequestHandler {
+  const reportPredicate = typeof opt.report === 'function' ? opt.report : () => !!opt.report
+
   return (req, res, next) => {
     const { value, error } = getValidationResult(req[reqProperty], schema, `request ${reqProperty}`)
     if (error) {
+      const report = reportPredicate(error)
+
       if (opt.redactPaths) {
         redact(opt.redactPaths, req[reqProperty], error)
         error.data.joiValidationErrorItems.length = 0 // clears the array
@@ -29,6 +39,7 @@ export function reqValidation(
       return next(
         new HttpError(error.message, {
           httpStatusCode: 400,
+          report,
           ...error.data,
         }),
       )

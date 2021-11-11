@@ -40,8 +40,6 @@ export function bodyParserTimeout(cfg: BodyParserTimeoutCfg = {}): RequestHandle
 
   return (req: RequestWithTimeout, res, next) => {
     req._bodyParserTimeout = setTimeout(() => {
-      if (res.headersSent) return
-
       respondWithError(
         req,
         res,

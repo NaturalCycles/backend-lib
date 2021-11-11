@@ -1,5 +1,5 @@
 import { HttpError, JsonSchema, JsonSchemaBuilder, _get } from '@naturalcycles/js-lib'
-import { AjvSchema } from '@naturalcycles/nodejs-lib'
+import { AjvSchema, AjvValidationError } from '@naturalcycles/nodejs-lib'
 import { RequestHandler } from 'express'
 import { ReqValidationOptions } from './reqValidation.mw'
 
@@ -7,21 +7,21 @@ const REDACTED = 'REDACTED'
 
 export function validateBody(
   schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
-  opt: ReqValidationOptions = {},
+  opt: ReqValidationOptions<AjvValidationError> = {},
 ): RequestHandler {
   return validateObject('body', schema, opt)
 }
 
 export function validateParams(
   schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
-  opt: ReqValidationOptions = {},
+  opt: ReqValidationOptions<AjvValidationError> = {},
 ): RequestHandler {
   return validateObject('params', schema, opt)
 }
 
 export function validateQuery(
   schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
-  opt: ReqValidationOptions = {},
+  opt: ReqValidationOptions<AjvValidationError> = {},
 ): RequestHandler {
   return validateObject('query', schema, opt)
 }
@@ -35,15 +35,19 @@ export function validateQuery(
 function validateObject(
   prop: 'body' | 'params' | 'query',
   schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
-  opt: ReqValidationOptions = {},
+  opt: ReqValidationOptions<AjvValidationError> = {},
 ): RequestHandler {
   const ajvSchema = AjvSchema.create(schema, {
     objectName: `request ${prop}`,
   })
 
+  const reportPredicate = typeof opt.report === 'function' ? opt.report : () => !!opt.report
+
   return (req, res, next) => {
     const error = ajvSchema.getValidationError(req[prop])
     if (error) {
+      const report = reportPredicate(error)
+
       if (opt.redactPaths) {
         redact(opt.redactPaths, req[prop], error)
         error.data.errors.length = 0 // clears the array
@@ -52,6 +56,7 @@ function validateObject(
       return next(
         new HttpError(error.message, {
           httpStatusCode: 400,
+          report,
           ...error.data,
         }),
       )

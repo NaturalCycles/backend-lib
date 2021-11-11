@@ -28,18 +28,18 @@ test('validateBody', async () => {
   expect(bodyStr).not.toContain(pw)
   expect(bodyStr).toContain('REDACTED')
   expect(body).toMatchInlineSnapshot(`
-Object {
-  "error": Object {
-    "data": Object {
-      "errors": Array [],
-      "httpStatusCode": 400,
-      "objectName": "request body",
-      "userFriendly": true,
-    },
-    "message": "request body/pw must NOT have fewer than 8 characters
-Input: { pw: 'REDACTED' }",
-    "name": "HttpError",
-  },
-}
-`)
+    Object {
+      "error": Object {
+        "data": Object {
+          "errors": Array [],
+          "httpStatusCode": 400,
+          "objectName": "request body",
+          "userFriendly": true,
+        },
+        "message": "request body/pw must NOT have fewer than 8 characters
+    Input: { pw: 'REDACTED' }",
+        "name": "HttpError",
+      },
+    }
+  `)
 })
