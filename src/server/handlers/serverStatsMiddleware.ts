@@ -1,4 +1,5 @@
 import {
+  _get,
   _mb,
   _ms,
   _percentile,
@@ -19,6 +20,10 @@ interface Stat {
   '2xx': number
   '4xx': number
   '5xx': number
+
+  // calculated on the fly
+  total?: number
+  pc?: StringMap<number> // e.g 50 => 123
 }
 
 const serverStatsMap: StringMap<Stat> = {}
@@ -38,6 +43,14 @@ const MAX_ENDPOINTS = 30
  * router.get('/stats', serverStatsHTMLHandler)
  */
 export const serverStatsHTMLHandler: RequestHandler = (req, res) => {
+  const { sortBy = 'total', asc } = req.query as { sortBy?: keyof Stat; asc?: string }
+
+  // calc things
+  _stringMapValues(serverStatsMap).forEach(s => {
+    s.total = s['2xx'] + s['4xx'] + s['5xx']
+    s.pc = {}
+    percentiles.forEach(pc => (s.pc![pc] = Math.round(_percentile(s.stack.items, pc))))
+  })
   const allLatencies = _stringMapValues(serverStatsMap).flatMap(s => s.stack.items)
   const all2xx = _sum(_stringMapValues(serverStatsMap).flatMap(s => s['2xx']))
   const all4xx = _sum(_stringMapValues(serverStatsMap).flatMap(s => s['4xx']))
@@ -47,16 +60,22 @@ export const serverStatsHTMLHandler: RequestHandler = (req, res) => {
   const rss = _mb(process.memoryUsage().rss)
   const inst = GAE_INSTANCE ? `, instance: ${GAE_INSTANCE.slice(GAE_INSTANCE.length - 3)}` : ''
 
+  function link(col: string, s = col): string {
+    return `<pre><a href="?sortBy=${col}${sortBy === col && !asc ? '&asc=1' : ''}">${s}</a></pre>`
+  }
+
   const html = [
     `<pre>uptime: ${uptime}, rss: ${rss} Mb${inst}</pre>`,
     '<table border="1" cellpadding="15">',
     `<tr>`,
     `<th><pre>endpoint</pre></th>`,
-    ...families.map(f => `<th><pre>${f}</pre></th>`),
-    ...percentiles.map(pc => `<th><pre>p${pc}</pre></th>`),
+    `<th>${link('total')}</th>`,
+    ...families.map(f => `<th>${link(f)}</th>`),
+    ...percentiles.map(pc => `<th>${link(`pc.${pc}`, `p${pc}`)}</th>`),
     `</tr>`,
     `<tr>`,
     `<td><pre>*</pre></td>`,
+    `<td align="right"><pre>${all2xx + all4xx + all5xx}</pre></td>`,
     `<td align="right"><pre>${all2xx}</pre></td>`,
     `<td align="right"><pre>${all4xx}</pre></td>`,
     `<td align="right"><pre>${all5xx}</pre></td>`,
@@ -66,21 +85,19 @@ export const serverStatsHTMLHandler: RequestHandler = (req, res) => {
     `</tr>`,
     ..._sortBy(
       _stringMapEntries(serverStatsMap),
-      ([_, stat]) => stat['2xx'] + stat['4xx'] + stat['5xx'],
-    )
-      .reverse()
-      .map(([endpoint, stat]) => {
-        return [
-          '<tr>',
-          `<td><pre>${endpoint}</pre></td>`,
-          ...families.map(f => `<td align="right"><pre>${stat[f]}</pre></td>`),
-          ...percentiles.map(
-            pc =>
-              `<td align="right"><pre>${Math.round(_percentile(stat.stack.items, pc))}</pre></td>`,
-          ),
-          '</tr>',
-        ].join('\n')
-      }),
+      ([_, stat]) => _get(stat, sortBy),
+      false,
+      !asc,
+    ).map(([endpoint, stat]) => {
+      return [
+        '<tr>',
+        `<td><pre>${endpoint}</pre></td>`,
+        `<td align="right"><pre>${stat.total}</pre></td>`,
+        ...families.map(f => `<td align="right"><pre>${stat[f]}</pre></td>`),
+        ...percentiles.map(pc => `<td align="right"><pre>${stat.pc![pc]}</pre></td>`),
+        '</tr>',
+      ].join('\n')
+    }),
     '</table>',
   ].join('\n')
 
