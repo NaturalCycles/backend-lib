@@ -1,11 +1,22 @@
-import { _Memo } from '@naturalcycles/js-lib'
-import { inspectAny } from '@naturalcycles/nodejs-lib'
+import { _anyToError, _Memo, CommonLogLevel } from '@naturalcycles/js-lib'
+import { inspectAny, inspectAnyStringifyFn } from '@naturalcycles/nodejs-lib'
+import { Severity } from '@sentry/node'
 import type { Breadcrumb, NodeOptions } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
 import { ErrorRequestHandler, RequestHandler } from 'express'
 import { getRequestLogger } from '../index'
 
 export interface SentrySharedServiceCfg extends NodeOptions {}
+
+const sentrySeverityMap: Record<Severity, CommonLogLevel> = {
+  [Severity.Debug]: 'log',
+  [Severity.Log]: 'log',
+  [Severity.Info]: 'log',
+  [Severity.Warning]: 'warn',
+  [Severity.Error]: 'error',
+  [Severity.Critical]: 'error',
+  [Severity.Fatal]: 'error',
+}
 
 export class SentrySharedService {
   constructor(private sentryServiceCfg: SentrySharedServiceCfg) {}
@@ -38,7 +49,7 @@ export class SentrySharedService {
   /**
    * Currently not recommended, because it makes `void` requests throw user-facing errors.
    *
-   * @deprecated
+   * UPD: to be tested. Without it - request is not enriched and the error is less useful.
    */
   getRequestHandler(): RequestHandler {
     return this.sentry().Handlers.requestHandler()
@@ -86,14 +97,18 @@ export class SentrySharedService {
       // data: (err as AppError).data, // included in message
     })
 
-    return this.sentry().captureException(err)
+    return this.sentry().captureException(
+      _anyToError(err, {
+        stringifyFn: inspectAnyStringifyFn,
+      }),
+    )
   }
 
   /**
    * Returns "eventId"
    */
-  captureMessage(msg: string, level?: SentryLib.Severity): string {
-    getRequestLogger().error('captureMessage:', msg)
+  captureMessage(msg: string, level?: Severity): string {
+    getRequestLogger()[sentrySeverityMap[level!] || 'log']('captureMessage:', msg)
     return this.sentry().captureMessage(msg, level)
   }
 

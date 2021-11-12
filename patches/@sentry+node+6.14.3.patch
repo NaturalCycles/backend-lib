@@ -1,0 +1,14 @@
+diff --git a/node_modules/@sentry/node/dist/handlers.js b/node_modules/@sentry/node/dist/handlers.js
+index 6ed6a7c..1359931 100644
+--- a/node_modules/@sentry/node/dist/handlers.js
++++ b/node_modules/@sentry/node/dist/handlers.js
+@@ -290,7 +290,8 @@ function requestHandler(options) {
+         var local = domain.create();
+         local.add(req);
+         local.add(res);
+-        local.on('error', next);
++        // Kirill: skipping this on-error call to avoid breaking user-requests with `void` functions
++        // local.on('error', next);
+         local.run(function () {
+             var currentHub = core_1.getCurrentHub();
+             currentHub.configureScope(function (scope) {

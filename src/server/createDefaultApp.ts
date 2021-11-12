@@ -31,6 +31,13 @@ export function createDefaultApp(cfg: DefaultAppCfg): Application {
     app.use(createAsyncLocalStorage())
   }
 
+  // The request handler must be the first middleware on the app
+  if (sentryService) {
+    // On error - this handler will set res.headers,
+    // which will trigger genericErrorHandler "headers already sent"
+    app.use(sentryService.getRequestHandler())
+  }
+
   app.use(methodOverride())
   app.use(requestTimeout())
   // app.use(serverStatsMiddleware()) // disabled by default
@@ -38,13 +45,6 @@ export function createDefaultApp(cfg: DefaultAppCfg): Application {
 
   if (!isGAE() && !isTest) {
     app.use(simpleRequestLogger())
-  }
-
-  // The request handler must be the first middleware on the app
-  if (sentryService) {
-    // On error - this handler will set res.headers,
-    // which will trigger genericErrorHandler "headers already sent"
-    // app.use(sentryService.getRequestHandler())
   }
 
   // app.use(safeJsonMiddleware()) // optional
