@@ -1,4 +1,4 @@
-import { _anyToError, _Memo, CommonLogLevel } from '@naturalcycles/js-lib'
+import { _anyToError, _Memo, CommonLogger, CommonLogLevel } from '@naturalcycles/js-lib'
 import { inspectAny, inspectAnyStringifyFn } from '@naturalcycles/nodejs-lib'
 import { Severity } from '@sentry/node'
 import type { Breadcrumb, NodeOptions } from '@sentry/node'
@@ -114,5 +114,39 @@ export class SentrySharedService {
 
   addBreadcrumb(breadcrumb: Breadcrumb): void {
     this.sentry().addBreadcrumb(breadcrumb)
+  }
+
+  /**
+   * Currently it will only use `logger.error` ("error" level) and ignore `log` and `warn`.
+   *
+   * For each `logger.error` - it'll do a captureException.
+   *
+   * @experimental
+   */
+  getCommonLogger(): CommonLogger {
+    return {
+      log: () => {}, // noop
+      warn: () => {}, // noop
+      error: (...args) => {
+        const message = args
+          .map(arg =>
+            inspectAny(arg, {
+              includeErrorData: true,
+              colors: false,
+            }),
+          )
+          .join(' ')
+
+        this.sentry().addBreadcrumb({
+          message,
+        })
+
+        this.sentry().captureException(
+          _anyToError(args.length === 1 ? args[0] : args, Error, {
+            stringifyFn: inspectAnyStringifyFn,
+          }),
+        )
+      },
+    }
   }
 }
