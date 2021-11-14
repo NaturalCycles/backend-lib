@@ -2,7 +2,7 @@
   "name": "@naturalcycles/backend-lib",
   "version": "2.61.0",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky install && patch-package",
     "serve": "APP_ENV=dev nodemon",
     "docs-serve": "vuepress dev docs",
     "docs-build": "vuepress build docs",
@@ -45,6 +45,8 @@
     "@types/ejs": "^3.0.0",
     "@types/js-yaml": "^4.0.0",
     "@types/node": "^16.4.1",
+    "esbuild": "^0.13.13",
+    "esbuild-register": "^3.1.2",
     "fastify": "^3.20.1",
     "jest": "^27.0.1",
     "nodemon": "^2.0.14",
