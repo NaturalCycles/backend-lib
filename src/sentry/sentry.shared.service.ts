@@ -98,7 +98,7 @@ export class SentrySharedService {
     })
 
     return this.sentry().captureException(
-      _anyToError(err, {
+      _anyToError(err, Error, {
         stringifyFn: inspectAnyStringifyFn,
       }),
     )

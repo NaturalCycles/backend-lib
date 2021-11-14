@@ -1,7 +1,7 @@
 import {
   _anyToErrorObject,
   _filterUndefinedValues,
-  HttpError,
+  ErrorObject,
   HttpErrorData,
   HttpErrorResponse,
 } from '@naturalcycles/js-lib'
@@ -57,7 +57,7 @@ export function respondWithError(req: RequestWithLog, res: Response, err: any): 
     stringifyFn: inspectAnyStringifyFn,
     includeErrorStack,
     includeErrorData: true,
-  }) as HttpError
+  })
 
   error.data.httpStatusCode ||= 500 // default to 500
   error.data.headersSent = headersSent || undefined
@@ -75,7 +75,7 @@ export function respondWithError(req: RequestWithLog, res: Response, err: any): 
   } as HttpErrorResponse)
 }
 
-function shouldReportToSentry(err: HttpError): boolean {
+function shouldReportToSentry(err: ErrorObject<HttpErrorData>): boolean {
   // Only report 5xx
   return err.data.report || err.data.httpStatusCode >= 500
 }
