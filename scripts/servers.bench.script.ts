@@ -26,6 +26,6 @@ runCannonScript(
     cooldown: 1,
     writeRawSummary: false,
     reportDirPath: './scripts/bench',
-    beforeText: `Ran with Node.js \`16.13.0\` on MacBook Pro 16" 2019`,
+    beforeText: `Ran with Node.js \`16.13.0\` on MacBook M1 Pro 16" 2021`,
   },
 )
