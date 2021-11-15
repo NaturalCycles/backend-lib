@@ -32,18 +32,20 @@ const isGAE = !!GAE_INSTANCE
 let reqCounter = 0
 
 /**
- * Outside-of-request logger.
+ * Logger that logs in AppEngine format.
+ * To be used in outside-of-request situations (otherwise req.log should be used).
  */
-export const defaultAppEngineLogger: CommonLogger = {
+export const gaeLogger: CommonLogger = {
   log: (...args) => logToAppEngine({}, args),
   warn: (...args) => logToAppEngine({ severity: 'WARNING' }, args),
   error: (...args) => logToAppEngine({ severity: 'ERROR' }, args),
 }
 
 /**
- * Outside-of-request local logger
+ * Fancy development logger, to be used in outside-of-request situations
+ * (otherwise req.log should be used).
  */
-export const defaultDevLogger: CommonLogger = {
+export const devLogger: CommonLogger = {
   log: (...args) => logToDev(null, args),
   warn: (...args) => logToDev(null, args),
   error: (...args) => logToDev(null, args),
@@ -99,7 +101,7 @@ export function createGAELogMiddleware(): RequestHandler {
       })
       req.requestId = trace
     } else {
-      Object.assign(req, defaultAppEngineLogger)
+      Object.assign(req, gaeLogger)
     }
 
     next()

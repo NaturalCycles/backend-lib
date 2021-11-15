@@ -51,7 +51,8 @@ import {
   getRequestLogger,
   requestLogger,
 } from './server/handlers/asyncLocalStorage.mw'
-import { createGAELogMiddleware, RequestWithLog } from './server/handlers/createGaeLogMiddleware'
+import type { RequestWithLog } from './server/handlers/createGaeLogMiddleware'
+export * from './server/handlers/createGaeLogMiddleware'
 import { safeJsonMiddleware } from './server/handlers/safeJsonMiddleware'
 
 export type {
@@ -110,7 +111,6 @@ export {
   validateParams,
   validateQuery,
   createAsyncLocalStorage,
-  createGAELogMiddleware,
   getRequest,
   getRequestLogger,
   requestLogger,

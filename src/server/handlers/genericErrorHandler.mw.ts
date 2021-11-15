@@ -1,7 +1,8 @@
 import {
-  _anyToErrorObject,
+  _anyToError,
+  _errorToErrorObject,
   _filterUndefinedValues,
-  ErrorObject,
+  HttpError,
   HttpErrorData,
   HttpErrorResponse,
 } from '@naturalcycles/js-lib'
@@ -53,29 +54,36 @@ export function respondWithError(req: RequestWithLog, res: Response, err: any): 
 
   req.error(`genericErrorHandler${headersSent ? ' after headersSent' : ''}:\n`, err)
 
-  const error = _anyToErrorObject<HttpErrorData>(err, {
+  const originalError = _anyToError(err, Error, {
     stringifyFn: inspectAnyStringifyFn,
-    includeErrorStack,
-    includeErrorData: true,
   })
 
-  error.data.httpStatusCode ||= 500 // default to 500
-  error.data.headersSent = headersSent || undefined
-  error.data.report ||= undefined // set to undefined if false
-  _filterUndefinedValues(error.data, true)
+  let errorId: string | undefined
 
-  if (sentryService && shouldReportToSentry(error)) {
-    error.data.errorId = sentryService.captureException(error, false)
+  if (sentryService && shouldReportToSentry(originalError)) {
+    errorId = sentryService.captureException(originalError, false)
   }
 
   if (res.headersSent) return
 
-  res.status(error.data.httpStatusCode).json({
-    error,
+  const httpError = _errorToErrorObject<HttpErrorData>(originalError, includeErrorStack)
+
+  httpError.data.errorId = errorId
+  httpError.data.httpStatusCode ||= 500 // default to 500
+  httpError.data.headersSent = headersSent || undefined
+  httpError.data.report ||= undefined // set to undefined if false
+  _filterUndefinedValues(httpError.data, true)
+
+  res.status(httpError.data.httpStatusCode).json({
+    error: httpError,
   } as HttpErrorResponse)
 }
 
-function shouldReportToSentry(err: ErrorObject<HttpErrorData>): boolean {
+function shouldReportToSentry(err: Error): boolean {
   // Only report 5xx
-  return err.data.report || err.data.httpStatusCode >= 500
+  return (
+    (err as HttpError)?.data?.report ||
+    !(err as HttpError)?.data ||
+    (err as HttpError).data.httpStatusCode >= 500
+  )
 }

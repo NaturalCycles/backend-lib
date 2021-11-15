@@ -1,7 +1,7 @@
 import { AsyncLocalStorage } from 'async_hooks'
 import { _lazyValue, CommonLogger } from '@naturalcycles/js-lib'
 import { Request, RequestHandler } from 'express'
-import { defaultAppEngineLogger, defaultDevLogger } from './createGaeLogMiddleware'
+import { gaeLogger, devLogger } from './createGaeLogMiddleware'
 
 const { GAE_INSTANCE } = process.env
 const isGAE = !!GAE_INSTANCE
@@ -34,7 +34,7 @@ export function getRequest(): Request {
  * @experimental
  */
 export function getRequestLogger(): CommonLogger {
-  return storage().getStore()?.req || (isGAE ? defaultAppEngineLogger : defaultDevLogger)
+  return storage().getStore()?.req || (isGAE ? gaeLogger : devLogger)
 }
 
 /**
