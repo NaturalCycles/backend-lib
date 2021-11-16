@@ -149,6 +149,6 @@ async function someAsyncFunction(): Promise<void> {
   logger.log('logging from asyncFunction', { a: 'a' }, 42)
 
   // just to test different way of obtaining the log
-  logger = getRequest()
+  logger = getRequest()!
   logger.log('and some warn')
 }

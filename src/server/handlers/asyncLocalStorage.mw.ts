@@ -24,8 +24,8 @@ export function createAsyncLocalStorage(): RequestHandler {
   }
 }
 
-export function getRequest(): Request {
-  return storage().getStore()!.req
+export function getRequest(): Request | undefined {
+  return storage().getStore()?.req
 }
 
 /**
