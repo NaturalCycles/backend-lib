@@ -1,5 +1,6 @@
 import {
   _get,
+  _mapValues,
   _mb,
   _ms,
   _percentile,
@@ -7,6 +8,7 @@ import {
   _stringMapEntries,
   _stringMapValues,
   _sum,
+  NumberStack,
   StringMap,
 } from '@naturalcycles/js-lib'
 import { RequestHandler } from 'express'
@@ -17,14 +19,14 @@ const { GAE_INSTANCE } = process.env
 
 // Map from "endpoint" to latency
 interface Stat {
-  stack: SizeLimitedStack<number>
+  stack: NumberStack
   '2xx': number
   '4xx': number
   '5xx': number
 
   // calculated on the fly
   total?: number
-  pc?: StringMap<number> // e.g 50 => 123
+  pc?: Record<number, number> // e.g 50 => 123
 }
 
 const serverStatsMap: StringMap<Stat> = {}
@@ -49,8 +51,7 @@ export const serverStatsHTMLHandler: RequestHandler = (req, res) => {
   // calc things
   _stringMapValues(serverStatsMap).forEach(s => {
     s.total = s['2xx'] + s['4xx'] + s['5xx']
-    s.pc = {}
-    percentiles.forEach(pc => (s.pc![pc] = Math.round(_percentile(s.stack.items, pc))))
+    s.pc = _mapValues(s.stack.percentiles(percentiles), (_k, v) => Math.round(v), true)
   })
   const allLatencies = _stringMapValues(serverStatsMap).flatMap(s => s.stack.items)
   const all2xx = _sum(_stringMapValues(serverStatsMap).flatMap(s => s['2xx']))
@@ -121,7 +122,7 @@ export function serverStatsMiddleware(): RequestHandler {
       const endpoint = getRequestEndpoint(req)
 
       serverStatsMap[endpoint] ||= {
-        stack: new SizeLimitedStack<number>(SIZE),
+        stack: new NumberStack(SIZE),
         '2xx': 0,
         '4xx': 0,
         '5xx': 0,
@@ -154,16 +155,4 @@ function getStatusFamily(statusCode: number): '2xx' | '4xx' | '5xx' {
   if (statusCode < 400) return '2xx'
   if (statusCode < 500) return '4xx'
   return '5xx'
-}
-
-class SizeLimitedStack<T> {
-  constructor(public size: number) {}
-
-  index = 0
-  items: T[] = []
-
-  push(item: T): void {
-    this.items[this.index] = item
-    this.index = this.index === this.size ? 0 : this.index + 1
-  }
 }

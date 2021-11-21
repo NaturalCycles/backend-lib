@@ -54,6 +54,7 @@ import {
 import type { RequestWithLog } from './server/handlers/createGaeLogMiddleware'
 export * from './server/handlers/createGaeLogMiddleware'
 import { safeJsonMiddleware } from './server/handlers/safeJsonMiddleware'
+export * from './server/request.util'
 
 export type {
   MethodOverrideCfg,

@@ -85,15 +85,13 @@ export function createGAELogMiddleware(): RequestHandler {
   // Otherwise, we're in AppEngine
 
   return function gaeLogMiddleware(req, res, next) {
-    const meta: AnyObject = {}
-
     const traceHeader = req.header('x-cloud-trace-context')
     if (traceHeader) {
       const [trace] = traceHeader.split('/')
-      Object.assign(meta, {
+      const meta = {
         'logging.googleapis.com/trace': `projects/${GOOGLE_CLOUD_PROJECT}/traces/${trace}`,
         'appengine.googleapis.com/request_id': req.header('x-appengine-request-log-id'),
-      })
+      }
       Object.assign(req, {
         log: (...args: any[]) => logToAppEngine({ ...meta, severity: 'INFO' }, args),
         warn: (...args: any[]) => logToAppEngine({ ...meta, severity: 'WARNING' }, args),
