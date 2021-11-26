@@ -1,7 +1,8 @@
-import { RequestHandler } from 'express'
+import { getRequestEndpoint } from '../request.util'
+import { BackendRequestHandler } from '../server.model'
 
-export function notFoundHandler(): RequestHandler {
+export function notFoundHandler(): BackendRequestHandler {
   return (req, res) => {
-    res.status(404).send(`404 Not Found: ${req.url}`)
+    res.status(404).send(`404 Not Found: ${getRequestEndpoint(req)}`)
   }
 }

@@ -1,29 +1,8 @@
 import { inspect } from 'util'
 import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { inspectAny } from '@naturalcycles/nodejs-lib'
-import { AnyObject, CommonLogFunction, CommonLogger } from '@naturalcycles/js-lib'
-import { Request, RequestHandler } from 'express'
-
-/**
- * Use this interface instead of express.Request in cases when TypeScript gives an error, because it haven't "included" this very file
- */
-export interface RequestWithLog extends Request {
-  log: CommonLogFunction
-  warn: CommonLogFunction
-  error: CommonLogFunction
-
-  requestId?: string
-}
-
-declare module 'http' {
-  interface IncomingMessage {
-    log: CommonLogFunction
-    warn: CommonLogFunction
-    error: CommonLogFunction
-
-    requestId?: string
-  }
-}
+import { AnyObject, CommonLogger } from '@naturalcycles/js-lib'
+import { BackendRequestHandler } from '../server.model'
 
 const { GOOGLE_CLOUD_PROJECT, GAE_INSTANCE } = process.env
 const isGAE = !!GAE_INSTANCE
@@ -71,7 +50,7 @@ function logToDev(requestId: string | null, args: any[]): void {
   )
 }
 
-export function createGAELogMiddleware(): RequestHandler {
+export function createGAELogMiddleware(): BackendRequestHandler {
   if (!isGAE || !GOOGLE_CLOUD_PROJECT) {
     // Local machine, return "simple" logToDev middleware with request numbering
     return function gaeLogMiddlewareDev(req, res, next) {

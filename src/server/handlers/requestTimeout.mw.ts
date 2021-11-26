@@ -1,6 +1,10 @@
-import { HttpError } from '@naturalcycles/js-lib'
-import { RequestHandler } from 'express'
-import { onFinished, respondWithError } from '../../index'
+import { _ms, HttpError } from '@naturalcycles/js-lib'
+import {
+  BackendRequestHandler,
+  getRequestEndpoint,
+  onFinished,
+  respondWithError,
+} from '../../index'
 
 export interface RequestTimeoutCfg {
   /**
@@ -22,7 +26,7 @@ export interface RequestTimeoutCfg {
 const code = 'REQUEST_TIMEOUT'
 const REQUEST_TIMEOUT_QUERY_KEY = 'requestTimeout'
 
-export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
+export function requestTimeout(cfg: RequestTimeoutCfg = {}): BackendRequestHandler {
   const {
     timeoutSeconds: defTimeoutSeconds,
     httpStatusCode,
@@ -43,19 +47,25 @@ export function requestTimeout(cfg: RequestTimeoutCfg = {}): RequestHandler {
       ? Number.parseInt(req.query[REQUEST_TIMEOUT_QUERY_KEY] as string)
       : defTimeoutSeconds
 
-    const timer = setTimeout(() => {
+    // Set timer if it wasn't previously set
+    req.requestTimeout ??= setTimeout(() => {
+      const endpoint = getRequestEndpoint(req)
+      const msg = `${httpErrorMessage} on ${endpoint} after ${_ms(timeoutSeconds * 1000)}`
+
       respondWithError(
         req,
         res,
-        new HttpError(httpErrorMessage, {
+        new HttpError(msg, {
           code,
           httpStatusCode,
+          endpoint,
+          timeoutSeconds,
           // userFriendly: true, // no, cause this error is not expected
         }),
       )
     }, timeoutSeconds * 1000)
 
-    onFinished(res, () => clearTimeout(timer))
+    onFinished(res, () => clearTimeout(req.requestTimeout!))
 
     next()
   }

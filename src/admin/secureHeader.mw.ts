@@ -1,5 +1,5 @@
 import { Admin401ErrorData, HttpError } from '@naturalcycles/js-lib'
-import { RequestHandler } from 'express'
+import { BackendRequestHandler } from '../server/server.model'
 import { AdminMiddleware, RequireAdminCfg, requireAdminPermissions } from './admin.mw'
 import { BaseAdminService } from './base.admin.service'
 
@@ -19,7 +19,7 @@ export function createSecureHeaderMiddleware(cfg: SecureHeaderMiddlewareCfg): Ad
 function requireSecureHeaderOrAdmin(
   cfg: SecureHeaderMiddlewareCfg,
   reqPermissions?: string[],
-): RequestHandler {
+): BackendRequestHandler {
   const requireAdmin = requireAdminPermissions(cfg.adminService, reqPermissions, cfg)
 
   return async (req, res, next) => {

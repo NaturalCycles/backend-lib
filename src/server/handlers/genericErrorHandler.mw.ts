@@ -7,9 +7,8 @@ import {
   HttpErrorResponse,
 } from '@naturalcycles/js-lib'
 import { inspectAnyStringifyFn } from '@naturalcycles/nodejs-lib'
-import { ErrorRequestHandler, Response } from 'express'
 import { SentrySharedService } from '../../sentry/sentry.shared.service'
-import { RequestWithLog } from './createGaeLogMiddleware'
+import { BackendErrorRequestHandler, BackendRequest, BackendResponse } from '../server.model'
 
 export interface GenericErrorHandlerCfg {
   sentryService?: SentrySharedService
@@ -26,10 +25,10 @@ let sentryService: SentrySharedService | undefined
  * Returns HTTP code based on err.data.httpStatusCode (default to 500).
  * Sends json payload as ErrorResponse, transformed via errorSharedUtil.
  */
-export function genericErrorHandler(cfg: GenericErrorHandlerCfg = {}): ErrorRequestHandler {
+export function genericErrorHandler(cfg: GenericErrorHandlerCfg = {}): BackendErrorRequestHandler {
   sentryService ||= cfg.sentryService
 
-  return (err, req: RequestWithLog, res, _next) => {
+  return (err, req, res, _next) => {
     // if (res.headersSent) {
     // Here we don't even log this error
     // It's known that it comes from sentry.requestHandler()
@@ -49,7 +48,7 @@ export function genericErrorHandler(cfg: GenericErrorHandlerCfg = {}): ErrorRequ
 // export interface ResponseWithError extends Response {
 //   __err?: any
 // }
-export function respondWithError(req: RequestWithLog, res: Response, err: any): void {
+export function respondWithError(req: BackendRequest, res: BackendResponse, err: any): void {
   const { headersSent } = res
 
   req.error(`genericErrorHandler${headersSent ? ' after headersSent' : ''}:\n`, err)

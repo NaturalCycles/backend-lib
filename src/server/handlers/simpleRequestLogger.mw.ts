@@ -1,7 +1,6 @@
 import { _since } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
-import { RequestHandler, Response } from 'express'
-import { onFinished } from '../../index'
+import { BackendRequestHandler, onFinished } from '../../index'
 import { logRequest } from '../request.log.util'
 
 const { APP_ENV } = process.env
@@ -18,7 +17,9 @@ export interface SimpleRequestLoggerCfg {
   logFinish: boolean
 }
 
-export function simpleRequestLogger(_cfg: Partial<SimpleRequestLoggerCfg> = {}): RequestHandler {
+export function simpleRequestLogger(
+  _cfg: Partial<SimpleRequestLoggerCfg> = {},
+): BackendRequestHandler {
   // Disable logger in AppEngine, as it doesn't make sense there
   // UPD: Only log in dev environment
   if (APP_ENV !== 'dev') return (req, res, next) => next()
@@ -30,7 +31,7 @@ export function simpleRequestLogger(_cfg: Partial<SimpleRequestLoggerCfg> = {}):
   }
   const { logStart, logFinish } = cfg
 
-  return (req, res: Response, next) => {
+  return (req, res, next) => {
     const started = Date.now()
 
     if (logStart) {

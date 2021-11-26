@@ -1,9 +1,8 @@
 import { Server } from 'http'
 import { AddressInfo } from 'net'
-import { Application } from 'express'
 import { getGot, Got } from '@naturalcycles/nodejs-lib'
-import { createDefaultApp } from '../index'
-import { RequestHandlerCfg } from '../server/createDefaultApp.model'
+import { BackendApplication, createDefaultApp } from '../index'
+import { BackendRequestHandlerCfg } from '../server/createDefaultApp.model'
 
 export interface ExpressApp extends Got {
   close(): Promise<void>
@@ -16,7 +15,7 @@ export interface ExpressApp extends Got {
 // })
 
 class ExpressTestService {
-  createAppFromResource(resource: RequestHandlerCfg): ExpressApp {
+  createAppFromResource(resource: BackendRequestHandlerCfg): ExpressApp {
     return this.createApp(
       createDefaultApp({
         resources: [resource],
@@ -24,7 +23,7 @@ class ExpressTestService {
     )
   }
 
-  createAppFromResources(resources: RequestHandlerCfg[]): ExpressApp {
+  createAppFromResources(resources: BackendRequestHandlerCfg[]): ExpressApp {
     return this.createApp(
       createDefaultApp({
         resources,
@@ -32,7 +31,7 @@ class ExpressTestService {
     )
   }
 
-  createApp(app: Application): ExpressApp {
+  createApp(app: BackendApplication): ExpressApp {
     const server = this.createTestServer(app)
     const { port } = server.address() as AddressInfo
     const prefixUrl = `http://127.0.0.1:${port}`
@@ -60,7 +59,7 @@ class ExpressTestService {
    * const { port } = server.address() as AddressInfo
    * const url = `http://127.0.0.1:${port}`
    */
-  private createTestServer(app: Application): Server {
+  private createTestServer(app: BackendApplication): Server {
     // Important!
     // Only with this syntax `app.listen(0)` it allocates a port synchronously
     // Trying to specify a hostname will make server.address() return null.

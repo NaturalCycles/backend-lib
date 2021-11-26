@@ -1,20 +1,20 @@
 import { AsyncLocalStorage } from 'async_hooks'
 import { _lazyValue, CommonLogger } from '@naturalcycles/js-lib'
-import { Request, RequestHandler } from 'express'
+import { BackendRequest, BackendRequestHandler } from '../server.model'
 import { gaeLogger, devLogger } from './createGaeLogMiddleware'
 
 const { GAE_INSTANCE } = process.env
 const isGAE = !!GAE_INSTANCE
 
 export interface RequestLocalStorage {
-  req: Request
+  req: BackendRequest
 }
 
 // Singleton, for simplicity
 // Create it lazily (on demand)
 const storage = _lazyValue(() => new AsyncLocalStorage<RequestLocalStorage>())
 
-export function createAsyncLocalStorage(): RequestHandler {
+export function createAsyncLocalStorage(): BackendRequestHandler {
   return (req, res, next) => {
     const store: RequestLocalStorage = {
       req,
@@ -24,7 +24,7 @@ export function createAsyncLocalStorage(): RequestHandler {
   }
 }
 
-export function getRequest(): Request | undefined {
+export function getRequest(): BackendRequest | undefined {
   return storage().getStore()?.req
 }
 

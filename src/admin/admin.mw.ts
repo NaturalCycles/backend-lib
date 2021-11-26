@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import { Admin401ErrorData, HttpError, _memoFn } from '@naturalcycles/js-lib'
 import * as ejs from 'ejs'
-import { RequestHandler } from 'express'
+import { BackendRequestHandler } from '../server/server.model'
 import { BaseAdminService } from './base.admin.service'
 import { FirebaseSharedServiceCfg } from './firebase.shared.service'
 
@@ -26,7 +26,10 @@ export interface RequireAdminCfg {
   autoLogin?: boolean
 }
 
-export type AdminMiddleware = (reqPermissions?: string[], cfg?: RequireAdminCfg) => RequestHandler
+export type AdminMiddleware = (
+  reqPermissions?: string[],
+  cfg?: RequireAdminCfg,
+) => BackendRequestHandler
 
 export function createAdminMiddleware(
   adminService: BaseAdminService,
@@ -49,7 +52,7 @@ export function requireAdminPermissions(
   adminService: BaseAdminService,
   reqPermissions: string[] = [],
   cfg: RequireAdminCfg = {},
-): RequestHandler {
+): BackendRequestHandler {
   const { loginHtmlPath = '/login.html', urlStartsWith, apiHost, autoLogin = true } = cfg
 
   return async (req, res, next) => {
@@ -78,7 +81,7 @@ interface LoginHtmlCfg {
   firebaseAuthProvider: string
 }
 
-export function loginHtml(firebaseServiceCfg: FirebaseSharedServiceCfg): RequestHandler {
+export function loginHtml(firebaseServiceCfg: FirebaseSharedServiceCfg): BackendRequestHandler {
   const {
     apiKey: firebaseApiKey,
     authDomain: firebaseAuthDomain,

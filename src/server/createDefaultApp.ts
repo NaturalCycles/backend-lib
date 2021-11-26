@@ -1,9 +1,12 @@
 import cookieParser = require('cookie-parser')
 import cors = require('cors')
-import type { Application } from 'express'
 import express = require('express')
-import { isGAE, methodOverride } from '..'
-import { DefaultAppCfg, RequestHandlerCfg, RequestHandlerWithPath } from './createDefaultApp.model'
+import { BackendApplication, isGAE, methodOverride } from '..'
+import {
+  DefaultAppCfg,
+  BackendRequestHandlerCfg,
+  BackendRequestHandlerWithPath,
+} from './createDefaultApp.model'
 import { createAsyncLocalStorage } from './handlers/asyncLocalStorage.mw'
 import { createGAELogMiddleware } from './handlers/createGaeLogMiddleware'
 import { genericErrorHandler } from './handlers/genericErrorHandler.mw'
@@ -13,7 +16,7 @@ import { simpleRequestLogger } from './handlers/simpleRequestLogger.mw'
 
 const isTest = process.env['APP_ENV'] === 'test'
 
-export function createDefaultApp(cfg: DefaultAppCfg): Application {
+export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
   const { sentryService } = cfg
 
   const app = express()
@@ -96,9 +99,9 @@ export function createDefaultApp(cfg: DefaultAppCfg): Application {
   return app
 }
 
-function useHandlers(app: Application, handlers: RequestHandlerCfg[] = []): void {
+function useHandlers(app: BackendApplication, handlers: BackendRequestHandlerCfg[] = []): void {
   handlers
-    .map<RequestHandlerWithPath>(cfg => {
+    .map<BackendRequestHandlerWithPath>(cfg => {
       if (typeof cfg === 'function') {
         return {
           path: '/',

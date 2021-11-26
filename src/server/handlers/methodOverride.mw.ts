@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express'
+import { BackendRequestHandler } from '../server.model'
 
 export interface MethodOverrideCfg {
   /**
@@ -7,7 +7,7 @@ export interface MethodOverrideCfg {
   methodKey?: string
 }
 
-export function methodOverride(cfg: MethodOverrideCfg = {}): RequestHandler {
+export function methodOverride(cfg: MethodOverrideCfg = {}): BackendRequestHandler {
   const { methodKey } = {
     methodKey: '_method',
     ...cfg,

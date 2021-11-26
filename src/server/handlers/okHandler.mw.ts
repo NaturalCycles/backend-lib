@@ -1,6 +1,6 @@
-import { RequestHandler } from 'express'
+import { BackendRequestHandler } from '../server.model'
 
-export function okHandler(): RequestHandler {
+export function okHandler(): BackendRequestHandler {
   return (req, res) => {
     res.json({ ok: 1 })
   }

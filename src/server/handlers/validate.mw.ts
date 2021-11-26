@@ -1,6 +1,6 @@
 import { HttpError, JsonSchema, JsonSchemaBuilder, _get } from '@naturalcycles/js-lib'
 import { AjvSchema, AjvValidationError } from '@naturalcycles/nodejs-lib'
-import { RequestHandler } from 'express'
+import { BackendRequestHandler } from '../server.model'
 import { ReqValidationOptions } from './reqValidation.mw'
 
 const REDACTED = 'REDACTED'
@@ -8,21 +8,21 @@ const REDACTED = 'REDACTED'
 export function validateBody(
   schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
   opt: ReqValidationOptions<AjvValidationError> = {},
-): RequestHandler {
+): BackendRequestHandler {
   return validateObject('body', schema, opt)
 }
 
 export function validateParams(
   schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
   opt: ReqValidationOptions<AjvValidationError> = {},
-): RequestHandler {
+): BackendRequestHandler {
   return validateObject('params', schema, opt)
 }
 
 export function validateQuery(
   schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
   opt: ReqValidationOptions<AjvValidationError> = {},
-): RequestHandler {
+): BackendRequestHandler {
   return validateObject('query', schema, opt)
 }
 
@@ -36,7 +36,7 @@ function validateObject(
   prop: 'body' | 'params' | 'query',
   schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
   opt: ReqValidationOptions<AjvValidationError> = {},
-): RequestHandler {
+): BackendRequestHandler {
   const ajvSchema = AjvSchema.create(schema, {
     objectName: `request ${prop}`,
   })

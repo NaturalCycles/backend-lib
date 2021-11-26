@@ -1,8 +1,8 @@
 import { CommonLogLevel } from '@naturalcycles/js-lib'
 import { boldGrey, green, red, yellow } from '@naturalcycles/nodejs-lib/dist/colors'
-import { Request } from 'express'
+import { BackendRequest } from './server.model'
 
-export function logRequest(req: Request, statusCode: number, ...tokens: any[]): void {
+export function logRequest(req: BackendRequest, statusCode: number, ...tokens: any[]): void {
   req[logLevel(statusCode)](
     [coloredHttpCode(statusCode), req.method, boldGrey(req.url), ...tokens].join(' '),
   )

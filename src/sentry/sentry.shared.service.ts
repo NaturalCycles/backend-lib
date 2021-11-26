@@ -3,8 +3,7 @@ import { inspectAny, inspectAnyStringifyFn } from '@naturalcycles/nodejs-lib'
 import { Severity } from '@sentry/node'
 import type { Breadcrumb, NodeOptions } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
-import { ErrorRequestHandler, RequestHandler } from 'express'
-import { getRequestLogger } from '../index'
+import { BackendErrorRequestHandler, BackendRequestHandler, getRequestLogger } from '../index'
 
 export interface SentrySharedServiceCfg extends NodeOptions {}
 
@@ -51,7 +50,7 @@ export class SentrySharedService {
    *
    * UPD: to be tested. Without it - request is not enriched and the error is less useful.
    */
-  getRequestHandler(): RequestHandler {
+  getRequestHandler(): BackendRequestHandler {
     return this.sentry().Handlers.requestHandler()
   }
 
@@ -60,7 +59,7 @@ export class SentrySharedService {
    *
    * @deprecated
    */
-  getErrorHandler(): ErrorRequestHandler {
+  getErrorHandler(): BackendErrorRequestHandler {
     return this.sentry().Handlers.errorHandler()
   }
 

@@ -1,5 +1,5 @@
 import { _safeJsonStringify } from '@naturalcycles/js-lib'
-import { RequestHandler, Response } from 'express'
+import { BackendRequestHandler, BackendResponse } from '../server.model'
 
 /**
  * Replaces express's built-in req.json() function with the safe one,
@@ -7,9 +7,9 @@ import { RequestHandler, Response } from 'express'
  *
  * Original: https://github.com/expressjs/express/blob/master/lib/response.js
  */
-export function safeJsonMiddleware(): RequestHandler {
+export function safeJsonMiddleware(): BackendRequestHandler {
   return function safeJsonHandler(req, res, next) {
-    res.json = (input: any): Response => {
+    res.json = (input: any): BackendResponse => {
       if (!res.get('Content-Type')) {
         res.set('Content-Type', 'application/json')
       }

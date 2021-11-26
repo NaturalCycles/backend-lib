@@ -1,6 +1,6 @@
 import { HttpError, _get } from '@naturalcycles/js-lib'
 import { AnySchema, getValidationResult, JoiValidationError } from '@naturalcycles/nodejs-lib'
-import { RequestHandler } from 'express'
+import { BackendRequestHandler } from '../server.model'
 
 const REDACTED = 'REDACTED'
 
@@ -22,7 +22,7 @@ export function reqValidation(
   reqProperty: 'body' | 'params' | 'query',
   schema: AnySchema,
   opt: ReqValidationOptions<JoiValidationError> = {},
-): RequestHandler {
+): BackendRequestHandler {
   const reportPredicate = typeof opt.report === 'function' ? opt.report : () => !!opt.report
 
   return (req, res, next) => {

@@ -1,10 +1,10 @@
-import { RequestHandler, Router } from 'express'
 import PromiseRouter from 'express-promise-router'
+import { BackendRequestHandler, BackendRouter } from './server.model'
 
 /**
  * Convenience method.
  */
-export function getDefaultRouter(defaultHandlers: RequestHandler[] = []): Router {
+export function getDefaultRouter(defaultHandlers: BackendRequestHandler[] = []): BackendRouter {
   const router = PromiseRouter()
 
   // Use default handlers

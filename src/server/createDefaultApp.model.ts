@@ -1,15 +1,15 @@
-import { RequestHandler } from 'express'
 import { SentrySharedService } from '../sentry/sentry.shared.service'
+import { BackendRequestHandler } from './server.model'
 
 /**
  * Plain RequestHandler can be provided - then it's mounted to /
  * Otherwise `path` can be provided to specify mounting point.
  */
-export type RequestHandlerCfg = RequestHandler | RequestHandlerWithPath
+export type BackendRequestHandlerCfg = BackendRequestHandler | BackendRequestHandlerWithPath
 
-export interface RequestHandlerWithPath {
+export interface BackendRequestHandlerWithPath {
   path: string
-  handler: RequestHandler
+  handler: BackendRequestHandler
 }
 
 /**
@@ -21,9 +21,9 @@ export interface RequestHandlerWithPath {
  * 4. postHandlers
  */
 export interface DefaultAppCfg {
-  preHandlers?: RequestHandlerCfg[]
-  handlers?: RequestHandlerCfg[]
-  resources?: RequestHandlerCfg[]
-  postHandlers?: RequestHandlerCfg[]
+  preHandlers?: BackendRequestHandlerCfg[]
+  handlers?: BackendRequestHandlerCfg[]
+  resources?: BackendRequestHandlerCfg[]
+  postHandlers?: BackendRequestHandlerCfg[]
   sentryService?: SentrySharedService
 }

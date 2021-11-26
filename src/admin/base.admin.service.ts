@@ -1,8 +1,7 @@
 import { _assert, Admin401ErrorData, Admin403ErrorData, HttpError } from '@naturalcycles/js-lib'
 import { dimGrey, green, red } from '@naturalcycles/nodejs-lib/dist/colors'
-import { Request, RequestHandler } from 'express'
 import type * as FirebaseAdmin from 'firebase-admin'
-import { RequestWithLog } from '../server/handlers/createGaeLogMiddleware'
+import { BackendRequest, BackendRequestHandler } from '../server/server.model'
 
 export interface AdminServiceCfg {
   /**
@@ -70,7 +69,7 @@ export class BaseAdminService {
    * To be extended.
    */
   protected async onPermissionCheck(
-    req: RequestWithLog,
+    req: BackendRequest,
     email: string,
     reqPermissions: string[],
     required: boolean,
@@ -85,7 +84,7 @@ export class BaseAdminService {
     )
   }
 
-  async getEmailByToken(req: RequestWithLog, adminToken?: string): Promise<string | undefined> {
+  async getEmailByToken(req: BackendRequest, adminToken?: string): Promise<string | undefined> {
     if (!adminToken) return
 
     try {
@@ -112,7 +111,7 @@ export class BaseAdminService {
    * Current implementation is based on req=Request (from Express).
    * Override if needed.
    */
-  async getAdminToken(req: Request): Promise<string | undefined> {
+  async getAdminToken(req: BackendRequest): Promise<string | undefined> {
     return (
       (req.cookies || {})[this.cfg.adminTokenKey] ||
       req.header(this.cfg.adminTokenKey) ||
@@ -120,13 +119,13 @@ export class BaseAdminService {
     )
   }
 
-  async isAdmin(req: Request): Promise<boolean> {
+  async isAdmin(req: BackendRequest): Promise<boolean> {
     const adminToken = await this.getAdminToken(req)
     const email = await this.getEmailByToken(req, adminToken)
     return !!this.getEmailPermissions(email)
   }
 
-  async getAdminInfo(req: Request): Promise<AdminInfo | undefined> {
+  async getAdminInfo(req: BackendRequest): Promise<AdminInfo | undefined> {
     return await this.hasPermissions(req)
   }
 
@@ -140,7 +139,7 @@ export class BaseAdminService {
    * Otherwise returns undefined
    */
   async hasPermissions(
-    req: Request,
+    req: BackendRequest,
     reqPermissions: string[] = [],
     meta: Record<string, any> = {},
   ): Promise<AdminInfo | undefined> {
@@ -164,7 +163,7 @@ export class BaseAdminService {
   }
 
   async requirePermissions(
-    req: Request,
+    req: BackendRequest,
     reqPermissions: string[] = [],
     meta: Record<string, any> = {},
     andComparison: boolean = true,
@@ -221,7 +220,7 @@ export class BaseAdminService {
 
   // convenience method
   async hasPermission(
-    req: Request,
+    req: BackendRequest,
     reqPermission: string,
     meta?: Record<string, any>,
   ): Promise<boolean> {
@@ -229,7 +228,7 @@ export class BaseAdminService {
   }
 
   async requirePermission(
-    req: Request,
+    req: BackendRequest,
     reqPermission: string,
     meta?: Record<string, any>,
   ): Promise<AdminInfo> {
@@ -245,7 +244,7 @@ export class BaseAdminService {
    *
    * Same endpoint is used to logout, but the `Authentication` header should contain `logout` magic string.
    */
-  getFirebaseAuthLoginHandler(): RequestHandler {
+  getFirebaseAuthLoginHandler(): BackendRequestHandler {
     return async (req, res) => {
       const token = req.header('authentication')
       _assert(token, `401 Unauthenticated`, {

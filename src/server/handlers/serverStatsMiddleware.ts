@@ -11,8 +11,7 @@ import {
   NumberStack,
   StringMap,
 } from '@naturalcycles/js-lib'
-import { RequestHandler } from 'express'
-import { onFinished } from '../../index'
+import { BackendRequestHandler, onFinished } from '../../index'
 import { getRequestEndpoint } from '../request.util'
 
 const { GAE_INSTANCE } = process.env
@@ -45,7 +44,7 @@ const MAX_ENDPOINTS = 30
  *
  * router.get('/stats', serverStatsHTMLHandler)
  */
-export const serverStatsHTMLHandler: RequestHandler = (req, res) => {
+export const serverStatsHTMLHandler: BackendRequestHandler = (req, res) => {
   const { sortBy = 'total', asc } = req.query as { sortBy?: keyof Stat; asc?: string }
 
   // calc things
@@ -109,7 +108,7 @@ export const serverStatsHTMLHandler: RequestHandler = (req, res) => {
 /**
  * Unlocks serverStatsHTMLHandler
  */
-export function serverStatsMiddleware(): RequestHandler {
+export function serverStatsMiddleware(): BackendRequestHandler {
   let lastCleanup = Date.now()
 
   return function serverStatsHandler(req, res, next) {

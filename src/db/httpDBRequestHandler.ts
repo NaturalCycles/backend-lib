@@ -12,8 +12,7 @@ import {
 } from '@naturalcycles/db-lib/dist/validation'
 import { ObjectWithId } from '@naturalcycles/js-lib'
 import { anyObjectSchema, arraySchema, objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
-import { Router } from 'express'
-import { getDefaultRouter, reqValidation } from '..'
+import { BackendRouter, getDefaultRouter, reqValidation } from '..'
 
 export interface GetByIdsInput {
   table: string
@@ -52,7 +51,7 @@ const saveBatchInputSchema = objectSchema<SaveBatchInput>({
 /**
  * Exposes CommonDB interface from provided CommonDB as HTTP endpoint (Express RequestHandler).
  */
-export function httpDBRequestHandler(db: CommonDB): Router {
+export function httpDBRequestHandler(db: CommonDB): BackendRouter {
   const router = getDefaultRouter()
 
   // resetCache, only applicable to InMemoryDB

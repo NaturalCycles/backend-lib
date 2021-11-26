@@ -1,13 +1,13 @@
 import { _filterFalsyValues } from '@naturalcycles/js-lib'
 import { memoryUsageFull, processSharedUtil } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
-import { RequestHandler } from 'express'
 import { getDeployInfo } from '../deployInfo.util'
+import { BackendRequestHandler } from '../server.model'
 
 const { versions } = process
 const { GAE_APPLICATION, GAE_SERVICE, GAE_VERSION, APP_ENV } = process.env
 
-export function statusHandler(projectDir?: string, extra?: any): RequestHandler {
+export function statusHandler(projectDir?: string, extra?: any): BackendRequestHandler {
   return async (req, res) => {
     res.json(statusHandlerData(projectDir, extra))
   }

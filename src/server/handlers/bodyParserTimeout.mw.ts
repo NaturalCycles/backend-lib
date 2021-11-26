@@ -1,6 +1,5 @@
 import { HttpError } from '@naturalcycles/js-lib'
-import { RequestHandler, Request } from 'express'
-import { respondWithError } from '../../index'
+import { BackendRequestHandler, respondWithError } from '../../index'
 
 export interface BodyParserTimeoutCfg {
   /**
@@ -19,16 +18,12 @@ export interface BodyParserTimeoutCfg {
   httpStatus?: string
 }
 
-interface RequestWithTimeout extends Request {
-  _bodyParserTimeout?: NodeJS.Timeout
-}
-
 const code = 'BODY_PARSER_TIMEOUT'
 
 /**
  * Should be called BEFORE bodyParser
  */
-export function bodyParserTimeout(cfg: BodyParserTimeoutCfg = {}): RequestHandler {
+export function bodyParserTimeout(cfg: BodyParserTimeoutCfg = {}): BackendRequestHandler {
   const { timeoutSeconds, httpStatusCode, httpStatus } = {
     timeoutSeconds: 10,
     httpStatusCode: 400,
@@ -38,8 +33,8 @@ export function bodyParserTimeout(cfg: BodyParserTimeoutCfg = {}): RequestHandle
 
   const timeout = timeoutSeconds * 1000
 
-  return (req: RequestWithTimeout, res, next) => {
-    req._bodyParserTimeout = setTimeout(() => {
+  return (req, res, next) => {
+    req.bodyParserTimeout ??= setTimeout(() => {
       respondWithError(
         req,
         res,
@@ -58,9 +53,9 @@ export function bodyParserTimeout(cfg: BodyParserTimeoutCfg = {}): RequestHandle
 /**
  * Should be called AFTER bodyParser
  */
-export function clearBodyParserTimeout(): RequestHandler {
-  return (req: RequestWithTimeout, res, next) => {
-    if (req._bodyParserTimeout) clearTimeout(req._bodyParserTimeout)
+export function clearBodyParserTimeout(): BackendRequestHandler {
+  return (req, res, next) => {
+    clearTimeout(req.bodyParserTimeout!)
     next()
   }
 }
