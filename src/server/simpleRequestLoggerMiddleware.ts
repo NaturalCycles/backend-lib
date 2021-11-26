@@ -1,11 +1,11 @@
 import { _since } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
-import { BackendRequestHandler, onFinished } from '../../index'
-import { logRequest } from '../request.log.util'
+import { BackendRequestHandler, onFinished } from '../index'
+import { logRequest } from './request.log.util'
 
 const { APP_ENV } = process.env
 
-export interface SimpleRequestLoggerCfg {
+export interface SimpleRequestLoggerMiddlewareCfg {
   /**
    * @default false
    */
@@ -17,14 +17,14 @@ export interface SimpleRequestLoggerCfg {
   logFinish: boolean
 }
 
-export function simpleRequestLogger(
-  _cfg: Partial<SimpleRequestLoggerCfg> = {},
+export function simpleRequestLoggerMiddleware(
+  _cfg: Partial<SimpleRequestLoggerMiddlewareCfg> = {},
 ): BackendRequestHandler {
   // Disable logger in AppEngine, as it doesn't make sense there
   // UPD: Only log in dev environment
   if (APP_ENV !== 'dev') return (req, res, next) => next()
 
-  const cfg: SimpleRequestLoggerCfg = {
+  const cfg: SimpleRequestLoggerMiddlewareCfg = {
     logStart: false,
     logFinish: true,
     ..._cfg,

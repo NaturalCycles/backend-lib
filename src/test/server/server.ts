@@ -16,8 +16,8 @@ import { pDelay } from '@naturalcycles/js-lib'
 import {
   startServer,
   getDefaultRouter,
-  statusHandler,
-  okHandler,
+  serverStatusMiddleware,
+  okMiddleware,
   SentrySharedService,
 } from '../../index'
 import { loginHtml } from '../../admin/admin.mw'
@@ -25,18 +25,15 @@ import {
   getRequest,
   getRequestLogger,
   requestLogger,
-} from '../../server/handlers/asyncLocalStorage.mw'
-import {
-  serverStatsHTMLHandler,
-  serverStatsMiddleware,
-} from '../../server/handlers/serverStatsMiddleware'
+} from '../../server/asyncLocalStorageMiddleware'
+import { serverStatsHTMLHandler, serverStatsMiddleware } from '../../server/serverStatsMiddleware'
 import { adminService, firebaseService, reqAdmin } from './admin'
 
 const router = getDefaultRouter()
 export const rootResource = router
 
-router.get('/', okHandler())
-router.get('/status', statusHandler())
+router.get('/', okMiddleware())
+router.get('/status', serverStatusMiddleware())
 router.get('/stats', serverStatsHTMLHandler)
 router.get('/login.html', loginHtml(firebaseService.cfg))
 

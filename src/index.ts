@@ -22,27 +22,33 @@ import {
 import { getDeployInfo } from './server/deployInfo.util'
 import { getDefaultRouter } from './server/getDefaultRouter'
 import {
-  bodyParserTimeout,
-  BodyParserTimeoutCfg,
+  bodyParserTimeoutMiddleware,
+  BodyParserTimeoutMiddlewareCfg,
   clearBodyParserTimeout,
-} from './server/handlers/bodyParserTimeout.mw'
-export * from './server/handlers/genericErrorHandler.mw'
-export * from './server/handlers/serverStatsMiddleware'
-import { methodOverride, MethodOverrideCfg } from './server/handlers/methodOverride.mw'
-import { notFoundHandler } from './server/handlers/notFoundHandler.mw'
-import { okHandler } from './server/handlers/okHandler.mw'
-import { requestTimeout, RequestTimeoutCfg } from './server/handlers/requestTimeout.mw'
-import { reqValidation, ReqValidationOptions } from './server/handlers/reqValidation.mw'
+} from './server/bodyParserTimeoutMiddleware'
+export * from './server/genericErrorMiddleware'
+export * from './server/serverStatsMiddleware'
 import {
-  simpleRequestLogger,
-  SimpleRequestLoggerCfg,
-} from './server/handlers/simpleRequestLogger.mw'
-import { statusHandler, statusHandlerData } from './server/handlers/statusHandler'
-import { validateBody, validateParams, validateQuery } from './server/handlers/validate.mw'
+  methodOverrideMiddleware,
+  MethodOverrideMiddlewareCfg,
+} from './server/methodOverrideMiddleware'
+import { notFoundMiddleware } from './server/notFoundMiddleware'
+import { okMiddleware } from './server/okMiddleware'
+import {
+  requestTimeoutMiddleware,
+  RequestTimeoutMiddlewareCfg,
+} from './server/requestTimeoutMiddleware'
+import { reqValidation, ReqValidationOptions } from './server/reqValidationMiddleware'
+import {
+  simpleRequestLoggerMiddleware,
+  SimpleRequestLoggerMiddlewareCfg,
+} from './server/simpleRequestLoggerMiddleware'
+import { serverStatusMiddleware, getServerStatusData } from './server/serverStatusMiddleware'
+import { validateBody, validateParams, validateQuery } from './server/validateMiddleware'
 import { coloredHttpCode, logRequest } from './server/request.log.util'
 import { BackendServer, startServer } from './server/startServer'
 import { StartServerCfg, StartServerData } from './server/startServer.model'
-export * from './server/handlers/asyncLocalStorage.mw'
+export * from './server/asyncLocalStorageMiddleware'
 import type {
   BackendRequest,
   BackendRequestHandler,
@@ -51,12 +57,12 @@ import type {
   BackendRouter,
   BackendApplication,
 } from './server/server.model'
-export * from './server/handlers/createGaeLogMiddleware'
-export * from './server/handlers/safeJsonMiddleware'
+export * from './server/appEngineLogMiddleware'
+export * from './server/safeJsonMiddleware'
 export * from './server/request.util'
 
 export type {
-  MethodOverrideCfg,
+  MethodOverrideMiddlewareCfg,
   SentrySharedServiceCfg,
   BackendRequestHandlerWithPath,
   BackendRequestHandlerCfg,
@@ -70,9 +76,9 @@ export type {
   AdminInfo,
   RequireAdminCfg,
   SecureHeaderMiddlewareCfg,
-  BodyParserTimeoutCfg,
-  RequestTimeoutCfg,
-  SimpleRequestLoggerCfg,
+  BodyParserTimeoutMiddlewareCfg,
+  RequestTimeoutMiddlewareCfg,
+  SimpleRequestLoggerMiddlewareCfg,
   ReqValidationOptions,
   BackendRequest,
   BackendRequestHandler,
@@ -87,16 +93,16 @@ export {
   SentrySharedService,
   EnvSharedService,
   reqValidation,
-  notFoundHandler,
-  methodOverride,
+  notFoundMiddleware,
+  methodOverrideMiddleware,
   createDefaultApp,
   startServer,
   catchWrapper,
   getDefaultRouter,
   isGAE,
-  statusHandler,
-  statusHandlerData,
-  okHandler,
+  serverStatusMiddleware,
+  getServerStatusData,
+  okMiddleware,
   getDeployInfo,
   onFinished,
   logRequest,
@@ -105,10 +111,10 @@ export {
   BaseAdminService,
   loginHtml,
   createSecureHeaderMiddleware,
-  bodyParserTimeout,
+  bodyParserTimeoutMiddleware,
   clearBodyParserTimeout,
-  requestTimeout,
-  simpleRequestLogger,
+  requestTimeoutMiddleware,
+  simpleRequestLoggerMiddleware,
   coloredHttpCode,
   validateBody,
   validateParams,

@@ -1,19 +1,19 @@
 import { _filterFalsyValues } from '@naturalcycles/js-lib'
 import { memoryUsageFull, processSharedUtil } from '@naturalcycles/nodejs-lib'
 import { dayjs } from '@naturalcycles/time-lib'
-import { getDeployInfo } from '../deployInfo.util'
-import { BackendRequestHandler } from '../server.model'
+import { getDeployInfo } from './deployInfo.util'
+import { BackendRequestHandler } from './server.model'
 
 const { versions } = process
 const { GAE_APPLICATION, GAE_SERVICE, GAE_VERSION, APP_ENV } = process.env
 
-export function statusHandler(projectDir?: string, extra?: any): BackendRequestHandler {
+export function serverStatusMiddleware(projectDir?: string, extra?: any): BackendRequestHandler {
   return async (req, res) => {
-    res.json(statusHandlerData(projectDir, extra))
+    res.json(getServerStatusData(projectDir, extra))
   }
 }
 
-export function statusHandlerData(
+export function getServerStatusData(
   projectDir: string = process.cwd(),
   extra?: any,
 ): Record<string, any> {

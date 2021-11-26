@@ -1,7 +1,7 @@
 import { jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
 import { getDefaultRouter, reqValidation } from '..'
-import { validateBody } from '../server/handlers/validate.mw'
+import { validateBody } from '../server/validateMiddleware'
 
 const router = getDefaultRouter()
 export const debugResource = router

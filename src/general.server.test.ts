@@ -1,7 +1,7 @@
 import { mockTime } from '@naturalcycles/dev-lib/dist/testing'
 import { _assert, _isHttpErrorResponse, HttpError, pTry } from '@naturalcycles/js-lib'
 import { HTTPError } from '@naturalcycles/nodejs-lib'
-import { safeJsonMiddleware } from './server/handlers/safeJsonMiddleware'
+import { safeJsonMiddleware } from './server/safeJsonMiddleware'
 import { expressTestService } from './testing'
 import { getDefaultRouter } from './index'
 

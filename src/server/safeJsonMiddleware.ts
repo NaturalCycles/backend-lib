@@ -1,5 +1,5 @@
 import { _safeJsonStringify } from '@naturalcycles/js-lib'
-import { BackendRequestHandler, BackendResponse } from '../server.model'
+import { BackendRequestHandler, BackendResponse } from './server.model'
 
 /**
  * Replaces express's built-in req.json() function with the safe one,

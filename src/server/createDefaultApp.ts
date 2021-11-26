@@ -1,18 +1,18 @@
 import cookieParser = require('cookie-parser')
 import cors = require('cors')
 import express = require('express')
-import { BackendApplication, isGAE, methodOverride } from '..'
+import { BackendApplication, isGAE, methodOverrideMiddleware } from '..'
 import {
   DefaultAppCfg,
   BackendRequestHandlerCfg,
   BackendRequestHandlerWithPath,
 } from './createDefaultApp.model'
-import { createAsyncLocalStorage } from './handlers/asyncLocalStorage.mw'
-import { createGAELogMiddleware } from './handlers/createGaeLogMiddleware'
-import { genericErrorHandler } from './handlers/genericErrorHandler.mw'
-import { notFoundHandler } from './handlers/notFoundHandler.mw'
-import { requestTimeout } from './handlers/requestTimeout.mw'
-import { simpleRequestLogger } from './handlers/simpleRequestLogger.mw'
+import { asyncLocalStorageMiddleware } from './asyncLocalStorageMiddleware'
+import { appEngineLogMiddleware } from './appEngineLogMiddleware'
+import { genericErrorMiddleware } from './genericErrorMiddleware'
+import { notFoundMiddleware } from './notFoundMiddleware'
+import { requestTimeoutMiddleware } from './requestTimeoutMiddleware'
+import { simpleRequestLoggerMiddleware } from './simpleRequestLoggerMiddleware'
 
 const isTest = process.env['APP_ENV'] === 'test'
 
@@ -28,10 +28,10 @@ export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
   // preHandlers
   useHandlers(app, cfg.preHandlers)
 
-  app.use(createGAELogMiddleware())
+  app.use(appEngineLogMiddleware())
 
   if (!isTest) {
-    app.use(createAsyncLocalStorage())
+    app.use(asyncLocalStorageMiddleware())
   }
 
   // The request handler must be the first middleware on the app
@@ -41,13 +41,13 @@ export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
     app.use(sentryService.getRequestHandler())
   }
 
-  app.use(methodOverride())
-  app.use(requestTimeout())
+  app.use(methodOverrideMiddleware())
+  app.use(requestTimeoutMiddleware())
   // app.use(serverStatsMiddleware()) // disabled by default
   // app.use(bodyParserTimeout()) // removed by default
 
   if (!isGAE() && !isTest) {
-    app.use(simpleRequestLogger())
+    app.use(simpleRequestLoggerMiddleware())
   }
 
   // app.use(safeJsonMiddleware()) // optional
@@ -89,12 +89,12 @@ export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
   useHandlers(app, cfg.postHandlers)
 
   // Generic 404 handler
-  app.use(notFoundHandler())
+  app.use(notFoundMiddleware())
 
   // Generic error handler
   // It handles errors, returns proper status, does sentry.captureException(),
   // assigns err.data.errorId from sentry
-  app.use(genericErrorHandler({ sentryService }))
+  app.use(genericErrorMiddleware({ sentryService }))
 
   return app
 }

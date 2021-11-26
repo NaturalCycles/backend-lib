@@ -7,10 +7,10 @@ import {
   HttpErrorResponse,
 } from '@naturalcycles/js-lib'
 import { inspectAnyStringifyFn } from '@naturalcycles/nodejs-lib'
-import { SentrySharedService } from '../../sentry/sentry.shared.service'
-import { BackendErrorRequestHandler, BackendRequest, BackendResponse } from '../server.model'
+import { SentrySharedService } from '../sentry/sentry.shared.service'
+import { BackendErrorRequestHandler, BackendRequest, BackendResponse } from './server.model'
 
-export interface GenericErrorHandlerCfg {
+export interface GenericErrorMiddlewareCfg {
   sentryService?: SentrySharedService
 }
 
@@ -25,7 +25,9 @@ let sentryService: SentrySharedService | undefined
  * Returns HTTP code based on err.data.httpStatusCode (default to 500).
  * Sends json payload as ErrorResponse, transformed via errorSharedUtil.
  */
-export function genericErrorHandler(cfg: GenericErrorHandlerCfg = {}): BackendErrorRequestHandler {
+export function genericErrorMiddleware(
+  cfg: GenericErrorMiddlewareCfg = {},
+): BackendErrorRequestHandler {
   sentryService ||= cfg.sentryService
 
   return (err, req, res, _next) => {

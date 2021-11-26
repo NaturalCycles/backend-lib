@@ -1,6 +1,6 @@
 import { HttpError, _get } from '@naturalcycles/js-lib'
 import { AnySchema, getValidationResult, JoiValidationError } from '@naturalcycles/nodejs-lib'
-import { BackendRequestHandler } from '../server.model'
+import { BackendRequestHandler } from './server.model'
 
 const REDACTED = 'REDACTED'
 

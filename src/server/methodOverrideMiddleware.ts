@@ -1,13 +1,15 @@
-import { BackendRequestHandler } from '../server.model'
+import { BackendRequestHandler } from './server.model'
 
-export interface MethodOverrideCfg {
+export interface MethodOverrideMiddlewareCfg {
   /**
    * @default _method
    */
   methodKey?: string
 }
 
-export function methodOverride(cfg: MethodOverrideCfg = {}): BackendRequestHandler {
+export function methodOverrideMiddleware(
+  cfg: MethodOverrideMiddlewareCfg = {},
+): BackendRequestHandler {
   const { methodKey } = {
     methodKey: '_method',
     ...cfg,

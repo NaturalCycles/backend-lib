@@ -1,12 +1,7 @@
 import { _ms, HttpError } from '@naturalcycles/js-lib'
-import {
-  BackendRequestHandler,
-  getRequestEndpoint,
-  onFinished,
-  respondWithError,
-} from '../../index'
+import { BackendRequestHandler, getRequestEndpoint, onFinished, respondWithError } from '../index'
 
-export interface RequestTimeoutCfg {
+export interface RequestTimeoutMiddlewareCfg {
   /**
    * @default 120
    */
@@ -26,7 +21,9 @@ export interface RequestTimeoutCfg {
 const code = 'REQUEST_TIMEOUT'
 const REQUEST_TIMEOUT_QUERY_KEY = 'requestTimeout'
 
-export function requestTimeout(cfg: RequestTimeoutCfg = {}): BackendRequestHandler {
+export function requestTimeoutMiddleware(
+  cfg: RequestTimeoutMiddlewareCfg = {},
+): BackendRequestHandler {
   const {
     timeoutSeconds: defTimeoutSeconds,
     httpStatusCode,

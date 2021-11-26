@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import { _memoFn } from '@naturalcycles/js-lib'
-import type { DeployInfo } from '../deploy/deploy.model'
+import type { DeployInfo } from '../deploy'
 
 export const getDeployInfo = _memoFn((projectDir: string): DeployInfo => {
   const deployInfoPath = `${projectDir}/deployInfo.json`

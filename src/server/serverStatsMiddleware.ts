@@ -11,8 +11,8 @@ import {
   NumberStack,
   StringMap,
 } from '@naturalcycles/js-lib'
-import { BackendRequestHandler, onFinished } from '../../index'
-import { getRequestEndpoint } from '../request.util'
+import { BackendRequestHandler, onFinished } from '../index'
+import { getRequestEndpoint } from './request.util'
 
 const { GAE_INSTANCE } = process.env
 

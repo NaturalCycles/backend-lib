@@ -1,6 +1,6 @@
 import { inspectAny } from '@naturalcycles/nodejs-lib'
-import { debugResource } from '../../test/debug.resource'
-import { expressTestService } from '../../testing'
+import { debugResource } from '../test/debug.resource'
+import { expressTestService } from '../testing'
 
 const app = expressTestService.createAppFromResource(debugResource)
 afterAll(async () => {

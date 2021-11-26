@@ -2,7 +2,7 @@ import { inspect } from 'util'
 import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { inspectAny } from '@naturalcycles/nodejs-lib'
 import { AnyObject, CommonLogger } from '@naturalcycles/js-lib'
-import { BackendRequestHandler } from '../server.model'
+import { BackendRequestHandler } from './server.model'
 
 const { GOOGLE_CLOUD_PROJECT, GAE_INSTANCE } = process.env
 const isGAE = !!GAE_INSTANCE
@@ -50,7 +50,7 @@ function logToDev(requestId: string | null, args: any[]): void {
   )
 }
 
-export function createGAELogMiddleware(): BackendRequestHandler {
+export function appEngineLogMiddleware(): BackendRequestHandler {
   if (!isGAE || !GOOGLE_CLOUD_PROJECT) {
     // Local machine, return "simple" logToDev middleware with request numbering
     return function gaeLogMiddlewareDev(req, res, next) {
@@ -63,7 +63,7 @@ export function createGAELogMiddleware(): BackendRequestHandler {
 
   // Otherwise, we're in AppEngine
 
-  return function gaeLogMiddleware(req, res, next) {
+  return function appEngineLogHandler(req, res, next) {
     const traceHeader = req.header('x-cloud-trace-context')
     if (traceHeader) {
       const [trace] = traceHeader.split('/')

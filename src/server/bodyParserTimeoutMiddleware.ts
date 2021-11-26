@@ -1,7 +1,7 @@
 import { HttpError } from '@naturalcycles/js-lib'
-import { BackendRequestHandler, respondWithError } from '../../index'
+import { BackendRequestHandler, respondWithError } from '../index'
 
-export interface BodyParserTimeoutCfg {
+export interface BodyParserTimeoutMiddlewareCfg {
   /**
    * @default 10
    */
@@ -23,7 +23,9 @@ const code = 'BODY_PARSER_TIMEOUT'
 /**
  * Should be called BEFORE bodyParser
  */
-export function bodyParserTimeout(cfg: BodyParserTimeoutCfg = {}): BackendRequestHandler {
+export function bodyParserTimeoutMiddleware(
+  cfg: BodyParserTimeoutMiddlewareCfg = {},
+): BackendRequestHandler {
   const { timeoutSeconds, httpStatusCode, httpStatus } = {
     timeoutSeconds: 10,
     httpStatusCode: 400,
