@@ -36,7 +36,11 @@ export function bodyParserTimeoutMiddleware(
   const timeout = timeoutSeconds * 1000
 
   return (req, res, next) => {
-    req.bodyParserTimeout ??= setTimeout(() => {
+    // If requestTimeout was previously set - cancel it first
+    // Then set the new requestTimeout and handler
+    if (req.bodyParserTimeout) clearTimeout(req.bodyParserTimeout)
+
+    req.bodyParserTimeout = setTimeout(() => {
       respondWithError(
         req,
         res,

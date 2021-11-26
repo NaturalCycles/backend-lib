@@ -1,5 +1,12 @@
 import { _ms, HttpError } from '@naturalcycles/js-lib'
-import { BackendRequestHandler, getRequestEndpoint, onFinished, respondWithError } from '../index'
+import {
+  BackendRequest,
+  BackendRequestHandler,
+  BackendResponse,
+  getRequestEndpoint,
+  onFinished,
+  respondWithError,
+} from '../index'
 
 export interface RequestTimeoutMiddlewareCfg {
   /**
@@ -39,13 +46,16 @@ export function requestTimeoutMiddleware(
     ...cfg,
   }
 
-  return (req, res, next) => {
+  return function requestTimeoutHandler(req, res, next) {
     const timeoutSeconds = req.query[REQUEST_TIMEOUT_QUERY_KEY]
       ? Number.parseInt(req.query[REQUEST_TIMEOUT_QUERY_KEY] as string)
       : defTimeoutSeconds
 
-    // Set timer if it wasn't previously set
-    req.requestTimeout ??= setTimeout(() => {
+    // If requestTimeout was previously set - cancel it first
+    // Then set the new requestTimeout and handler
+    if (req.requestTimeout) clearTimeout(req.requestTimeout)
+
+    req.requestTimeout = setTimeout(() => {
       const endpoint = getRequestEndpoint(req)
       const msg = `${httpErrorMessage} on ${endpoint} after ${_ms(timeoutSeconds * 1000)}`
 
@@ -60,6 +70,44 @@ export function requestTimeoutMiddleware(
           // userFriendly: true, // no, cause this error is not expected
         }),
       )
+    }, timeoutSeconds * 1000)
+
+    onFinished(res, () => clearTimeout(req.requestTimeout!))
+
+    next()
+  }
+}
+
+export interface CustomRequestTimeoutMiddlewareCfg {
+  /**
+   * @default 120
+   */
+  timeoutSeconds?: number
+}
+
+/**
+ * Example:
+ *
+ * router.get('/', customRequestTimeoutMiddleware(
+ *   (req, res) => res.status(409).send('my custom message!'),
+ *   { timeoutSeconds: 30 },
+ * )
+ */
+export function customRequestTimeoutMiddleware(
+  onTimeout: (req: BackendRequest, res: BackendResponse) => void | Promise<void>,
+  cfg: CustomRequestTimeoutMiddlewareCfg,
+): BackendRequestHandler {
+  const { timeoutSeconds = 120 } = cfg
+
+  return function customRequestTimeoutHandler(req, res, next) {
+    if (req.requestTimeout) clearTimeout(req.requestTimeout)
+
+    req.requestTimeout = setTimeout(async () => {
+      try {
+        await onTimeout(req, res)
+      } catch (err) {
+        next(err)
+      }
     }, timeoutSeconds * 1000)
 
     onFinished(res, () => clearTimeout(req.requestTimeout!))
