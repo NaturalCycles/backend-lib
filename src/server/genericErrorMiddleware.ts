@@ -81,10 +81,15 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
 }
 
 function shouldReportToSentry(err: Error): boolean {
-  // Only report 5xx
-  return (
-    (err as HttpError)?.data?.report ||
-    !(err as HttpError)?.data ||
-    (err as HttpError).data.httpStatusCode >= 500
-  )
+  const e = err as HttpError
+
+  // By default - report
+  if (!e?.data) return true
+
+  // If `report` is set - do as it says
+  if (e.data.report === true) return true
+  if (e.data.report === false) return false
+
+  // Report if http 5xx, otherwise not
+  return !e.data.httpStatusCode || e.data.httpStatusCode >= 500
 }
