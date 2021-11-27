@@ -53,7 +53,11 @@ export function genericErrorMiddleware(
 export function respondWithError(req: BackendRequest, res: BackendResponse, err: any): void {
   const { headersSent } = res
 
-  req.error(`genericErrorHandler${headersSent ? ' after headersSent' : ''}:\n`, err)
+  if (headersSent) {
+    req.error(`after headersSent`, err)
+  } else {
+    req.error(err)
+  }
 
   const originalError = _anyToError(err, Error, {
     stringifyFn: inspectAnyStringifyFn,
