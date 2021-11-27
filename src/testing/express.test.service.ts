@@ -1,6 +1,6 @@
 import { Server } from 'http'
 import { AddressInfo } from 'net'
-import { getGot, Got } from '@naturalcycles/nodejs-lib'
+import { getGot, GetGotOptions, Got } from '@naturalcycles/nodejs-lib'
 import { BackendApplication, createDefaultApp } from '../index'
 import { BackendRequestHandlerCfg } from '../server/createDefaultApp.model'
 
@@ -15,23 +15,25 @@ export interface ExpressApp extends Got {
 // })
 
 class ExpressTestService {
-  createAppFromResource(resource: BackendRequestHandlerCfg): ExpressApp {
+  createAppFromResource(resource: BackendRequestHandlerCfg, opt?: GetGotOptions): ExpressApp {
     return this.createApp(
       createDefaultApp({
         resources: [resource],
       }),
+      opt,
     )
   }
 
-  createAppFromResources(resources: BackendRequestHandlerCfg[]): ExpressApp {
+  createAppFromResources(resources: BackendRequestHandlerCfg[], opt?: GetGotOptions): ExpressApp {
     return this.createApp(
       createDefaultApp({
         resources,
       }),
+      opt,
     )
   }
 
-  createApp(app: BackendApplication): ExpressApp {
+  createApp(app: BackendApplication, opt?: GetGotOptions): ExpressApp {
     const server = this.createTestServer(app)
     const { port } = server.address() as AddressInfo
     const prefixUrl = `http://127.0.0.1:${port}`
@@ -40,6 +42,9 @@ class ExpressTestService {
       prefixUrl,
       responseType: 'json',
       retry: 0,
+      logStart: true,
+      logFinished: true,
+      ...opt,
     }) as ExpressApp
 
     got.close = async () => {

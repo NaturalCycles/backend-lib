@@ -1578,9 +1578,9 @@
     fs-extra "^10.0.0"
 
 "@naturalcycles/dev-lib@^12.0.3":
-  version "12.13.2"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-12.13.2.tgz#2542a8af041aa3e650f50bd49521c154349d4306"
-  integrity sha512-4Y7gOYlY7+DRGaBAQGHNNoDEmdwvYgRozBdKKDfDah4GGLWpCiaZTQC2Wruxc3M97/sI/fUSRbxAUC/M38WKJw==
+  version "12.13.4"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-12.13.4.tgz#875d3d3609d3406b1fbc4411d88fe149ac48986b"
+  integrity sha512-758f16zxL5P+FKj3bNW1FyN9Pb6V0lVgDOM/UWu3VQkJMXeIilOtrASvDlr603aoXFXE3a44U9VWKlONaYNkWA==
   dependencies:
     "@commitlint/cli" "^15.0.0"
     "@commitlint/config-conventional" "^15.0.0"
@@ -1619,16 +1619,16 @@
     yargs "^17.0.0"
 
 "@naturalcycles/js-lib@^14.0.0", "@naturalcycles/js-lib@^14.27.0", "@naturalcycles/js-lib@^14.6.1":
-  version "14.75.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.75.0.tgz#5bcb217bb5aee19e22d45377dde765c76331fc10"
-  integrity sha512-ERPjPWBAOjkOiVYRcK4q31XFUBrh5nTJ7/YO5DwEm+nlb+j00WFSK/MNm6pJobTYJ3x4/N3EM5GKWS0Pxn8mBw==
+  version "14.75.1"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.75.1.tgz#36654fb57f4c8c0ead60655c3d6c934db4439614"
+  integrity sha512-W25+jzKU5aUHeSc57RB/8YlRSJhK9lMIyrWiitOC3v4xrW0HI2f+X1pLL/kB2JcBrPf2/vkKrxGnq8ZhbOtnPw==
   dependencies:
     tslib "^2.0.0"
 
 "@naturalcycles/nodejs-lib@^12.0.0", "@naturalcycles/nodejs-lib@^12.8.0":
-  version "12.60.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-12.60.0.tgz#55c00a18f85c8acf3a59fbb8e99a68cdbbf90d39"
-  integrity sha512-M9pLRTrlILF6pWqTCnWtXPUzuD0FP8wMWwv2FguEAxe0ZMYq2APtFZutfQBOwKNWUqUgeHfraZXzKOMi9qyfBw==
+  version "12.61.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-12.61.0.tgz#523438ec510699a08a30dded185f699b18a12b92"
+  integrity sha512-mAguvG8BL1Er8iwCcqc6EGrP1aJE/pKPMLMLGmg0hDgZAxoIqbGA/IdOGXT6G08SYPvp5MzS5lhdU5rk91dM7A==
   dependencies:
     "@naturalcycles/js-lib" "^14.0.0"
     "@naturalcycles/time-lib" "^3.0.1"
@@ -5339,9 +5339,9 @@ ejs@^3.0.1:
     jake "^10.6.1"
 
 electron-to-chromium@^1.3.896:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.3.tgz#82480df3ef607f04bb38cc3f30a628d8b895339f"
-  integrity sha512-hfpppjYhqIZB8jrNb0rNceQRkSnBN7QJl3W26O1jUv3F3BkQknqy1YTqVXkFnIcFtBc3Qnv5M7r5Lez2iOLgZA==
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.4.tgz#57311918524c1a26878c330537f967804d43788a"
+  integrity sha512-teHtgwcmVcL46jlFvAaqjyiTLWuMrUQO1JqV303JKB4ysXG6m8fXSFhbjal9st0r9mNskI22AraJZorb1VcLVg==
 
 elliptic@^6.5.3:
   version "6.5.4"
@@ -10789,9 +10789,9 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.26, postcss@^7.0.2
     source-map "^0.6.1"
 
 postcss@^8.3.11:
-  version "8.4.1"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.1.tgz#73051f825509ad1a716ef500108001bf3d1fa8f7"
-  integrity sha512-WqLs/TTzXdG+/A4ZOOK9WDZiikrRaiA+eoEb/jz2DT9KUhMNHgP7yKPO8vwi62ZCsb703Gwb7BMZwDzI54Y2Ag==
+  version "8.4.3"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.3.tgz#adc55db82e868dea54e9e0e7ecdb0368b5adf65a"
+  integrity sha512-d5gVKo8ekrircqHOQNvSQk8dhGOuAfu1iP6dzfAlnAmcu7EBJ9cFuZG8B1KZK362aaEO3L1H+WM3ny9xQ29tFw==
   dependencies:
     nanoid "^3.1.30"
     picocolors "^1.0.0"
