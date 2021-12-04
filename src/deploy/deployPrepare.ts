@@ -59,6 +59,7 @@ const DEFAULT_FILES = [
   'tsconfig.dist.json',
   '.gcloudignore',
   'app.yaml',
+  'patches', // to allow patch-package
 ]
 
 const defaultFilesDir = `${srcDir}/deploy/files-default`
