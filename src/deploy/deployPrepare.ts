@@ -60,6 +60,7 @@ const DEFAULT_FILES = [
   '.gcloudignore',
   'app.yaml',
   'patches', // to allow patch-package
+  'resources',
 ]
 
 const defaultFilesDir = `${srcDir}/deploy/files-default`
