@@ -12,6 +12,12 @@ import { BackendErrorRequestHandler, BackendRequest, BackendResponse } from './s
 
 export interface GenericErrorMiddlewareCfg {
   sentryService?: SentrySharedService
+
+  /**
+   * Defaults to false.
+   * So, by default, it will report ALL errors, not only 5xx.
+   */
+  reportOnly5xx?: boolean
 }
 
 const { APP_ENV } = process.env
@@ -19,6 +25,7 @@ const includeErrorStack = APP_ENV !== 'prod' && APP_ENV !== 'test'
 
 // Hacky way to store the sentryService, so it's available to `respondWithError` function
 let sentryService: SentrySharedService | undefined
+let reportOnly5xx = false
 
 /**
  * Generic error handler.
@@ -29,6 +36,7 @@ export function genericErrorMiddleware(
   cfg: GenericErrorMiddlewareCfg = {},
 ): BackendErrorRequestHandler {
   sentryService ||= cfg.sentryService
+  reportOnly5xx = cfg.reportOnly5xx || false
 
   return (err, req, res, _next) => {
     // if (res.headersSent) {
@@ -47,9 +55,6 @@ export function genericErrorMiddleware(
   }
 }
 
-// export interface ResponseWithError extends Response {
-//   __err?: any
-// }
 export function respondWithError(req: BackendRequest, res: BackendResponse, err: any): void {
   const { headersSent } = res
 
@@ -95,5 +100,8 @@ function shouldReportToSentry(err: Error): boolean {
   if (e.data.report === false) return false
 
   // Report if http 5xx, otherwise not
-  return !e.data.httpStatusCode || e.data.httpStatusCode >= 500
+  // If no httpCode - report
+  // if httpCode >= 500 - report
+  // Otherwise - report, unless !reportOnly5xx is set
+  return !reportOnly5xx || !e.data.httpStatusCode || e.data.httpStatusCode >= 500
 }
