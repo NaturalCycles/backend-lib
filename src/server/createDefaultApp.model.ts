@@ -1,3 +1,5 @@
+import { Options, OptionsJson, OptionsUrlencoded } from 'body-parser'
+import { CorsOptions } from 'cors'
 import { SentrySharedService } from '../sentry/sentry.shared.service'
 import { BackendRequestHandler } from './server.model'
 
@@ -25,5 +27,12 @@ export interface DefaultAppCfg {
   handlers?: BackendRequestHandlerCfg[]
   resources?: BackendRequestHandlerCfg[]
   postHandlers?: BackendRequestHandlerCfg[]
+
   sentryService?: SentrySharedService
+
+  bodyParserJsonOptions?: OptionsJson
+  bodyParserUrlEncodedOptions?: OptionsUrlencoded
+  bodyParserRawOptions?: Options
+
+  corsOptions?: CorsOptions
 }

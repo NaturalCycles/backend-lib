@@ -51,9 +51,34 @@ export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
   }
 
   // app.use(safeJsonMiddleware()) // optional
-  app.use(express.json({ limit: '1mb' }))
-  app.use(express.urlencoded({ limit: '1mb', extended: true }))
+
+  // accepts application/json
+  app.use(
+    express.json({
+      limit: '1mb',
+      ...cfg.bodyParserJsonOptions,
+    }),
+  )
+
+  app.use(
+    express.urlencoded({
+      limit: '1mb',
+      extended: true,
+      ...cfg.bodyParserUrlEncodedOptions,
+    }),
+  )
+
+  // accepts application/octet-stream
+  app.use(
+    express.raw({
+      // inflate: true, // default is `true`
+      limit: '1mb',
+      ...cfg.bodyParserRawOptions,
+    }),
+  )
+
   app.use(cookieParser())
+
   if (!isTest) {
     // leaks, load lazily
     app.use(
@@ -69,6 +94,7 @@ export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
       credentials: true,
       // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // default
       maxAge: 86400,
+      ...cfg.corsOptions,
     }),
   )
 
