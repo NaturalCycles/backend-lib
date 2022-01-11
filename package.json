@@ -26,7 +26,7 @@
     "@types/on-finished": "^2.3.1",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
+    "dotenv": "^11.0.0",
     "ejs": "^3.0.1",
     "express": "^4.16.4",
     "express-promise-router": "^4.0.0",
@@ -84,7 +84,7 @@
     "url": "https://github.com/NaturalCycles/backend-lib"
   },
   "engines": {
-    "node": ">=16.13.0"
+    "node": ">=16.10.0"
   },
   "type": "commonjs",
   "description": "Standard library for making Express.js / AppEngine based backend services",
