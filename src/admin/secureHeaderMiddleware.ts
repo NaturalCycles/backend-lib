@@ -11,7 +11,10 @@ export interface SecureHeaderMiddlewareCfg extends RequireAdminCfg {
    */
   secureHeaderKey?: string
 
-  secureHeaderValue: string
+  /**
+   * If undefined - any value will be accepted, but the header still need to be present.
+   */
+  secureHeaderValue?: string
 }
 
 /**
@@ -26,7 +29,7 @@ function requireSecureHeaderOrAdmin(
   cfg: SecureHeaderMiddlewareCfg,
   reqPermissions?: string[],
 ): BackendRequestHandler {
-  const { secureHeaderKey = 'Authorization' } = cfg
+  const { secureHeaderKey = 'Authorization', secureHeaderValue } = cfg
 
   const requireAdmin = requireAdminPermissions(cfg.adminService, reqPermissions, cfg)
 
@@ -34,10 +37,12 @@ function requireSecureHeaderOrAdmin(
     const providedHeader = req.get(secureHeaderKey)
 
     // pass
-    if (!cfg.adminService.cfg.authEnabled || providedHeader === cfg.secureHeaderValue) return next()
+    if (!cfg.adminService.cfg.authEnabled) return next()
 
     // Header provided - don't check for Admin
     if (providedHeader) {
+      if (!secureHeaderValue || providedHeader === secureHeaderValue) return next()
+
       return next(
         new HttpError<Admin401ErrorData>('secureHeader or adminToken is required', {
           httpStatusCode: 401,
