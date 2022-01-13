@@ -55,7 +55,7 @@ export function requireAdminPermissions(
 ): BackendRequestHandler {
   const { loginHtmlPath = '/login.html', urlStartsWith, apiHost, autoLogin = true } = cfg
 
-  return async (req, res, next) => {
+  return async function requireAdminPermissionsFn(req, res, next) {
     if (urlStartsWith && !req.url.startsWith(urlStartsWith)) return next()
 
     try {

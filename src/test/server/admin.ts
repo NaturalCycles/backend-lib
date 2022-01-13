@@ -1,6 +1,6 @@
 import { requireEnvKeys } from '@naturalcycles/nodejs-lib'
 import { FirebaseSharedService } from '../..'
-import { createAdminMiddleware } from '../../admin/admin.mw'
+import { createAdminMiddleware } from '../../admin/adminMiddleware'
 import { BaseAdminService } from '../../admin/base.admin.service'
 require('dotenv').config()
 

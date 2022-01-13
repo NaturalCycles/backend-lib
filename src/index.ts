@@ -4,10 +4,13 @@ import {
   createAdminMiddleware,
   loginHtml,
   RequireAdminCfg,
-} from './admin/admin.mw'
+} from './admin/adminMiddleware'
 import { AdminInfo, AdminServiceCfg, BaseAdminService } from './admin/base.admin.service'
 import { FirebaseSharedService } from './admin/firebase.shared.service'
-import { createSecureHeaderMiddleware, SecureHeaderMiddlewareCfg } from './admin/secureHeader.mw'
+import {
+  createSecureHeaderMiddleware,
+  SecureHeaderMiddlewareCfg,
+} from './admin/secureHeaderMiddleware'
 import { BaseEnv } from './env/env.model'
 import { EnvSharedService, EnvSharedServiceCfg } from './env/env.shared.service'
 export * from './gae/appEngine.util'

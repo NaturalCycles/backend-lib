@@ -1,11 +1,17 @@
 import { Admin401ErrorData, HttpError } from '@naturalcycles/js-lib'
 import { BackendRequestHandler } from '../server/server.model'
-import { AdminMiddleware, RequireAdminCfg, requireAdminPermissions } from './admin.mw'
+import { AdminMiddleware, RequireAdminCfg, requireAdminPermissions } from './adminMiddleware'
 import { BaseAdminService } from './base.admin.service'
 
 export interface SecureHeaderMiddlewareCfg extends RequireAdminCfg {
   adminService: BaseAdminService
-  secureHeader: string
+
+  /**
+   * Defaults to `Authorization`
+   */
+  secureHeaderKey?: string
+
+  secureHeaderValue: string
 }
 
 /**
@@ -20,13 +26,15 @@ function requireSecureHeaderOrAdmin(
   cfg: SecureHeaderMiddlewareCfg,
   reqPermissions?: string[],
 ): BackendRequestHandler {
+  const { secureHeaderKey = 'Authorization' } = cfg
+
   const requireAdmin = requireAdminPermissions(cfg.adminService, reqPermissions, cfg)
 
   return async (req, res, next) => {
-    const providedHeader = req.get('Authorization')
+    const providedHeader = req.get(secureHeaderKey)
 
     // pass
-    if (!cfg.adminService.cfg.authEnabled || providedHeader === cfg.secureHeader) return next()
+    if (!cfg.adminService.cfg.authEnabled || providedHeader === cfg.secureHeaderValue) return next()
 
     // Header provided - don't check for Admin
     if (providedHeader) {

@@ -20,7 +20,7 @@ import {
   okMiddleware,
   SentrySharedService,
 } from '../../index'
-import { loginHtml } from '../../admin/admin.mw'
+import { loginHtml } from '../../admin/adminMiddleware'
 import {
   getRequest,
   getRequestLogger,
