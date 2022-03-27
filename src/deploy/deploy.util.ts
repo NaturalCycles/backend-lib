@@ -1,7 +1,6 @@
 import * as fs from 'fs'
-import { _mapValues, _merge, _truncate } from '@naturalcycles/js-lib'
+import { _mapValues, _merge, _truncate, localTime } from '@naturalcycles/js-lib'
 import { dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
-import { dayjs } from '@naturalcycles/time-lib'
 import * as yaml from 'js-yaml'
 import type * as simpleGitLib from 'simple-git/promise'
 import { BackendCfg } from './backend.cfg.util'
@@ -44,7 +43,7 @@ export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployIn
   const simpleGit = require('simple-git/promise') as typeof simpleGitLib // lazy load
   const git = simpleGit('.')
 
-  const now = dayjs.utc()
+  const now = localTime()
   const gitBranch = (await git.status()).current!
   const gitRev = (await git.revparse(['HEAD'])).slice(0, 7)
 
@@ -73,7 +72,8 @@ export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployIn
   if (branchesWithTimestampVersions.includes(gitBranch)) {
     // May only contain lowercase letters, digits, and hyphens. Must begin and end with a letter or digit. Must not exceed 63 characters.
     gaeVersion = [
-      now.format('YYYYMMDD-HHmm'), // 20190521-1721
+      // now.format('YYYYMMDD-HHmm'), // 20190521-1721
+      now.toStringCompact().replace('_', '-'),
       gitRev,
     ].join('-')
   }
