@@ -1591,13 +1591,12 @@
     typescript "^4.0.2"
 
 "@naturalcycles/db-lib@^8.0.2":
-  version "8.34.2"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/db-lib/-/db-lib-8.34.2.tgz#33fa3300d70ccca99f4c0101d9845be2a0bd89ec"
-  integrity sha512-1y2QgXb3msE7oyHYoJEzFfG+OtBgRy7sMphsNl7jkM6KbvUonUlT4xVH+WKmaCb/UCrkoLFFuC9HcBheb0OjDw==
+  version "8.35.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/db-lib/-/db-lib-8.35.0.tgz#feb35f92ca53b422ec8b7425cf7bc6c780b6e838"
+  integrity sha512-SELB+QtkeAvonxG+xdsv+SShpqtcVG9v3gi0gXBkaEEA0fWRl3qC6HL1iUwiiwkiqx1KtrKsnz8eXTEB0pUc0g==
   dependencies:
     "@naturalcycles/js-lib" "^14.0.0"
     "@naturalcycles/nodejs-lib" "^12.0.0"
-    "@naturalcycles/time-lib" "^3.0.1"
     fs-extra "^10.0.0"
 
 "@naturalcycles/dev-lib@^12.0.3":
@@ -1640,10 +1639,10 @@
     typescript "^4.0.2"
     yargs "^17.0.0"
 
-"@naturalcycles/js-lib@^14.0.0", "@naturalcycles/js-lib@^14.27.0", "@naturalcycles/js-lib@^14.6.1":
-  version "14.91.1"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.91.1.tgz#ae8b6710930f058f76437eda59c19908dbfe3a5a"
-  integrity sha512-c46g988atPUpp06n5qSmHzv7mlzPBWeEuAhBtNWCxTRHDnGs05afqVZQP06GBK/jlJnbmAaNeWlFRv7x5H4BOw==
+"@naturalcycles/js-lib@^14.0.0", "@naturalcycles/js-lib@^14.27.0":
+  version "14.92.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.92.0.tgz#39329f554c86c3741b7d674b8ea8b230f25897da"
+  integrity sha512-mSa1+WV5RdmtVTQfoPdmgkF2kmRZGXR80wiN9sqDH6nG/KxM6PH+07cAOp3WvjaNVRh9ZKMLIgo5qIZfNodX1w==
   dependencies:
     tslib "^2.0.0"
 
@@ -1674,14 +1673,6 @@
     nanoid "^3.0.0"
     through2-concurrent "^2.0.0"
     yargs "^17.0.0"
-
-"@naturalcycles/time-lib@^3.0.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/time-lib/-/time-lib-3.5.1.tgz#83cea25a3b8f170a0ece1997465db16e7668653a"
-  integrity sha512-jJHqCmpRPjHndQr2vMDylueZkepIWSnHZ/FR5PC6vS5G/dt7XDvff1TkMMYwGKKrB8kcP9mTBeaVzc51kYiz/w==
-  dependencies:
-    "@naturalcycles/js-lib" "^14.6.1"
-    dayjs "^1.8.26"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -5047,11 +5038,6 @@ date-and-time@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/date-and-time/-/date-and-time-2.3.0.tgz#1b509be4c938dbbf5fc9c14d66e1daf9fe3cef13"
   integrity sha512-DY53oj742mykXjZzDxT7NxH5cxwBRb7FsVG5+8pcV96qU9JQd0UhA21pQB18fwwsXOXeSM0RJV4OzgVxu8eatg==
-
-dayjs@^1.8.26:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.0.tgz#009bf7ef2e2ea2d5db2e6583d2d39a4b5061e805"
-  integrity sha512-JLC809s6Y948/FuCZPm5IX8rRhQwOiyMb2TfVVQEixG7P8Lm/gt5S7yoQZmC8x1UehI9Pb7sksEt4xx14m+7Ug==
 
 de-indent@^1.0.2:
   version "1.0.2"

@@ -43,7 +43,7 @@ export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployIn
   const simpleGit = require('simple-git/promise') as typeof simpleGitLib // lazy load
   const git = simpleGit('.')
 
-  const now = localTime()
+  const now = localTime().utc()
   const gitBranch = (await git.status()).current!
   const gitRev = (await git.revparse(['HEAD'])).slice(0, 7)
 
