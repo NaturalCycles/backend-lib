@@ -28,10 +28,10 @@ test('validateBody', async () => {
   expect(bodyStr).not.toContain(pw)
   expect(bodyStr).toContain('REDACTED')
   expect(body).toMatchInlineSnapshot(`
-    Object {
-      "error": Object {
-        "data": Object {
-          "errors": Array [],
+    {
+      "error": {
+        "data": {
+          "errors": [],
           "httpStatusCode": 400,
           "objectName": "request body",
           "userFriendly": true,

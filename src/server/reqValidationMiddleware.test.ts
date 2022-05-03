@@ -29,19 +29,19 @@ test('reqValidation', async () => {
   expect(bodyStr).not.toContain(pw)
   expect(bodyStr).toContain('REDACTED')
   expect(body).toMatchInlineSnapshot(`
-    Object {
-      "error": Object {
-        "data": Object {
+    {
+      "error": {
+        "data": {
           "httpStatusCode": 400,
-          "joiValidationErrorItems": Array [],
+          "joiValidationErrorItems": [],
           "joiValidationObjectName": "request body",
         },
         "message": "Invalid request body
     {
-      \\"pw\\" [1]: \\"REDACTED\\"
+      "pw" [1]: "REDACTED"
     }
 
-    [1] \\"pw\\" length must be at least 8 characters long",
+    [1] "pw" length must be at least 8 characters long",
         "name": "HttpError",
       },
     }
@@ -50,9 +50,9 @@ test('reqValidation', async () => {
   expect(inspectAny(body)).toMatchInlineSnapshot(`
     "HttpError(400): Invalid request body
     {
-      \\"pw\\" [1]: \\"REDACTED\\"
+      "pw" [1]: "REDACTED"
     }
 
-    [1] \\"pw\\" length must be at least 8 characters long"
+    [1] "pw" length must be at least 8 characters long"
   `)
 })

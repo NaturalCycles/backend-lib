@@ -92,10 +92,10 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
       .json()
   }
 
-  override async saveBatch<ROW extends ObjectWithId>(
+  override async saveBatch<ROW extends Partial<ObjectWithId>>(
     table: string,
     rows: ROW[],
-    opt?: CommonDBSaveOptions,
+    opt?: CommonDBSaveOptions<ROW>,
   ): Promise<void> {
     await this.got.put(`saveBatch`, {
       json: {

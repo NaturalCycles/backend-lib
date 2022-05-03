@@ -98,9 +98,9 @@ describe('getAdminInfo', () => {
       })
       .json()
     expect(r).toMatchInlineSnapshot(`
-      Object {
+      {
         "email": "good@mail.com",
-        "permissions": Array [
+        "permissions": [
           "p1",
           "p2",
         ],
@@ -117,9 +117,9 @@ describe('getAdminInfo', () => {
       })
       .json()
     expect(r).toMatchInlineSnapshot(`
-      Object {
+      {
         "email": "second@mail.com",
-        "permissions": Array [
+        "permissions": [
           "s1",
           "s2",
         ],
