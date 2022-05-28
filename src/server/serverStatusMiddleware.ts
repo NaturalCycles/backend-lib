@@ -17,13 +17,13 @@ export function getServerStatusData(
   extra?: any,
 ): Record<string, any> {
   const { gitRev, gitBranch, prod, ts } = getDeployInfo(projectDir)
-  const t = localTime(ts).utc()
-  const deployBuildTimeUTC = t.toPretty()
+  const t = localTime(ts)
+  const deployBuildTime = t.toPretty()
   const buildInfo = [t.toStringCompact(), gitBranch, gitRev].filter(Boolean).join('_')
 
   return _filterFalsyValues({
     started: getStartedStr(),
-    deployBuildTimeUTC,
+    deployBuildTime,
     APP_ENV,
     prod,
     buildInfo,
@@ -39,6 +39,6 @@ export function getServerStatusData(
 }
 
 function getStartedStr(): string {
-  const started = localTime().utc().subtract(process.uptime(), 'second')
-  return `${started.toPretty()} UTC (${started.fromNow()})`
+  const started = localTime().subtract(process.uptime(), 'second')
+  return `${started.toPretty()} (${started.fromNow()})`
 }
