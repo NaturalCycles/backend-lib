@@ -1,20 +1,18 @@
 import { _anyToError, _Memo, CommonLogger, CommonLogLevel } from '@naturalcycles/js-lib'
 import { inspectAny, inspectAnyStringifyFn } from '@naturalcycles/nodejs-lib'
-import { Severity } from '@sentry/node'
-import type { Breadcrumb, NodeOptions } from '@sentry/node'
+import type { Breadcrumb, NodeOptions, SeverityLevel } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
 import { BackendErrorRequestHandler, BackendRequestHandler, getRequestLogger } from '../index'
 
 export interface SentrySharedServiceCfg extends NodeOptions {}
 
-const sentrySeverityMap: Record<Severity, CommonLogLevel> = {
-  [Severity.Debug]: 'log',
-  [Severity.Log]: 'log',
-  [Severity.Info]: 'log',
-  [Severity.Warning]: 'warn',
-  [Severity.Error]: 'error',
-  [Severity.Critical]: 'error',
-  [Severity.Fatal]: 'error',
+const sentrySeverityMap: Record<SeverityLevel, CommonLogLevel> = {
+  debug: 'log',
+  info: 'log',
+  log: 'log',
+  warning: 'warn',
+  error: 'error',
+  fatal: 'error',
 }
 
 export class SentrySharedService {
@@ -106,7 +104,7 @@ export class SentrySharedService {
   /**
    * Returns "eventId"
    */
-  captureMessage(msg: string, level?: Severity): string {
+  captureMessage(msg: string, level?: SeverityLevel): string {
     getRequestLogger()[sentrySeverityMap[level!] || 'log']('captureMessage:', msg)
     return this.sentry().captureMessage(msg, level)
   }

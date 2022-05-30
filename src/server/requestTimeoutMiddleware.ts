@@ -72,7 +72,7 @@ export function requestTimeoutMiddleware(
       )
     }, timeoutSeconds * 1000)
 
-    onFinished(res, () => clearTimeout(req.requestTimeout!))
+    onFinished(res, () => clearTimeout(req.requestTimeout))
 
     next()
   }
@@ -110,7 +110,7 @@ export function customRequestTimeoutMiddleware(
       }
     }, timeoutSeconds * 1000)
 
-    onFinished(res, () => clearTimeout(req.requestTimeout!))
+    onFinished(res, () => clearTimeout(req.requestTimeout))
 
     next()
   }

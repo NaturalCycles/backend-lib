@@ -61,7 +61,7 @@ export function bodyParserTimeoutMiddleware(
  */
 export function clearBodyParserTimeout(): BackendRequestHandler {
   return (req, res, next) => {
-    clearTimeout(req.bodyParserTimeout!)
+    clearTimeout(req.bodyParserTimeout)
     next()
   }
 }
