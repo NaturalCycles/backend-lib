@@ -1,8 +1,8 @@
 diff --git a/node_modules/@sentry/node/cjs/handlers.js b/node_modules/@sentry/node/cjs/handlers.js
-index 1329cbd..3b5374c 100644
+index 2682a5e..edc3a1f 100644
 --- a/node_modules/@sentry/node/cjs/handlers.js
 +++ b/node_modules/@sentry/node/cjs/handlers.js
-@@ -365,7 +365,8 @@ function requestHandler(
+@@ -364,7 +364,8 @@ function requestHandler(
      var local = domain.create();
      local.add(req);
      local.add(res);

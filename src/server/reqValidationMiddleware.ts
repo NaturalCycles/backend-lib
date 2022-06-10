@@ -59,8 +59,6 @@ function redact(redactPaths: string[], obj: any, error: Error): void {
     .map(path => _get(obj, path))
     .filter(Boolean)
     .forEach(secret => {
-      if (secret) {
-        error.message = error.message.replace(secret, REDACTED)
-      }
+      error.message = error.message.replace(secret, REDACTED)
     })
 }
