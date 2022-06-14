@@ -1,4 +1,6 @@
 import { Server } from 'http'
+import { Socket } from 'net'
+import { StringMap } from '@naturalcycles/js-lib'
 
 export interface DestroyableServer extends Server {
   destroy(): Promise<void>
@@ -10,7 +12,7 @@ export interface DestroyableServer extends Server {
  * @experimental
  */
 export function enableDestroy(server: Server): DestroyableServer {
-  const connections = {}
+  const connections: StringMap<Socket> = {}
   const srv = server as DestroyableServer
 
   srv.on('connection', function (conn) {
@@ -23,7 +25,7 @@ export function enableDestroy(server: Server): DestroyableServer {
     // let started = Date.now()
     const p = new Promise(resolve => server.close(resolve))
     for (const key of Object.keys(connections)) {
-      connections[key].destroy()
+      connections[key]!.destroy()
     }
     await p
     // console.log(`destroyed ${Object.keys(connections).length} con(s) in ${_since(started)}`)

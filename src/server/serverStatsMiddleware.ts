@@ -31,7 +31,7 @@ interface Stat {
 const serverStatsMap: StringMap<Stat> = {}
 
 const percentiles = [50, 90, 99]
-const families = ['2xx', '4xx', '5xx']
+const families: (keyof Stat)[] = ['2xx', '4xx', '5xx']
 
 // Store this number of last latencies
 const SIZE = 50
