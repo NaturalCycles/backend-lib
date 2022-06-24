@@ -1,0 +1,28 @@
+diff --git a/node_modules/@sentry/node/cjs/handlers.js b/node_modules/@sentry/node/cjs/handlers.js
+index bc2e6d8..46cc8dc 100644
+--- a/node_modules/@sentry/node/cjs/handlers.js
++++ b/node_modules/@sentry/node/cjs/handlers.js
+@@ -100,7 +100,8 @@ function requestHandler(
+     var local = domain.create();
+     local.add(req);
+     local.add(res);
+-    local.on('error', next);
++    // Kirill: skipping this on-error call to avoid breaking user-requests with `void` functions
++    // local.on('error', next);
+ 
+     local.run(() => {
+       var currentHub = core.getCurrentHub();
+diff --git a/node_modules/@sentry/node/esm/handlers.js b/node_modules/@sentry/node/esm/handlers.js
+index 27cc54e..3f055af 100644
+--- a/node_modules/@sentry/node/esm/handlers.js
++++ b/node_modules/@sentry/node/esm/handlers.js
+@@ -98,7 +98,8 @@ function requestHandler(
+     var local = domain.create();
+     local.add(req);
+     local.add(res);
+-    local.on('error', next);
++    // Kirill: skipping this on-error call to avoid breaking user-requests with `void` functions
++    // local.on('error', next);
+ 
+     local.run(() => {
+       var currentHub = getCurrentHub();
