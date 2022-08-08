@@ -40,7 +40,7 @@ export async function createAndSaveDeployInfo(
 }
 
 export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployInfo> {
-  const simpleGit = require('simple-git/promise') as typeof simpleGitLib // lazy load
+  const simpleGit = require('simple-git') as typeof simpleGitLib // lazy load
   const git = simpleGit('.')
 
   const now = localTime()
