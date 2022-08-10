@@ -55,6 +55,7 @@ const DEFAULT_FILES = [
   'secret/**/*.enc', // encrypted secrets
   'package.json',
   'yarn.lock',
+  '.yarnrc',
   'tsconfig.json', // for path-mapping to work!
   'tsconfig.dist.json',
   '.gcloudignore',
