@@ -74,16 +74,21 @@ export class SentrySharedService {
 
   /**
    * Does console.error(err)
-   * Returns "eventId"
+   * Returns "eventId" or undefined (if error was not reported).
    */
-  captureException(err: any, logError = true): string {
+  captureException(err: any, logError = true): string | undefined {
     // console.error(err)
     // Using request-aware logger here
     if (logError) {
       getRequestLogger().error('captureException:', err)
     }
 
-    // This is to avoid Sentry cutting the err.message to 253 characters
+    if (err?.data?.report === false) {
+      // Skip reporting the error
+      return
+    }
+
+    // This is to avoid Sentry cutting err.message to 253 characters
     // It will log additional "breadcrumb object" before the error
     // It's a Breadcrumb, not a console.log, because console.log are NOT automatically attached as Breadcrumbs in cron-job environments (outside of Express)
     this.sentry().addBreadcrumb({
