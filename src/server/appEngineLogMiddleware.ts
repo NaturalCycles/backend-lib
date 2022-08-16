@@ -30,6 +30,15 @@ export const devLogger: CommonLogger = {
   error: (...args) => logToDev(null, args),
 }
 
+/**
+ * Same as devLogger, but without colors (e.g to not confuse Sentry).
+ */
+export const ciLogger: CommonLogger = {
+  log: (...args) => logToCI(args),
+  warn: (...args) => logToCI(args),
+  error: (...args) => logToCI(args),
+}
+
 // Documented here: https://cloud.google.com/logging/docs/structured-logging
 function logToAppEngine(meta: AnyObject, args: any[]): void {
   console.log(
@@ -48,6 +57,14 @@ function logToDev(requestId: string | null, args: any[]): void {
       ...args.map(a => inspectAny(a, { includeErrorStack: true, colors: true })),
     ].join(' '),
   )
+}
+
+/**
+ * Same as logToDev, but without request and without colors.
+ * This is to not confuse e.g Sentry when it picks up messages with colors
+ */
+function logToCI(args: any[]): void {
+  console.log(args.map(a => inspectAny(a, { includeErrorStack: true, colors: false })).join(' '))
 }
 
 export function appEngineLogMiddleware(): BackendRequestHandler {
