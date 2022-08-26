@@ -2,7 +2,6 @@ import * as fs from 'fs'
 import { _mapValues, _merge, _truncate, localTime } from '@naturalcycles/js-lib'
 import { dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
 import * as yaml from 'js-yaml'
-import type * as simpleGitLib from 'simple-git/promise'
 import { BackendCfg } from './backend.cfg.util'
 import { AppYaml, DeployInfo } from './deploy.model'
 
@@ -40,7 +39,7 @@ export async function createAndSaveDeployInfo(
 }
 
 export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployInfo> {
-  const simpleGit = require('simple-git') as typeof simpleGitLib // lazy load
+  const simpleGit = require('simple-git') // lazy load
   const git = simpleGit('.')
 
   const now = localTime()
