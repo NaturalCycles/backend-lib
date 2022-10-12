@@ -56,7 +56,7 @@ export function reqValidation(
  */
 function redact(redactPaths: string[], obj: any, error: Error): void {
   redactPaths
-    .map(path => _get(obj, path))
+    .map(path => _get(obj, path) as string)
     .filter(Boolean)
     .forEach(secret => {
       error.message = error.message.replace(secret, REDACTED)
