@@ -20,7 +20,7 @@ test('genericErrorFormatter', async () => {
   const overriddenSecret = 'Nothing to see'
   const mwCfg: GenericErrorMiddlewareCfg = {
     formatError: err => {
-      err.data.dirtySecret = overriddenSecret
+      err.data['dirtySecret'] = overriddenSecret
     },
   }
 

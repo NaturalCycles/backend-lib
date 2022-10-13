@@ -32,7 +32,7 @@ const { APP_ENV } = process.env
 const includeErrorStack = APP_ENV !== 'prod' && APP_ENV !== 'test'
 
 // Hacky way to store the sentryService, so it's available to `respondWithError` function
-let formatError: (err: ErrorObject<HttpErrorData>) => void | undefined
+let formatError: ((err: ErrorObject<HttpErrorData>) => void) | undefined
 let sentryService: SentrySharedService | undefined
 let reportOnly5xx = false
 
