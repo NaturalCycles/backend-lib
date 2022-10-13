@@ -2,6 +2,7 @@ import { Options, OptionsJson, OptionsUrlencoded } from 'body-parser'
 import { CorsOptions } from 'cors'
 import { SentrySharedService } from '../sentry/sentry.shared.service'
 import { BackendRequestHandler } from './server.model'
+import { GenericErrorMiddlewareCfg } from './genericErrorMiddleware'
 
 /**
  * Plain RequestHandler can be provided - then it's mounted to /
@@ -35,4 +36,6 @@ export interface DefaultAppCfg {
   bodyParserRawOptions?: Options
 
   corsOptions?: CorsOptions
+
+  genericErrorMwCfg?: GenericErrorMiddlewareCfg
 }

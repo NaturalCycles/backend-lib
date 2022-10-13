@@ -120,7 +120,7 @@ export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
   // Generic error handler
   // It handles errors, returns proper status, does sentry.captureException(),
   // assigns err.data.errorId from sentry
-  app.use(genericErrorMiddleware({ sentryService }))
+  app.use(genericErrorMiddleware({ sentryService, ...cfg.genericErrorMwCfg }))
 
   return app
 }
