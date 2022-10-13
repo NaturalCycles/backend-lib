@@ -2,6 +2,7 @@ import { Options, OptionsJson, OptionsUrlencoded } from 'body-parser'
 import { CorsOptions } from 'cors'
 import { SentrySharedService } from '../sentry/sentry.shared.service'
 import { BackendRequestHandler } from './server.model'
+import { GenericErrorMiddlewareCfg } from './genericErrorMiddleware'
 
 /**
  * Plain RequestHandler can be provided - then it's mounted to /
@@ -23,6 +24,7 @@ export interface BackendRequestHandlerWithPath {
  * 4. postHandlers
  */
 export interface DefaultAppCfg {
+  genericErrorMwCfg?: GenericErrorMiddlewareCfg
   preHandlers?: BackendRequestHandlerCfg[]
   handlers?: BackendRequestHandlerCfg[]
   resources?: BackendRequestHandlerCfg[]
