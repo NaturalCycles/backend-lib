@@ -32,4 +32,5 @@ test('genericErrorFormatter', async () => {
     .json()) as any
 
   expect(res.error.data.dirtySecret).toEqual(overriddenSecret)
+  await appWExtraMw.close()
 })
