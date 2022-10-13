@@ -1,7 +1,7 @@
 import { Server } from 'http'
 import { AddressInfo } from 'net'
 import { getGot, GetGotOptions, Got } from '@naturalcycles/nodejs-lib'
-import { BackendApplication, createDefaultApp, GenericErrorMiddlewareCfg } from '../index'
+import { BackendApplication, createDefaultApp, DefaultAppCfg } from '../index'
 import { BackendRequestHandlerCfg } from '../server/createDefaultApp.model'
 
 export interface ExpressApp extends Got {
@@ -18,11 +18,11 @@ class ExpressTestService {
   createAppFromResource(
     resource: BackendRequestHandlerCfg,
     opt?: GetGotOptions,
-    genericErrorMwCfg?: GenericErrorMiddlewareCfg,
+    defaultAppCfg?: DefaultAppCfg,
   ): ExpressApp {
     return this.createApp(
       createDefaultApp({
-        genericErrorMwCfg,
+        ...defaultAppCfg,
         resources: [resource],
       }),
       opt,

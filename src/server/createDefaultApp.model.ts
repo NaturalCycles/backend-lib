@@ -24,7 +24,6 @@ export interface BackendRequestHandlerWithPath {
  * 4. postHandlers
  */
 export interface DefaultAppCfg {
-  genericErrorMwCfg?: GenericErrorMiddlewareCfg
   preHandlers?: BackendRequestHandlerCfg[]
   handlers?: BackendRequestHandlerCfg[]
   resources?: BackendRequestHandlerCfg[]
@@ -37,4 +36,6 @@ export interface DefaultAppCfg {
   bodyParserRawOptions?: Options
 
   corsOptions?: CorsOptions
+
+  genericErrorMwCfg?: GenericErrorMiddlewareCfg
 }

@@ -12,13 +12,6 @@ import { SentrySharedService } from '../sentry/sentry.shared.service'
 import { BackendErrorRequestHandler, BackendRequest, BackendResponse } from './server.model'
 
 export interface GenericErrorMiddlewareCfg {
-  /**
-   * Generic hook that can be used to mutate errors before they are returned to client.
-   * This function does not affect data sent to sentry.
-   *
-   * @param err
-   */
-  formatError?: (err: ErrorObject<HttpErrorData>) => void
   sentryService?: SentrySharedService
 
   /**
@@ -26,15 +19,21 @@ export interface GenericErrorMiddlewareCfg {
    * So, by default, it will report ALL errors, not only 5xx.
    */
   reportOnly5xx?: boolean
+
+  /**
+   * Generic hook that can be used to **mutate** errors before they are returned to client.
+   * This function does not affect data sent to sentry.
+   */
+  formatError?: (err: ErrorObject<HttpErrorData>) => void
 }
 
 const { APP_ENV } = process.env
 const includeErrorStack = APP_ENV !== 'prod' && APP_ENV !== 'test'
 
 // Hacky way to store the sentryService, so it's available to `respondWithError` function
-let formatError: ((err: ErrorObject<HttpErrorData>) => void) | undefined
 let sentryService: SentrySharedService | undefined
 let reportOnly5xx = false
+let formatError: GenericErrorMiddlewareCfg['formatError']
 
 /**
  * Generic error handler.
@@ -44,9 +43,9 @@ let reportOnly5xx = false
 export function genericErrorMiddleware(
   cfg: GenericErrorMiddlewareCfg = {},
 ): BackendErrorRequestHandler {
-  formatError = cfg.formatError
   sentryService ||= cfg.sentryService
   reportOnly5xx = cfg.reportOnly5xx || false
+  formatError = cfg.formatError
 
   return (err, req, res, _next) => {
     // if (res.headersSent) {
@@ -94,9 +93,7 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
   httpError.data.report ||= undefined // set to undefined if false
   _filterUndefinedValues(httpError.data, true)
 
-  if (formatError) {
-    formatError(httpError) // Mutates
-  }
+  formatError?.(httpError) // Mutates
 
   res.status(httpError.data.httpStatusCode).json({
     error: httpError,
