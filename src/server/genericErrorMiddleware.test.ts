@@ -14,7 +14,7 @@ test('genericErrorFormatter', async () => {
     })
     .json<any>()
 
-  expect(res.error.data.dirtySecret).toEqual('51')
+  expect(res.error.data.dirtySecret).toBe('51')
 
   const overriddenSecret = 'Nothing to see'
 
