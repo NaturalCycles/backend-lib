@@ -1,4 +1,5 @@
 import { buildProdCommand } from '@naturalcycles/dev-lib'
+import { _objectAssign } from '@naturalcycles/js-lib'
 import { execCommand } from '@naturalcycles/nodejs-lib/dist/exec'
 import { deployHealthCheck, DeployHealthCheckOptions } from './deployHealthCheck'
 import { deployPrepare, DeployPrepareOptions } from './deployPrepare'
@@ -22,6 +23,11 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
   const appYamlPath = `${targetDir}/app.yaml`
 
   const { gaeProject, gaeService, gaeVersion, versionUrl, serviceUrl } = deployInfo
+  _objectAssign(opt, {
+    gaeProject,
+    gaeService,
+    gaeVersion,
+  })
 
   // gcloud app deploy ./tmp/deploy/app.yaml --project $deployInfo_gaeProject --version $deployInfo_gaeVersion --quiet --no-promote
   await execCommand(
