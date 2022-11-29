@@ -1,4 +1,4 @@
-import * as http from 'http'
+import * as http from 'node:http'
 import express = require('express')
 
 export async function createServerBareExpress(): Promise<http.Server> {

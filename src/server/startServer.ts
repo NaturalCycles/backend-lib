@@ -1,4 +1,4 @@
-import { Server } from 'http'
+import { Server } from 'node:http'
 import { _Memo, _ms } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
 import { createDefaultApp } from '../index'

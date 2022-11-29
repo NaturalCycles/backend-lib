@@ -1,5 +1,5 @@
-import { Server } from 'http'
-import { Socket } from 'net'
+import { Server } from 'node:http'
+import { Socket } from 'node:net'
 import { StringMap } from '@naturalcycles/js-lib'
 
 export interface DestroyableServer extends Server {

@@ -1,4 +1,4 @@
-import { Readable } from 'stream'
+import { Readable } from 'node:stream'
 import { JsonSchemaRootObject, ObjectWithId } from '@naturalcycles/js-lib'
 import {
   BaseCommonDB,

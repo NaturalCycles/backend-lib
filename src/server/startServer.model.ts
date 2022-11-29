@@ -1,4 +1,4 @@
-import { Server } from 'http'
+import { Server } from 'node:http'
 import { SentrySharedService } from '../sentry/sentry.shared.service'
 import { DefaultAppCfg } from './createDefaultApp.model'
 import { BackendApplication } from './server.model'

@@ -1,7 +1,7 @@
 const started = Date.now()
 
-import { Server } from 'http'
-import { AddressInfo } from 'net'
+import { Server } from 'node:http'
+import { AddressInfo } from 'node:net'
 import { _since } from '@naturalcycles/js-lib'
 import { createDefaultApp } from '..'
 import { debugResource } from './debug.resource'

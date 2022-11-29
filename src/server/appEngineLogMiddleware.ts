@@ -1,4 +1,4 @@
-import { inspect } from 'util'
+import { inspect } from 'node:util'
 import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { inspectAny } from '@naturalcycles/nodejs-lib'
 import { AnyObject, CommonLogger } from '@naturalcycles/js-lib'

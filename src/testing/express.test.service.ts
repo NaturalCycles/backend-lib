@@ -1,5 +1,5 @@
-import { Server } from 'http'
-import { AddressInfo } from 'net'
+import { Server } from 'node:http'
+import { AddressInfo } from 'node:net'
 import { getGot, GetGotOptions, Got } from '@naturalcycles/nodejs-lib'
 import { BackendApplication, createDefaultApp, DefaultAppCfg } from '../index'
 import { BackendRequestHandlerCfg } from '../server/createDefaultApp.model'

@@ -1,4 +1,4 @@
-import { inspect, InspectOptions } from 'util'
+import { inspect, InspectOptions } from 'node:util'
 import { pDelay, _filterFalsyValues, _ms, _since } from '@naturalcycles/js-lib'
 import { getGot } from '@naturalcycles/nodejs-lib'
 import { dimGrey, red } from '@naturalcycles/nodejs-lib/dist/colors'

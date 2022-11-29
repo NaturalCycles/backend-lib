@@ -1,4 +1,4 @@
-import * as fs from 'fs'
+import * as fs from 'node:fs'
 import { _mapValues, _merge, _truncate, localTime } from '@naturalcycles/js-lib'
 import { dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
 import * as yaml from 'js-yaml'

@@ -1,4 +1,4 @@
-import * as fs from 'fs'
+import * as fs from 'node:fs'
 import { Admin401ErrorData, HttpError, _memoFn } from '@naturalcycles/js-lib'
 import * as ejs from 'ejs'
 import { BackendRequestHandler } from '../server/server.model'
