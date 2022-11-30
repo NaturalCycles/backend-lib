@@ -52,6 +52,6 @@ function requireSecureHeaderOrAdmin(
     }
 
     // Forward to AdminMiddleware (try Admin)
-    requireAdmin(req, res, next)
+    await requireAdmin(req, res, next)
   }
 }

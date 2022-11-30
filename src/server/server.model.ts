@@ -1,5 +1,5 @@
-import { CommonLogFunction } from '@naturalcycles/js-lib'
-import { IRouter, Request, NextFunction, Response, Application } from 'express'
+import type { CommonLogFunction, Promisable } from '@naturalcycles/js-lib'
+import type { IRouter, Request, NextFunction, Response, Application } from 'express'
 
 /**
  * Use this interface instead of express.Request in cases when TypeScript gives an error, because it haven't "included" this very file.
@@ -30,14 +30,14 @@ export type BackendRequestHandler = (
   req: BackendRequest,
   res: BackendResponse,
   next: NextFunction,
-) => void
+) => Promisable<void>
 
 export type BackendErrorRequestHandler = (
   err: any,
   req: BackendRequest,
   res: BackendResponse,
   next: NextFunction,
-) => void
+) => Promisable<void>
 
 export type BackendRouter = IRouter
 export type BackendApplication = Application
