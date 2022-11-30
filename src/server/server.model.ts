@@ -30,14 +30,14 @@ export type BackendRequestHandler = (
   req: BackendRequest,
   res: BackendResponse,
   next: NextFunction,
-) => Promisable<void>
+) => Promisable<any>
 
 export type BackendErrorRequestHandler = (
   err: any,
   req: BackendRequest,
   res: BackendResponse,
   next: NextFunction,
-) => Promisable<void>
+) => Promisable<any>
 
 export type BackendRouter = IRouter
 export type BackendApplication = Application
