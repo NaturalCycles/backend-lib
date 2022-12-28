@@ -50,7 +50,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
 
   override async getByIds<ROW extends ObjectWithId>(
     table: string,
-    ids: string[],
+    ids: ROW['id'][],
     opt?: CommonDBOptions,
   ): Promise<ROW[]> {
     return await this.got
@@ -106,7 +106,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
     })
   }
 
-  override async deleteByIds(table: string, ids: string[], opt?: CommonDBOptions): Promise<number> {
+  async deleteByIds(table: string, ids: string[], opt?: CommonDBOptions): Promise<number> {
     return await this.got
       .put(`deleteByIds`, {
         json: {

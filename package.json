@@ -4,8 +4,8 @@
   "scripts": {
     "prepare": "husky install && patch-package",
     "serve": "APP_ENV=dev nodemon",
-    "docs-serve": "vuepress dev docs",
-    "docs-build": "vuepress build docs",
+    "docs-serve": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
+    "docs-build": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
     "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts",
     "deploy-prepare-debug": "AA=AA1 BB=BB1 yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
@@ -78,7 +78,7 @@
     "url": "https://github.com/NaturalCycles/backend-lib"
   },
   "engines": {
-    "node": ">=16.10.0"
+    "node": ">=16.15.0"
   },
   "type": "commonjs",
   "description": "Standard library for making Express.js / AppEngine based backend services",

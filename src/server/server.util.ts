@@ -3,7 +3,7 @@ import { Socket } from 'node:net'
 import { StringMap } from '@naturalcycles/js-lib'
 
 export interface DestroyableServer extends Server {
-  destroy(): Promise<void>
+  destroy: () => Promise<void>
 }
 
 /**

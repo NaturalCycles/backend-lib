@@ -27,6 +27,7 @@ const features: CommonDBImplementationFeatures = {
   update: false,
   insert: false,
   transactions: false,
+  updateByQuery: false,
 }
 
 describe('runCommonDBTest', () => runCommonDBTest(db, features))

@@ -73,9 +73,14 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
     req.error(err)
   }
 
-  const originalError = _anyToError(err, Error, {
-    stringifyFn: inspectAnyStringifyFn,
-  })
+  const originalError = _anyToError(
+    err,
+    Error,
+    {},
+    {
+      stringifyFn: inspectAnyStringifyFn,
+    },
+  )
 
   let errorId: string | undefined
 

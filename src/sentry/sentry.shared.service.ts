@@ -100,9 +100,14 @@ export class SentrySharedService {
     })
 
     return this.sentry().captureException(
-      _anyToError(err, Error, {
-        stringifyFn: inspectAnyStringifyFn,
-      }),
+      _anyToError(
+        err,
+        Error,
+        {},
+        {
+          stringifyFn: inspectAnyStringifyFn,
+        },
+      ),
     )
   }
 
@@ -144,9 +149,14 @@ export class SentrySharedService {
         })
 
         this.sentry().captureException(
-          _anyToError(args.length === 1 ? args[0] : args, Error, {
-            stringifyFn: inspectAnyStringifyFn,
-          }),
+          _anyToError(
+            args.length === 1 ? args[0] : args,
+            Error,
+            {},
+            {
+              stringifyFn: inspectAnyStringifyFn,
+            },
+          ),
         )
       },
     }

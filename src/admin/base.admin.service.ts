@@ -68,6 +68,7 @@ export class BaseAdminService {
   /**
    * To be extended.
    */
+  // eslint-disable-next-line max-params
   protected async onPermissionCheck(
     req: BackendRequest,
     email: string,
@@ -113,7 +114,7 @@ export class BaseAdminService {
    */
   async getAdminToken(req: BackendRequest): Promise<string | undefined> {
     return (
-      (req.cookies || {})[this.cfg.adminTokenKey] ||
+      req.cookies?.[this.cfg.adminTokenKey] ||
       req.header(this.cfg.adminTokenKey) ||
       req.header('x-admin-token')
     )

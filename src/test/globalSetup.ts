@@ -35,7 +35,7 @@ export default async (): Promise<void> => {
   const url = `http://${address}:${port}`
 
   process.env.__EXPRESS_SERVER_URL__ = url
-  // @ts-ignore
+  // @ts-expect-error
   global['__EXPRESS_SERVER__'] = server
 
   console.log(`\nglobalSetup.ts started ${url} in ${_since(started)}\n`)

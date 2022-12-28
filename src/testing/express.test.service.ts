@@ -5,7 +5,7 @@ import { BackendApplication, createDefaultApp, DefaultAppCfg } from '../index'
 import { BackendRequestHandlerCfg } from '../server/createDefaultApp.model'
 
 export interface ExpressApp extends Got {
-  close(): Promise<void>
+  close: () => Promise<void>
 }
 
 // Example:

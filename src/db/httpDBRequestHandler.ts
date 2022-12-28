@@ -111,10 +111,10 @@ export function httpDBRequestHandler(db: CommonDB): BackendRouter {
   })
 
   // deleteByIds
-  router.put('/deleteByIds', reqValidation('body', getByIdsInputSchema), async (req, res) => {
-    const { table, ids, opt } = req.body as GetByIdsInput
-    res.json(await db.deleteByIds(table, ids, opt))
-  })
+  // router.put('/deleteByIds', reqValidation('body', getByIdsInputSchema), async (req, res) => {
+  //   const { table, ids, opt } = req.body as GetByIdsInput
+  //   res.json(await db.deleteByIds(table, ids, opt))
+  // })
 
   // deleteByQuery
   router.put('/deleteByQuery', reqValidation('body', runQueryInputSchema), async (req, res) => {
