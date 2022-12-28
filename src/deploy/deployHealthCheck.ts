@@ -1,6 +1,5 @@
 import { inspect, InspectOptions } from 'node:util'
-import { pDelay, _filterFalsyValues, _ms, _since } from '@naturalcycles/js-lib'
-import { getGot } from '@naturalcycles/nodejs-lib'
+import { pDelay, _filterFalsyValues, _ms, _since, getFetcher } from '@naturalcycles/js-lib'
 import { dimGrey, red } from '@naturalcycles/nodejs-lib/dist/colors'
 import { execCommand } from '@naturalcycles/nodejs-lib/dist/exec'
 import { coloredHttpCode } from '../server/request.log.util'
@@ -95,7 +94,7 @@ export async function deployHealthCheck(
   let failed = false
   let currentInterval = intervalSec * 1000
 
-  const got = getGot()
+  const fetcher = getFetcher()
 
   while (!done) {
     // eslint-disable-next-line no-await-in-loop
@@ -127,19 +126,20 @@ export async function deployHealthCheck(
 
     const started = Date.now()
 
-    const { statusCode } = await got(url, {
-      responseType: 'json',
-      timeout: timeoutSec * 1000,
-      retry: 0, // no retries allowed
-      followRedirect: false,
-      throwHttpErrors: false,
-    }).catch((err: Error) => {
-      console.log(err.message)
-
-      return {
-        statusCode: 0,
-      }
+    const { err, fetchResponse } = await fetcher.rawFetch(url, {
+      mode: 'json',
+      timeoutSeconds: timeoutSec,
+      retry: {
+        count: 0,
+      },
+      followRedirects: false,
     })
+
+    if (err) {
+      console.log(err)
+    }
+
+    const statusCode = fetchResponse?.status || 0
 
     if (statusCode === 200) {
       countHealthy++

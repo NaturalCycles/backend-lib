@@ -1732,9 +1732,9 @@
     yargs "^17.0.0"
 
 "@naturalcycles/js-lib@^14.0.0", "@naturalcycles/js-lib@^14.116.0", "@naturalcycles/js-lib@^14.27.0":
-  version "14.124.1"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.124.1.tgz#1a6d6f549b97d18d767bb5c696024134295279a4"
-  integrity sha512-y5I2uLxG3s5KtMG66fZegXJ1geth2wdE5Jh0RRxmdAjwmes7pAT6aLFNqYR5xEtHBFdt88c8UD7Qh8IjIP+b2g==
+  version "14.126.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.126.0.tgz#641c4af79b85ae5bc1d9c8b86bae7bb73721eb71"
+  integrity sha512-Zo3Mk7CFoBBTWWL88uLZdYVgYAB1xbQoVZ6j3AbLamuvsr7L77KPlkT4l2ZUNjDF0MSZ1yLw6Imksnq5uDO9tQ==
   dependencies:
     tslib "^2.0.0"
 
