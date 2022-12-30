@@ -7,7 +7,6 @@ import {
   HttpErrorData,
   HttpErrorResponse,
 } from '@naturalcycles/js-lib'
-import { inspectAnyStringifyFn } from '@naturalcycles/nodejs-lib'
 import { SentrySharedService } from '../sentry/sentry.shared.service'
 import { BackendErrorRequestHandler, BackendRequest, BackendResponse } from './server.model'
 
@@ -73,14 +72,7 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
     req.error(err)
   }
 
-  const originalError = _anyToError(
-    err,
-    Error,
-    {},
-    {
-      stringifyFn: inspectAnyStringifyFn,
-    },
-  )
+  const originalError = _anyToError(err)
 
   let errorId: string | undefined
 
@@ -90,7 +82,8 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
 
   if (res.headersSent) return
 
-  const httpError = _errorToErrorObject<HttpErrorData>(originalError, includeErrorStack)
+  const httpError = _errorToErrorObject<HttpErrorData>(originalError)
+  if (!includeErrorStack) delete httpError.stack
 
   httpError.data.errorId = errorId
   httpError.data.httpStatusCode ||= 500 // default to 500

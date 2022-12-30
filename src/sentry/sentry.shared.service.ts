@@ -1,5 +1,5 @@
 import { _anyToError, _Memo, CommonLogger, CommonLogLevel } from '@naturalcycles/js-lib'
-import { inspectAny, inspectAnyStringifyFn } from '@naturalcycles/nodejs-lib'
+import { inspectAny } from '@naturalcycles/nodejs-lib'
 import type { Breadcrumb, NodeOptions, SeverityLevel } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
 import { BackendErrorRequestHandler, BackendRequestHandler, getRequestLogger } from '../index'
@@ -99,16 +99,7 @@ export class SentrySharedService {
       // data: (err as AppError).data, // included in message
     })
 
-    return this.sentry().captureException(
-      _anyToError(
-        err,
-        Error,
-        {},
-        {
-          stringifyFn: inspectAnyStringifyFn,
-        },
-      ),
-    )
+    return this.sentry().captureException(_anyToError(err))
   }
 
   /**
@@ -148,16 +139,7 @@ export class SentrySharedService {
           message,
         })
 
-        this.sentry().captureException(
-          _anyToError(
-            args.length === 1 ? args[0] : args,
-            Error,
-            {},
-            {
-              stringifyFn: inspectAnyStringifyFn,
-            },
-          ),
-        )
+        this.sentry().captureException(_anyToError(args.length === 1 ? args[0] : args))
       },
     }
   }
