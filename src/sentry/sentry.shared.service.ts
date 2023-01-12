@@ -93,7 +93,6 @@ export class SentrySharedService {
     // It's a Breadcrumb, not a console.log, because console.log are NOT automatically attached as Breadcrumbs in cron-job environments (outside of Express)
     this.sentry().addBreadcrumb({
       message: inspectAny(err, {
-        includeErrorData: true,
         colors: false,
       }),
       // data: (err as AppError).data, // included in message
@@ -129,7 +128,6 @@ export class SentrySharedService {
         const message = args
           .map(arg =>
             inspectAny(arg, {
-              includeErrorData: true,
               colors: false,
             }),
           )
