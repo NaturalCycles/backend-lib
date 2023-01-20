@@ -6,7 +6,7 @@
 {
   "compilerOptions": {
     // Target/module
-    "target": "es2021",
+    "target": "es2022",
     "lib": ["esnext"], // add "dom" if needed
     "module": "commonjs",
     "moduleResolution": "node",
@@ -24,6 +24,10 @@
     "noImplicitOverride": true,
     "noUncheckedIndexedAccess": true,
     "noPropertyAccessFromIndexSignature": true,
+    // Otherwise since es2022 it defaults to true
+    // and starts to produce different/unexpected behavior
+    // https://angular.schule/blog/2022-11-use-define-for-class-fields
+    "useDefineForClassFields": false,
 
     // Enabled should be faster, but will catch less errors
     // "skipLibCheck": true,
