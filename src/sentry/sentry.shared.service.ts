@@ -1,4 +1,4 @@
-import { _anyToError, _Memo, CommonLogger, CommonLogLevel } from '@naturalcycles/js-lib'
+import { _anyToError, _Memo, AppError, CommonLogger, CommonLogLevel } from '@naturalcycles/js-lib'
 import { inspectAny } from '@naturalcycles/nodejs-lib'
 import type { Breadcrumb, NodeOptions, SeverityLevel } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
@@ -86,6 +86,12 @@ export class SentrySharedService {
     if (err?.data?.report === false) {
       // Skip reporting the error
       return
+    }
+
+    if (err?.data?.reportRate) {
+      const reportRate = (err as AppError).data.reportRate!
+      // E.g rate of 0.1 means 10% of errors are reported
+      if (Math.random() > reportRate) return
     }
 
     // This is to avoid Sentry cutting err.message to 253 characters
