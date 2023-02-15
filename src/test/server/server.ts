@@ -19,6 +19,7 @@ import {
   serverStatusMiddleware,
   okMiddleware,
   SentrySharedService,
+  basicAuthMiddleware,
 } from '../../index'
 import { loginHtml } from '../../admin/adminMiddleware'
 import {
@@ -42,6 +43,19 @@ router.get('/admin/info', async (req, res) => {
 })
 
 router.post('/admin/login', adminService.getFirebaseAuthLoginHandler())
+
+router.get(
+  '/basic',
+  basicAuthMiddleware({
+    loginPasswordMap: {
+      very: 'secret',
+    },
+    realm: 'dungeon',
+  }),
+  (req, res) => {
+    res.send('welcome in!')
+  },
+)
 
 router.get(
   '/debug',
