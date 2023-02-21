@@ -95,7 +95,7 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
 
   res.status(httpError.data.httpStatusCode).json({
     error: httpError,
-  } as HttpErrorResponse)
+  } satisfies HttpErrorResponse)
 }
 
 function shouldReportToSentry(err: Error): boolean {

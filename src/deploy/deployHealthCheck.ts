@@ -126,7 +126,7 @@ export async function deployHealthCheck(
 
     const started = Date.now()
 
-    const { err, fetchResponse } = await fetcher.rawFetch(url, {
+    const { err, fetchResponse } = await fetcher.doFetch(url, {
       mode: 'json',
       timeoutSeconds: timeoutSec,
       retry: {
