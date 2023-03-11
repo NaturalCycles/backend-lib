@@ -1,4 +1,4 @@
-import { HttpError, JsonSchema, JsonSchemaBuilder, _get } from '@naturalcycles/js-lib'
+import { JsonSchema, JsonSchemaBuilder, _get, AppError } from '@naturalcycles/js-lib'
 import { AjvSchema, AjvValidationError } from '@naturalcycles/nodejs-lib'
 import { BackendRequestHandler } from './server.model'
 import { ReqValidationOptions } from './reqValidationMiddleware'
@@ -54,8 +54,8 @@ function validateObject(
       }
 
       return next(
-        new HttpError(error.message, {
-          httpStatusCode: 400,
+        new AppError(error.message, {
+          backendResponseStatusCode: 400,
           report,
           ...error.data,
         }),

@@ -1,4 +1,4 @@
-import { Admin401ErrorData, HttpError } from '@naturalcycles/js-lib'
+import { AppError } from '@naturalcycles/js-lib'
 import { BackendRequestHandler } from '../server/server.model'
 import { AdminMiddleware, RequireAdminCfg, requireAdminPermissions } from './adminMiddleware'
 import { BaseAdminService } from './base.admin.service'
@@ -44,8 +44,8 @@ function requireSecureHeaderOrAdmin(
       if (!secureHeaderValue || providedHeader === secureHeaderValue) return next()
 
       return next(
-        new HttpError<Admin401ErrorData>('secureHeader or adminToken is required', {
-          httpStatusCode: 401,
+        new AppError('secureHeader or adminToken is required', {
+          backendResponseStatusCode: 401,
           adminAuthRequired: true,
         }),
       )

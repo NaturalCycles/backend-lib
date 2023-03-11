@@ -2,10 +2,9 @@ import {
   _anyToError,
   _errorToErrorObject,
   _filterUndefinedValues,
+  AppError,
+  BackendErrorResponseObject,
   ErrorObject,
-  HttpError,
-  HttpErrorData,
-  HttpErrorResponse,
 } from '@naturalcycles/js-lib'
 import { SentrySharedService } from '../sentry/sentry.shared.service'
 import { BackendErrorRequestHandler, BackendRequest, BackendResponse } from './server.model'
@@ -23,7 +22,7 @@ export interface GenericErrorMiddlewareCfg {
    * Generic hook that can be used to **mutate** errors before they are returned to client.
    * This function does not affect data sent to sentry.
    */
-  formatError?: (err: ErrorObject<HttpErrorData>) => void
+  formatError?: (err: ErrorObject) => void
 }
 
 const { APP_ENV } = process.env
@@ -82,24 +81,24 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
 
   if (res.headersSent) return
 
-  const httpError = _errorToErrorObject<HttpErrorData>(originalError)
+  const httpError = _errorToErrorObject(originalError)
   if (!includeErrorStack) delete httpError.stack
 
   httpError.data.errorId = errorId
-  httpError.data.httpStatusCode ||= 500 // default to 500
+  httpError.data.backendResponseStatusCode ||= 500 // default to 500
   httpError.data.headersSent = headersSent || undefined
   httpError.data.report ||= undefined // set to undefined if false
   _filterUndefinedValues(httpError.data, true)
 
   formatError?.(httpError) // Mutates
 
-  res.status(httpError.data.httpStatusCode).json({
+  res.status(httpError.data.backendResponseStatusCode).json({
     error: httpError,
-  } satisfies HttpErrorResponse)
+  } satisfies BackendErrorResponseObject)
 }
 
 function shouldReportToSentry(err: Error): boolean {
-  const e = err as HttpError
+  const e = err as AppError
 
   // By default - report
   if (!e?.data) return true
@@ -112,5 +111,7 @@ function shouldReportToSentry(err: Error): boolean {
   // If no httpCode - report
   // if httpCode >= 500 - report
   // Otherwise - report, unless !reportOnly5xx is set
-  return !reportOnly5xx || !e.data.httpStatusCode || e.data.httpStatusCode >= 500
+  return (
+    !reportOnly5xx || !e.data.backendResponseStatusCode || e.data.backendResponseStatusCode >= 500
+  )
 }

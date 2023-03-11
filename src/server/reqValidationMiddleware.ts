@@ -1,4 +1,4 @@
-import { HttpError, _get } from '@naturalcycles/js-lib'
+import { _get, AppError } from '@naturalcycles/js-lib'
 import { AnySchema, getValidationResult, JoiValidationError } from '@naturalcycles/nodejs-lib'
 import { BackendRequestHandler } from './server.model'
 
@@ -37,8 +37,8 @@ export function reqValidation(
       }
 
       return next(
-        new HttpError(error.message, {
-          httpStatusCode: 400,
+        new AppError(error.message, {
+          backendResponseStatusCode: 400,
           report,
           ...error.data,
         }),

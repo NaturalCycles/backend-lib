@@ -1,4 +1,4 @@
-import { HttpError } from '@naturalcycles/js-lib'
+import { AppError } from '@naturalcycles/js-lib'
 import { BackendRequestHandler, respondWithError } from '../index'
 
 export interface BodyParserTimeoutMiddlewareCfg {
@@ -10,7 +10,7 @@ export interface BodyParserTimeoutMiddlewareCfg {
   /**
    * @default 400
    */
-  httpStatusCode?: number
+  backendResponseStatusCode?: number
 
   /**
    * @default 'Timeout reading request input'
@@ -26,9 +26,9 @@ const code = 'BODY_PARSER_TIMEOUT'
 export function bodyParserTimeoutMiddleware(
   cfg: BodyParserTimeoutMiddlewareCfg = {},
 ): BackendRequestHandler {
-  const { timeoutSeconds, httpStatusCode, httpStatus } = {
+  const { timeoutSeconds, backendResponseStatusCode, httpStatus } = {
     timeoutSeconds: 10,
-    httpStatusCode: 400,
+    backendResponseStatusCode: 400,
     httpStatus: 'Timeout reading request input',
     ...cfg,
   }
@@ -44,9 +44,9 @@ export function bodyParserTimeoutMiddleware(
       respondWithError(
         req,
         res,
-        new HttpError(httpStatus, {
+        new AppError(httpStatus, {
           code,
-          httpStatusCode,
+          backendResponseStatusCode,
           // userFriendly: true, // no, cause this error is not expected
         }),
       )

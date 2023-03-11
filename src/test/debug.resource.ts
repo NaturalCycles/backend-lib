@@ -1,4 +1,4 @@
-import { HttpError, jsonSchema } from '@naturalcycles/js-lib'
+import { AppError, jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
 import { getDefaultRouter, reqValidation } from '..'
 import { validateBody } from '../server/validateMiddleware'
@@ -42,5 +42,5 @@ router.put(
 )
 
 router.get('/asyncError', async () => {
-  throw new HttpError('debug_async_error', { httpStatusCode: 501, dirtySecret: '51' })
+  throw new AppError('debug_async_error', { backendResponseStatusCode: 501, dirtySecret: '51' })
 })

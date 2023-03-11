@@ -1,4 +1,4 @@
-import { _ms, HttpError } from '@naturalcycles/js-lib'
+import { _ms, AppError, NumberOfSeconds } from '@naturalcycles/js-lib'
 import {
   BackendRequest,
   BackendRequestHandler,
@@ -12,12 +12,12 @@ export interface RequestTimeoutMiddlewareCfg {
   /**
    * @default 120
    */
-  timeoutSeconds?: number
+  timeoutSeconds?: NumberOfSeconds
 
   /**
    * @default 503
    */
-  httpStatusCode?: number
+  backendResponseStatusCode?: number
 
   /**
    * @default 'Request timed out'
@@ -33,7 +33,7 @@ export function requestTimeoutMiddleware(
 ): BackendRequestHandler {
   const {
     timeoutSeconds: defTimeoutSeconds,
-    httpStatusCode,
+    backendResponseStatusCode,
     httpErrorMessage,
   } = {
     // Considerations about the default value of the timeout.
@@ -41,7 +41,7 @@ export function requestTimeoutMiddleware(
     // so, cross-service communication has a chance to fail SOONER than server times out,
     // so, proper error from exact service is shown, rather than generic "503 request timed out"
     timeoutSeconds: 120,
-    httpStatusCode: 503,
+    backendResponseStatusCode: 503,
     httpErrorMessage: 'Request timed out',
     ...cfg,
   }
@@ -62,9 +62,9 @@ export function requestTimeoutMiddleware(
       respondWithError(
         req,
         res,
-        new HttpError(msg, {
+        new AppError(msg, {
           code,
-          httpStatusCode,
+          backendResponseStatusCode,
           endpoint,
           timeoutSeconds,
           // userFriendly: true, // no, cause this error is not expected
@@ -82,7 +82,7 @@ export interface CustomRequestTimeoutMiddlewareCfg {
   /**
    * @default 120
    */
-  timeoutSeconds?: number
+  timeoutSeconds?: NumberOfSeconds
 }
 
 /**

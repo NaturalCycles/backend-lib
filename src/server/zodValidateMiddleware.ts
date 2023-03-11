@@ -1,10 +1,4 @@
-import {
-  HttpError,
-  _get,
-  ZodSchema,
-  ZodValidationError,
-  zSafeValidate,
-} from '@naturalcycles/js-lib'
+import { _get, AppError, ZodSchema, ZodValidationError, zSafeValidate } from '@naturalcycles/js-lib'
 import { BackendRequestHandler } from './server.model'
 import { ReqValidationOptions } from './reqValidationMiddleware'
 
@@ -36,8 +30,8 @@ export function zodReqValidate(
     }
 
     return next(
-      new HttpError(error.message, {
-        httpStatusCode: 400,
+      new AppError(error.message, {
+        backendResponseStatusCode: 400,
         report,
       }),
     )

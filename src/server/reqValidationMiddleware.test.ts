@@ -32,7 +32,7 @@ test('reqValidation', async () => {
     {
       "error": {
         "data": {
-          "httpStatusCode": 400,
+          "backendResponseStatusCode": 400,
           "joiValidationErrorItems": [],
           "joiValidationObjectName": "request body",
         },
@@ -42,13 +42,13 @@ test('reqValidation', async () => {
     }
 
     [1] "pw" length must be at least 8 characters long",
-        "name": "HttpError",
+        "name": "AppError",
       },
     }
   `)
 
   expect(inspectAny(body)).toMatchInlineSnapshot(`
-    "HttpError(400): Invalid request body
+    "AppError: Invalid request body
     {
       "pw" [1]: "REDACTED"
     }

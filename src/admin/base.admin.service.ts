@@ -1,4 +1,4 @@
-import { _assert, Admin401ErrorData, Admin403ErrorData, HttpError } from '@naturalcycles/js-lib'
+import { _assert, AppError } from '@naturalcycles/js-lib'
 import { dimGrey, green, red } from '@naturalcycles/nodejs-lib/dist/colors'
 import type * as FirebaseAdmin from 'firebase-admin'
 import { BackendRequest, BackendRequestHandler } from '../server/server.model'
@@ -176,9 +176,9 @@ export class BaseAdminService {
     const email = await this.getEmailByToken(req, adminToken)
 
     if (!email) {
-      throw new HttpError<Admin401ErrorData>('adminToken required', {
+      throw new AppError('adminToken required', {
         adminAuthRequired: true,
-        httpStatusCode: 401,
+        backendResponseStatusCode: 401,
         userFriendly: true,
       })
     }
@@ -203,15 +203,12 @@ export class BaseAdminService {
     }
 
     if (!granted) {
-      throw new HttpError<Admin403ErrorData>(
-        `Admin permissions required: [${reqPermissions.join(', ')}]`,
-        {
-          adminPermissionsRequired: reqPermissions,
-          email,
-          httpStatusCode: 403,
-          userFriendly: true,
-        },
-      )
+      throw new AppError(`Admin permissions required: [${reqPermissions.join(', ')}]`, {
+        adminPermissionsRequired: reqPermissions,
+        email,
+        backendResponseStatusCode: 403,
+        userFriendly: true,
+      })
     }
 
     return {
@@ -251,7 +248,7 @@ export class BaseAdminService {
       const token = req.header('authentication')
       _assert(token, `401 Unauthenticated`, {
         userFriendly: true,
-        httpStatusCode: 401,
+        backendResponseStatusCode: 401,
       })
 
       let maxAge = 1000 * 60 * 60 * 24 * 30 // 30 days

@@ -1,5 +1,5 @@
 import * as fs from 'node:fs'
-import { Admin401ErrorData, HttpError, _memoFn } from '@naturalcycles/js-lib'
+import { _memoFn, AppError } from '@naturalcycles/js-lib'
 import * as ejs from 'ejs'
 import { BackendRequestHandler } from '../server/server.model'
 import { BaseAdminService } from './base.admin.service'
@@ -62,7 +62,7 @@ export function requireAdminPermissions(
       await adminService.requirePermissions(req, reqPermissions)
       return next()
     } catch (err) {
-      if (err instanceof HttpError && (err.data as Admin401ErrorData).adminAuthRequired) {
+      if (err instanceof AppError && err.data.adminAuthRequired) {
         // Redirect to login.html
         const href = `${loginHtmlPath}?${
           autoLogin ? 'autoLogin=1&' : ''

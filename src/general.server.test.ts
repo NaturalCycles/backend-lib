@@ -1,8 +1,8 @@
 import {
   _assert,
-  _isHttpErrorResponse,
+  _isBackendErrorResponseObject,
   _range,
-  HttpError,
+  AppError,
   pExpectedError,
 } from '@naturalcycles/js-lib'
 import { arraySchema, deflateString, objectSchema, RequestError } from '@naturalcycles/nodejs-lib'
@@ -14,8 +14,8 @@ const router = getDefaultRouter()
 router.get('/circular', safeJsonMiddleware(), async req => {
   // console.log(inspectAny(req))
 
-  throw new HttpError('the error', {
-    httpStatusCode: 500,
+  throw new AppError('the error', {
+    backendResponseStatusCode: 500,
     req,
   })
 })
@@ -44,7 +44,7 @@ test('should not crash on circular objects in errors', async () => {
   expect(err).toBeInstanceOf(RequestError)
   _assert(err instanceof RequestError) // for typescript
   // console.log(err.response.body)
-  _assert(_isHttpErrorResponse(err.response?.body))
+  _assert(_isBackendErrorResponseObject(err.response?.body))
   // const cause = err.response.body.error
   // console.log((cause.data as any).req)
 })
