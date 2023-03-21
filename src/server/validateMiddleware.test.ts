@@ -33,6 +33,7 @@ test('validateBody', async () => {
         "data": {
           "backendResponseStatusCode": 400,
           "errors": [],
+          "httpStatusCode": 400,
           "objectName": "request body",
           "userFriendly": true,
         },

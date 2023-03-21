@@ -86,6 +86,9 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
 
   httpError.data.errorId = errorId
   httpError.data.backendResponseStatusCode ||= 500 // default to 500
+  // httpStatusCode is for backwards-compatibility
+  // Otherwise, it breaks the _isHttpErrorResponse function check, and error get formatted/detected wrongly
+  httpError.data['httpStatusCode'] = httpError.data.backendResponseStatusCode
   httpError.data.headersSent = headersSent || undefined
   httpError.data.report ||= undefined // set to undefined if false
   _filterUndefinedValues(httpError.data, true)

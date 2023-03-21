@@ -33,6 +33,7 @@ test('reqValidation', async () => {
       "error": {
         "data": {
           "backendResponseStatusCode": 400,
+          "httpStatusCode": 400,
           "joiValidationErrorItems": [],
           "joiValidationObjectName": "request body",
         },
