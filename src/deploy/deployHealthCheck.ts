@@ -97,7 +97,6 @@ export async function deployHealthCheck(
   const fetcher = getFetcher()
 
   while (!done) {
-    // eslint-disable-next-line no-await-in-loop
     await makeAttempt()
   }
 
@@ -126,7 +125,8 @@ export async function deployHealthCheck(
 
     const started = Date.now()
 
-    const { err, fetchResponse } = await fetcher.doFetch(url, {
+    const { err, fetchResponse } = await fetcher.doFetch({
+      url,
       mode: 'json',
       timeoutSeconds: timeoutSec,
       retry: {

@@ -6,7 +6,6 @@ export const catchWrapper =
   (fn: BackendRequestHandler): BackendRequestHandler =>
   async (req, res, next) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/await-thenable
       await fn(req, res, next)
     } catch (err) {
       next(err)
