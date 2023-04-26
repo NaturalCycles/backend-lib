@@ -26,7 +26,7 @@ export interface GenericErrorMiddlewareCfg {
 }
 
 const { APP_ENV } = process.env
-const includeErrorStack = APP_ENV !== 'prod' && APP_ENV !== 'test'
+const includeErrorStack = APP_ENV === 'dev'
 
 // Hacky way to store the sentryService, so it's available to `respondWithError` function
 let sentryService: SentrySharedService | undefined
