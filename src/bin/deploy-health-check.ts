@@ -10,7 +10,6 @@ yarn deploy-health-check --url https://service-dot-yourproject.appspot.com
  */
 
 import { runScript } from '@naturalcycles/nodejs-lib/dist/script'
-import 'loud-rejection/register'
 import * as yargs from 'yargs'
 import { deployHealthCheck, deployHealthCheckYargsOptions } from '../deploy/deployHealthCheck'
 
