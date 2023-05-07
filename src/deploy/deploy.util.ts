@@ -197,7 +197,7 @@ export function validateGAEServiceName(serviceName: string): string {
   // May only contain lowercase letters, digits, and hyphens. Must begin and end with a letter or digit. Must not exceed 63 characters.
   return replaceAll(serviceName, '_', '-')
     .toLowerCase()
-    .replace(/[^0-9a-z-]/gi, '')
+    .replaceAll(/[^0-9a-z-]/gi, '')
     .slice(0, 40)
 }
 
