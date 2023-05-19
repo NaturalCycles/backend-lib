@@ -12,7 +12,7 @@ autocannon -c 100 -d 40 -p 10 localhost:8080
 
 console.log('startServer... ')
 
-import { _errorToErrorObject, AppError, pDelay } from '@naturalcycles/js-lib'
+import { _errorLikeToErrorObject, AppError, pDelay } from '@naturalcycles/js-lib'
 import {
   startServer,
   getDefaultRouter,
@@ -79,7 +79,7 @@ router.get('/timeout', () => {
 
 router.get('/error500', async () => {
   await new Promise(r => setTimeout(r, 500))
-  throw new AppError('my error 5xx', {}, _errorToErrorObject(new AppError('yo')))
+  throw new AppError('my error 5xx', {}, _errorLikeToErrorObject(new AppError('yo')))
 })
 
 router.get('/error400', async () => {

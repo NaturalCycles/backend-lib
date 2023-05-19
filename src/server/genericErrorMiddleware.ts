@@ -1,6 +1,6 @@
 import {
   _anyToError,
-  _errorToErrorObject,
+  _errorLikeToErrorObject,
   _filterUndefinedValues,
   AppError,
   BackendErrorResponseObject,
@@ -81,7 +81,7 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
 
   if (res.headersSent) return
 
-  const httpError = _errorToErrorObject(originalError)
+  const httpError = _errorLikeToErrorObject(originalError)
   if (!includeErrorStack) delete httpError.stack
 
   httpError.data.errorId = errorId

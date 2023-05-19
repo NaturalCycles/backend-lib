@@ -132,7 +132,7 @@ export async function deployHealthCheck(
       retry: {
         count: 0,
       },
-      followRedirects: false,
+      redirect: 'error',
     })
 
     if (err) {
