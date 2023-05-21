@@ -1,6 +1,6 @@
+import { _emptyDirSync, _writeFileSync } from '@naturalcycles/nodejs-lib'
 import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
 import { kpySync } from '@naturalcycles/nodejs-lib/dist/fs'
-import * as fs from 'fs-extra'
 import { srcDir } from '../paths.cnst'
 import { getBackendCfg } from './backend.cfg.util'
 import { DeployInfo } from './deploy.model'
@@ -77,7 +77,7 @@ export async function deployPrepare(opt: DeployPrepareOptions = {}): Promise<Dep
   console.log(`1. Copy files to ${dimGrey(targetDir)}`)
 
   // Clean targetDir
-  fs.emptyDirSync(targetDir)
+  _emptyDirSync(targetDir)
 
   kpySync({
     baseDir: defaultFilesDir,
@@ -96,7 +96,7 @@ export async function deployPrepare(opt: DeployPrepareOptions = {}): Promise<Dep
   if (NPM_TOKEN && createNpmrc) {
     const npmrcPath = `${targetDir}/.npmrc`
     const npmrc = `//registry.npmjs.org/:_authToken=${NPM_TOKEN}`
-    fs.writeFileSync(npmrcPath, npmrc)
+    _writeFileSync(npmrcPath, npmrc)
   }
 
   console.log(`2. Generate ${dimGrey('deployInfo.json')} and ${dimGrey('app.yaml')} in targetDir`)
