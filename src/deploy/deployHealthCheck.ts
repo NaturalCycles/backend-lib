@@ -125,7 +125,7 @@ export async function deployHealthCheck(
 
     const started = Date.now()
 
-    const { err, fetchResponse } = await fetcher.doFetch({
+    const { err, statusCode = 0 } = await fetcher.doFetch({
       url,
       mode: 'json',
       timeoutSeconds: timeoutSec,
@@ -138,8 +138,6 @@ export async function deployHealthCheck(
     if (err) {
       console.log(err)
     }
-
-    const statusCode = fetchResponse?.status || 0
 
     if (statusCode === 200) {
       countHealthy++
