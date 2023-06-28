@@ -1,6 +1,6 @@
 import { buildProdCommand } from '@naturalcycles/dev-lib'
 import { _objectAssign } from '@naturalcycles/js-lib'
-import { execCommand } from '@naturalcycles/nodejs-lib/dist/exec'
+import { execVoidCommandSync } from '@naturalcycles/nodejs-lib'
 import { deployHealthCheck, DeployHealthCheckOptions } from './deployHealthCheck'
 import { deployPrepare, DeployPrepareOptions } from './deployPrepare'
 
@@ -12,7 +12,7 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
   // 1. build-prod
 
   // await execCommand(`yarn`, [`build-prod`])
-  await buildProdCommand()
+  buildProdCommand()
 
   // 2. deploy-prepare
 
@@ -29,16 +29,20 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
     gaeVersion,
   })
 
-  // gcloud app deploy ./tmp/deploy/app.yaml --project $deployInfo_gaeProject --version $deployInfo_gaeVersion --quiet --no-promote
-  await execCommand(
-    `gcloud app deploy ${appYamlPath} --project ${gaeProject} --version ${gaeVersion} --quiet --no-promote`,
-  ).catch(async err => {
+  try {
+    // gcloud app deploy ./tmp/deploy/app.yaml --project $deployInfo_gaeProject --version $deployInfo_gaeVersion --quiet --no-promote
+    execVoidCommandSync(
+      `gcloud app deploy ${appYamlPath} --project ${gaeProject} --version ${gaeVersion} --quiet --no-promote`,
+      [],
+      { shell: true },
+    )
+  } catch (err) {
     if (logOnFailure) {
-      await logs(gaeProject, gaeService, gaeVersion)
+      logs(gaeProject, gaeService, gaeVersion)
     }
 
     throw err
-  })
+  }
 
   // Health check (versionUrl)
   // yarn deploy-health-check --url $deployInfo_versionUrl --repeat 3 --timeoutSec 180 --intervalSec 2
@@ -48,8 +52,10 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
   if (gaeVersion !== '1') {
     // Rollout (promote versionUrl to serviceUrl)
     // gcloud app services set-traffic $deployInfo_gaeService --project $deployInfo_gaeProject --splits $deployInfo_gaeVersion=1 --quiet
-    await execCommand(
+    execVoidCommandSync(
       `gcloud app services set-traffic ${gaeService} --project ${gaeProject} --splits ${gaeVersion}=1 --quiet`,
+      [],
+      { shell: true },
     )
 
     // Health check (serviceUrl)
@@ -59,12 +65,16 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
 
   // Logs
   if (logOnSuccess) {
-    await logs(gaeProject, gaeService, gaeVersion)
+    logs(gaeProject, gaeService, gaeVersion)
   }
 }
 
-async function logs(gaeProject: string, gaeService: string, gaeVersion: string): Promise<void> {
-  await execCommand(
-    `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
-  ).catch(_ignored => {})
+function logs(gaeProject: string, gaeService: string, gaeVersion: string): void {
+  try {
+    execVoidCommandSync(
+      `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
+      [],
+      { shell: true },
+    )
+  } catch {}
 }

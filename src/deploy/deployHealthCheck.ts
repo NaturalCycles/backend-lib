@@ -1,7 +1,7 @@
 import { inspect, InspectOptions } from 'node:util'
+import { execVoidCommandSync } from '@naturalcycles/nodejs-lib'
 import { pDelay, _filterFalsyValues, _ms, _since, getFetcher } from '@naturalcycles/js-lib'
 import { dimGrey, red } from '@naturalcycles/nodejs-lib/dist/colors'
-import { execCommand } from '@naturalcycles/nodejs-lib/dist/exec'
 import { coloredHttpCode } from '../server/request.log.util'
 
 export interface DeployHealthCheckOptions {
@@ -104,18 +104,26 @@ export async function deployHealthCheck(
     console.log(red(`Health check failed!`))
 
     if (logOnFailure) {
-      await execCommand(
-        `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
-      ).catch(_ignored => {})
+      try {
+        execVoidCommandSync(
+          `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
+          [],
+          { shell: true },
+        )
+      } catch {}
     }
 
     process.exit(1)
   }
 
   if (logOnSuccess) {
-    await execCommand(
-      `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
-    ).catch(_ignored => {})
+    try {
+      execVoidCommandSync(
+        `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
+        [],
+        { shell: true },
+      )
+    } catch {}
   }
 
   async function makeAttempt(): Promise<void> {
