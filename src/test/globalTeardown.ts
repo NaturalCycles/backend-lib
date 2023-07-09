@@ -1,5 +1,6 @@
 import { _since } from '@naturalcycles/js-lib'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (): Promise<void> => {
   const started = Date.now()
   // @ts-expect-error

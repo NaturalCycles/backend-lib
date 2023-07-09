@@ -10,13 +10,13 @@ import { jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
 import { runScript } from '@naturalcycles/nodejs-lib/dist/script'
 import express = require('express')
-import { reqValidation, validateBody } from '../src'
+import { BackendApplication, reqValidation, validateBody } from '../src'
 
 interface PwInput {
   pw: string
 }
 
-function createApp() {
+function createApp(): BackendApplication {
   const app = express()
   app.disable('etag')
   app.disable('x-powered-by')

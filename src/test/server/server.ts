@@ -103,7 +103,7 @@ router.get('/log2', async (req, res) => {
   res.json({})
 })
 
-async function failingFunction() {
+async function failingFunction(): Promise<never> {
   // setTimeout(() => {
   //   throw new Error('failing function error')
   // }, 5000)
