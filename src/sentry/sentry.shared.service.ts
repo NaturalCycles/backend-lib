@@ -1,4 +1,11 @@
-import { _anyToError, _Memo, AppError, CommonLogger, CommonLogLevel } from '@naturalcycles/js-lib'
+import {
+  _anyToError,
+  _Memo,
+  AppError,
+  CommonLogger,
+  CommonLogLevel,
+  ErrorData,
+} from '@naturalcycles/js-lib'
 import { inspectAny } from '@naturalcycles/nodejs-lib'
 import type { Breadcrumb, NodeOptions, SeverityLevel } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
@@ -73,22 +80,26 @@ export class SentrySharedService {
   }
 
   /**
-   * Does console.error(err)
+   * Does console.log(err)
    * Returns "eventId" or undefined (if error was not reported).
    */
-  captureException(err: any, logError = true): string | undefined {
-    // console.error(err)
+  captureException(err_: any, logError = true): string | undefined {
+    // normalize the error
+    const err = _anyToError(err_)
+    const data = err instanceof AppError ? (err.data as ErrorData) : undefined
+
     // Using request-aware logger here
     if (logError) {
-      getRequestLogger().error('captureException:', err)
+      // Log both the error and attached ErrorData (if any)
+      getRequestLogger().error('captureException:', ...[err_, data].filter(Boolean))
     }
 
-    if (err?.data?.report === false) {
+    if (data?.report === false) {
       // Skip reporting the error
       return
     }
 
-    if (err?.data?.reportRate) {
+    if (data?.reportRate) {
       const reportRate = (err as AppError).data.reportRate!
       // E.g rate of 0.1 means 10% of errors are reported
       if (Math.random() > reportRate) return
@@ -101,10 +112,9 @@ export class SentrySharedService {
       message: inspectAny(err, {
         colors: false,
       }),
-      // data: (err as AppError).data, // included in message
     })
 
-    return this.sentry().captureException(_anyToError(err))
+    return this.sentry().captureException(err)
   }
 
   /**
