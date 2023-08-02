@@ -6,7 +6,7 @@ import {
   CommonLogLevel,
   ErrorData,
 } from '@naturalcycles/js-lib'
-import { inspectAny } from '@naturalcycles/nodejs-lib'
+import { inspectAny, InspectAnyOptions } from '@naturalcycles/nodejs-lib'
 import type { Breadcrumb, NodeOptions, SeverityLevel } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
 import { BackendErrorRequestHandler, BackendRequestHandler, getRequestLogger } from '../index'
@@ -20,6 +20,10 @@ const sentrySeverityMap: Record<SeverityLevel, CommonLogLevel> = {
   warning: 'warn',
   error: 'error',
   fatal: 'error',
+}
+
+const INSPECT_OPT: InspectAnyOptions = {
+  colors: false,
 }
 
 export class SentrySharedService {
@@ -109,10 +113,15 @@ export class SentrySharedService {
     // It will log additional "breadcrumb object" before the error
     // It's a Breadcrumb, not a console.log, because console.log are NOT automatically attached as Breadcrumbs in cron-job environments (outside of Express)
     this.sentry().addBreadcrumb({
-      message: inspectAny(err, {
-        colors: false,
-      }),
+      message: inspectAny(err, INSPECT_OPT),
     })
+
+    if (data) {
+      // Log the attached ErrorData (if any)
+      this.sentry().addBreadcrumb({
+        message: inspectAny(data, INSPECT_OPT),
+      })
+    }
 
     return this.sentry().captureException(err)
   }
@@ -141,13 +150,7 @@ export class SentrySharedService {
       log: () => {}, // noop
       warn: () => {}, // noop
       error: (...args) => {
-        const message = args
-          .map(arg =>
-            inspectAny(arg, {
-              colors: false,
-            }),
-          )
-          .join(' ')
+        const message = args.map(arg => inspectAny(arg, INSPECT_OPT)).join(' ')
 
         this.sentry().addBreadcrumb({
           message,
