@@ -1741,17 +1741,17 @@
     typescript "^5.0.2"
 
 "@naturalcycles/db-lib@^8.0.2":
-  version "8.54.2"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/db-lib/-/db-lib-8.54.2.tgz#c15b66a4ddca797469c83798829ff6dc5cb3c177"
-  integrity sha512-tqekYIHUGOqnKcGJ2yvkQag6jPebsJDLB65yNf+XXmJ8yL0vGeatDWxkxNObD/1St6XQGtpiaZZwgvxPMlYZeQ==
+  version "8.54.3"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/db-lib/-/db-lib-8.54.3.tgz#43bccd1bd5cf4981c41e517345ab40c3f22eaf4e"
+  integrity sha512-3xFx1yZclxtYurzPtSCYX8mz2KgEiAQr0DWIHhQGTqib+IjkaQ0HTr8sgI6XxNNjiFfZJ7EpVI3oEyMR3+WoiA==
   dependencies:
     "@naturalcycles/js-lib" "^14.116.0"
     "@naturalcycles/nodejs-lib" "^12.0.0"
 
 "@naturalcycles/dev-lib@^13.0.0":
-  version "13.38.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-13.38.0.tgz#516b8cbfa0f26f9854b99c57e211828d112ba0ad"
-  integrity sha512-+cvHwC1M8HUBYBTgf1VdTm3Rrnygd0OjxycQ7yqsV4dz9zCw6R1hHI8F19Crk2GGB/OLvo1xeJzPcRZM7UEa/g==
+  version "13.38.3"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-13.38.3.tgz#aee89b90311f1d5d9dbd7da61ba35df703559cf6"
+  integrity sha512-eQ59k+jXhd8l4JougG2TVtOSKFU7ye/sqGEufGBgeNExPOvfklUMZ/U3lk72tVZ04LC+LfDA5EsaDBwTMPzgGw==
   dependencies:
     "@commitlint/cli" "^17.0.0"
     "@commitlint/config-conventional" "^17.0.0"
@@ -1783,17 +1783,17 @@
     yargs "^17.0.0"
 
 "@naturalcycles/js-lib@^14.0.0", "@naturalcycles/js-lib@^14.116.0", "@naturalcycles/js-lib@^14.27.0":
-  version "14.162.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.162.0.tgz#b4f62ac9b3e7cb5deb5c55f318de1f5b4ce7919f"
-  integrity sha512-uzyLwt6etyMtVJAfNE9DpdqXdkzhwdrkD0OZCyPyV+TRcYR4Qi/KhrSmiSvCPMBpDzASrgsBVD6sMkS2VaGNcA==
+  version "14.165.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.165.0.tgz#c60776850e60ac474d0a81fef4684a23e2e9d39d"
+  integrity sha512-4iBB0ueMorQaBypP8WMaR8UQ5L7ccktQnW32LfJ2CcTGQuKSPHaQ2ch0tFDXIS2+bpI+tMm/kt/hF7pRbLUMRw==
   dependencies:
     tslib "^2.0.0"
     zod "^3.20.2"
 
 "@naturalcycles/nodejs-lib@^12.0.0", "@naturalcycles/nodejs-lib@^12.8.0":
-  version "12.103.1"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-12.103.1.tgz#872d1511281b81ffc30c3af0298936b845901f44"
-  integrity sha512-RFFDsYZEwAJEreVq//c0qkOf5E6TZb6Cmm0GuIHERquL/+E/BmClmKGKvH19lyqOcSe5KO//DN7skQRJQg5bdw==
+  version "12.103.2"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-12.103.2.tgz#a2d50f388073389023e0c19d6fd278cebca61ca7"
+  integrity sha512-gCrQ37lmjgFniNTXviypMmbAzSFwJs3p2JUc91Mwafvu/g4vBIwfg9S3soi6616VOta42fD7eWSonQHcsVFc+A==
   dependencies:
     "@naturalcycles/js-lib" "^14.0.0"
     "@types/jsonwebtoken" "^9.0.0"
@@ -2300,9 +2300,9 @@
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0", "@types/node@^20.1.0":
-  version "20.4.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.4.5.tgz#9dc0a5cb1ccce4f7a731660935ab70b9c00a5d69"
-  integrity sha512-rt40Nk13II9JwQBdeYqmbn2Q6IVTA5uPhvSO+JVqdXw/6/4glI6oR9ezty/A9Hg5u7JH4OmYmuQ+XvjKm0Datg==
+  version "20.4.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.4.6.tgz#b66b66c9bb5d49b199f03399e341c9d6036e9e88"
+  integrity sha512-q0RkvNgMweWWIvSMDiXhflGUKMdIxBo2M2tYM/0kEGDueQByFzK4KZAgu5YHGFNxziTlppNpTIBcqHQAxlfHdA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -4200,9 +4200,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001517:
-  version "1.0.30001518"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001518.tgz#b3ca93904cb4699c01218246c4d77a71dbe97150"
-  integrity sha512-rup09/e3I0BKjncL+FesTayKtPrdwKhUufQFd3riFw1hHg8JmIFoInYfB102cFcY/pPgGmdyl/iy+jgiDi2vdA==
+  version "1.0.30001519"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001519.tgz#3e7b8b8a7077e78b0eb054d69e6edf5c7df35601"
+  integrity sha512-0QHgqR+Jv4bxHMp8kZ1Kn8CH55OikjKJ6JmKkZYP1F3D7w+lnFXF70nG5eNfsZS89jadi5Ywy5UCSKLAglIRkg==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -5633,9 +5633,9 @@ ejs@^3.0.1:
     jake "^10.8.5"
 
 electron-to-chromium@^1.4.477:
-  version "1.4.480"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.480.tgz#40e32849ca50bc23ce29c1516c5adb3fddac919d"
-  integrity sha512-IXTgg+bITkQv/FLP9FjX6f9KFCs5hQWeh5uNSKxB9mqYj/JXhHDbu+ekS43LVvbkL3eW6/oZy4+r9Om6lan1Uw==
+  version "1.4.484"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.484.tgz#770358eba089471c5dae5719db3a5a4fbf02bfb2"
+  integrity sha512-nO3ZEomTK2PO/3TUXgEx0A97xZTpKVf4p427lABHuCpT1IQ2N+njVh29DkQkCk6Q4m2wjU+faK4xAcfFndwjvw==
 
 elliptic@^6.5.3:
   version "6.5.4"
@@ -5979,9 +5979,9 @@ escodegen@^1.13.0:
     source-map "~0.6.1"
 
 eslint-config-prettier@^8.3.0:
-  version "8.9.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.9.0.tgz#094b6254b2804b0544f7cee535f802b6d29ee10b"
-  integrity sha512-+sbni7NfVXnOpnRadUA8S28AUlsZt9GjgFvABIRL9Hkn8KqNzOp+7Lw4QWtrwn20KzU3wqu1QoOj2m+7rKRqkA==
+  version "8.10.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.10.0.tgz#3a06a662130807e2502fc3ff8b4143d8a0658e11"
+  integrity sha512-SM8AMJdeQqRYT9O9zguiruQZaN7+z+E4eAP9oiLNGKMtomwaB1E9dcgUD6ZAn/eQAb52USbvezbiljfZUhbJcg==
 
 eslint-import-resolver-node@^0.3.7:
   version "0.3.7"
@@ -6468,9 +6468,9 @@ fast-json-stable-stringify@2.x, fast-json-stable-stringify@^2.0.0, fast-json-sta
   integrity sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
 
 fast-json-stringify@^5.7.0:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/fast-json-stringify/-/fast-json-stringify-5.7.0.tgz#b0a04c848fdeb6ecd83440c71a4db35067023bed"
-  integrity sha512-sBVPTgnAZseLu1Qgj6lUbQ0HfjFhZWXAmpZ5AaSGkyLh5gAXBga/uPJjQPHpDFjC9adWIpdOcCLSDTgrZ7snoQ==
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/fast-json-stringify/-/fast-json-stringify-5.8.0.tgz#b229ed01ac5f92f3b82001a916c31324652f46d7"
+  integrity sha512-VVwK8CFMSALIvt14U8AvrSzQAwN/0vaVRiFFUVlpnXSnDGrSkOAO5MtzyN8oQNjLd5AqTW5OZRgyjoNuAuR3jQ==
   dependencies:
     "@fastify/deepmerge" "^1.0.0"
     ajv "^8.10.0"
@@ -10936,9 +10936,9 @@ prepend-http@^2.0.0:
   integrity sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==
 
 prettier@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.0.0.tgz#e7b19f691245a21d618c68bc54dc06122f6105ae"
-  integrity sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.0.1.tgz#65271fc9320ce4913c57747a70ce635b30beaa40"
+  integrity sha512-fcOWSnnpCrovBsmFZIGIy9UqK2FaI7Hqax+DIO0A9UxeVoY4iweyaFjS5TavZN97Hfehph0nhsZnjlVKzEQSrQ==
 
 pretty-bytes@^5.4.1:
   version "5.6.0"

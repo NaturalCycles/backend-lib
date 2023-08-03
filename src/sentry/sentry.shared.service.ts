@@ -1,5 +1,6 @@
 import {
   _anyToError,
+  _isNotEmpty,
   _Memo,
   AppError,
   CommonLogger,
@@ -114,7 +115,7 @@ export class SentrySharedService {
     // It's a Breadcrumb, not a console.log, because console.log are NOT automatically attached as Breadcrumbs in cron-job environments (outside of Express)
     this.sentry().addBreadcrumb({
       message: [err, data]
-        .filter(Boolean)
+        .filter(_isNotEmpty)
         .map(a => inspectAny(a, INSPECT_OPT))
         .join('\n'),
     })
