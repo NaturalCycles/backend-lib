@@ -1,11 +1,9 @@
 import {
   _anyToError,
-  _isNotEmpty,
+  _isErrorObject,
   _Memo,
-  AppError,
   CommonLogger,
   CommonLogLevel,
-  ErrorData,
 } from '@naturalcycles/js-lib'
 import { inspectAny, InspectAnyOptions } from '@naturalcycles/nodejs-lib'
 import type { Breadcrumb, NodeOptions, SeverityLevel } from '@sentry/node'
@@ -25,6 +23,7 @@ const sentrySeverityMap: Record<SeverityLevel, CommonLogLevel> = {
 
 const INSPECT_OPT: InspectAnyOptions = {
   colors: false,
+  includeErrorData: true,
 }
 
 export class SentrySharedService {
@@ -91,7 +90,7 @@ export class SentrySharedService {
   captureException(err_: any, logError = true): string | undefined {
     // normalize the error
     const err = _anyToError(err_)
-    const data = err instanceof AppError ? (err.data as ErrorData) : undefined
+    const data = _isErrorObject(err) ? err.data : undefined
 
     // Using request-aware logger here
     if (logError) {
@@ -104,20 +103,17 @@ export class SentrySharedService {
       return
     }
 
-    if (data?.reportRate) {
-      const reportRate = (err as AppError).data.reportRate!
-      // E.g rate of 0.1 means 10% of errors are reported
-      if (Math.random() > reportRate) return
-    }
+    if (
+      data?.reportRate && // E.g rate of 0.1 means 10% of errors are reported
+      Math.random() > data.reportRate
+    )
+      return
 
     // This is to avoid Sentry cutting err.message to 253 characters
     // It will log additional "breadcrumb object" before the error
     // It's a Breadcrumb, not a console.log, because console.log are NOT automatically attached as Breadcrumbs in cron-job environments (outside of Express)
     this.sentry().addBreadcrumb({
-      message: [err, data]
-        .filter(_isNotEmpty)
-        .map(a => inspectAny(a, INSPECT_OPT))
-        .join('\n'),
+      message: inspectAny(err, INSPECT_OPT),
     })
 
     return this.sentry().captureException(err)
