@@ -1,7 +1,7 @@
 import { inspect, InspectOptions } from 'node:util'
 import { execVoidCommandSync } from '@naturalcycles/nodejs-lib'
 import { pDelay, _filterFalsyValues, _ms, _since, getFetcher } from '@naturalcycles/js-lib'
-import { dimGrey, red } from '@naturalcycles/nodejs-lib/dist/colors'
+import { dimGrey, red } from '@naturalcycles/nodejs-lib'
 import { coloredHttpCode } from '../server/request.log.util'
 
 export interface DeployHealthCheckOptions {

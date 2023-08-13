@@ -1,5 +1,5 @@
 import { inspect } from 'node:util'
-import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
+import { dimGrey } from '@naturalcycles/nodejs-lib'
 import { inspectAny } from '@naturalcycles/nodejs-lib'
 import { AnyObject, CommonLogger } from '@naturalcycles/js-lib'
 import { BackendRequestHandler } from './server.model'

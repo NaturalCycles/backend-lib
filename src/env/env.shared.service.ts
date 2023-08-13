@@ -1,4 +1,4 @@
-import { dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
+import { dimGrey } from '@naturalcycles/nodejs-lib'
 import { BaseEnv } from './env.model'
 
 export interface EnvSharedServiceCfg {

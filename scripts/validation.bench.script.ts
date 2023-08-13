@@ -8,7 +8,7 @@ import * as http from 'node:http'
 import { runCannon } from '@naturalcycles/bench-lib'
 import { jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
-import { runScript } from '@naturalcycles/nodejs-lib/dist/script'
+import { runScript } from '@naturalcycles/nodejs-lib'
 import express = require('express')
 import { BackendApplication, reqValidation, validateBody } from '../src'
 

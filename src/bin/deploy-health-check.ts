@@ -9,7 +9,7 @@ yarn deploy-health-check --url https://service-dot-yourproject.appspot.com
 
  */
 
-import { runScript } from '@naturalcycles/nodejs-lib/dist/script'
+import { runScript } from '@naturalcycles/nodejs-lib'
 import * as yargs from 'yargs'
 import { deployHealthCheck, deployHealthCheckYargsOptions } from '../deploy/deployHealthCheck'
 

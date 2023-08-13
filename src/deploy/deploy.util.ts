@@ -1,6 +1,6 @@
 import * as fs from 'node:fs'
 import { _mapValues, _merge, _truncate, localTime } from '@naturalcycles/js-lib'
-import { dimGrey, white } from '@naturalcycles/nodejs-lib/dist/colors'
+import { dimGrey, white } from '@naturalcycles/nodejs-lib'
 import * as yaml from 'js-yaml'
 import { BackendCfg } from './backend.cfg.util'
 import { AppYaml, DeployInfo } from './deploy.model'

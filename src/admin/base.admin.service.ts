@@ -1,5 +1,5 @@
 import { _assert, AppError } from '@naturalcycles/js-lib'
-import { dimGrey, green, red } from '@naturalcycles/nodejs-lib/dist/colors'
+import { dimGrey, green, red } from '@naturalcycles/nodejs-lib'
 import type * as FirebaseAdmin from 'firebase-admin'
 import { BackendRequest, BackendRequestHandler } from '../server/server.model'
 

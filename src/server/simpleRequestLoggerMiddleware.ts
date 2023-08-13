@@ -1,5 +1,5 @@
 import { _since } from '@naturalcycles/js-lib'
-import { boldGrey, dimGrey } from '@naturalcycles/nodejs-lib/dist/colors'
+import { boldGrey, dimGrey } from '@naturalcycles/nodejs-lib'
 import { BackendRequestHandler, onFinished } from '../index'
 import { logRequest } from './request.log.util'
 

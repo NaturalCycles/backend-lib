@@ -4,7 +4,7 @@ yarn tsn startServerFastify
 
  */
 
-import { runScript } from '@naturalcycles/nodejs-lib/dist/script'
+import { runScript } from '@naturalcycles/nodejs-lib'
 import fastifyLib from 'fastify'
 
 runScript(async () => {

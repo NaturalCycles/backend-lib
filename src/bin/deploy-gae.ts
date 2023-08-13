@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { runScript } from '@naturalcycles/nodejs-lib/dist/script'
+import { runScript } from '@naturalcycles/nodejs-lib'
 import * as yargs from 'yargs'
 import { deployGae } from '../deploy/deployGae'
 import { deployHealthCheckYargsOptions } from '../deploy/deployHealthCheck'

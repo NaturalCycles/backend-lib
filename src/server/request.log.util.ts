@@ -1,5 +1,5 @@
 import { CommonLogLevel } from '@naturalcycles/js-lib'
-import { boldGrey, green, red, yellow } from '@naturalcycles/nodejs-lib/dist/colors'
+import { boldGrey, green, red, yellow } from '@naturalcycles/nodejs-lib'
 import { BackendRequest } from './server.model'
 
 export function logRequest(req: BackendRequest, statusCode: number, ...tokens: any[]): void {
