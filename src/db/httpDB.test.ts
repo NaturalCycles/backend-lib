@@ -13,7 +13,8 @@ const inMemoryDB = new InMemoryDB()
 const app = expressTestService.createAppFromResource(httpDBRequestHandler(inMemoryDB))
 
 const db = new HttpDB({
-  prefixUrl: app.defaults.options.prefixUrl,
+  baseUrl: app.cfg.baseUrl,
+  retry: { count: 0 },
 })
 
 afterAll(async () => {

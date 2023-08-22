@@ -39,37 +39,42 @@ afterAll(async () => {
 
 describe('login', () => {
   test('should return 401 if no auth header', async () => {
-    const { statusCode } = await app.post('admin/login', {
-      throwHttpErrors: false,
+    const err = await app.expectError({
+      url: 'admin/login',
+      method: 'POST',
     })
-    expect(statusCode).toBe(401)
+    expect(err.data.responseStatusCode).toBe(401)
   })
 
   test('login should set cookie', async () => {
     const TOKEN = 'abcdef1'
 
-    const { statusCode, headers } = await app.post('admin/login', {
+    const { statusCode, fetchResponse } = await app.doFetch({
+      url: 'admin/login',
+      method: 'POST',
       headers: {
         Authentication: TOKEN,
       },
     })
     expect(statusCode).toBe(204)
 
-    const c = headers['set-cookie']?.[0]
+    const c = fetchResponse!.headers.get('set-cookie')!
     expect(c).toMatchInlineSnapshot(
       `"admin_token=abcdef1; Max-Age=2592000; Path=/; Expires=Sat, 21 Jul 2018 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax"`,
     )
   })
 
   test('logout should clear cookie', async () => {
-    const { statusCode, headers } = await app.post('admin/login', {
+    const { statusCode, fetchResponse } = await app.doFetch({
+      url: 'admin/login',
+      method: 'POST',
       headers: {
         Authentication: 'logout', // magic string
       },
     })
     expect(statusCode).toBe(204)
 
-    const c = headers['set-cookie']?.[0]
+    const c = fetchResponse!.headers.get('set-cookie')!
     expect(c).toMatchInlineSnapshot(
       `"admin_token=logout; Max-Age=0; Path=/; Expires=Thu, 21 Jun 2018 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax"`,
     )
@@ -85,18 +90,16 @@ describe('getAdminInfo', () => {
   })
 
   test('should return null if not admin', async () => {
-    const r = await app.get('admin/info').json()
+    const r = await app.get('admin/info')
     expect(r).toMatchInlineSnapshot(`null`)
   })
 
   test('admin1 should see its permissions', async () => {
-    const r = await app
-      .get('admin/info', {
-        headers: {
-          'x-admin-token': 'good',
-        },
-      })
-      .json()
+    const r = await app.get('admin/info', {
+      headers: {
+        'x-admin-token': 'good',
+      },
+    })
     expect(r).toMatchInlineSnapshot(`
       {
         "email": "good@mail.com",
@@ -109,13 +112,11 @@ describe('getAdminInfo', () => {
   })
 
   test('second admin should see its permissions', async () => {
-    const r = await app
-      .get('admin/info', {
-        headers: {
-          'x-admin-token': 'second',
-        },
-      })
-      .json()
+    const r = await app.get('admin/info', {
+      headers: {
+        'x-admin-token': 'second',
+      },
+    })
     expect(r).toMatchInlineSnapshot(`
       {
         "email": "second@mail.com",

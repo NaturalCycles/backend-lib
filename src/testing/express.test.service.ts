@@ -1,10 +1,19 @@
 import { Server } from 'node:http'
 import { AddressInfo } from 'node:net'
-import { getGot, GetGotOptions, Got } from '@naturalcycles/nodejs-lib'
+import {
+  _since,
+  Fetcher,
+  FetcherOptions,
+  FetchFunction,
+  getFetcher,
+  pDelay,
+} from '@naturalcycles/js-lib'
 import { BackendApplication, createDefaultApp, DefaultAppCfg } from '../index'
 import { BackendRequestHandlerCfg } from '../server/createDefaultApp.model'
 
-export interface ExpressApp extends Got {
+const nativeFetchFn: FetchFunction = async (url, init) => await globalThis.fetch(url, init)
+
+export interface ExpressApp extends Fetcher {
   close: () => Promise<void>
 }
 
@@ -17,7 +26,7 @@ export interface ExpressApp extends Got {
 class ExpressTestService {
   createAppFromResource(
     resource: BackendRequestHandlerCfg,
-    opt?: GetGotOptions,
+    opt?: FetcherOptions,
     defaultAppCfg?: DefaultAppCfg,
   ): ExpressApp {
     return this.createApp(
@@ -29,7 +38,7 @@ class ExpressTestService {
     )
   }
 
-  createAppFromResources(resources: BackendRequestHandlerCfg[], opt?: GetGotOptions): ExpressApp {
+  createAppFromResources(resources: BackendRequestHandlerCfg[], opt?: FetcherOptions): ExpressApp {
     return this.createApp(
       createDefaultApp({
         resources,
@@ -38,27 +47,37 @@ class ExpressTestService {
     )
   }
 
-  createApp(app: BackendApplication, opt?: GetGotOptions): ExpressApp {
+  createApp(app: BackendApplication, opt?: FetcherOptions): ExpressApp {
     const server = this.createTestServer(app)
     const { port } = server.address() as AddressInfo
-    const prefixUrl = `http://127.0.0.1:${port}`
+    const baseUrl = `http://127.0.0.1:${port}`
 
-    const got = getGot({
-      prefixUrl,
+    const fetcher = getFetcher({
+      baseUrl,
       responseType: 'json',
-      retry: 0,
-      logStart: true,
-      logFinished: true,
+      retry: { count: 0 },
+      logRequest: true,
+      logResponse: true,
+      logWithBaseUrl: false, // for stable error snapshots
+      fetchFn: nativeFetchFn, // this is to make it NOT mockable
       ...opt,
+    }).onAfterResponse(async () => {
+      // This "empty" hook exists to act like `await pDelay`,
+      // so tests using it can reply on `void someAnalyticsService.doSmth()` promises
+      // to be done by that time.
+      // Smart, huh?
+      await pDelay()
     }) as ExpressApp
 
-    got.close = async () => {
+    fetcher.close = async () => {
+      const started = Date.now()
       await new Promise(resolve => server.close(resolve))
+      console.log(`close took ${_since(started)}`) // todo: investigate why it takes ~5 seconds!
       // server.destroy()
       // await pDelay(1000)
     }
 
-    return got
+    return fetcher
   }
 
   /**

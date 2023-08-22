@@ -1,3 +1,4 @@
+import { BackendErrorResponseObject } from '@naturalcycles/js-lib'
 import { debugResource } from '../test/debug.resource'
 import { expressTestService } from '../testing'
 
@@ -8,13 +9,11 @@ afterAll(async () => {
 })
 
 test('genericErrorFormatter', async () => {
-  let res = await app
-    .get('asyncError', {
-      throwHttpErrors: false,
-    })
-    .json<any>()
+  let res = await app.get<BackendErrorResponseObject>('asyncError', {
+    throwHttpErrors: false,
+  })
 
-  expect(res.error.data.dirtySecret).toBe('51')
+  expect(res.error.data['dirtySecret']).toBe('51')
 
   const overriddenSecret = 'Nothing to see'
 
@@ -25,12 +24,10 @@ test('genericErrorFormatter', async () => {
       },
     },
   })
-  res = await appWExtraMw
-    .get('asyncError', {
-      throwHttpErrors: false,
-    })
-    .json<any>()
+  res = await appWExtraMw.get<BackendErrorResponseObject>('asyncError', {
+    throwHttpErrors: false,
+  })
 
-  expect(res.error.data.dirtySecret).toEqual(overriddenSecret)
+  expect(res.error.data['dirtySecret']).toEqual(overriddenSecret)
   await appWExtraMw.close()
 })

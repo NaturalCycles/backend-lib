@@ -1,5 +1,11 @@
 import { Readable } from 'node:stream'
-import { JsonSchemaRootObject, ObjectWithId } from '@naturalcycles/js-lib'
+import {
+  Fetcher,
+  FetcherOptions,
+  getFetcher,
+  JsonSchemaRootObject,
+  ObjectWithId,
+} from '@naturalcycles/js-lib'
 import {
   BaseCommonDB,
   CommonDB,
@@ -9,10 +15,10 @@ import {
   DBQuery,
   RunQueryResult,
 } from '@naturalcycles/db-lib'
-import { getGot, GetGotOptions, Got, ReadableTyped } from '@naturalcycles/nodejs-lib'
+import { ReadableTyped } from '@naturalcycles/nodejs-lib'
 
-export interface HttpDBCfg extends GetGotOptions {
-  prefixUrl: string
+export interface HttpDBCfg extends FetcherOptions {
+  baseUrl: string
 }
 
 /**
@@ -25,27 +31,27 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
   }
 
   setCfg(cfg: HttpDBCfg): void {
-    this.got = getGot(cfg)
+    this.fetcher = getFetcher(cfg)
   }
 
-  private got!: Got
+  private fetcher!: Fetcher
 
   override async ping(): Promise<void> {
-    await this.got(`ping`)
+    await this.fetcher.getVoid(`ping`)
   }
 
   override async getTables(): Promise<string[]> {
-    return await this.got(`tables`).json()
+    return await this.fetcher.get(`tables`)
   }
 
   override async getTableSchema<ROW extends ObjectWithId>(
     table: string,
   ): Promise<JsonSchemaRootObject<ROW>> {
-    return await this.got(`${table}/schema`).json()
+    return await this.fetcher.get(`${table}/schema`)
   }
 
   async resetCache(table = ''): Promise<void> {
-    await this.got.put(`resetCache/${table}`)
+    await this.fetcher.putVoid(`resetCache/${table}`)
   }
 
   override async getByIds<ROW extends ObjectWithId>(
@@ -53,43 +59,37 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
     ids: ROW['id'][],
     opt?: CommonDBOptions,
   ): Promise<ROW[]> {
-    return await this.got
-      .put(`getByIds`, {
-        json: {
-          table,
-          ids,
-          opt,
-        },
-      })
-      .json()
+    return await this.fetcher.put(`getByIds`, {
+      json: {
+        table,
+        ids,
+        opt,
+      },
+    })
   }
 
   override async runQuery<ROW extends ObjectWithId>(
     query: DBQuery<ROW>,
     opt?: CommonDBOptions,
   ): Promise<RunQueryResult<ROW>> {
-    return await this.got
-      .put(`runQuery`, {
-        json: {
-          query,
-          opt,
-        },
-      })
-      .json()
+    return await this.fetcher.put(`runQuery`, {
+      json: {
+        query,
+        opt,
+      },
+    })
   }
 
   override async runQueryCount<ROW extends ObjectWithId>(
     query: DBQuery<ROW>,
     opt?: CommonDBOptions,
   ): Promise<number> {
-    return await this.got
-      .put(`runQueryCount`, {
-        json: {
-          query,
-          opt,
-        },
-      })
-      .json()
+    return await this.fetcher.put(`runQueryCount`, {
+      json: {
+        query,
+        opt,
+      },
+    })
   }
 
   override async saveBatch<ROW extends Partial<ObjectWithId>>(
@@ -97,7 +97,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
     rows: ROW[],
     opt?: CommonDBSaveOptions<ROW>,
   ): Promise<void> {
-    await this.got.put(`saveBatch`, {
+    await this.fetcher.putVoid(`saveBatch`, {
       json: {
         table,
         rows,
@@ -107,29 +107,25 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
   }
 
   async deleteByIds(table: string, ids: string[], opt?: CommonDBOptions): Promise<number> {
-    return await this.got
-      .put(`deleteByIds`, {
-        json: {
-          table,
-          ids,
-          opt,
-        },
-      })
-      .json()
+    return await this.fetcher.put(`deleteByIds`, {
+      json: {
+        table,
+        ids,
+        opt,
+      },
+    })
   }
 
   override async deleteByQuery<ROW extends ObjectWithId>(
     query: DBQuery<ROW>,
     opt?: CommonDBOptions,
   ): Promise<number> {
-    return await this.got
-      .put(`deleteByQuery`, {
-        json: {
-          query,
-          opt,
-        },
-      })
-      .json()
+    return await this.fetcher.put(`deleteByQuery`, {
+      json: {
+        query,
+        opt,
+      },
+    })
   }
 
   override streamQuery<ROW extends ObjectWithId>(

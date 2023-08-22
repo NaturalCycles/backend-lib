@@ -7,13 +7,13 @@ afterAll(async () => {
 })
 
 test('root resource ok', async () => {
-  const r = await app('').json()
+  const r = await app.get('')
   expect(r).toEqual({ ok: 1 })
 })
 
 // This started to mysteriously fail after some Got upgrade
 // todo: investigate!
 test.skip('should handle async error', async () => {
-  const err = await app('asyncError', { throwHttpErrors: false }).json()
+  const err = await app.get('asyncError', { throwHttpErrors: false })
   expect(err).toMatchSnapshot()
 })

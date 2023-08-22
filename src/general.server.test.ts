@@ -1,11 +1,12 @@
 import {
   _assert,
-  _isBackendErrorResponseObject,
+  _isErrorObject,
   _range,
   AppError,
+  HttpRequestError,
   pExpectedError,
 } from '@naturalcycles/js-lib'
-import { arraySchema, deflateString, objectSchema, RequestError } from '@naturalcycles/nodejs-lib'
+import { arraySchema, deflateString, objectSchema } from '@naturalcycles/nodejs-lib'
 import { safeJsonMiddleware } from './server/safeJsonMiddleware'
 import { expressTestService } from './testing'
 import { getDefaultRouter, reqValidation } from './index'
@@ -39,12 +40,10 @@ afterAll(async () => {
 })
 
 test('should not crash on circular objects in errors', async () => {
-  const err = await pExpectedError(app.get('circular'))
+  const err = await pExpectedError(app.get('circular'), HttpRequestError)
   // console.log(err)
-  expect(err).toBeInstanceOf(RequestError)
-  _assert(err instanceof RequestError) // for typescript
   // console.log(err.response.body)
-  _assert(_isBackendErrorResponseObject(err.response?.body))
+  _assert(_isErrorObject(err.cause))
   // const cause = err.response.body.error
   // console.log((cause.data as any).req)
 })
@@ -58,15 +57,13 @@ test('should support compressed body', async () => {
   const body = await deflateString(JSON.stringify(input))
   console.log(body.byteLength)
 
-  const output = await app
-    .post('compressedBody', {
-      headers: {
-        'content-type': 'application/json',
-        'content-encoding': 'deflate',
-      },
-      body,
-    })
-    .json()
+  const output = await app.post('compressedBody', {
+    headers: {
+      'content-type': 'application/json',
+      'content-encoding': 'deflate',
+    },
+    body,
+  })
 
   // console.log(output)
   expect(output).toEqual(input)

@@ -9,46 +9,42 @@ afterAll(async () => {
 
 test('reqValidation', async () => {
   // should pass (no error)
-  await app
-    .put('changePassword', {
-      json: {
-        pw: 'longEnough',
-      },
-    })
-    .json()
+  await app.put('changePassword', {
+    json: {
+      pw: 'longEnough',
+    },
+  })
 
   const pw = 'short'
-  const { body, statusCode } = await app.put('changePassword', {
+  const err = await app.expectError({
+    url: 'changePassword',
+    method: 'PUT',
     json: {
       pw,
     },
-    throwHttpErrors: false,
   })
-  expect(statusCode).toBe(400)
-  const bodyStr = JSON.stringify(body)
-  expect(bodyStr).not.toContain(pw)
-  expect(bodyStr).toContain('REDACTED')
-  expect(body).toMatchInlineSnapshot(`
+  expect(err.data.responseStatusCode).toBe(400)
+  expect(err.cause.message).not.toContain(pw)
+  expect(err.cause.message).toContain('REDACTED')
+  expect(err.cause).toMatchInlineSnapshot(`
     {
-      "error": {
-        "data": {
-          "backendResponseStatusCode": 400,
-          "httpStatusCode": 400,
-          "joiValidationErrorItems": [],
-          "joiValidationObjectName": "request body",
-        },
-        "message": "Invalid request body
+      "data": {
+        "backendResponseStatusCode": 400,
+        "httpStatusCode": 400,
+        "joiValidationErrorItems": [],
+        "joiValidationObjectName": "request body",
+      },
+      "message": "Invalid request body
     {
       "pw" [1]: "REDACTED"
     }
 
     [1] "pw" length must be at least 8 characters long",
-        "name": "AppError",
-      },
+      "name": "AppError",
     }
   `)
 
-  expect(inspectAny(body)).toMatchInlineSnapshot(`
+  expect(inspectAny(err.cause)).toMatchInlineSnapshot(`
     "AppError: Invalid request body
     {
       "pw" [1]: "REDACTED"

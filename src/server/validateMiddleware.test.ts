@@ -8,39 +8,35 @@ afterAll(async () => {
 
 test('validateBody', async () => {
   // should pass (no error)
-  await app
-    .put('changePassword', {
-      json: {
-        pw: 'longEnough',
-      },
-    })
-    .json()
+  await app.put('changePassword', {
+    json: {
+      pw: 'longEnough',
+    },
+  })
 
   const pw = 'short'
-  const { body, statusCode } = await app.put('changePassword2', {
+  const err = await app.expectError({
+    url: 'changePassword2',
+    method: 'PUT',
     json: {
       pw,
     },
-    throwHttpErrors: false,
   })
-  expect(statusCode).toBe(400)
-  const bodyStr = JSON.stringify(body)
-  expect(bodyStr).not.toContain(pw)
-  expect(bodyStr).toContain('REDACTED')
-  expect(body).toMatchInlineSnapshot(`
+  expect(err.data.responseStatusCode).toBe(400)
+  expect(err.cause.message).not.toContain(pw)
+  expect(err.cause.message).toContain('REDACTED')
+  expect(err.cause).toMatchInlineSnapshot(`
     {
-      "error": {
-        "data": {
-          "backendResponseStatusCode": 400,
-          "errors": [],
-          "httpStatusCode": 400,
-          "objectName": "request body",
-          "userFriendly": true,
-        },
-        "message": "request body/pw must NOT have fewer than 8 characters
-    Input: { pw: 'REDACTED' }",
-        "name": "AppError",
+      "data": {
+        "backendResponseStatusCode": 400,
+        "errors": [],
+        "httpStatusCode": 400,
+        "objectName": "request body",
+        "userFriendly": true,
       },
+      "message": "request body/pw must NOT have fewer than 8 characters
+    Input: { pw: 'REDACTED' }",
+      "name": "AppError",
     }
   `)
 })

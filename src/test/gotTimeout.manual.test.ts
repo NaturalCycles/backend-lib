@@ -20,15 +20,13 @@ test('got timeout', async () => {
   // So, we'll see how Got works, between 2 options:
   // A. It does 10 * 1 second (20 seconds)
   // B. It does 1 second max
-  await app
-    .get('', {
-      timeout: 500,
-      retry: {
-        limit: 10,
-        calculateDelay: ({ attemptCount }) => (attemptCount === 10 ? 0 : 500),
-      },
-    })
-    .json()
+  await app.get('', {
+    timeoutSeconds: 0.5,
+    retry: {
+      count: 10,
+      // calculateDelay: ({ attemptCount }) => (attemptCount === 10 ? 0 : 500),
+    },
+  })
 
   // Result: A
 }, 60_000)
