@@ -1,4 +1,4 @@
-import * as http from 'node:http'
+import http from 'node:http'
 
 export async function createServerBareNode(): Promise<http.Server> {
   return http.createServer((req, res) => {

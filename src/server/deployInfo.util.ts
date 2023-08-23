@@ -1,4 +1,4 @@
-import * as fs from 'node:fs'
+import fs from 'node:fs'
 import { _memoFn } from '@naturalcycles/js-lib'
 import type { DeployInfo } from '../deploy'
 

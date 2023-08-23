@@ -1,6 +1,6 @@
-import * as fs from 'node:fs'
+import fs from 'node:fs'
 import { _memoFn, AppError } from '@naturalcycles/js-lib'
-import * as ejs from 'ejs'
+import ejs from 'ejs'
 import { BackendRequestHandler } from '../server/server.model'
 import { BaseAdminService } from './base.admin.service'
 import { FirebaseSharedServiceCfg } from './firebase.shared.service'

@@ -1,4 +1,4 @@
-import * as http from 'node:http'
+import http from 'node:http'
 import { createDefaultApp, getDefaultRouter } from '../../src'
 
 export async function createServerBackendLib(): Promise<http.Server> {

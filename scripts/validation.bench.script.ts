@@ -4,7 +4,7 @@ yarn tsn validation.bench
 
  */
 
-import * as http from 'node:http'
+import http from 'node:http'
 import { runCannon } from '@naturalcycles/bench-lib'
 import { jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'

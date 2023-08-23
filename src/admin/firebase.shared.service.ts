@@ -1,6 +1,6 @@
 import { _Memo } from '@naturalcycles/js-lib'
 import type { AppOptions, ServiceAccount } from 'firebase-admin'
-import type * as FirebaseAdmin from 'firebase-admin'
+import type FirebaseAdmin from 'firebase-admin'
 
 export interface FirebaseSharedServiceCfg {
   /**

@@ -1,6 +1,6 @@
 import { StringMap } from '@naturalcycles/js-lib'
 import { _readFileSync, AjvSchema, requireFileToExist } from '@naturalcycles/nodejs-lib'
-import * as yaml from 'js-yaml'
+import yaml from 'js-yaml'
 import { resourcesDir } from '../paths.cnst'
 
 export interface BackendCfg {
