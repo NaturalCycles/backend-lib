@@ -1,13 +1,6 @@
 import { Server } from 'node:http'
 import { AddressInfo } from 'node:net'
-import {
-  _since,
-  Fetcher,
-  FetcherOptions,
-  FetchFunction,
-  getFetcher,
-  pDelay,
-} from '@naturalcycles/js-lib'
+import { Fetcher, FetcherOptions, FetchFunction, getFetcher, pDelay } from '@naturalcycles/js-lib'
 import { BackendApplication, createDefaultApp, DefaultAppCfg } from '../index'
 import { BackendRequestHandlerCfg } from '../server/createDefaultApp.model'
 
@@ -70,11 +63,13 @@ class ExpressTestService {
     }) as ExpressApp
 
     fetcher.close = async () => {
-      const started = Date.now()
-      await new Promise(resolve => server.close(resolve))
-      console.log(`close took ${_since(started)}`) // todo: investigate why it takes ~5 seconds!
+      // const started = Date.now()
+      // await new Promise(resolve => server.close(resolve))
+      // console.log(`close took ${_since(started)}`) // todo: investigate why it takes ~5 seconds!
+      // Kirill: not awaiting the server-close, otherwise it takes significant waiting time
+      // to "teardown" server after it's been hit by Fetcher
+      server.close()
       // server.destroy()
-      // await pDelay(1000)
     }
 
     return fetcher

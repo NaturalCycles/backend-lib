@@ -1380,13 +1380,12 @@
     "@types/node" ">=12.12.47"
 
 "@grpc/proto-loader@^0.7.0":
-  version "0.7.8"
-  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.7.8.tgz#c050bbeae5f000a1919507f195a1b094e218036e"
-  integrity sha512-GU12e2c8dmdXb7XUlOgYWZ2o2i+z9/VeACkxTA/zzAe2IjclC5PnVL0lpgjhrqfpDYHzM8B1TF6pqWegMYAzlA==
+  version "0.7.9"
+  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.7.9.tgz#3ca68236f1a0d77566dafa53c715eb31d096279a"
+  integrity sha512-YJsOehVXzgurc+lLAxYnlSMc1p/Gu6VAvnfx0ATi2nzvr0YZcjhmZDeY8SeAKv1M7zE3aEJH0Xo9mK1iZ8GYoQ==
   dependencies:
-    "@types/long" "^4.0.1"
     lodash.camelcase "^4.3.0"
-    long "^4.0.0"
+    long "^5.0.0"
     protobufjs "^7.2.4"
     yargs "^17.7.2"
 
@@ -2256,7 +2255,7 @@
   resolved "https://registry.yarnpkg.com/@types/linkify-it/-/linkify-it-3.0.2.tgz#fd2cd2edbaa7eaac7e7f3c1748b52a19143846c9"
   integrity sha512-HZQYqbiFVWufzCwexrvh694SOim8z2d+xJl5UNamcvQFejLY/2YUtzXHYi3cHdI7PMlS8ejH2slRAOJQ32aNbA==
 
-"@types/long@^4.0.0", "@types/long@^4.0.1":
+"@types/long@^4.0.0":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.2.tgz#b74129719fc8d11c01868010082d483b7545591a"
   integrity sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==
@@ -9251,11 +9250,6 @@ loglevel@^1.6.8:
   resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.8.1.tgz#5c621f83d5b48c54ae93b6156353f555963377b4"
   integrity sha512-tCRIJM51SHjAayKwC+QAg8hT8vg6z7GSgLJKGvzuPb1Wc+hLzqtuVLxp6/HzSPOozuK+8ErAhy7U/sVzw8Dgfg==
 
-long@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/long/-/long-4.0.0.tgz#9a7b71cfb7d361a194ea555241c92f7468d5bf28"
-  integrity sha512-XsP+KhQif4bjX1kbuSiySJFNAehNxgLb6hPRGJ9QsUr8ajHkuXGdrHmFUTUUXhDwVX2R5bY4JNZEwbUiMhV+MA==
-
 long@^5.0.0:
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/long/-/long-5.2.3.tgz#a3ba97f3877cf1d778eccbcb048525ebb77499e1"
@@ -9819,9 +9813,9 @@ no-case@^2.2.0:
     lower-case "^1.1.1"
 
 node-fetch@^2.6.1, node-fetch@^2.6.7, node-fetch@^2.6.9:
-  version "2.6.13"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.13.tgz#a20acbbec73c2e09f9007de5cda17104122e0010"
-  integrity sha512-StxNAxh15zr77QvvkmveSQ8uCQ4+v5FkvNTj0OESmiHu+VRi/gXArXtkWMElOsOUNLtUEvI4yS+rdtOHZTwlQA==
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
+  integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
   dependencies:
     whatwg-url "^5.0.0"
 
@@ -13718,9 +13712,9 @@ vue-hot-reload-api@^2.3.0:
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
 
 vue-loader@^15.7.1:
-  version "15.10.1"
-  resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-15.10.1.tgz#c451c4cd05a911aae7b5dbbbc09fb913fb3cca18"
-  integrity sha512-SaPHK1A01VrNthlix6h1hq4uJu7S/z0kdLUb6klubo738NeQoLbS6V9/d8Pv19tU0XdQKju3D1HSKuI8wJ5wMA==
+  version "15.10.2"
+  resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-15.10.2.tgz#6dccfda8661caa7f5415806a5e386fd3258d8112"
+  integrity sha512-ndeSe/8KQc/nlA7TJ+OBhv2qalmj1s+uBs7yHDRFaAXscFTApBzY9F1jES3bautmgWjDlDct0fw8rPuySDLwxw==
   dependencies:
     "@vue/component-compiler-utils" "^3.1.0"
     hash-sum "^1.0.2"
