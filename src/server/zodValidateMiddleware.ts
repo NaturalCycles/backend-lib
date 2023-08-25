@@ -1,6 +1,6 @@
 import { _get, AppError, ZodSchema, ZodValidationError, zSafeValidate } from '@naturalcycles/js-lib'
-import { BackendRequestHandler } from './server.model'
 import { ReqValidationOptions } from './reqValidationMiddleware'
+import { BackendRequestHandler } from './server.model'
 
 const REDACTED = 'REDACTED'
 

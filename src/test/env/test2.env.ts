@@ -3,4 +3,5 @@ const test2Env = {
   a: 'a2',
 }
 
+// eslint-disable-next-line import/no-default-export
 export default test2Env

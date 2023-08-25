@@ -31,7 +31,10 @@ const adminInfoDisabled = (): AdminInfo => ({
  * Base implementation based on Firebase Auth tokens passed as 'admin_token' cookie.
  */
 export class BaseAdminService {
-  constructor(private firebaseAuth: FirebaseAdmin.auth.Auth, cfg: AdminServiceCfg) {
+  constructor(
+    private firebaseAuth: FirebaseAdmin.auth.Auth,
+    cfg: AdminServiceCfg,
+  ) {
     this.cfg = {
       adminTokenKey: 'admin_token',
       authEnabled: true,

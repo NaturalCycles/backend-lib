@@ -1,7 +1,7 @@
 import http from 'node:http'
+import cookieParser = require('cookie-parser')
 import express = require('express')
 import helmet from 'helmet'
-import cookieParser = require('cookie-parser')
 
 /**
  * Based on: https://github.com/fastify/benchmarks/blob/master/benchmarks/express-with-middlewares.js

@@ -1,6 +1,4 @@
-import { _emptyDirSync, _writeFileSync } from '@naturalcycles/nodejs-lib'
-import { dimGrey } from '@naturalcycles/nodejs-lib'
-import { kpySync } from '@naturalcycles/nodejs-lib'
+import { _emptyDirSync, _writeFileSync, dimGrey, kpySync } from '@naturalcycles/nodejs-lib'
 import { srcDir } from '../paths.cnst'
 import { getBackendCfg } from './backend.cfg.util'
 import { DeployInfo } from './deploy.model'

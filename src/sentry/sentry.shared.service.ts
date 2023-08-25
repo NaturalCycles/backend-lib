@@ -6,7 +6,9 @@ import {
   CommonLogLevel,
 } from '@naturalcycles/js-lib'
 import { inspectAny, InspectAnyOptions } from '@naturalcycles/nodejs-lib'
+// eslint-disable-next-line import/no-duplicates
 import type { Breadcrumb, NodeOptions, SeverityLevel } from '@sentry/node'
+// eslint-disable-next-line import/no-duplicates
 import type * as SentryLib from '@sentry/node'
 import { BackendErrorRequestHandler, BackendRequestHandler, getRequestLogger } from '../index'
 

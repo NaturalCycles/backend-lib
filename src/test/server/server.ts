@@ -13,6 +13,7 @@ autocannon -c 100 -d 40 -p 10 localhost:8080
 console.log('startServer... ')
 
 import { _errorLikeToErrorObject, AppError, pDelay } from '@naturalcycles/js-lib'
+import { loginHtml } from '../../admin/adminMiddleware'
 import {
   startServer,
   getDefaultRouter,
@@ -21,7 +22,6 @@ import {
   SentrySharedService,
   basicAuthMiddleware,
 } from '../../index'
-import { loginHtml } from '../../admin/adminMiddleware'
 import {
   getRequest,
   getRequestLogger,

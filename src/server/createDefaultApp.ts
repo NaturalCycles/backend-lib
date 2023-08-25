@@ -2,13 +2,13 @@ import cookieParser = require('cookie-parser')
 import cors = require('cors')
 import express = require('express')
 import { BackendApplication, isGAE, methodOverrideMiddleware } from '..'
+import { appEngineLogMiddleware } from './appEngineLogMiddleware'
+import { asyncLocalStorageMiddleware } from './asyncLocalStorageMiddleware'
 import {
   DefaultAppCfg,
   BackendRequestHandlerCfg,
   BackendRequestHandlerWithPath,
 } from './createDefaultApp.model'
-import { asyncLocalStorageMiddleware } from './asyncLocalStorageMiddleware'
-import { appEngineLogMiddleware } from './appEngineLogMiddleware'
 import { genericErrorMiddleware } from './genericErrorMiddleware'
 import { notFoundMiddleware } from './notFoundMiddleware'
 import { requestTimeoutMiddleware } from './requestTimeoutMiddleware'

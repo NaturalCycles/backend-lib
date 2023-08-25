@@ -151,16 +151,19 @@ export function createAppYaml(
     .split(',')
     .filter(Boolean)
     // eslint-disable-next-line unicorn/no-array-reduce
-    .reduce((map, key) => {
-      const v = process.env[key]
-      if (!v) {
-        throw new Error(
-          `appYamlPassEnv.${key} is requested, but process.env.${key} is not defined!`,
-        )
-      }
-      map[key] = v
-      return map
-    }, {} as Record<string, string>)
+    .reduce(
+      (map, key) => {
+        const v = process.env[key]
+        if (!v) {
+          throw new Error(
+            `appYamlPassEnv.${key} is requested, but process.env.${key} is not defined!`,
+          )
+        }
+        map[key] = v
+        return map
+      },
+      {} as Record<string, string>,
+    )
 
   if (Object.keys(passEnv).length) {
     console.log(
