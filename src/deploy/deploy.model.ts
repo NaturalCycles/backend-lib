@@ -1,3 +1,5 @@
+import { UnixTimestampNumber } from '@naturalcycles/js-lib'
+
 export interface DeployInfo {
   gaeProject: string
   gaeService: string
@@ -11,7 +13,7 @@ export interface DeployInfo {
   /**
    * Unix timestamp of deployInfo.json being generated.
    */
-  ts: number
+  ts: UnixTimestampNumber
 }
 
 export interface AppYaml extends Record<string, any> {

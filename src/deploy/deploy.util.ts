@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import { _mapValues, _merge, _truncate, localTime } from '@naturalcycles/js-lib'
+import { _mapValues, _merge, _truncate, localTimeNow } from '@naturalcycles/js-lib'
 import { dimGrey, white } from '@naturalcycles/nodejs-lib'
 import yaml from 'js-yaml'
 import { BackendCfg } from './backend.cfg.util'
@@ -42,7 +42,7 @@ export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployIn
   const simpleGit = require('simple-git') // lazy load
   const git = simpleGit('.')
 
-  const now = localTime()
+  const now = localTimeNow()
   const gitBranch = (await git.status()).current!
   const gitRev = (await git.revparse(['HEAD'])).slice(0, 7)
 

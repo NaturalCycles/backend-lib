@@ -1,4 +1,4 @@
-import { _filterNullishValues, localTime } from '@naturalcycles/js-lib'
+import { _filterNullishValues, localTime, localTimeNow } from '@naturalcycles/js-lib'
 import { memoryUsageFull, processSharedUtil } from '@naturalcycles/nodejs-lib'
 import { getDeployInfo } from './deployInfo.util'
 import { BackendRequestHandler } from './server.model'
@@ -41,6 +41,6 @@ export function getServerStatusData(
 }
 
 function getStartedStr(): string {
-  const started = localTime().subtract(process.uptime(), 'second')
+  const started = localTimeNow().subtract(process.uptime(), 'second')
   return `${started.toPretty()} (${started.fromNow()})`
 }
