@@ -1,5 +1,5 @@
 import { buildProdCommand } from '@naturalcycles/dev-lib'
-import { _objectAssign } from '@naturalcycles/js-lib'
+import { _anyToError, _objectAssign, pRetry } from '@naturalcycles/js-lib'
 import { execVoidCommandSync } from '@naturalcycles/nodejs-lib'
 import { deployHealthCheck, DeployHealthCheckOptions } from './deployHealthCheck'
 import { deployPrepare, DeployPrepareOptions } from './deployPrepare'
@@ -29,20 +29,28 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
     gaeVersion,
   })
 
-  try {
-    // gcloud app deploy ./tmp/deploy/app.yaml --project $deployInfo_gaeProject --version $deployInfo_gaeVersion --quiet --no-promote
-    execVoidCommandSync(
-      `gcloud app deploy ${appYamlPath} --project ${gaeProject} --version ${gaeVersion} --quiet --no-promote`,
-      [],
-      { shell: true },
-    )
-  } catch (err) {
-    if (logOnFailure) {
-      logs(gaeProject, gaeService, gaeVersion)
-    }
-
-    throw err
-  }
+  await pRetry(
+    async () => {
+      try {
+        execVoidCommandSync(
+          `gcloud app deploy ${appYamlPath} --project ${gaeProject} --version ${gaeVersion} --quiet --no-promote`,
+          [],
+          { shell: true },
+        )
+      } catch (err) {
+        if (logOnFailure) {
+          logs(gaeProject, gaeService, gaeVersion)
+        }
+        throw err
+      }
+    },
+    {
+      name: 'deploy',
+      maxAttempts: 2,
+      delay: 30_000,
+      predicate: err => _anyToError(err).message.includes('operation is already in progress'),
+    },
+  )
 
   // Health check (versionUrl)
   // yarn deploy-health-check --url $deployInfo_versionUrl --repeat 3 --timeoutSec 180 --intervalSec 2
