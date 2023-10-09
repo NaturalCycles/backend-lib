@@ -88,7 +88,7 @@ export const serverStatsHTMLHandler: BackendRequestHandler = (req, res) => {
       _stringMapEntries(serverStatsMap),
       ([_, stat]) => _get(stat, sortBy),
       false,
-      !asc,
+      asc ? 'asc' : 'desc',
     ).map(([endpoint, stat]) => {
       return [
         '<tr>',
