@@ -5,7 +5,7 @@ import {
   CommonLogger,
   CommonLogLevel,
 } from '@naturalcycles/js-lib'
-import { inspectAny, InspectAnyOptions } from '@naturalcycles/nodejs-lib'
+import { _inspect, InspectAnyOptions } from '@naturalcycles/nodejs-lib'
 // eslint-disable-next-line import/no-duplicates
 import type { Breadcrumb, NodeOptions, SeverityLevel } from '@sentry/node'
 // eslint-disable-next-line import/no-duplicates
@@ -115,7 +115,7 @@ export class SentrySharedService {
     // It will log additional "breadcrumb object" before the error
     // It's a Breadcrumb, not a console.log, because console.log are NOT automatically attached as Breadcrumbs in cron-job environments (outside of Express)
     this.sentry().addBreadcrumb({
-      message: inspectAny(err, INSPECT_OPT),
+      message: _inspect(err, INSPECT_OPT),
     })
 
     return this.sentry().captureException(err)
@@ -145,7 +145,7 @@ export class SentrySharedService {
       log: () => {}, // noop
       warn: () => {}, // noop
       error: (...args) => {
-        const message = args.map(arg => inspectAny(arg, INSPECT_OPT)).join(' ')
+        const message = args.map(arg => _inspect(arg, INSPECT_OPT)).join(' ')
 
         this.sentry().addBreadcrumb({
           message,

@@ -1,6 +1,6 @@
 import { inspect } from 'node:util'
 import { AnyObject, CommonLogger } from '@naturalcycles/js-lib'
-import { dimGrey, inspectAny } from '@naturalcycles/nodejs-lib'
+import { dimGrey, _inspect } from '@naturalcycles/nodejs-lib'
 import { BackendRequestHandler } from './server.model'
 
 const { GOOGLE_CLOUD_PROJECT, GAE_INSTANCE } = process.env
@@ -53,7 +53,7 @@ function logToDev(requestId: string | null, args: any[]): void {
   console.log(
     [
       requestId ? [dimGrey(`[${requestId}]`)] : [],
-      ...args.map(a => inspectAny(a, { includeErrorStack: true, colors: true })),
+      ...args.map(a => _inspect(a, { includeErrorStack: true, colors: true })),
     ].join(' '),
   )
 }
@@ -63,7 +63,7 @@ function logToDev(requestId: string | null, args: any[]): void {
  * This is to not confuse e.g Sentry when it picks up messages with colors
  */
 function logToCI(args: any[]): void {
-  console.log(args.map(a => inspectAny(a, { includeErrorStack: true, colors: false })).join(' '))
+  console.log(args.map(a => _inspect(a, { includeErrorStack: true, colors: false })).join(' '))
 }
 
 export function appEngineLogMiddleware(): BackendRequestHandler {

@@ -8,9 +8,9 @@ yarn tsn consoleVSProcessBench
 
 import { runBenchScript } from '@naturalcycles/bench-lib'
 import { _range } from '@naturalcycles/js-lib'
-import { inspectAny } from '@naturalcycles/nodejs-lib'
+import { _inspect } from '@naturalcycles/nodejs-lib'
 
-const data = _range(10).map(n => inspectAny({ a: 'b', n }))
+const data = _range(10).map(n => _inspect({ a: 'b', n }))
 
 runBenchScript({
   fns: {

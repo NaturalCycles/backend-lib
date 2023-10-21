@@ -44,7 +44,7 @@ export function simpleRequestLoggerMiddleware(
 
         // Avoid logging twice. It was previously logged by genericErrorHandler
         // if (res.__err) {
-        //   logRequest(req, res.statusCode, dimGrey(_since(started)), inspectAny(res.__err))
+        //   logRequest(req, res.statusCode, dimGrey(_since(started)), _inspect(res.__err))
         // } else {
         //   logRequest(req, res.statusCode, dimGrey(_since(started)))
         // }

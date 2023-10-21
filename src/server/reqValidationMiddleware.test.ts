@@ -1,4 +1,4 @@
-import { inspectAny } from '@naturalcycles/nodejs-lib'
+import { _inspect } from '@naturalcycles/nodejs-lib'
 import { debugResource } from '../test/debug.resource'
 import { expressTestService } from '../testing'
 
@@ -44,7 +44,7 @@ test('reqValidation', async () => {
     }
   `)
 
-  expect(inspectAny(err.cause)).toMatchInlineSnapshot(`
+  expect(_inspect(err.cause)).toMatchInlineSnapshot(`
     "AppError: Invalid request body
     {
       "pw" [1]: "REDACTED"
