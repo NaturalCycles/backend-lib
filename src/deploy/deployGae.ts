@@ -1,6 +1,6 @@
 import { buildProdCommand } from '@naturalcycles/dev-lib'
 import { _anyToError, _objectAssign, pRetry } from '@naturalcycles/js-lib'
-import { execVoidCommandSync } from '@naturalcycles/nodejs-lib'
+import { appendToGithubSummary, execVoidCommandSync } from '@naturalcycles/nodejs-lib'
 import { deployHealthCheck, DeployHealthCheckOptions } from './deployHealthCheck'
 import { deployPrepare, DeployPrepareOptions } from './deployPrepare'
 
@@ -11,12 +11,10 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
 
   // 1. build-prod
 
-  // await execCommand(`yarn`, [`build-prod`])
   buildProdCommand()
 
   // 2. deploy-prepare
 
-  // await execCommand(`yarn`, ['deploy-prepare'])
   const deployInfo = await deployPrepare()
 
   const targetDir = './tmp/deploy'
@@ -28,6 +26,8 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
     gaeService,
     gaeVersion,
   })
+
+  appendToGithubSummary(`[versionUrl](${versionUrl})`)
 
   await pRetry(
     async () => {
@@ -48,6 +48,8 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
       name: 'deploy',
       maxAttempts: 2,
       delay: 30_000,
+      // todo: this doesn't work, as the error is different from what is logged.
+      // We shoud somehow capture the logged text
       predicate: err => _anyToError(err).message.includes('operation is already in progress'),
     },
   )
