@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import { _mapValues, _merge, _truncate, localTimeNow } from '@naturalcycles/js-lib'
+import { _assert, _mapValues, _merge, _truncate, localTimeNow } from '@naturalcycles/js-lib'
 import { dimGrey, white } from '@naturalcycles/nodejs-lib'
 import yaml from 'js-yaml'
 import { BackendCfg } from './backend.cfg.util'
@@ -78,6 +78,13 @@ export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployIn
   }
 
   const versionUrl = `https://${[gaeVersion, gaeService, gaeProject].join('-dot-')}.appspot.com`
+
+  // Check the 63-char limit
+  const versionUrlString = [gaeVersion, gaeService, gaeProject].join('-dot-')
+  _assert(
+    versionUrlString.length <= 63,
+    `versionUrl length should be <= 63 characters, but it's ${versionUrlString.length} instead: ${versionUrlString}`,
+  )
 
   const serviceUrl = `https://${[gaeService, gaeProject].join('-dot-')}.appspot.com`
 
@@ -198,12 +205,9 @@ function redactedAppYaml(appYaml: AppYaml): AppYaml {
 
 export function validateGAEServiceName(serviceName: string): string {
   // May only contain lowercase letters, digits, and hyphens. Must begin and end with a letter or digit. Must not exceed 63 characters.
-  return replaceAll(serviceName, '_', '-')
+  return serviceName
+    .replaceAll('_', '-')
     .toLowerCase()
     .replaceAll(/[^0-9a-z-]/gi, '')
     .slice(0, 40)
-}
-
-function replaceAll(str: string, search: string, replacement: string): string {
-  return str.split(search).join(replacement)
 }
