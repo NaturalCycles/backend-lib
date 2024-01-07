@@ -79,6 +79,27 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
   }
 }
 
+/**
+ * Undeploys/removes the GAE service/version, using the same rules as deployGae.
+ * Detects the service/version by the same criteria: branch name, backend.cfg.yaml, etc.
+ */
+export async function undeployGae(): Promise<void> {
+  const { gaeProject, gaeService, gaeVersion, prod } = await deployPrepare()
+
+  if (prod) {
+    console.log('undeployGae: not removing prod version (safety check)')
+    return
+  }
+
+  console.log(`undeployGae: going to remove ${gaeProject}/${gaeService}/${gaeVersion}`)
+
+  execVoidCommandSync(
+    `gcloud app versions delete --project ${gaeProject} --service ${gaeService} ${gaeVersion} --quiet`,
+    [],
+    { shell: true },
+  )
+}
+
 function logs(gaeProject: string, gaeService: string, gaeVersion: string): void {
   try {
     execVoidCommandSync(

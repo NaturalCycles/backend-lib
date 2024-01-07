@@ -60,6 +60,7 @@
   ],
   "bin": {
     "deploy-gae": "dist/bin/deploy-gae.js",
+    "undeploy-gae": "dist/bin/undeploy-gae.js",
     "deploy-prepare": "dist/bin/deploy-prepare.js",
     "deploy-health-check": "dist/bin/deploy-health-check.js"
   },
