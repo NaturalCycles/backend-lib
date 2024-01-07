@@ -38,12 +38,15 @@ export async function createAndSaveDeployInfo(
   return deployInfo
 }
 
-export async function createDeployInfo(backendCfg: BackendCfg): Promise<DeployInfo> {
+export async function createDeployInfo(
+  backendCfg: BackendCfg,
+  overrideBranch?: string,
+): Promise<DeployInfo> {
   const simpleGit = require('simple-git') // lazy load
   const git = simpleGit('.')
 
   const now = localTimeNow()
-  const gitBranch = (await git.status()).current!
+  const gitBranch = overrideBranch || (await git.status()).current!
   const gitRev = (await git.revparse(['HEAD'])).slice(0, 7)
 
   let {

@@ -1,6 +1,8 @@
 import { buildProdCommand } from '@naturalcycles/dev-lib'
 import { _anyToError, _objectAssign, pRetry } from '@naturalcycles/js-lib'
 import { appendToGithubSummary, execVoidCommandSync } from '@naturalcycles/nodejs-lib'
+import { getBackendCfg } from './backend.cfg.util'
+import { createDeployInfo } from './deploy.util'
 import { deployHealthCheck, DeployHealthCheckOptions } from './deployHealthCheck'
 import { deployPrepare, DeployPrepareOptions } from './deployPrepare'
 
@@ -83,15 +85,20 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
  * Undeploys/removes the GAE service/version, using the same rules as deployGae.
  * Detects the service/version by the same criteria: branch name, backend.cfg.yaml, etc.
  */
-export async function undeployGae(): Promise<void> {
-  const { gaeProject, gaeService, gaeVersion, prod } = await deployPrepare()
+export async function undeployGae(branch: string): Promise<void> {
+  const projectDir = '.'
+  const backendCfg = getBackendCfg(projectDir)
+
+  const { gaeProject, gaeService, gaeVersion, prod } = await createDeployInfo(backendCfg, branch)
 
   if (prod) {
-    console.log('undeployGae: not removing prod version (safety check)')
+    console.log(`undeployGae (branch: ${branch}): not removing prod version (safety check)`)
     return
   }
 
-  console.log(`undeployGae: going to remove ${gaeProject}/${gaeService}/${gaeVersion}`)
+  console.log(
+    `undeployGae (branch: ${branch}): going to remove ${gaeProject}/${gaeService}/${gaeVersion}`,
+  )
 
   execVoidCommandSync(
     `gcloud app versions delete --project ${gaeProject} --service ${gaeService} ${gaeVersion} --quiet`,
