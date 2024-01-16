@@ -1,6 +1,5 @@
 import { StringMap } from '@naturalcycles/js-lib'
-import { _readFileSync, AjvSchema, requireFileToExist } from '@naturalcycles/nodejs-lib'
-import yaml from 'js-yaml'
+import { AjvSchema, fs2, requireFileToExist } from '@naturalcycles/nodejs-lib'
 import { resourcesDir } from '../paths.cnst'
 
 export interface BackendCfg {
@@ -63,7 +62,7 @@ export function getBackendCfg(projectDir: string = '.'): BackendCfg {
 
   const backendCfg: BackendCfg = {
     serviceWithBranchName: true,
-    ...(yaml.load(_readFileSync(backendCfgYamlPath)) as any),
+    ...fs2.readYaml(backendCfgYamlPath),
   }
 
   backendCfgSchema.validate(backendCfg)

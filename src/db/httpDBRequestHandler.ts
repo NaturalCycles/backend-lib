@@ -75,7 +75,7 @@ export function httpDBRequestHandler(db: CommonDB): BackendRouter {
 
   // getTableSchema
   router.get('/:table/schema', async (req, res) => {
-    res.json(await db.getTableSchema(req.params['table']!))
+    res.json(await db.getTableSchema(req.params['table']))
   })
 
   // todo: createTable
