@@ -2,9 +2,11 @@ import { Readable } from 'node:stream'
 import {
   BaseCommonDB,
   CommonDB,
+  commonDBFullSupport,
   CommonDBOptions,
   CommonDBSaveOptions,
   CommonDBStreamOptions,
+  CommonDBSupport,
   DBQuery,
   RunQueryResult,
 } from '@naturalcycles/db-lib'
@@ -25,6 +27,17 @@ export interface HttpDBCfg extends FetcherOptions {
  * Implementation of CommonDB that proxies all requests via HTTP to "httpDBRequestHandler".
  */
 export class HttpDB extends BaseCommonDB implements CommonDB {
+  override support: CommonDBSupport = {
+    ...commonDBFullSupport,
+    streaming: false,
+    createTable: false,
+    bufferValues: false,
+    updateSaveMethod: false,
+    insertSaveMethod: false,
+    transactions: false,
+    updateByQuery: false,
+  }
+
   constructor(public cfg: HttpDBCfg) {
     super()
     this.setCfg(cfg)
@@ -106,7 +119,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
     })
   }
 
-  async deleteByIds(table: string, ids: string[], opt?: CommonDBOptions): Promise<number> {
+  override async deleteByIds(table: string, ids: string[], opt?: CommonDBOptions): Promise<number> {
     return await this.fetcher.put(`deleteByIds`, {
       json: {
         table,

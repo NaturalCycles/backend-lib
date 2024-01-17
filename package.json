@@ -16,7 +16,7 @@
     "@sentry/node": "^7.0.0"
   },
   "dependencies": {
-    "@naturalcycles/db-lib": "^8.0.2",
+    "@naturalcycles/db-lib": "^9.1.0",
     "@naturalcycles/js-lib": "^14.27.0",
     "@naturalcycles/nodejs-lib": "^13.1.0",
     "@types/cookie-parser": "^1.4.1",
