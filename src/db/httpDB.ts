@@ -105,7 +105,7 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
     })
   }
 
-  override async saveBatch<ROW extends Partial<ObjectWithId>>(
+  override async saveBatch<ROW extends ObjectWithId>(
     table: string,
     rows: ROW[],
     opt?: CommonDBSaveOptions<ROW>,

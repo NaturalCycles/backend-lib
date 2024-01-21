@@ -39,7 +39,7 @@ const runQueryInputSchema = objectSchema<RunQueryInput>({
 export interface SaveBatchInput {
   table: string
   rows: ObjectWithId[]
-  opt?: CommonDBSaveOptions
+  opt?: CommonDBSaveOptions<any>
 }
 
 const saveBatchInputSchema = objectSchema<SaveBatchInput>({
