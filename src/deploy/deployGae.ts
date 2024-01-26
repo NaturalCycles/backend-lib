@@ -29,8 +29,6 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
     gaeVersion,
   })
 
-  appendToGithubSummary(`[versionUrl](${versionUrl})`)
-
   await pRetry(
     async () => {
       try {
@@ -75,6 +73,8 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
     await deployHealthCheck(serviceUrl, opt)
   }
 
+  appendToGithubSummary(`Deployed ${serviceUrl}`)
+
   // Logs
   if (logOnSuccess) {
     logs(gaeProject, gaeService, gaeVersion)
@@ -105,6 +105,8 @@ export async function undeployGae(branch: string): Promise<void> {
     [],
     { shell: true },
   )
+
+  appendToGithubSummary(`removed ${gaeProject}/${gaeService}/${gaeVersion}`)
 }
 
 function logs(gaeProject: string, gaeService: string, gaeVersion: string): void {
