@@ -4,30 +4,13 @@ import { resourcesDir } from '../paths.cnst'
 
 export interface BackendCfg {
   gaeProject: string
-
   gaeProjectByBranch?: StringMap
 
   /**
    * @example default
    */
   gaeService: string
-
   gaeServiceByBranch?: StringMap
-
-  /**
-   * @default true
-   *
-   * If true - service name will look like ${branchName}--${gaeService}, similar to Netlify.
-   * If false - ${gaeService}.
-   *
-   * Prod branch NEVER includes branchName in service name.
-   */
-  serviceWithBranchName?: boolean
-
-  /**
-   * @example prod
-   */
-  prodBranch: string
 
   /**
    * List of file patterns to include in deployment.
@@ -61,7 +44,6 @@ export function getBackendCfg(projectDir: string = '.'): BackendCfg {
   requireFileToExist(backendCfgYamlPath)
 
   const backendCfg: BackendCfg = {
-    serviceWithBranchName: true,
     ...fs2.readYaml(backendCfgYamlPath),
   }
 

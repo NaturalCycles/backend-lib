@@ -21,7 +21,6 @@
 - `/deploy`
   - yargs
   - nodejs-lib/fs
-  - js-yaml
   - simple-git
   - got
 - `/testing`

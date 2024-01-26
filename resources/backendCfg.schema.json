@@ -17,8 +17,6 @@
         ".*": { "type": "string" }
       }
     },
-    "serviceWithBranchName": { "type": "boolean", "default": true },
-    "prodBranch": { "type": "string" },
     "files": {
       "type": "array",
       "items": { "type": "string" }

@@ -8,7 +8,6 @@ export interface DeployInfo {
   serviceUrl: string
   gitRev: string
   gitBranch: string
-  prod: boolean
 
   /**
    * Unix timestamp of deployInfo.json being generated.

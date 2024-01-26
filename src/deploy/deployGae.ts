@@ -89,12 +89,12 @@ export async function undeployGae(branch: string): Promise<void> {
   const projectDir = '.'
   const backendCfg = getBackendCfg(projectDir)
 
-  const { gaeProject, gaeService, gaeVersion, prod } = await createDeployInfo(backendCfg, branch)
+  const { gaeProject, gaeService, gaeVersion } = await createDeployInfo(backendCfg, branch)
 
-  if (prod) {
-    console.log(`undeployGae (branch: ${branch}): not removing prod version (safety check)`)
-    return
-  }
+  // if (prod) {
+  //   console.log(`undeployGae (branch: ${branch}): not removing prod version (safety check)`)
+  //   return
+  // }
 
   console.log(
     `undeployGae (branch: ${branch}): going to remove ${gaeProject}/${gaeService}/${gaeVersion}`,

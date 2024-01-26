@@ -1,7 +1,5 @@
-import fs from 'node:fs'
 import { _assert, _mapValues, _merge, _truncate, localTimeNow } from '@naturalcycles/js-lib'
-import { dimGrey, white } from '@naturalcycles/nodejs-lib'
-import yaml from 'js-yaml'
+import { dimGrey, fs2, white } from '@naturalcycles/nodejs-lib'
 import { BackendCfg } from './backend.cfg.util'
 import { AppYaml, DeployInfo } from './deploy.model'
 
@@ -29,12 +27,9 @@ export async function createAndSaveDeployInfo(
   targetDir: string,
 ): Promise<DeployInfo> {
   const deployInfo = await createDeployInfo(backendCfg)
-
   const deployInfoPath = `${targetDir}/deployInfo.json`
-
-  fs.writeFileSync(deployInfoPath, JSON.stringify(deployInfo, null, 2))
+  fs2.writeJson(deployInfoPath, deployInfo, { spaces: 2 })
   console.log(`saved ${dimGrey(deployInfoPath)}`)
-
   return deployInfo
 }
 
@@ -54,18 +49,14 @@ export async function createDeployInfo(
     gaeProjectByBranch = {},
     gaeService,
     gaeServiceByBranch = {},
-    serviceWithBranchName,
-    prodBranch,
     branchesWithTimestampVersions = [],
   } = backendCfg
 
   gaeProject = gaeProjectByBranch[gitBranch] || gaeProject
 
-  gaeService = validateGAEServiceName(gaeServiceByBranch[gitBranch] || gaeService)
-
-  const prod = gitBranch === prodBranch
-
-  if (!prod && serviceWithBranchName && !gaeServiceByBranch[gitBranch]) {
+  if (gaeServiceByBranch[gitBranch]) {
+    gaeService = validateGAEServiceName(gaeServiceByBranch[gitBranch]!)
+  } else {
     gaeService = validateGAEServiceName([gitBranch, gaeService].join('--'))
   }
 
@@ -99,7 +90,6 @@ export async function createDeployInfo(
     serviceUrl,
     gitBranch,
     gitRev,
-    prod,
     ts: now.unix(),
   }
 
@@ -116,12 +106,9 @@ export function createAndSaveAppYaml(
   appYamlPassEnv = '',
 ): AppYaml {
   const appYaml = createAppYaml(backendCfg, deployInfo, projectDir, appYamlPassEnv)
-
   const appYamlPath = `${targetDir}/app.yaml`
-
-  fs.writeFileSync(appYamlPath, yaml.dump(appYaml))
+  fs2.writeYaml(appYamlPath, appYaml)
   console.log(`saved ${dimGrey(appYamlPath)}`)
-
   return appYaml
 }
 
@@ -144,15 +131,15 @@ export function createAppYaml(
 
   // Check existing app.yaml
   const appYamlPath = `${projectDir}/app.yaml`
-  if (fs.existsSync(appYamlPath)) {
+  if (fs2.pathExists(appYamlPath)) {
     console.log(`merging-in ${dimGrey(appYamlPath)}`)
-    _merge(appYaml, yaml.load(fs.readFileSync(appYamlPath, 'utf8')))
+    _merge(appYaml, fs2.readYaml(appYamlPath))
   }
 
   const appEnvYamlPath = `${projectDir}/app.${APP_ENV}.yaml`
-  if (fs.existsSync(appEnvYamlPath)) {
+  if (fs2.pathExists(appEnvYamlPath)) {
     console.log(`merging-in ${dimGrey(appEnvYamlPath)}`)
-    _merge(appYaml, yaml.load(fs.readFileSync(appEnvYamlPath, 'utf8')))
+    _merge(appYaml, fs2.readYaml(appEnvYamlPath))
   }
 
   // appYamlPassEnv

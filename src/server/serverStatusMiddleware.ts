@@ -16,7 +16,7 @@ export function getServerStatusData(
   projectDir: string = process.cwd(),
   extra?: any,
 ): Record<string, any> {
-  const { gitRev, gitBranch, prod, ts } = getDeployInfo(projectDir)
+  const { gitRev, gitBranch, ts } = getDeployInfo(projectDir)
   const t = localTime(ts)
   const deployBuildTime = t.toPretty()
   const buildInfo = [t.toStringCompact(), gitBranch, gitRev].filter(Boolean).join('_')
@@ -25,7 +25,6 @@ export function getServerStatusData(
     started: getStartedStr(),
     deployBuildTime,
     APP_ENV,
-    prod,
     buildInfo,
     GAE_APPLICATION,
     GAE_SERVICE,
