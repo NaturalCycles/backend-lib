@@ -1,6 +1,6 @@
 /*
 
-yarn serve
+yarn dev
 
 Benchmark it like this:
 autocannon -c 100 -d 40 -p 10 localhost:8080

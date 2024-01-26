@@ -2,8 +2,8 @@
   "name": "@naturalcycles/backend-lib",
   "version": "2.61.0",
   "scripts": {
-    "prepare": "husky install",
-    "serve": "APP_ENV=dev nodemon",
+    "prepare": "husky",
+    "dev": "APP_ENV=dev nodemon",
     "docs-serve": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "docs-build": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
