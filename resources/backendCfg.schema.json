@@ -34,5 +34,5 @@
     },
     "appYamlPassEnv": { "type": "string" }
   },
-  "required": ["gaeProject", "gaeService", "prodBranch", "appEnvDefault"]
+  "required": ["gaeProject", "gaeService", "appEnvDefault"]
 }

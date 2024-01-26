@@ -10,7 +10,5 @@ gaeService: test-service
 
 # serviceWithBranchName
 
-prodBranch: prod
-
 appEnvDefault: prod
 appYamlPassEnv: AA,BB
