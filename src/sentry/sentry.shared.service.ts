@@ -4,6 +4,8 @@ import {
   _Memo,
   CommonLogger,
   CommonLogLevel,
+  Primitive,
+  StringMap,
 } from '@naturalcycles/js-lib'
 import { _inspect, InspectAnyOptions } from '@naturalcycles/nodejs-lib'
 // eslint-disable-next-line import/no-duplicates
@@ -77,12 +79,28 @@ export class SentrySharedService {
   /**
    * For GDPR reasons we never send more information than just User ID.
    */
-  setUserId(id: string): void {
-    this.sentry().configureScope(scope => {
-      scope.setUser({
-        id,
-      })
+  setUserId(id: string | null): void {
+    if (id === null) {
+      this.sentry().setUser(null)
+      return
+    }
+
+    this.sentry().setUser({
+      id,
     })
+  }
+
+  /**
+   * Tag keys have a maximum length of 32 characters and can contain only
+   * letters (a-zA-Z), numbers (0-9), underscores (_), periods (.), colons (:), and dashes (-).
+   *
+   * Tag values have a maximum length of 200 characters and they
+   * cannot contain the newline (\n) character.
+   *
+   * https://docs.sentry.io/platforms/node/enriching-events/scopes/
+   */
+  setTags(tags: StringMap<Primitive>): void {
+    this.sentry().setTags(tags)
   }
 
   /**
