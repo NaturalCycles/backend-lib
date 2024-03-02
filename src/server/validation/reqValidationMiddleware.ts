@@ -1,6 +1,6 @@
 import { _get, AppError } from '@naturalcycles/js-lib'
 import { AnySchema, getValidationResult, JoiValidationError } from '@naturalcycles/nodejs-lib'
-import { BackendRequestHandler } from './server.model'
+import { BackendRequest, BackendRequestHandler } from '../server.model'
 
 const REDACTED = 'REDACTED'
 
@@ -63,3 +63,64 @@ function redact(redactPaths: string[], obj: any, error: Error): void {
       error.message = error.message.replace(secret, REDACTED)
     })
 }
+
+class ValidateRequest {
+  body<T>(
+    req: BackendRequest,
+    schema: AnySchema<T>,
+    opt: ReqValidationOptions<JoiValidationError> = {},
+  ): T {
+    return this.validate(req, 'body', schema, opt)
+  }
+
+  query<T>(
+    req: BackendRequest,
+    schema: AnySchema<T>,
+    opt: ReqValidationOptions<JoiValidationError> = {},
+  ): T {
+    return this.validate(req, 'query', schema, opt)
+  }
+
+  params<T>(
+    req: BackendRequest,
+    schema: AnySchema<T>,
+    opt: ReqValidationOptions<JoiValidationError> = {},
+  ): T {
+    return this.validate(req, 'params', schema, opt)
+  }
+
+  private validate<T>(
+    req: BackendRequest,
+    reqProperty: 'body' | 'params' | 'query',
+    schema: AnySchema<T>,
+    opt: ReqValidationOptions<JoiValidationError> = {},
+  ): T {
+    const { value, error } = getValidationResult(req[reqProperty], schema, `request ${reqProperty}`)
+    if (error) {
+      let report: boolean | undefined
+      if (typeof opt.report === 'boolean') {
+        report = opt.report
+      } else if (typeof opt.report === 'function') {
+        report = opt.report(error)
+      }
+
+      if (opt.redactPaths) {
+        redact(opt.redactPaths, req[reqProperty], error)
+        error.data.joiValidationErrorItems.length = 0 // clears the array
+        delete error.data.annotation
+      }
+
+      throw new AppError(error.message, {
+        backendResponseStatusCode: 400,
+        report,
+        ...error.data,
+      })
+    }
+
+    // mutate req to replace the property with the value, converted by Joi
+    req[reqProperty] = value
+    return value
+  }
+}
+
+export const validateRequest = new ValidateRequest()
