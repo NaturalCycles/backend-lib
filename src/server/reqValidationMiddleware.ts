@@ -23,7 +23,8 @@ export function reqValidation(
   schema: AnySchema,
   opt: ReqValidationOptions<JoiValidationError> = {},
 ): BackendRequestHandler {
-  const reportPredicate = typeof opt.report === 'function' ? opt.report : () => !!opt.report
+  const reportPredicate =
+    typeof opt.report === 'function' ? opt.report : () => opt.report as boolean | undefined
 
   return (req, res, next) => {
     const { value, error } = getValidationResult(req[reqProperty], schema, `request ${reqProperty}`)

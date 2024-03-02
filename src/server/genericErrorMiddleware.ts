@@ -90,7 +90,6 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
   // Otherwise, it breaks the _isHttpErrorResponse function check, and error get formatted/detected wrongly
   httpError.data['httpStatusCode'] = httpError.data.backendResponseStatusCode
   httpError.data.headersSent = headersSent || undefined
-  httpError.data.report ||= undefined // set to undefined if false
   _filterUndefinedValues(httpError.data, true)
 
   formatError?.(httpError) // Mutates

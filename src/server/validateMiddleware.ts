@@ -41,7 +41,8 @@ function validateObject(
     objectName: `request ${prop}`,
   })
 
-  const reportPredicate = typeof opt.report === 'function' ? opt.report : () => !!opt.report
+  const reportPredicate =
+    typeof opt.report === 'function' ? opt.report : () => opt.report as boolean | undefined
 
   return (req, res, next) => {
     const error = ajvSchema.getValidationError(req[prop])

@@ -15,7 +15,8 @@ export function zodReqValidate(
   schema: ZodSchema,
   opt: ReqValidationOptions<ZodValidationError<any>> = {},
 ): BackendRequestHandler {
-  const reportPredicate = typeof opt.report === 'function' ? opt.report : () => !!opt.report
+  const reportPredicate =
+    typeof opt.report === 'function' ? opt.report : () => opt.report as boolean | undefined
 
   return (req, res, next) => {
     const { error } = zSafeValidate(req[prop], schema)
