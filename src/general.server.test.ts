@@ -9,7 +9,7 @@ import {
 import { arraySchema, deflateString, objectSchema } from '@naturalcycles/nodejs-lib'
 import { safeJsonMiddleware } from './server/safeJsonMiddleware'
 import { expressTestService } from './testing'
-import { getDefaultRouter, reqValidation } from './index'
+import { getDefaultRouter, validateRequest } from './index'
 
 const router = getDefaultRouter()
 router.get('/circular', safeJsonMiddleware(), async req => {
@@ -21,18 +21,16 @@ router.get('/circular', safeJsonMiddleware(), async req => {
   })
 })
 
-router.post(
-  '/compressedBody',
-  reqValidation(
-    'body',
+router.post('/compressedBody', async (req, res) => {
+  const body = validateRequest.body(
+    req,
     objectSchema({
       items: arraySchema(),
     }),
-  ),
-  async (req, res) => {
-    res.json(req.body)
-  },
-)
+  )
+
+  res.json(body)
+})
 
 const app = expressTestService.createAppFromResource(router)
 afterAll(async () => {

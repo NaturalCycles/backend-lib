@@ -9,11 +9,15 @@ import { runCannon } from '@naturalcycles/bench-lib'
 import { jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, stringSchema, runScript } from '@naturalcycles/nodejs-lib'
 import express = require('express')
-import { BackendApplication, reqValidation, validateBody } from '../src'
+import { BackendApplication, validateBody, validateRequest } from '../src'
 
 interface PwInput {
   pw: string
 }
+
+const pwInputSchema = objectSchema<PwInput>({
+  pw: stringSchema.min(6),
+})
 
 function createApp(): BackendApplication {
   const app = express()
@@ -46,16 +50,10 @@ runScript(async () => {
       },
       '03-joi': async () => {
         const app = createApp()
-        app.post(
-          '/',
-          reqValidation(
-            'body',
-            objectSchema<PwInput>({
-              pw: stringSchema.min(6),
-            }),
-          ),
-          (req, res) => res.json({ hello: 'world' }),
-        )
+        app.post('/', (req, res) => {
+          const _input = validateRequest.body(req, pwInputSchema)
+          res.json({ hello: 'world' })
+        })
         return http.createServer(app)
       },
     },

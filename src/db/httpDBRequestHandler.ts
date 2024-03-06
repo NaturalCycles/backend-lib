@@ -12,7 +12,7 @@ import {
 } from '@naturalcycles/db-lib/dist/validation'
 import { ObjectWithId } from '@naturalcycles/js-lib'
 import { anyObjectSchema, arraySchema, objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
-import { BackendRouter, getDefaultRouter, reqValidation } from '..'
+import { BackendRouter, getDefaultRouter, validateRequest } from '..'
 
 export interface GetByIdsInput {
   table: string
@@ -84,28 +84,28 @@ export function httpDBRequestHandler(db: CommonDB): BackendRouter {
   // })
 
   // getByIds
-  router.put('/getByIds', reqValidation('body', getByIdsInputSchema), async (req, res) => {
-    const { table, ids, opt } = req.body as GetByIdsInput
+  router.put('/getByIds', async (req, res) => {
+    const { table, ids, opt } = validateRequest.body(req, getByIdsInputSchema)
     res.json(await db.getByIds(table, ids, opt))
   })
 
   // runQuery
-  router.put('/runQuery', reqValidation('body', runQueryInputSchema), async (req, res) => {
-    const { query, opt } = req.body as RunQueryInput
+  router.put('/runQuery', async (req, res) => {
+    const { query, opt } = validateRequest.body(req, runQueryInputSchema)
     const q = DBQuery.fromPlainObject(query)
     res.json(await db.runQuery(q, opt))
   })
 
   // runQueryCount
-  router.put('/runQueryCount', reqValidation('body', runQueryInputSchema), async (req, res) => {
-    const { query, opt } = req.body as RunQueryInput
+  router.put('/runQueryCount', async (req, res) => {
+    const { query, opt } = validateRequest.body(req, runQueryInputSchema)
     const q = DBQuery.fromPlainObject(query)
     res.json(await db.runQueryCount(q, opt))
   })
 
   // saveBatch
-  router.put('/saveBatch', reqValidation('body', saveBatchInputSchema), async (req, res) => {
-    const { table, rows, opt } = req.body as SaveBatchInput
+  router.put('/saveBatch', async (req, res) => {
+    const { table, rows, opt } = validateRequest.body(req, saveBatchInputSchema)
     await db.saveBatch(table, rows, opt)
     res.end()
   })
@@ -117,8 +117,8 @@ export function httpDBRequestHandler(db: CommonDB): BackendRouter {
   // })
 
   // deleteByQuery
-  router.put('/deleteByQuery', reqValidation('body', runQueryInputSchema), async (req, res) => {
-    const { query, opt } = req.body as RunQueryInput
+  router.put('/deleteByQuery', async (req, res) => {
+    const { query, opt } = validateRequest.body(req, runQueryInputSchema)
     const q = DBQuery.fromPlainObject(query)
     res.json(await db.deleteByQuery(q, opt))
   })

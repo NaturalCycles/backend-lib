@@ -1,6 +1,6 @@
 import { _get, AppError } from '@naturalcycles/js-lib'
 import { AnySchema, getValidationResult, JoiValidationError } from '@naturalcycles/nodejs-lib'
-import { BackendRequest, BackendRequestHandler } from '../server.model'
+import { BackendRequest } from '../server.model'
 
 const REDACTED = 'REDACTED'
 
@@ -16,40 +16,6 @@ export interface ReqValidationOptions<ERR extends Error> {
    * If true - `genericErrorHandler` will report it to errorReporter (aka Sentry).
    */
   report?: boolean | ((err: ERR) => boolean)
-}
-
-export function reqValidation(
-  reqProperty: 'body' | 'params' | 'query',
-  schema: AnySchema,
-  opt: ReqValidationOptions<JoiValidationError> = {},
-): BackendRequestHandler {
-  const reportPredicate =
-    typeof opt.report === 'function' ? opt.report : () => opt.report as boolean | undefined
-
-  return (req, res, next) => {
-    const { value, error } = getValidationResult(req[reqProperty], schema, `request ${reqProperty}`)
-    if (error) {
-      const report = reportPredicate(error)
-
-      if (opt.redactPaths) {
-        redact(opt.redactPaths, req[reqProperty], error)
-        error.data.joiValidationErrorItems.length = 0 // clears the array
-        delete error.data.annotation
-      }
-
-      return next(
-        new AppError(error.message, {
-          backendResponseStatusCode: 400,
-          report,
-          ...error.data,
-        }),
-      )
-    }
-
-    // mutate req to replace the property with the value, converted by Joi
-    req[reqProperty] = value
-    next()
-  }
 }
 
 /**

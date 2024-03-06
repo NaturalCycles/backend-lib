@@ -8,7 +8,7 @@ afterAll(async () => {
 
 test('validateBody', async () => {
   // should pass (no error)
-  await app.put('changePassword', {
+  await app.put('changePassword2', {
     json: {
       pw: 'longEnough',
     },

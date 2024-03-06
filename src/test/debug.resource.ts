@@ -1,6 +1,6 @@
 import { AppError, jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
-import { getDefaultRouter, reqValidation, validateRequest } from '..'
+import { getDefaultRouter, validateRequest } from '..'
 import { validateBody } from '../server/validation/validateMiddleware'
 
 const router = getDefaultRouter()
@@ -13,20 +13,6 @@ router.get('/', async (req, res) => {
 interface PwInput {
   pw: string
 }
-
-router.put(
-  '/changePassword',
-  reqValidation(
-    'body',
-    objectSchema<PwInput>({
-      pw: stringSchema.min(8),
-    }),
-    { redactPaths: ['pw'] },
-  ),
-  async (_req, res) => {
-    res.json({ ok: 1 })
-  },
-)
 
 router.put('/changePasswordFn', async (req, res) => {
   const _input = validateRequest.body(
