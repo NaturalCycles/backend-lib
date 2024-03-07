@@ -1,4 +1,5 @@
 import { AppError } from '@naturalcycles/js-lib'
+import { timingSafeStringEqual } from '@naturalcycles/nodejs-lib'
 import { BackendRequestHandler } from '../server/server.model'
 import { AdminMiddleware, RequireAdminCfg, requireAdminPermissions } from './adminMiddleware'
 import { BaseAdminService } from './base.admin.service'
@@ -41,7 +42,8 @@ function requireSecureHeaderOrAdmin(
 
     // Header provided - don't check for Admin
     if (providedHeader) {
-      if (!secureHeaderValue || providedHeader === secureHeaderValue) return next()
+      if (!secureHeaderValue || timingSafeStringEqual(providedHeader, secureHeaderValue))
+        return next()
 
       return next(
         new AppError('secureHeader or adminToken is required', {

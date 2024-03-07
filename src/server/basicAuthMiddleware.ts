@@ -1,5 +1,5 @@
 import { _split, StringMap } from '@naturalcycles/js-lib'
-import { base64ToString } from '@naturalcycles/nodejs-lib'
+import { base64ToString, timingSafeStringEqual } from '@naturalcycles/nodejs-lib'
 import { BackendRequestHandler } from './server.model'
 
 export interface BasicAuthMiddlewareCfg {
@@ -21,7 +21,7 @@ export function basicAuthMiddleware(cfg: BasicAuthMiddlewareCfg): BackendRequest
     const hash = (req.headers.authorization || '').split(' ')[1]
     if (hash) {
       const [login, password] = _split(base64ToString(hash), ':', 2)
-      if (login && password && cfg.loginPasswordMap[login] === password) {
+      if (login && password && timingSafeStringEqual(cfg.loginPasswordMap[login], password)) {
         return next()
       }
     }
