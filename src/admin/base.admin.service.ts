@@ -191,7 +191,7 @@ export class BaseAdminService {
       ? reqPermissions.filter(p => hasPermissions.has(p))
       : []
 
-    let granted = false
+    let granted: boolean
     if (andComparison) {
       granted = !!hasPermissions && grantedPermissions.length === reqPermissions.length // All permissions granted
       void this.onPermissionCheck(req, email, reqPermissions, true, granted, meta)
