@@ -6,4 +6,7 @@
   },
   "include": ["src"],
   "exclude": ["**/__exclude"],
+  "ts-node": {
+    "transpileOnly": true,
+  },
 }

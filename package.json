@@ -3,7 +3,7 @@
   "version": "2.61.0",
   "scripts": {
     "prepare": "husky",
-    "dev": "APP_ENV=dev nodemon",
+    "dev": "APP_ENV=dev node -r ts-node/register --watch ./src/test/server/server.ts",
     "docs-serve": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "docs-build": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
     "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
@@ -36,15 +36,14 @@
     "yargs": "^17.0.0"
   },
   "devDependencies": {
-    "@naturalcycles/bench-lib": "^2.0.0",
+    "@naturalcycles/bench-lib": "^3.0.0",
     "@naturalcycles/dev-lib": "^13.0.0",
     "@sentry/node": "^7.0.0",
     "@types/ejs": "^3.0.0",
     "@types/node": "^20.1.0",
     "@types/yargs": "^16.0.0",
     "fastify": "^4.0.0",
-    "jest": "^29.0.1",
-    "nodemon": "^3.0.1"
+    "jest": "^29.0.1"
   },
   "files": [
     "dist",

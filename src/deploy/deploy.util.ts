@@ -1,4 +1,4 @@
-import { _assert, _mapValues, _merge, _truncate, localTimeNow } from '@naturalcycles/js-lib'
+import { _assert, _mapValues, _merge, _truncate, localTime } from '@naturalcycles/js-lib'
 import { dimGrey, fs2, white } from '@naturalcycles/nodejs-lib'
 import { BackendCfg } from './backend.cfg.util'
 import { AppYaml, DeployInfo } from './deploy.model'
@@ -40,7 +40,7 @@ export async function createDeployInfo(
   const simpleGit = require('simple-git') // lazy load
   const git = simpleGit('.')
 
-  const now = localTimeNow()
+  const now = localTime.now()
   const gitBranch = overrideBranch || (await git.status()).current!
   const gitRev = (await git.revparse(['HEAD'])).slice(0, 7)
 
