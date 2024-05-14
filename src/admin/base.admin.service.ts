@@ -115,7 +115,7 @@ export class BaseAdminService {
    * Current implementation is based on req=Request (from Express).
    * Override if needed.
    */
-  async getAdminToken(req: BackendRequest): Promise<string | undefined> {
+  getAdminToken(req: BackendRequest): string | undefined {
     return (
       req.cookies?.[this.cfg.adminTokenKey] ||
       req.header(this.cfg.adminTokenKey) ||
@@ -125,7 +125,7 @@ export class BaseAdminService {
 
   async isAdmin(req: BackendRequest | undefined): Promise<boolean> {
     if (!req) return false
-    const adminToken = await this.getAdminToken(req)
+    const adminToken = this.getAdminToken(req)
     const email = await this.getEmailByToken(req, adminToken)
     return !!this.getEmailPermissions(email)
   }
@@ -150,7 +150,7 @@ export class BaseAdminService {
   ): Promise<AdminInfo | undefined> {
     if (!this.cfg.authEnabled) return adminInfoDisabled()
 
-    const adminToken = await this.getAdminToken(req)
+    const adminToken = this.getAdminToken(req)
     const email = await this.getEmailByToken(req, adminToken)
     const hasPermissions = this.getEmailPermissions(email)
     if (!hasPermissions) return
@@ -175,7 +175,7 @@ export class BaseAdminService {
   ): Promise<AdminInfo> {
     if (!this.cfg.authEnabled) return adminInfoDisabled()
 
-    const adminToken = await this.getAdminToken(req)
+    const adminToken = this.getAdminToken(req)
     const email = await this.getEmailByToken(req, adminToken)
 
     if (!email) {
