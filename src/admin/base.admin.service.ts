@@ -58,7 +58,7 @@ export class BaseAdminService {
    * Otherwise returns Set of permissions.
    * Empty array means it IS and Admin, but has no permissions (except being an Admin).
    */
-  getEmailPermissions(email?: string): Set<string> | undefined {
+  async getEmailPermissions(email?: string): Promise<Set<string> | undefined> {
     if (!email) return
     console.log(
       `getEmailPermissions (${dimGrey(
@@ -127,7 +127,7 @@ export class BaseAdminService {
     if (!req) return false
     const adminToken = this.getAdminToken(req)
     const email = await this.getEmailByToken(req, adminToken)
-    return !!this.getEmailPermissions(email)
+    return !!(await this.getEmailPermissions(email))
   }
 
   async getAdminInfo(req: BackendRequest): Promise<AdminInfo | undefined> {
@@ -152,7 +152,7 @@ export class BaseAdminService {
 
     const adminToken = this.getAdminToken(req)
     const email = await this.getEmailByToken(req, adminToken)
-    const hasPermissions = this.getEmailPermissions(email)
+    const hasPermissions = await this.getEmailPermissions(email)
     if (!hasPermissions) return
 
     const granted = reqPermissions.every(p => hasPermissions.has(p))
@@ -186,7 +186,7 @@ export class BaseAdminService {
       })
     }
 
-    const hasPermissions = this.getEmailPermissions(email)
+    const hasPermissions = await this.getEmailPermissions(email)
     const grantedPermissions = hasPermissions
       ? reqPermissions.filter(p => hasPermissions.has(p))
       : []

@@ -9,7 +9,7 @@ export const firebaseService = new FirebaseSharedService({
 })
 
 class AdminService extends BaseAdminService {
-  override getEmailPermissions(email?: string): Set<string> | undefined {
+  override async getEmailPermissions(email?: string): Promise<Set<string> | undefined> {
     if (email === 'good@mail.com') {
       return new Set(['p1', 'p2'])
     } else if (email === 'second@mail.com') {
