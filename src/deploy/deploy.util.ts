@@ -55,7 +55,7 @@ export async function createDeployInfo(
   gaeProject = gaeProjectByBranch[gitBranch] || gaeProject
 
   if (gaeServiceByBranch[gitBranch]) {
-    gaeService = validateGAEServiceName(gaeServiceByBranch[gitBranch]!)
+    gaeService = validateGAEServiceName(gaeServiceByBranch[gitBranch])
   } else {
     gaeService = validateGAEServiceName([gitBranch, gaeService].join('--'))
   }

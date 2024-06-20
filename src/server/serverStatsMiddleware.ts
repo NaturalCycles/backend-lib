@@ -127,9 +127,9 @@ export function serverStatsMiddleware(): BackendRequestHandler {
         '5xx': 0,
       }
 
-      serverStatsMap[endpoint]!.stack.push(latency)
+      serverStatsMap[endpoint].stack.push(latency)
       if (res.statusCode) {
-        serverStatsMap[endpoint]![getStatusFamily(res.statusCode)]++
+        serverStatsMap[endpoint][getStatusFamily(res.statusCode)]++
       }
 
       if (now - lastCleanup > 60_000) {

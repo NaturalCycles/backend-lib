@@ -2,7 +2,6 @@
   "extends": "@naturalcycles/dev-lib/cfg/tsconfig.json",
   "compilerOptions": {
     "skipLibCheck": true, // because of https://github.com/dcodeIO/long.js/issues/109
-    "outDir": "./dist",
   },
   "include": ["src"],
   "exclude": ["**/__exclude"],
