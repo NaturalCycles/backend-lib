@@ -30,7 +30,6 @@ test('validateRequest', async () => {
 {
   "data": {
     "backendResponseStatusCode": 400,
-    "httpStatusCode": 400,
     "joiValidationErrorItems": [],
     "joiValidationObjectName": "request body",
   },

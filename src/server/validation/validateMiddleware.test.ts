@@ -26,17 +26,16 @@ test('validateBody', async () => {
   expect(err.cause.message).not.toContain(pw)
   expect(err.cause.message).toContain('REDACTED')
   expect(err.cause).toMatchInlineSnapshot(`
-    {
-      "data": {
-        "backendResponseStatusCode": 400,
-        "errors": [],
-        "httpStatusCode": 400,
-        "objectName": "request body",
-        "userFriendly": true,
-      },
-      "message": "request body/pw must NOT have fewer than 8 characters
-    Input: { pw: 'REDACTED' }",
-      "name": "AppError",
-    }
-  `)
+{
+  "data": {
+    "backendResponseStatusCode": 400,
+    "errors": [],
+    "objectName": "request body",
+    "userFriendly": true,
+  },
+  "message": "request body/pw must NOT have fewer than 8 characters
+Input: { pw: 'REDACTED' }",
+  "name": "AppError",
+}
+`)
 })

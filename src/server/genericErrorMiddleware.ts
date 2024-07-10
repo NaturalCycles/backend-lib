@@ -35,7 +35,7 @@ let formatError: GenericErrorMiddlewareCfg['formatError']
 
 /**
  * Generic error handler.
- * Returns HTTP code based on err.data.httpStatusCode (default to 500).
+ * Returns HTTP code based on err.data.backendResponseStatusCode (default to 500).
  * Sends json payload as ErrorResponse, transformed via errorSharedUtil.
  */
 export function genericErrorMiddleware(
@@ -86,9 +86,6 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
 
   httpError.data.errorId = errorId
   httpError.data.backendResponseStatusCode ||= 500 // default to 500
-  // httpStatusCode is for backwards-compatibility
-  // Otherwise, it breaks the _isHttpErrorResponse function check, and error get formatted/detected wrongly
-  httpError.data['httpStatusCode'] = httpError.data.backendResponseStatusCode
   httpError.data.headersSent = headersSent || undefined
   _filterUndefinedValues(httpError.data, true)
 
