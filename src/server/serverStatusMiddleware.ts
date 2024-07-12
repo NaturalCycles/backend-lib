@@ -41,5 +41,5 @@ export function getServerStatusData(
 
 function getStartedStr(): string {
   const started = localTime.now().minus(process.uptime(), 'second')
-  return `${started.toPretty()} (${started.fromNow()})`
+  return `${started.toPretty()} (${started.toFromNowString()})`
 }

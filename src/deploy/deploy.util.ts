@@ -90,7 +90,7 @@ export async function createDeployInfo(
     serviceUrl,
     gitBranch,
     gitRev,
-    ts: now.unix(),
+    ts: now.unix,
   }
 
   console.log({ deployInfo })

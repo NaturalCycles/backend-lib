@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@naturalcycles/db-lib": "^9.1.0",
-    "@naturalcycles/js-lib": "^14.27.0",
+    "@naturalcycles/js-lib": "^14.244.0",
     "@naturalcycles/nodejs-lib": "^13.1.0",
     "@types/cookie-parser": "^1.4.1",
     "@types/cors": "^2.8.4",
