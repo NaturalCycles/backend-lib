@@ -1,6 +1,6 @@
 import { inspect } from 'node:util'
 import { AnyObject, CommonLogger } from '@naturalcycles/js-lib'
-import { dimGrey, _inspect } from '@naturalcycles/nodejs-lib'
+import { _inspect, dimGrey } from '@naturalcycles/nodejs-lib'
 import { BackendRequestHandler } from './server.model'
 
 const { GOOGLE_CLOUD_PROJECT, GAE_INSTANCE } = process.env

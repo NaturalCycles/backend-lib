@@ -5,9 +5,9 @@ import { BackendApplication, isGAE, methodOverrideMiddleware } from '..'
 import { appEngineLogMiddleware } from './appEngineLogMiddleware'
 import { asyncLocalStorageMiddleware } from './asyncLocalStorageMiddleware'
 import {
-  DefaultAppCfg,
   BackendRequestHandlerCfg,
   BackendRequestHandlerWithPath,
+  DefaultAppCfg,
 } from './createDefaultApp.model'
 import { genericErrorMiddleware } from './genericErrorMiddleware'
 import { notFoundMiddleware } from './notFoundMiddleware'

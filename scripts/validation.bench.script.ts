@@ -7,7 +7,7 @@ yarn tsn validation.bench
 import http from 'node:http'
 import { runCannon } from '@naturalcycles/bench-lib'
 import { jsonSchema } from '@naturalcycles/js-lib'
-import { objectSchema, stringSchema, runScript } from '@naturalcycles/nodejs-lib'
+import { objectSchema, runScript, stringSchema } from '@naturalcycles/nodejs-lib'
 import express = require('express')
 import { BackendApplication, validateBody, validateRequest } from '../src'
 

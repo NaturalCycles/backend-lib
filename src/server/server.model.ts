@@ -1,5 +1,5 @@
 import type { CommonLogFunction, Promisable } from '@naturalcycles/js-lib'
-import type { IRouter, Request, NextFunction, Response, Application } from 'express'
+import type { Application, IRouter, NextFunction, Request, Response } from 'express'
 
 /**
  * Use this interface instead of express.Request in cases when TypeScript gives an error, because it haven't "included" this very file.

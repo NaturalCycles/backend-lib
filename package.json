@@ -3,6 +3,11 @@
   "version": "2.61.0",
   "scripts": {
     "prepare": "husky",
+    "build": "dev-lib build",
+    "test": "dev-lib test",
+    "lint": "dev-lib lint",
+    "bt": "dev-lib bt",
+    "lbt": "dev-lib lbt",
     "dev": "APP_ENV=dev node -r ts-node/register --watch ./src/test/server/server.ts",
     "docs-serve": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "docs-build": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
@@ -37,7 +42,7 @@
   },
   "devDependencies": {
     "@naturalcycles/bench-lib": "^3.0.0",
-    "@naturalcycles/dev-lib": "^13.0.0",
+    "@naturalcycles/dev-lib": "^15.0.4",
     "@sentry/node": "^7.0.0",
     "@types/ejs": "^3.0.0",
     "@types/node": "^20.1.0",
@@ -71,7 +76,7 @@
     "url": "https://github.com/NaturalCycles/backend-lib"
   },
   "engines": {
-    "node": ">=18.12.0"
+    "node": ">=20.12.0"
   },
   "type": "commonjs",
   "description": "Standard library for making Express.js / AppEngine based backend services",

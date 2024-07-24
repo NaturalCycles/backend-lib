@@ -1,4 +1,3 @@
-import { buildProdCommand } from '@naturalcycles/dev-lib'
 import { _anyToError, _objectAssign, pRetry } from '@naturalcycles/js-lib'
 import { appendToGithubSummary, execVoidCommandSync } from '@naturalcycles/nodejs-lib'
 import { getBackendCfg } from './backend.cfg.util'
@@ -11,9 +10,9 @@ export interface DeployGaeOptions extends DeployPrepareOptions, DeployHealthChec
 export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
   const { logOnFailure, logOnSuccess } = opt
 
-  // 1. build-prod
+  // 1. build
 
-  buildProdCommand()
+  execVoidCommandSync('yarn', ['build'])
 
   // 2. deploy-prepare
 

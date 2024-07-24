@@ -126,8 +126,9 @@ export class SentrySharedService {
     if (
       data?.reportRate && // E.g rate of 0.1 means 10% of errors are reported
       Math.random() > data.reportRate
-    )
+    ) {
       return
+    }
 
     // This is to avoid Sentry cutting err.message to 253 characters
     // It will log additional "breadcrumb object" before the error

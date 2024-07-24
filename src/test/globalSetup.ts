@@ -18,7 +18,7 @@ declare global {
   }
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export, import/no-default-export, unicorn/no-anonymous-default-export
+// eslint-disable-next-line import/no-anonymous-default-export, unicorn/no-anonymous-default-export
 export default async (): Promise<void> => {
   const resources = [debugResource]
 

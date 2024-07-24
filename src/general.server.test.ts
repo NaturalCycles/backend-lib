@@ -7,9 +7,9 @@ import {
   pExpectedError,
 } from '@naturalcycles/js-lib'
 import { arraySchema, deflateString, objectSchema } from '@naturalcycles/nodejs-lib'
+import { getDefaultRouter, validateRequest } from './index'
 import { safeJsonMiddleware } from './server/safeJsonMiddleware'
 import { expressTestService } from './testing'
-import { getDefaultRouter, validateRequest } from './index'
 
 const router = getDefaultRouter()
 router.get('/circular', safeJsonMiddleware(), async req => {

@@ -15,12 +15,12 @@ console.log('startServer... ')
 import { _errorLikeToErrorObject, AppError, pDelay } from '@naturalcycles/js-lib'
 import { loginHtml } from '../../admin/adminMiddleware'
 import {
-  startServer,
+  basicAuthMiddleware,
   getDefaultRouter,
-  serverStatusMiddleware,
   okMiddleware,
   SentrySharedService,
-  basicAuthMiddleware,
+  serverStatusMiddleware,
+  startServer,
 } from '../../index'
 import {
   getRequest,

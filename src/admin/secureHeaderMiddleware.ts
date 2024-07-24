@@ -42,8 +42,9 @@ function requireSecureHeaderOrAdmin(
 
     // Header provided - don't check for Admin
     if (providedHeader) {
-      if (!secureHeaderValue || timingSafeStringEqual(providedHeader, secureHeaderValue))
+      if (!secureHeaderValue || timingSafeStringEqual(providedHeader, secureHeaderValue)) {
         return next()
+      }
 
       return next(
         new AppError('secureHeader or adminToken is required', {
