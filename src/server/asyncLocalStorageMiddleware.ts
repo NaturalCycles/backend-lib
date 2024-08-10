@@ -16,7 +16,7 @@ export interface RequestLocalStorage {
 const storage = _lazyValue(() => new AsyncLocalStorage<RequestLocalStorage>())
 
 export function asyncLocalStorageMiddleware(): BackendRequestHandler {
-  return (req, res, next) => {
+  return (req, _res, next) => {
     const store: RequestLocalStorage = {
       req,
     }

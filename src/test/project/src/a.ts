@@ -1,3 +1,3 @@
 console.log('a.ts')
 
-export {}
+export type {}

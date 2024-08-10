@@ -7,7 +7,7 @@ const { versions } = process
 const { GAE_APPLICATION, GAE_SERVICE, GAE_VERSION, APP_ENV, NODE_OPTIONS } = process.env
 
 export function serverStatusMiddleware(projectDir?: string, extra?: any): BackendRequestHandler {
-  return async (req, res) => {
+  return async (_req, res) => {
     res.json(getServerStatusData(projectDir, extra))
   }
 }

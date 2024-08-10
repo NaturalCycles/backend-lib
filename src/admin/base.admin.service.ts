@@ -171,7 +171,7 @@ export class BaseAdminService {
     req: BackendRequest,
     reqPermissions: string[] = [],
     meta: Record<string, any> = {},
-    andComparison: boolean = true,
+    andComparison = true,
   ): Promise<AdminInfo> {
     if (!this.cfg.authEnabled) return adminInfoDisabled()
 

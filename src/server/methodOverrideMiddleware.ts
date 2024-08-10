@@ -15,7 +15,7 @@ export function methodOverrideMiddleware(
     ...cfg,
   }
 
-  return (req, res, next) => {
+  return (req, _res, next) => {
     if (req.query[methodKey]) {
       req.method = req.query[methodKey] as string
       // delete req.query[methodKey]

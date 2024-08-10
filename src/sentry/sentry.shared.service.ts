@@ -8,9 +8,9 @@ import {
   StringMap,
 } from '@naturalcycles/js-lib'
 import { _inspect, InspectAnyOptions } from '@naturalcycles/nodejs-lib'
-// eslint-disable-next-line import/no-duplicates
+// eslint-disable-next-line import-x/no-duplicates
 import type { Breadcrumb, NodeOptions, SeverityLevel } from '@sentry/node'
-// eslint-disable-next-line import/no-duplicates
+// eslint-disable-next-line import-x/no-duplicates
 import type * as SentryLib from '@sentry/node'
 import { BackendErrorRequestHandler, BackendRequestHandler, getRequestLogger } from '../index'
 

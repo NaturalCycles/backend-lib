@@ -10,7 +10,7 @@ process.on('uncaughtException', (err, origin) => {
   console.error('here', origin, err)
 })
 
-process.on('unhandledRejection', (reason, promise) => {
+process.on('unhandledRejection', (reason, _promise) => {
   console.error('unhandledRejection:', reason)
   // console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 })

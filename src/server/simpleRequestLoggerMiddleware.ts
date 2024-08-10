@@ -22,7 +22,7 @@ export function simpleRequestLoggerMiddleware(
 ): BackendRequestHandler {
   // Disable logger in AppEngine, as it doesn't make sense there
   // UPD: Only log in dev environment
-  if (APP_ENV !== 'dev') return (req, res, next) => next()
+  if (APP_ENV !== 'dev') return (_req, _res, next) => next()
 
   const cfg: SimpleRequestLoggerMiddlewareCfg = {
     logStart: false,

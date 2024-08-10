@@ -63,13 +63,13 @@ export function httpDBRequestHandler(db: CommonDB): BackendRouter {
   })
 
   // ping
-  router.get('/ping', async (req, res) => {
+  router.get('/ping', async (_req, res) => {
     await db.ping()
     res.end()
   })
 
   // getTables
-  router.get('/tables', async (req, res) => {
+  router.get('/tables', async (_req, res) => {
     res.json(await db.getTables())
   })
 

@@ -32,7 +32,7 @@ runScript(async () => {
     {
       '01-no-validation': async () => {
         const app = createApp()
-        app.post('/', (req, res) => res.json({ hello: 'world' }))
+        app.post('/', (_req, res) => res.json({ hello: 'world' }))
         return http.createServer(app)
       },
       '02-ajv': async () => {
@@ -44,7 +44,7 @@ runScript(async () => {
               pw: jsonSchema.string().min(6),
             }),
           ),
-          (req, res) => res.json({ hello: 'world' }),
+          (_req, res) => res.json({ hello: 'world' }),
         )
         return http.createServer(app)
       },

@@ -22,7 +22,7 @@ export async function createServerExpressMiddlewares(): Promise<http.Server> {
   app.use(helmet.ieNoOpen())
   app.use(helmet.xssFilter())
 
-  app.get('/', (req, res) => res.json({ hello: 'world' }))
+  app.get('/', (_req, res) => res.json({ hello: 'world' }))
 
   return http.createServer(app)
 }

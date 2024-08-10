@@ -15,7 +15,7 @@ export function enableDestroy(server: Server): DestroyableServer {
   const connections: StringMap<Socket> = {}
   const srv = server as DestroyableServer
 
-  srv.on('connection', function (conn) {
+  srv.on('connection', conn => {
     const key = conn.remoteAddress + ':' + conn.remotePort
     connections[key] = conn
     conn.on('close', () => delete connections[key])

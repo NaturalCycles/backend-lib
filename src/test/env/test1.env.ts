@@ -3,4 +3,5 @@ const test1Env = {
   a: 'a1',
 }
 
+// biome-ignore lint/style/noDefaultExport: ok
 export default test1Env

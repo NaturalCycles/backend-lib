@@ -8,7 +8,7 @@ import { BackendRequestHandler, BackendResponse } from './server.model'
  * Original: https://github.com/expressjs/express/blob/master/lib/response.js
  */
 export function safeJsonMiddleware(): BackendRequestHandler {
-  return function safeJsonHandler(req, res, next) {
+  return function safeJsonHandler(_req, res, next) {
     res.json = (input: any): BackendResponse => {
       if (!res.get('Content-Type')) {
         res.set('Content-Type', 'application/json')

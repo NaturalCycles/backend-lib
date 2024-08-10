@@ -52,7 +52,7 @@ router.get(
     },
     realm: 'dungeon',
   }),
-  (req, res) => {
+  (_req, res) => {
     res.send('welcome in!')
   },
 )
@@ -96,7 +96,7 @@ router.get('/log', async (req, res) => {
   res.json({})
 })
 
-router.get('/log2', async (req, res) => {
+router.get('/log2', async (_req, res) => {
   requestLogger.log('yo')
   requestLogger.log('yo2')
   requestLogger.log('yo3')

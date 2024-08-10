@@ -3,7 +3,7 @@ import { getDefaultRouter } from '../server/getDefaultRouter'
 import { expressTestService } from '../testing'
 
 const res = getDefaultRouter()
-res.get('/', async (req, res) => {
+res.get('/', async (_req, res) => {
   await pDelay(10_000)
   res.json('ok')
 })

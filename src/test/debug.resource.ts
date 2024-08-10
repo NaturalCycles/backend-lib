@@ -6,7 +6,7 @@ import { validateBody } from '../server/validation/validateMiddleware'
 const router = getDefaultRouter()
 export const debugResource = router
 
-router.get('/', async (req, res) => {
+router.get('/', async (_req, res) => {
   res.json({ ok: 1 })
 })
 

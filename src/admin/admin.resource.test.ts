@@ -2,7 +2,7 @@ import { mockTime } from '@naturalcycles/dev-lib/dist/testing'
 import { BaseAdminService, FirebaseSharedService, getDefaultRouter } from '../index'
 import { expressTestService } from '../testing'
 
-export const firebaseService = new FirebaseSharedService({
+const firebaseService = new FirebaseSharedService({
   authDomain: 'FIREBASE_AUTH_DOMAIN',
   apiKey: 'FIREBASE_API_KEY',
   // serviceAccount: 'FIREBASE_SERVICE_ACCOUNT_PATH',
@@ -12,13 +12,14 @@ class AdminService extends BaseAdminService {
   override async getEmailPermissions(email?: string): Promise<Set<string> | undefined> {
     if (email === 'good@mail.com') {
       return new Set(['p1', 'p2'])
-    } else if (email === 'second@mail.com') {
+    }
+    if (email === 'second@mail.com') {
       return new Set(['s1', 's2'])
     }
   }
 }
 
-export const adminService = new AdminService(firebaseService.auth(), {
+const adminService = new AdminService(firebaseService.auth(), {
   // authEnabled: false,
 })
 

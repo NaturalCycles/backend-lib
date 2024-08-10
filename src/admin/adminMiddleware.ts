@@ -88,7 +88,7 @@ export function loginHtml(firebaseServiceCfg: FirebaseSharedServiceCfg): Backend
     adminAuthProvider: firebaseAuthProvider = 'GoogleAuthProvider',
   } = firebaseServiceCfg
 
-  return (req, res) => {
+  return (_req, res) => {
     res.send(
       getLoginHtml({
         firebaseApiKey,

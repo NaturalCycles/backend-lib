@@ -69,7 +69,7 @@ function logToCI(args: any[]): void {
 export function appEngineLogMiddleware(): BackendRequestHandler {
   if (!isGAE || !GOOGLE_CLOUD_PROJECT) {
     // Local machine, return "simple" logToDev middleware with request numbering
-    return function gaeLogMiddlewareDev(req, res, next) {
+    return function gaeLogMiddlewareDev(req, _res, next) {
       // Local machine
       req.requestId = String(++reqCounter)
       req.log = req.warn = req.error = (...args: any[]) => logToDev(req.requestId!, args)
@@ -79,7 +79,7 @@ export function appEngineLogMiddleware(): BackendRequestHandler {
 
   // Otherwise, we're in AppEngine
 
-  return function appEngineLogHandler(req, res, next) {
+  return function appEngineLogHandler(req, _res, next) {
     const traceHeader = req.header('x-cloud-trace-context')
     if (traceHeader) {
       const [trace] = traceHeader.split('/')

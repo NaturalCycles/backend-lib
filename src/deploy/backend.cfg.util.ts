@@ -38,7 +38,7 @@ const backendCfgSchema = AjvSchema.readJsonSync<BackendCfg>(
   },
 )
 
-export function getBackendCfg(projectDir: string = '.'): BackendCfg {
+export function getBackendCfg(projectDir = '.'): BackendCfg {
   const backendCfgYamlPath = `${projectDir}/backend.cfg.yaml`
 
   requireFileToExist(backendCfgYamlPath)

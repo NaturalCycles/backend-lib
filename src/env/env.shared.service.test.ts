@@ -1,7 +1,7 @@
 import { testDir } from '../paths.cnst'
 import { EnvSharedService, EnvSharedServiceCfg } from './env.shared.service'
 
-export const envDir = `${testDir}/env`
+const envDir = `${testDir}/env`
 
 const cfg: EnvSharedServiceCfg = {
   envDir,
