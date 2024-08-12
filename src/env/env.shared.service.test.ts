@@ -5,16 +5,16 @@ interface MyEnv extends BaseEnv {
 }
 
 const cfg: EnvSharedServiceCfg<MyEnv> = {
-  envMap: {
-    test1: {
+  environments: [
+    {
       name: 'test1',
       a: 'a1',
     },
-    test2: {
+    {
       name: 'test2',
       a: 'a2',
     },
-  },
+  ],
 }
 
 test('envService', () => {

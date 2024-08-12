@@ -1,4 +1,4 @@
-import { _assert, StringMap } from '@naturalcycles/js-lib'
+import { _assert, _by, StringMap } from '@naturalcycles/js-lib'
 import { dimGrey } from '@naturalcycles/nodejs-lib'
 
 export interface BaseEnv {
@@ -6,14 +6,15 @@ export interface BaseEnv {
 }
 
 export interface EnvSharedServiceCfg<ENV> {
-  /**
-   * Dir with ${envName}.env.ts files
-   */
-  envMap: StringMap<ENV>
+  environments: ENV[]
 }
 
 export class EnvSharedService<ENV extends BaseEnv> {
-  constructor(public cfg: EnvSharedServiceCfg<ENV>) {}
+  constructor(cfg: EnvSharedServiceCfg<ENV>) {
+    this.envMap = _by(cfg.environments, e => e.name)
+  }
+
+  envMap: StringMap<ENV>
 
   private env?: ENV
 
@@ -26,7 +27,7 @@ export class EnvSharedService<ENV extends BaseEnv> {
       const { APP_ENV } = process.env
       _assert(APP_ENV, 'APP_ENV should be defined!')
 
-      const env = this.cfg.envMap[APP_ENV]
+      const env = this.envMap[APP_ENV]
       _assert(env, `Environment ${APP_ENV} is not defined`)
 
       this.env = env
