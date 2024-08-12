@@ -1,17 +1,27 @@
-import { testDir } from '../paths.cnst'
-import { EnvSharedService, EnvSharedServiceCfg } from './env.shared.service'
+import { BaseEnv, EnvSharedService, EnvSharedServiceCfg } from './env.shared.service'
 
-const envDir = `${testDir}/env`
+interface MyEnv extends BaseEnv {
+  a: string
+}
 
-const cfg: EnvSharedServiceCfg = {
-  envDir,
+const cfg: EnvSharedServiceCfg<MyEnv> = {
+  envMap: {
+    test1: {
+      name: 'test1',
+      a: 'a1',
+    },
+    test2: {
+      name: 'test2',
+      a: 'a2',
+    },
+  },
 }
 
 test('envService', () => {
   const envService = new EnvSharedService(cfg)
 
   // test.env.ts not found
-  expect(() => envService.getEnv()).toThrow('Cannot read envFile')
+  expect(() => envService.getEnv()).toThrow('Environment test is not defined')
 
   // test1
   process.env['APP_ENV'] = 'test1'

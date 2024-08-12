@@ -1,15 +1,19 @@
+import { _assert, StringMap } from '@naturalcycles/js-lib'
 import { dimGrey } from '@naturalcycles/nodejs-lib'
-import { BaseEnv } from './env.model'
 
-export interface EnvSharedServiceCfg {
+export interface BaseEnv {
+  name: string
+}
+
+export interface EnvSharedServiceCfg<ENV> {
   /**
    * Dir with ${envName}.env.ts files
    */
-  envDir: string
+  envMap: StringMap<ENV>
 }
 
-export class EnvSharedService<ENV extends BaseEnv = any> {
-  constructor(private cfg: EnvSharedServiceCfg) {}
+export class EnvSharedService<ENV extends BaseEnv> {
+  constructor(public cfg: EnvSharedServiceCfg<ENV>) {}
 
   private env?: ENV
 
@@ -20,28 +24,20 @@ export class EnvSharedService<ENV extends BaseEnv = any> {
   getEnv(): ENV {
     if (!this.env) {
       const { APP_ENV } = process.env
-      if (!APP_ENV) {
-        throw new Error('APP_ENV should be defined!')
-      }
+      _assert(APP_ENV, 'APP_ENV should be defined!')
 
-      const { envDir } = this.cfg
-      const envFilePath = `${envDir}/${APP_ENV}.env`
+      const env = this.cfg.envMap[APP_ENV]
+      _assert(env, `Environment ${APP_ENV} is not defined`)
 
-      try {
-        const module = require(envFilePath)
-        this.env = module.default
-      } catch {
-        throw new Error(`Cannot read envFile ${envFilePath}`)
-      }
-
+      this.env = env
       console.log(`APP_ENV=${dimGrey(APP_ENV)} loaded`)
     }
 
-    return this.env!
+    return this.env
   }
 
   setEnv(env?: ENV): void {
-    console.log(`setEnv APP_ENV=${dimGrey(env ? env.name : 'undefined')}`)
     this.env = env
+    console.log(`setEnv APP_ENV=${dimGrey(env?.name || 'undefined')}`)
   }
 }
