@@ -1,5 +1,5 @@
 import { _anyToError, _objectAssign, pRetry } from '@naturalcycles/js-lib'
-import { appendToGithubSummary, execVoidCommandSync } from '@naturalcycles/nodejs-lib'
+import { appendToGithubSummary, exec2 } from '@naturalcycles/nodejs-lib'
 import { getBackendCfg } from './backend.cfg.util'
 import { createDeployInfo } from './deploy.util'
 import { deployHealthCheck, DeployHealthCheckOptions } from './deployHealthCheck'
@@ -12,7 +12,7 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
 
   // 1. build
 
-  execVoidCommandSync('yarn', ['build'])
+  exec2.spawn('yarn build')
 
   // 2. deploy-prepare
 
@@ -31,10 +31,8 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
   await pRetry(
     async () => {
       try {
-        execVoidCommandSync(
+        exec2.spawn(
           `gcloud app deploy ${appYamlPath} --project ${gaeProject} --version ${gaeVersion} --quiet --no-promote`,
-          [],
-          { shell: true },
         )
       } catch (err) {
         if (logOnFailure) {
@@ -61,10 +59,8 @@ export async function deployGae(opt: DeployGaeOptions = {}): Promise<void> {
   if (gaeVersion !== '1') {
     // Rollout (promote versionUrl to serviceUrl)
     // gcloud app services set-traffic $deployInfo_gaeService --project $deployInfo_gaeProject --splits $deployInfo_gaeVersion=1 --quiet
-    execVoidCommandSync(
+    exec2.spawn(
       `gcloud app services set-traffic ${gaeService} --project ${gaeProject} --splits ${gaeVersion}=1 --quiet`,
-      [],
-      { shell: true },
     )
 
     // Health check (serviceUrl)
@@ -99,10 +95,8 @@ export async function undeployGae(branch: string): Promise<void> {
     `undeployGae (branch: ${branch}): going to remove ${gaeProject}/${gaeService}/${gaeVersion}`,
   )
 
-  execVoidCommandSync(
+  exec2.spawn(
     `gcloud app versions delete --project ${gaeProject} --service ${gaeService} ${gaeVersion} --quiet`,
-    [],
-    { shell: true },
   )
 
   appendToGithubSummary(`removed ${gaeProject}/${gaeService}/${gaeVersion}`)
@@ -110,10 +104,8 @@ export async function undeployGae(branch: string): Promise<void> {
 
 function logs(gaeProject: string, gaeService: string, gaeVersion: string): void {
   try {
-    execVoidCommandSync(
+    exec2.spawn(
       `gcloud app logs read --project ${gaeProject} --service ${gaeService} --version ${gaeVersion}`,
-      [],
-      { shell: true },
     )
   } catch {}
 }
