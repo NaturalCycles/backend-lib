@@ -20,7 +20,7 @@ runScript(async () => {
     return { hello: 'world' }
   })
 
-  const address = await fastify.listen(3000)
+  const address = await fastify.listen({ port: 3000 })
   console.log(address)
 
   // Hang in there

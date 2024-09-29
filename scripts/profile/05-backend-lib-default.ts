@@ -6,7 +6,9 @@ export async function createServerBackendLib(): Promise<http.Server> {
   // const router = Router()
 
   const helloResource = router
-  router.get('/', (_req, res) => res.json({ hello: 'world' }))
+  router.get('/', (_req, res) => {
+    res.json({ hello: 'world' })
+  })
 
   // Testing the effect of logging
   // router.get('/', (req, res) => {
