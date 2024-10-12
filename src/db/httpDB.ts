@@ -35,7 +35,8 @@ export class HttpDB extends BaseCommonDB implements CommonDB {
     updateSaveMethod: false,
     insertSaveMethod: false,
     transactions: false,
-    updateByQuery: false,
+    patchByQuery: false,
+    increment: false,
   }
 
   constructor(public cfg: HttpDBCfg) {
