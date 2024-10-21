@@ -26,7 +26,7 @@ function redact(redactPaths: string[], obj: any, error: Error): void {
     .map(path => _get(obj, path) as string)
     .filter(Boolean)
     .forEach(secret => {
-      error.message = error.message.replace(secret, REDACTED)
+      error.message = error.message.replaceAll(secret, REDACTED)
     })
 }
 
@@ -55,9 +55,17 @@ class ValidateRequest {
     return this.validate(req, 'params', schema, opt)
   }
 
+  headers<T>(
+    req: BackendRequest,
+    schema: AnySchema<T>,
+    opt: ReqValidationOptions<JoiValidationError> = {},
+  ): T {
+    return this.validate(req, 'headers', schema, opt)
+  }
+
   private validate<T>(
     req: BackendRequest,
-    reqProperty: 'body' | 'params' | 'query',
+    reqProperty: 'body' | 'params' | 'query' | 'headers',
     schema: AnySchema<T>,
     opt: ReqValidationOptions<JoiValidationError> = {},
   ): T {

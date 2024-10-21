@@ -1,6 +1,9 @@
-import { _inspect } from '@naturalcycles/nodejs-lib'
+import { StringMap } from '@naturalcycles/js-lib'
+import { _inspect, numberSchema, objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
 import { debugResource } from '../../test/debug.resource'
-import { expressTestService } from '../../testing'
+import { ExpressApp, expressTestService } from '../../testing'
+import { getDefaultRouter } from '../getDefaultRouter'
+import { validateRequest } from './validateRequest'
 
 const app = expressTestService.createAppFromResource(debugResource)
 afterAll(async () => {
@@ -51,4 +54,104 @@ test('validateRequest', async () => {
 
     [1] "pw" length must be at least 8 characters long"
   `)
+})
+
+describe('validateRequest.headers', () => {
+  let app: ExpressApp
+  interface TestResponse {
+    ok: 1
+    headers: StringMap<any>
+  }
+
+  beforeAll(async () => {
+    const resource = getDefaultRouter()
+    resource.get('/', async (req, res) => {
+      validateRequest.headers(
+        req,
+        objectSchema<any>({
+          shortstring: stringSchema.min(8).max(16),
+          numeric: numberSchema,
+          bool: stringSchema,
+          sessionid: stringSchema,
+        }),
+        { redactPaths: ['sessionid'] },
+      )
+
+      res.json({ ok: 1, headers: req.headers })
+    })
+    app = expressTestService.createAppFromResource(resource)
+  })
+
+  afterAll(async () => {
+    await app.close()
+  })
+
+  test('should pass valid headers', async () => {
+    const response = await app.get<TestResponse>('', {
+      headers: {
+        shortstring: 'shortstring',
+        numeric: '123',
+        bool: '1',
+        sessionid: 'sessionid',
+      },
+    })
+
+    expect(response).toMatchObject({ ok: 1 })
+    expect(response.headers).toEqual({
+      shortstring: 'shortstring',
+      numeric: 123,
+      bool: '1',
+      sessionid: 'sessionid',
+    })
+  })
+
+  test('should throw error on invalid headers', async () => {
+    const err = await app.expectError({
+      url: '',
+      method: 'GET',
+      headers: {
+        shortstring: 'short',
+        numeric: '123',
+        bool: '1',
+        sessionid: 'sessionid',
+      },
+    })
+
+    expect(err.data.responseStatusCode).toBe(400)
+    expect(err.cause.message).toContain('"shortstring" length must be at least 8 characters long')
+  })
+
+  test('should list all errors (and not stop at the first error)', async () => {
+    const err = await app.expectError({
+      url: '',
+      method: 'GET',
+      headers: {
+        shortstring: 'short',
+        numeric: 'text',
+        bool: '1',
+        sessionid: 'sessionid',
+      },
+    })
+
+    expect(err.data.responseStatusCode).toBe(400)
+    expect(err.cause.message).toContain('"shortstring" length must be at least 8 characters long')
+    expect(err.cause.message).toContain('"numeric" must be a number')
+  })
+
+  test('should redact sensitive data', async () => {
+    const err = await app.expectError({
+      url: '',
+      method: 'GET',
+      headers: {
+        shortstring: 'short',
+        numeric: '127',
+        bool: '1',
+        sessionid: 'sessionid',
+      },
+    })
+
+    expect(err.data.responseStatusCode).toBe(400)
+    expect(err.cause.message).toContain('"REDACTED": "REDACTED"')
+    expect(err.cause.message).not.toContain('sessionid')
+  })
 })
