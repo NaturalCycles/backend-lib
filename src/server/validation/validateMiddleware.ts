@@ -26,6 +26,13 @@ export function validateQuery(
   return validateObject('query', schema, opt)
 }
 
+export function validateHeaders(
+  schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
+  opt: ReqValidationOptions<AjvValidationError> = {},
+): BackendRequestHandler {
+  return validateObject('headers', schema, opt)
+}
+
 /**
  * Validates req property (body, params or query).
  * Supports Joi schema or AjvSchema (from nodejs-lib).
@@ -33,7 +40,7 @@ export function validateQuery(
  * Throws http 400 on error.
  */
 function validateObject(
-  prop: 'body' | 'params' | 'query',
+  prop: 'body' | 'params' | 'query' | 'headers',
   schema: JsonSchema | JsonSchemaBuilder | AjvSchema,
   opt: ReqValidationOptions<AjvValidationError> = {},
 ): BackendRequestHandler {
@@ -75,6 +82,6 @@ function redact(redactPaths: string[], obj: any, error: Error): void {
     .map(path => _get(obj, path) as string)
     .filter(Boolean)
     .forEach(secret => {
-      error.message = error.message.replace(secret, REDACTED)
+      error.message = error.message.replaceAll(secret, REDACTED)
     })
 }
