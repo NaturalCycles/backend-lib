@@ -16,6 +16,11 @@ export interface ReqValidationOptions<ERR extends Error> {
    * If true - `genericErrorHandler` will report it to errorReporter (aka Sentry).
    */
   report?: boolean | ((err: ERR) => boolean)
+
+  /**
+   * When set to true, the validated object will not be replaced with the Joi-converted value.
+   */
+  keepOriginal?: boolean
 }
 
 /**
@@ -55,12 +60,25 @@ class ValidateRequest {
     return this.validate(req, 'params', schema, opt)
   }
 
+  /**
+   * Validates `req.headers` against the provided Joi schema.
+   *
+   * Note: as opposed to other methods, this method does not mutate `req.headers` in case of success,
+   * i.e. schemas that cast values will not have any effect.
+   *
+   * If you wish to mutate `req.headers` with the validated value, use `keepOriginal: false` option.
+   * Keep in mind that this will also remove all values that are not in the schema.
+   */
   headers<T>(
     req: BackendRequest,
     schema: AnySchema<T>,
     opt: ReqValidationOptions<JoiValidationError> = {},
   ): T {
-    return this.validate(req, 'headers', schema, opt)
+    const options: ReqValidationOptions<JoiValidationError> = {
+      keepOriginal: true,
+      ...opt,
+    }
+    return this.validate(req, 'headers', schema, options)
   }
 
   private validate<T>(
@@ -92,7 +110,10 @@ class ValidateRequest {
     }
 
     // mutate req to replace the property with the value, converted by Joi
-    req[reqProperty] = value
+    if (!opt.keepOriginal) {
+      req[reqProperty] = value
+    }
+
     return value
   }
 }
