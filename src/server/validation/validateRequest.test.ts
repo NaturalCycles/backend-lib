@@ -97,9 +97,9 @@ describe('validateRequest.headers', () => {
     })
 
     expect(response).toMatchObject({ ok: 1 })
-    expect(response.headers).toEqual({
+    expect(response.headers).toMatchObject({
       shortstring: 'shortstring',
-      numeric: 123,
+      numeric: '123',
       bool: '1',
       sessionid: 'sessionid',
     })
@@ -153,5 +153,57 @@ describe('validateRequest.headers', () => {
     expect(err.data.responseStatusCode).toBe(400)
     expect(err.cause.message).toContain('"REDACTED": "REDACTED"')
     expect(err.cause.message).not.toContain('sessionid')
+  })
+
+  test('should not replace the headers with the validated value by default', async () => {
+    const response = await app.get<TestResponse>('', {
+      headers: {
+        shortstring: 'shortstring',
+        numeric: '123',
+        bool: '1',
+        sessionid: 'sessionid',
+        foo: 'bar',
+      },
+    })
+
+    expect(response.headers).toMatchObject({
+      shortstring: 'shortstring',
+      numeric: '123',
+      bool: '1',
+      sessionid: 'sessionid',
+      foo: 'bar',
+    })
+  })
+
+  test('should replace the headers with the validated value when configured so', async () => {
+    const resource = getDefaultRouter().get('/', async (req, res) => {
+      validateRequest.headers(
+        req,
+        objectSchema<any>({
+          shortstring: stringSchema.min(8).max(16),
+          numeric: numberSchema,
+        }),
+        { keepOriginal: false },
+      )
+
+      res.json({ ok: 1, headers: req.headers })
+    })
+    const app = expressTestService.createAppFromResource(resource)
+
+    const response = await app.get<TestResponse>('', {
+      headers: {
+        shortstring: 'shortstring',
+        numeric: 123,
+        foo: 'bar',
+      },
+    })
+
+    expect(response.headers).toEqual({
+      shortstring: 'shortstring',
+      numeric: 123, // converted to number
+      // foo: 'bar' // fields not in the schema are removed
+    })
+
+    await app.close()
   })
 })
