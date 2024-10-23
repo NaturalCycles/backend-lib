@@ -19,6 +19,8 @@ export interface ReqValidationOptions<ERR extends Error> {
 
   /**
    * When set to true, the validated object will not be replaced with the Joi-converted value.
+   *
+   * The general default is `false`, with the excepction of `headers` validation, where the default is `true`.
    */
   keepOriginal?: boolean
 }
