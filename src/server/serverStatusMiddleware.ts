@@ -34,7 +34,6 @@ export function getServerStatusData(
     // resourceUsage: process.resourceUsage?.(),
     versions,
     NODE_OPTIONS,
-    fetch: typeof globalThis.fetch === 'function',
     ...extra,
   })
 }
