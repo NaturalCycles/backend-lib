@@ -4,7 +4,7 @@ import { BackendCfg } from './backend.cfg.util'
 import { AppYaml, DeployInfo } from './deploy.model'
 
 const APP_YAML_DEFAULT = (): AppYaml => ({
-  runtime: 'nodejs20',
+  runtime: 'nodejs22',
   service: 'default',
   inbound_services: ['warmup'],
   instance_class: 'F1',
