@@ -1,4 +1,4 @@
-import { _memoFn } from '@naturalcycles/js-lib'
+import { _memoFn, localTime } from '@naturalcycles/js-lib'
 import { fs2 } from '@naturalcycles/nodejs-lib'
 import type { DeployInfo } from '../deploy'
 
@@ -21,6 +21,6 @@ function getDeployInfoStub(stub = ''): DeployInfo {
     versionUrl: stub,
     gitBranch: stub,
     gitRev: stub,
-    ts: Math.floor(Date.now() / 1000),
+    ts: localTime.nowUnix(),
   }
 }

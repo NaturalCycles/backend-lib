@@ -1,8 +1,8 @@
-const started = Date.now()
+const started = Date.now() as UnixTimestampMillis
 
 import { Server } from 'node:http'
 import { AddressInfo } from 'node:net'
-import { _since } from '@naturalcycles/js-lib'
+import { _since, UnixTimestampMillis } from '@naturalcycles/js-lib'
 import { createDefaultApp } from '..'
 import { debugResource } from './debug.resource'
 

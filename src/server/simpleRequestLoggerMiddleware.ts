@@ -1,4 +1,4 @@
-import { _since } from '@naturalcycles/js-lib'
+import { _since, UnixTimestampMillis } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey } from '@naturalcycles/nodejs-lib'
 import { BackendRequestHandler, onFinished } from '../index'
 import { logRequest } from './request.log.util'
@@ -32,7 +32,7 @@ export function simpleRequestLoggerMiddleware(
   const { logStart, logFinish } = cfg
 
   return (req, res, next) => {
-    const started = Date.now()
+    const started = Date.now() as UnixTimestampMillis
 
     if (logStart) {
       req.log(['>>', req.method, boldGrey(req.url)].join(' '))

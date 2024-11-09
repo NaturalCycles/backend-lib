@@ -1,5 +1,12 @@
 import { inspect, InspectOptions } from 'node:util'
-import { _filterFalsyValues, _ms, _since, getFetcher, pDelay } from '@naturalcycles/js-lib'
+import {
+  _filterFalsyValues,
+  _ms,
+  _since,
+  getFetcher,
+  pDelay,
+  UnixTimestampMillis,
+} from '@naturalcycles/js-lib'
 import { dimGrey, exec2, red } from '@naturalcycles/nodejs-lib'
 import { coloredHttpCode } from '../server/request.log.util'
 
@@ -126,7 +133,7 @@ export async function deployHealthCheck(
 
     console.log([`>>`, dimGrey(url), inspect({ attempt }, inspectOpt)].join(' '))
 
-    const started = Date.now()
+    const started = Date.now() as UnixTimestampMillis
 
     const { err, statusCode = 0 } = await fetcher.doFetch({
       url,
