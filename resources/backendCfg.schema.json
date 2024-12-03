@@ -32,6 +32,9 @@
       "type": "array",
       "items": { "type": "string" }
     },
+    "hashedBranches": {
+      "type": "boolean"
+    },
     "appYamlPassEnv": { "type": "string" }
   },
   "required": ["gaeProject", "gaeService", "appEnvDefault"]

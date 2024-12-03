@@ -26,6 +26,11 @@ export interface BackendCfg {
   branchesWithTimestampVersions?: string[]
 
   /**
+   * If true - branch names are not passed into deployed urls as is, but are hashed.
+   */
+  hashedBranches?: boolean
+
+  /**
    * Comma-separated list of env variables that will be passed to app.yaml from process.env
    */
   appYamlPassEnv?: string

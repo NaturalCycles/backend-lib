@@ -12,3 +12,5 @@ gaeService: test-service
 
 appEnvDefault: prod
 appYamlPassEnv: AA,BB
+
+hashedBranches: true

@@ -1,5 +1,5 @@
 import { _assert, _mapValues, _merge, _truncate, localTime } from '@naturalcycles/js-lib'
-import { dimGrey, fs2, white } from '@naturalcycles/nodejs-lib'
+import { dimGrey, fs2, md5, white } from '@naturalcycles/nodejs-lib'
 import { BackendCfg } from './backend.cfg.util'
 import { AppYaml, DeployInfo } from './deploy.model'
 
@@ -57,7 +57,14 @@ export async function createDeployInfo(
   if (gaeServiceByBranch[gitBranch]) {
     gaeService = validateGAEServiceName(gaeServiceByBranch[gitBranch])
   } else {
-    gaeService = validateGAEServiceName([gitBranch, gaeService].join('--'))
+    let branchName = gitBranch
+
+    if (backendCfg.hashedBranches) {
+      // todo: jira
+      branchName = md5(gitBranch).slice(0, 10)
+    }
+
+    gaeService = validateGAEServiceName([branchName, gaeService].join('--'))
   }
 
   let gaeVersion = '1'
