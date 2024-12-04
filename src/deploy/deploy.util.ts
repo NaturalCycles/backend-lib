@@ -60,8 +60,11 @@ export async function createDeployInfo(
     let branchName = gitBranch
 
     if (backendCfg.hashedBranches) {
-      // todo: jira
-      branchName = md5(gitBranch).slice(0, 10)
+      // Obfuscates the branch name by hashing it.
+      // If there are Jira issue names in the branch name, the first one found will be used as a prefix.
+      const jiraIssue = gitBranch.match(/(DEV-\d+)/)?.[0]
+      const branchHash = md5(gitBranch).slice(0, 10)
+      branchName = jiraIssue ? `${jiraIssue}-${branchHash}` : branchHash
     }
 
     gaeService = validateGAEServiceName([branchName, gaeService].join('--'))
