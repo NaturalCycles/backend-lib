@@ -64,7 +64,7 @@ export async function createDeployInfo(
       // If there are Jira issue names in the branch name, the first one found will be used as a prefix.
       const jiraIssue = gitBranch.match(/(DEV-\d+)/)?.[0]
       const branchHash = md5(gitBranch).slice(0, 10)
-      branchName = jiraIssue ? `${jiraIssue}-${branchHash}` : branchHash
+      branchName = [jiraIssue, branchHash].filter(Boolean).join('-')
     }
 
     gaeService = validateGAEServiceName([branchName, gaeService].join('--'))
