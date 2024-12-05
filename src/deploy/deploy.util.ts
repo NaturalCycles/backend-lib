@@ -62,7 +62,7 @@ export async function createDeployInfo(
     if (backendCfg.hashedBranches) {
       // Obfuscates the branch name by hashing it.
       // If there are Jira issue names in the branch name, the first one found will be used as a prefix.
-      const jiraIssue = gitBranch.match(/(DEV-\d+)/)?.[0]
+      const jiraIssue = gitBranch.match(/([Dd][Ee][Vv]-\d+)/)?.[0]
       const branchHash = md5(gitBranch).slice(0, 10)
       branchName = [jiraIssue, branchHash].filter(Boolean).join('-')
     }
