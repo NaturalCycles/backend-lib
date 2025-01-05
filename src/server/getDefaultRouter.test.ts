@@ -7,8 +7,8 @@ afterAll(async () => {
 })
 
 test('root resource ok', async () => {
-  // const r = await app.get('')
-  // expect(r).toEqual({ ok: 1 })
+  const r = await app.get('')
+  expect(r).toEqual({ ok: 1 })
 })
 
 // This started to mysteriously fail after some Got upgrade

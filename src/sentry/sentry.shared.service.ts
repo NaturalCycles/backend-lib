@@ -29,6 +29,14 @@ const INSPECT_OPT: InspectAnyOptions = {
   includeErrorData: true,
 }
 
+/**
+ * Recommended sentry configuration:
+ *
+ * {
+ *   maxValueLength: 2000, // default is 250 characters
+ * }
+ *
+ */
 export class SentrySharedService {
   constructor(sentryServiceCfg: SentrySharedServiceCfg) {
     this.sentry = sentryServiceCfg.sentry
