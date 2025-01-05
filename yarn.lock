@@ -1251,21 +1251,13 @@
     typescript-eslint "^8"
     yargs "^17"
 
-"@naturalcycles/js-lib@^14":
+"@naturalcycles/js-lib@^14", "@naturalcycles/js-lib@^14.0.0", "@naturalcycles/js-lib@^14.116.0", "@naturalcycles/js-lib@^14.244.0":
   version "14.263.1"
   resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.263.1.tgz#7da16aa83e6561e64e19389f6e3d133e2ba27a7c"
   integrity sha512-JOWucB9wdcmDVrh3jOIuldkYiVLgk+X35/EmHK5s5DM4cFw53NEwFcatwvsFmXOzFJC9aN1e4WfiLqcvNYPDLw==
   dependencies:
     tslib "^2"
     zod "^3"
-
-"@naturalcycles/js-lib@^14.0.0", "@naturalcycles/js-lib@^14.116.0", "@naturalcycles/js-lib@^14.244.0":
-  version "14.263.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/js-lib/-/js-lib-14.263.0.tgz#021f20e5f4f4a93fdea5609e8927f2d2f6b779b6"
-  integrity sha512-IlDBr23FGE5Kb9YtJpO/3CQPtauy1sTe5rYvqHtJKjttFw1PEg9E7bqxUsCcsLzpp3XMus7gTay2fWGAZreLNA==
-  dependencies:
-    tslib "^2.0.0"
-    zod "^3.20.2"
 
 "@naturalcycles/nodejs-lib@^13", "@naturalcycles/nodejs-lib@^13.0.1", "@naturalcycles/nodejs-lib@^13.0.2", "@naturalcycles/nodejs-lib@^13.1.1":
   version "13.39.1"
@@ -6123,7 +6115,7 @@ ts-node@^10.0.0:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-tslib@^2, tslib@^2.0.0, tslib@^2.1.0, tslib@^2.6.2, tslib@^2.6.3:
+tslib@^2, tslib@^2.1.0, tslib@^2.6.2, tslib@^2.6.3:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
@@ -6441,7 +6433,7 @@ yoctocolors-cjs@^2.1.2:
   resolved "https://registry.yarnpkg.com/yoctocolors-cjs/-/yoctocolors-cjs-2.1.2.tgz#f4b905a840a37506813a7acaa28febe97767a242"
   integrity sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==
 
-zod@^3, zod@^3.20.2:
+zod@^3:
   version "3.24.1"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.24.1.tgz#27445c912738c8ad1e9de1bea0359fa44d9d35ee"
   integrity sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==
