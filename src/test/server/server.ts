@@ -10,7 +10,14 @@ autocannon -c 100 -d 40 -p 10 localhost:8080
 
  */
 
+/* eslint-disable simple-import-sort/imports */
+
 console.log('startServer... ')
+
+// should come strictly first
+import { sentry } from './instrument'
+
+// should come after `instrument.ts` import
 
 import { _errorLikeToErrorObject, AppError, pDelay } from '@naturalcycles/js-lib'
 import { loginHtml } from '../../admin/adminMiddleware'
@@ -139,7 +146,7 @@ sub.get('/some/:extra', (req, res) => {
 })
 
 const sentryService = new SentrySharedService({
-  autoSessionTracking: false,
+  sentry,
 })
 
 void startServer({

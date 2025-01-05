@@ -34,13 +34,6 @@ export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
     app.use(asyncLocalStorageMiddleware())
   }
 
-  // The request handler must be the first middleware on the app
-  if (sentryService) {
-    // On error - this handler will set res.headers,
-    // which will trigger genericErrorHandler "headers already sent"
-    app.use(sentryService.getRequestHandler())
-  }
-
   app.use(methodOverrideMiddleware())
   app.use(requestTimeoutMiddleware())
   // app.use(serverStatsMiddleware()) // disabled by default
@@ -116,6 +109,10 @@ export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
 
   // Generic 404 handler
   app.use(notFoundMiddleware())
+
+  // todo: test if it's needed!
+  // Add this after all routes, but before any and other error-handling middlewares are defined
+  // Sentry.setupExpressErrorHandler(app);
 
   // Generic error handler
   // It handles errors, returns proper status, does sentry.captureException(),
