@@ -1,18 +1,19 @@
 import {
   _anyToError,
   _isErrorObject,
-  _Memo,
   CommonLogger,
   CommonLogLevel,
   Primitive,
   StringMap,
 } from '@naturalcycles/js-lib'
 import { _inspect, InspectAnyOptions } from '@naturalcycles/nodejs-lib'
-import type { Breadcrumb, NodeOptions, SeverityLevel } from '@sentry/node'
+import type { Breadcrumb, SeverityLevel } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
-import { BackendErrorRequestHandler, BackendRequestHandler, getRequestLogger } from '../index'
+import { getRequestLogger } from '../index'
 
-export interface SentrySharedServiceCfg extends NodeOptions {}
+export interface SentrySharedServiceCfg {
+  sentry: typeof SentryLib
+}
 
 const sentrySeverityMap: Record<SeverityLevel, CommonLogLevel> = {
   debug: 'log',
@@ -29,61 +30,22 @@ const INSPECT_OPT: InspectAnyOptions = {
 }
 
 export class SentrySharedService {
-  constructor(private sentryServiceCfg: SentrySharedServiceCfg) {}
-
-  init(): void {
-    this.sentry()
+  constructor(sentryServiceCfg: SentrySharedServiceCfg) {
+    this.sentry = sentryServiceCfg.sentry
   }
 
-  @_Memo()
-  sentry(): typeof SentryLib {
-    // Lazy-loading `@sentry/node`
-    // Reasons:
-    // 1. Can be useful is this module is imported but never actually used
-    // 2. Works around memory leak when used with Jest
-    const sentry = require('@sentry/node') as typeof SentryLib
-
-    if (this.sentryServiceCfg.dsn) {
-      // Sentry enabled
-      console.log('SentryService init...')
-    }
-
-    sentry.init({
-      maxValueLength: 2000, // default is 250 characters
-      ...this.sentryServiceCfg,
-    })
-
-    return sentry
-  }
-
-  /**
-   * Currently not recommended, because it makes `void` requests throw user-facing errors.
-   *
-   * UPD: to be tested. Without it - request is not enriched and the error is less useful.
-   */
-  getRequestHandler(): BackendRequestHandler {
-    return this.sentry().Handlers.requestHandler()
-  }
-
-  /**
-   * Currently not recommended, as it's replaced by our custom sentryErrorHandler.
-   *
-   * @deprecated
-   */
-  getErrorHandler(): BackendErrorRequestHandler {
-    return this.sentry().Handlers.errorHandler()
-  }
+  sentry: typeof SentryLib
 
   /**
    * For GDPR reasons we never send more information than just User ID.
    */
   setUserId(id: string | null): void {
     if (id === null) {
-      this.sentry().setUser(null)
+      this.sentry.setUser(null)
       return
     }
 
-    this.sentry().setUser({
+    this.sentry.setUser({
       id,
     })
   }
@@ -98,7 +60,7 @@ export class SentrySharedService {
    * https://docs.sentry.io/platforms/node/enriching-events/scopes/
    */
   setTags(tags: StringMap<Primitive>): void {
-    this.sentry().setTags(tags)
+    this.sentry.setTags(tags)
   }
 
   /**
@@ -131,11 +93,11 @@ export class SentrySharedService {
     // This is to avoid Sentry cutting err.message to 253 characters
     // It will log additional "breadcrumb object" before the error
     // It's a Breadcrumb, not a console.log, because console.log are NOT automatically attached as Breadcrumbs in cron-job environments (outside of Express)
-    this.sentry().addBreadcrumb({
+    this.sentry.addBreadcrumb({
       message: _inspect(err, INSPECT_OPT),
     })
 
-    return this.sentry().captureException(err)
+    return this.sentry.captureException(err)
   }
 
   /**
@@ -143,11 +105,11 @@ export class SentrySharedService {
    */
   captureMessage(msg: string, level?: SeverityLevel): string {
     getRequestLogger()[sentrySeverityMap[level!] || 'log']('captureMessage:', msg)
-    return this.sentry().captureMessage(msg, level)
+    return this.sentry.captureMessage(msg, level)
   }
 
   addBreadcrumb(breadcrumb: Breadcrumb): void {
-    this.sentry().addBreadcrumb(breadcrumb)
+    this.sentry.addBreadcrumb(breadcrumb)
   }
 
   /**
@@ -164,11 +126,11 @@ export class SentrySharedService {
       error: (...args) => {
         const message = args.map(arg => _inspect(arg, INSPECT_OPT)).join(' ')
 
-        this.sentry().addBreadcrumb({
+        this.sentry.addBreadcrumb({
           message,
         })
 
-        this.sentry().captureException(_anyToError(args.length === 1 ? args[0] : args))
+        this.sentry.captureException(_anyToError(args.length === 1 ? args[0] : args))
       },
     }
   }
