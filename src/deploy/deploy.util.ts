@@ -1,5 +1,5 @@
 import { _assert, _mapValues, _merge, _truncate, localTime } from '@naturalcycles/js-lib'
-import { dimGrey, fs2, md5, white } from '@naturalcycles/nodejs-lib'
+import { dimGrey, fs2, sha256, white } from '@naturalcycles/nodejs-lib'
 import { BackendCfg } from './backend.cfg.util'
 import { AppYaml, DeployInfo } from './deploy.model'
 
@@ -63,7 +63,7 @@ export async function createDeployInfo(
       // Obfuscates the branch name by hashing it.
       // If there are Jira issue names in the branch name, the first one found will be used as a prefix.
       const jiraIssue = gitBranch.match(/([Dd][Ee][Vv]-\d+)/)?.[0]
-      const branchHash = md5(gitBranch).slice(0, 10)
+      const branchHash = sha256(gitBranch).slice(0, 10)
       branchName = [jiraIssue, branchHash].filter(Boolean).join('-')
     }
 
