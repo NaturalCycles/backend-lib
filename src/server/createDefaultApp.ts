@@ -110,9 +110,10 @@ export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
   // Generic 404 handler
   app.use(notFoundMiddleware())
 
-  // todo: test if it's needed!
-  // Add this after all routes, but before any and other error-handling middlewares are defined
-  // Sentry.setupExpressErrorHandler(app);
+  // currently disabled as not necessary (because genericErrorMiddleware already reports to sentry)
+  // if (sentryService) {
+  //   sentryService.sentry.setupExpressErrorHandler(app)
+  // }
 
   // Generic error handler
   // It handles errors, returns proper status, does sentry.captureException(),

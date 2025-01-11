@@ -26,6 +26,12 @@ export interface StartServerCfg extends DefaultAppCfg {
   forceShutdownTimeout?: number
 
   sentryService?: SentrySharedService
+
+  /**
+   * Defaults to true.
+   * Set to false if you already have your handlers elsewhere and don't need them here.
+   */
+  registerUncaughtExceptionHandlers?: boolean
 }
 
 export interface StartServerData {

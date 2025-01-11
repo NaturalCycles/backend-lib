@@ -1,4 +1,5 @@
 import { Server } from 'node:http'
+import os from 'node:os'
 import { _Memo, _ms } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey, white } from '@naturalcycles/nodejs-lib'
 import { createDefaultApp } from '../index'
@@ -12,18 +13,24 @@ export class BackendServer {
   server?: Server
 
   async start(): Promise<StartServerData> {
-    const { port: cfgPort, expressApp = createDefaultApp(this.cfg) } = this.cfg
+    const {
+      port: cfgPort,
+      expressApp = createDefaultApp(this.cfg),
+      registerUncaughtExceptionHandlers = true,
+    } = this.cfg
 
     // 1. Register error handlers, etc.
-    process.on('uncaughtException', err => {
-      console.error('uncaughtException:', err)
-      this.cfg.sentryService?.captureException(err, false)
-    })
+    if (registerUncaughtExceptionHandlers) {
+      process.on('uncaughtException', err => {
+        console.error('BackendServer uncaughtException:', err)
+        this.cfg.sentryService?.captureException(err, false)
+      })
 
-    process.on('unhandledRejection', err => {
-      console.error('unhandledRejection:', err)
-      this.cfg.sentryService?.captureException(err, false)
-    })
+      process.on('unhandledRejection', err => {
+        console.error('BackendServer unhandledRejection:', err)
+        this.cfg.sentryService?.captureException(err, false)
+      })
+    }
 
     process.once('SIGINT', () => this.stop('SIGINT'))
     process.once('SIGTERM', () => this.stop('SIGTERM'))
@@ -54,11 +61,14 @@ export class BackendServer {
       }
     }
 
+    const cpus = os.cpus().length
+    const availableParallelism = os.availableParallelism?.()
+    const { version, platform, arch } = process
     console.log(
       dimGrey(
-        `node ${process.version}, NODE_OPTIONS: ${NODE_OPTIONS || 'undefined'}, APP_ENV: ${
+        `node ${version} ${platform} ${arch}, NODE_OPTIONS: ${NODE_OPTIONS || 'undefined'}, APP_ENV: ${
           APP_ENV || 'undefined'
-        }`,
+        }, cpus: ${cpus}, availableParallelism: ${availableParallelism}`,
       ),
     )
     console.log(`serverStarted on ${white(address)} in ${dimGrey(_ms(process.uptime() * 1000))}`)

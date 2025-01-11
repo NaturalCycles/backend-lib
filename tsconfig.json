@@ -1,8 +1,6 @@
 {
   "extends": "@naturalcycles/dev-lib/cfg/tsconfig.json",
-  "compilerOptions": {
-    "skipLibCheck": true, // because of https://github.com/dcodeIO/long.js/issues/109
-  },
+  "compilerOptions": {},
   "include": ["src"],
   "exclude": ["**/__exclude"],
   "ts-node": {

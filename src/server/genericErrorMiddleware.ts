@@ -66,7 +66,7 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
   const { headersSent } = res
 
   if (headersSent) {
-    req.error(`after headersSent`, err)
+    req.error(`error after headersSent:`, err)
   } else {
     req.error(err)
   }
@@ -79,7 +79,7 @@ export function respondWithError(req: BackendRequest, res: BackendResponse, err:
     errorId = sentryService.captureException(originalError, false)
   }
 
-  if (res.headersSent) return
+  if (headersSent) return
 
   const httpError = _errorLikeToErrorObject(originalError)
   if (!includeErrorStack) delete httpError.stack
