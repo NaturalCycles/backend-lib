@@ -30,7 +30,7 @@ export const deployHealthCheckYargsOptions = {
   },
   thresholdUnhealthy: {
     type: 'number',
-    default: 1,
+    default: 3,
   },
   maxTries: {
     type: 'number',
@@ -81,8 +81,8 @@ export async function deployHealthCheck(
 ): Promise<void> {
   const {
     thresholdHealthy = 5,
-    thresholdUnhealthy = 1,
-    maxTries = 20,
+    thresholdUnhealthy = 3,
+    maxTries = 30,
     timeoutSec = 30,
     intervalSec = 1,
     logOnFailure = true,
