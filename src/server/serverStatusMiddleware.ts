@@ -21,6 +21,8 @@ export function getServerStatusData(
   const deployBuildTime = t.toPretty()
   const buildInfo = [t.toStringCompact(), gitBranch, gitRev].filter(Boolean).join('_')
 
+  const { arch, platform } = process
+
   return _filterNullishValues({
     started: getStartedStr(),
     deployBuildTime,
@@ -29,9 +31,13 @@ export function getServerStatusData(
     GAE_APPLICATION,
     GAE_SERVICE,
     GAE_VERSION,
+    processInfo: {
+      arch,
+      platform,
+    },
     mem: memoryUsageFull(),
     cpuAvg: processSharedUtil.cpuAvg(),
-    // resourceUsage: process.resourceUsage?.(),
+    cpuInfo: processSharedUtil.cpuInfo(),
     versions,
     NODE_OPTIONS,
     ...extra,
