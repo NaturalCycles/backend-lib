@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { srcDir } from '../paths.cnst'
 import { getDeployInfo } from './deployInfo.util'
 

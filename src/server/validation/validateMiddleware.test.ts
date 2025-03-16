@@ -1,4 +1,5 @@
 import { jsonSchema, StringMap } from '@naturalcycles/js-lib'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { debugResource } from '../../test/debug.resource'
 import { ExpressApp, expressTestService } from '../../testing'
 import { getDefaultRouter } from '../getDefaultRouter'

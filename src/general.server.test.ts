@@ -7,6 +7,7 @@ import {
   pExpectedError,
 } from '@naturalcycles/js-lib'
 import { arraySchema, deflateString, objectSchema } from '@naturalcycles/nodejs-lib'
+import { afterAll, expect, test } from 'vitest'
 import { getDefaultRouter, validateRequest } from './index'
 import { safeJsonMiddleware } from './server/safeJsonMiddleware'
 import { expressTestService } from './testing'

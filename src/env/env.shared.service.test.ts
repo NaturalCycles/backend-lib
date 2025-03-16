@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { BaseEnv, EnvSharedService, EnvSharedServiceCfg } from './env.shared.service'
 
 interface MyEnv extends BaseEnv {

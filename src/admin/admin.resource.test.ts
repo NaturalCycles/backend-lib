@@ -1,4 +1,5 @@
 import { mockTime } from '@naturalcycles/dev-lib/dist/testing'
+import { afterAll, beforeEach, describe, expect, test, vi } from 'vitest'
 import { BaseAdminService, FirebaseSharedService, getDefaultRouter } from '../index'
 import { expressTestService } from '../testing'
 
@@ -84,7 +85,7 @@ describe('login', () => {
 
 describe('getAdminInfo', () => {
   beforeEach(() => {
-    jest.spyOn(adminService, 'getEmailByToken').mockImplementation(async (_, token) => {
+    vi.spyOn(adminService, 'getEmailByToken').mockImplementation(async (_, token) => {
       if (token === 'good') return 'good@mail.com'
       if (token === 'second') return 'second@mail.com'
     })
