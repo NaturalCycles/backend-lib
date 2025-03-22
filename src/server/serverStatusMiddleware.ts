@@ -3,8 +3,9 @@ import { memoryUsageFull, processSharedUtil } from '@naturalcycles/nodejs-lib'
 import { getDeployInfo } from './deployInfo.util'
 import { BackendRequestHandler } from './server.model'
 
-const { versions } = process
-const { GAE_APPLICATION, GAE_SERVICE, GAE_VERSION, APP_ENV, NODE_OPTIONS } = process.env
+const { versions, arch, platform } = process
+const { GAE_APPLICATION, GAE_SERVICE, GAE_VERSION, K_SERVICE, K_REVISION, APP_ENV, NODE_OPTIONS } =
+  process.env
 
 export function serverStatusMiddleware(projectDir?: string, extra?: any): BackendRequestHandler {
   return async (_req, res) => {
@@ -21,8 +22,6 @@ export function getServerStatusData(
   const deployBuildTime = t.toPretty()
   const buildInfo = [t.toStringCompact(), gitBranch, gitRev].filter(Boolean).join('_')
 
-  const { arch, platform } = process
-
   return _filterNullishValues({
     started: getStartedStr(),
     deployBuildTime,
@@ -31,6 +30,8 @@ export function getServerStatusData(
     GAE_APPLICATION,
     GAE_SERVICE,
     GAE_VERSION,
+    K_SERVICE,
+    K_REVISION,
     processInfo: {
       arch,
       platform,

@@ -3,8 +3,9 @@ import { AnyObject, CommonLogger } from '@naturalcycles/js-lib'
 import { _inspect, dimGrey } from '@naturalcycles/nodejs-lib'
 import { BackendRequestHandler } from './server.model'
 
-const { GOOGLE_CLOUD_PROJECT, GAE_INSTANCE } = process.env
+const { GOOGLE_CLOUD_PROJECT, GAE_INSTANCE, K_SERVICE } = process.env
 const isGAE = !!GAE_INSTANCE
+const isCloudRun = !!K_SERVICE
 
 // Simple "request counter" (poor man's "correlation id") counter, to use on dev machine (not in the cloud)
 let reqCounter = 0
@@ -66,7 +67,15 @@ function logToCI(args: any[]): void {
   console.log(args.map(a => _inspect(a, { includeErrorStack: true, colors: false })).join(' '))
 }
 
-export function appEngineLogMiddleware(): BackendRequestHandler {
+export function logMiddleware(): BackendRequestHandler {
+  if (isCloudRun) {
+    // Cloud Run, return simple logger, similar to CI logger
+    return function cloudRunLogHandler(req, _res, next) {
+      req.log = req.warn = req.error = logToCI
+      next()
+    }
+  }
+
   if (!isGAE || !GOOGLE_CLOUD_PROJECT) {
     // Local machine, return "simple" logToDev middleware with request numbering
     return function gaeLogMiddlewareDev(req, _res, next) {
