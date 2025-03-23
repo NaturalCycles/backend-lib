@@ -6,12 +6,11 @@ yarn deploy-prepare
 
  */
 
-import { runScript } from '@naturalcycles/nodejs-lib'
-import yargs from 'yargs'
+import { _yargs, runScript } from '@naturalcycles/nodejs-lib'
 import { deployPrepare, deployPrepareYargsOptions } from '../deploy/deployPrepare'
 
 runScript(async () => {
-  const opt = yargs.options(deployPrepareYargsOptions).argv
+  const opt = _yargs().options(deployPrepareYargsOptions).argv
 
   await deployPrepare(opt)
 })

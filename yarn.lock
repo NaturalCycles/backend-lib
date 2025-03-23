@@ -973,9 +973,9 @@
     "@naturalcycles/nodejs-lib" "^13"
 
 "@naturalcycles/dev-lib@^16":
-  version "16.5.0"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-16.5.0.tgz#25bfcc13a72d3144f16d48aac30cf23bbe16ea10"
-  integrity sha512-DnNj/Hui3cEj1BQCI+79t2hErQFPhEBgov+X+WXmE4iTQBvoSz705mfYHlBSYbqaAJCEA5i1BYMxYiRGjOHwPQ==
+  version "16.6.2"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/dev-lib/-/dev-lib-16.6.2.tgz#9b009590effadbab7da51f259aea4fdbeabd942a"
+  integrity sha512-UVDnghEDxuN9Iw8j+Cbd5rmRFzbAu3iqYY5sqa3SzSNvvQOJzJ+MBa2GrWyjQoEOH/JYmTfVc2qblMMCe9i+Hw==
   dependencies:
     "@biomejs/biome" "^1"
     "@commitlint/cli" "^19"
@@ -987,7 +987,6 @@
     "@naturalcycles/nodejs-lib" "^13"
     "@stylistic/eslint-plugin" "^4"
     "@types/node" "^22"
-    "@types/yargs" "^16"
     eslint "^9"
     eslint-plugin-import-x "^4"
     eslint-plugin-jsdoc "^50"
@@ -1004,7 +1003,6 @@
     typescript "^5"
     typescript-eslint "^8"
     vue-eslint-parser "^10"
-    yargs "^17"
 
 "@naturalcycles/js-lib@^14":
   version "14.273.0"
@@ -1015,13 +1013,14 @@
     zod "^3"
 
 "@naturalcycles/nodejs-lib@^13":
-  version "13.41.1"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-13.41.1.tgz#7a0ed55098f17f354236ac1b7c00fa1d50b3caa8"
-  integrity sha512-13IOltNklcLeeKfst3SaaNzb7uzgO7BPU0y/1ywfoiWzthJ9hWr6jAR26an+4OxoWzyAXq0bhTumIIaR0UUPsA==
+  version "13.43.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/nodejs-lib/-/nodejs-lib-13.43.0.tgz#7b4331bf68a64c41eb93e3eddd86d556622d713f"
+  integrity sha512-SDuk/KG9hkIv1mnItXTXLmJTE8V31bUiFRSw6Gi6XURj1VY4ClbhDmY/CzAwLfUM96dAtAIp4GhvpiWAMAks/w==
   dependencies:
     "@naturalcycles/js-lib" "^14"
     "@types/js-yaml" "^4"
     "@types/jsonwebtoken" "^9"
+    "@types/yargs" "^16"
     ajv "^8"
     ajv-formats "^3"
     ajv-keywords "^5"
@@ -2425,9 +2424,9 @@ callsites@^3.0.0:
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
 caniuse-lite@^1.0.30001688:
-  version "1.0.30001706"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001706.tgz#902c3f896f4b2968031c3a546ab2ef8b465a2c8f"
-  integrity sha512-3ZczoTApMAZwPKYWmwVbQMFpXBDds3/0VciVoUwPUbldlYyVLmRVuRs/PcUZtHpbLRpzzDvrvnFuREsGt6lUug==
+  version "1.0.30001707"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001707.tgz#c5e104d199e6f4355a898fcd995a066c7eb9bf41"
+  integrity sha512-3qtRjw/HQSMlDWf+X79N206fepf4SOOU6SQLMaq/0KkZLmSjPxAkBOQQ+FxbHKfHmYLZFfdWsO3KA90ceHPSnw==
 
 chai@^5.2.0:
   version "5.2.0"
@@ -2909,7 +2908,7 @@ es-set-tostringtag@^2.1.0:
     has-tostringtag "^1.0.2"
     hasown "^2.0.2"
 
-esbuild@^0.25.0:
+esbuild@^0.25.0, esbuild@~0.25.0:
   version "0.25.1"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.25.1.tgz#a16b8d070b6ad4871935277bda6ccfe852e3fa2f"
   integrity sha512-BGO5LtrGC7vxnqucAe/rmvKdJllfGaYWdyABvyMoXQlfYMb2bbRuReWR5tEGE//4LcNJj9XrkovTqNYRFZHAMQ==
@@ -3559,7 +3558,7 @@ get-stream@^8.0.1:
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-8.0.1.tgz#def9dfd71742cd7754a7761ed43749a27d02eca2"
   integrity sha512-VaUJspBffn/LMCJVoMvSAdmscJyS1auj5Zulnn5UoYcY531UWmdwhRWkcGKnGU93m5HSXP9LP2usOryrBtQowA==
 
-get-tsconfig@^4.10.0:
+get-tsconfig@^4.10.0, get-tsconfig@^4.7.5:
   version "4.10.0"
   resolved "https://registry.yarnpkg.com/get-tsconfig/-/get-tsconfig-4.10.0.tgz#403a682b373a823612475a4c2928c7326fc0f6bb"
   integrity sha512-kGzZ3LWWQcGIAmg6iWvXn0ei6WDtV26wzHRMwDSzmAbcXrTEXxHy6IehI6/4eT6VRKyMP1eF1VqwrVUmE/LR7A==
@@ -5823,6 +5822,16 @@ tslib@^2, tslib@^2.1.0, tslib@^2.4.0, tslib@^2.6.2, tslib@^2.8.1:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
+
+tsx@^4:
+  version "4.19.3"
+  resolved "https://registry.yarnpkg.com/tsx/-/tsx-4.19.3.tgz#2bdbcb87089374d933596f8645615142ed727666"
+  integrity sha512-4H8vUNGNjQ4V2EOoGw005+c+dGuPSnhpPBPHBtsZdGZBk/iJb4kguGlPWaZTZ3q5nMtFOEsY0nRDlh9PJyd6SQ==
+  dependencies:
+    esbuild "~0.25.0"
+    get-tsconfig "^4.7.5"
+  optionalDependencies:
+    fsevents "~2.3.3"
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

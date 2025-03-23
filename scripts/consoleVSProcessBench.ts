@@ -1,6 +1,6 @@
 /*
 
-yarn tsn consoleVSProcessBench
+yarn tsx scripts/consoleVSProcessBench
 
  */
 

@@ -1,6 +1,6 @@
 /*
 
-yarn tsn vitest.script.ts
+yarn tsx scripts/vitest.script.ts
 
  */
 
@@ -15,7 +15,8 @@ runScript(async () => {
   files.forEach(filePath => {
     let s = fs2.readText(filePath)
     s =
-      `import { describe, expect, test, vi, beforeEach, beforeAll, afterAll } from 'vitest'\n\n` + s
+      `import { describe, expect, test, vi, beforeEach, beforeAll, afterEach, afterAll } from 'vitest'\n\n` +
+      s
     fs2.writeFile(filePath, s)
     console.log(`saved ${filePath}`)
   })

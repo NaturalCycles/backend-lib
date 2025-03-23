@@ -9,12 +9,11 @@ yarn deploy-health-check --url https://service-dot-yourproject.appspot.com
 
  */
 
-import { runScript } from '@naturalcycles/nodejs-lib'
-import yargs from 'yargs'
+import { _yargs, runScript } from '@naturalcycles/nodejs-lib'
 import { deployHealthCheck, deployHealthCheckYargsOptions } from '../deploy/deployHealthCheck'
 
 runScript(async () => {
-  const { url, ...opt } = yargs.options({
+  const { url, ...opt } = _yargs().options({
     ...deployHealthCheckYargsOptions,
     url: {
       type: 'string',

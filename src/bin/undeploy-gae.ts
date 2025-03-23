@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
-import { runScript } from '@naturalcycles/nodejs-lib'
-import yargs from 'yargs'
+import { _yargs, runScript } from '@naturalcycles/nodejs-lib'
 import { undeployGae } from '../deploy/deployGae'
 
 runScript(async () => {
-  const { branch } = yargs.options({
+  const { branch } = _yargs().options({
     branch: {
       type: 'string',
       demandOption: true,

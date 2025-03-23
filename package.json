@@ -11,11 +11,11 @@
     "dev": "APP_ENV=dev node -r ts-node/register --watch ./src/test/server/server.ts",
     "docs-serve": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "docs-build": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
-    "deploy-gae": "yarn tsn ./src/bin/deploy-gae.ts",
-    "deploy-prepare": "yarn tsn ./src/bin/deploy-prepare.ts",
-    "deploy-prepare-debug": "AA=AA1 BB=BB1 yarn tsn ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
-    "deploy-health-check-debug1": "yarn tsn ./src/bin/deploy-health-check.ts --url https://api-master.naturalcycles.com",
-    "deploy-health-check-debug2": "yarn tsn ./src/bin/deploy-health-check.ts --url https://api-master2.naturalcycles.com --thresholdUnhealthy 5"
+    "deploy-gae": "yarn tsx ./src/bin/deploy-gae.ts",
+    "deploy-prepare": "yarn tsx ./src/bin/deploy-prepare.ts",
+    "deploy-prepare-debug": "AA=AA1 BB=BB1 yarn tsx ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
+    "deploy-health-check-debug1": "yarn tsx ./src/bin/deploy-health-check.ts --url https://api-master.naturalcycles.com",
+    "deploy-health-check-debug2": "yarn tsx ./src/bin/deploy-health-check.ts --url https://api-master2.naturalcycles.com --thresholdUnhealthy 5"
   },
   "peerDependencies": {
     "@sentry/node": "^9"
@@ -37,8 +37,7 @@
     "firebase-admin": "^13",
     "helmet": "^8",
     "on-finished": "^2",
-    "simple-git": "^3",
-    "yargs": "^17"
+    "simple-git": "^3"
   },
   "devDependencies": {
     "@naturalcycles/bench-lib": "^3",
@@ -46,9 +45,9 @@
     "@sentry/node": "^9",
     "@types/ejs": "^3",
     "@types/node": "^22",
-    "@types/yargs": "^16",
     "@vitest/coverage-v8": "^3",
     "fastify": "^5",
+    "tsx": "^4",
     "vitest": "^3"
   },
   "files": [

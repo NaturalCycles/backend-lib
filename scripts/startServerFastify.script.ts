@@ -1,6 +1,6 @@
 /*
 
-yarn tsn startServerFastify
+yarn tsx scripts/startServerFastify
 
  */
 
