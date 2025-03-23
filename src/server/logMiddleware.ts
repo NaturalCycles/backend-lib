@@ -71,7 +71,7 @@ export function logMiddleware(): BackendRequestHandler {
   if (isCloudRun) {
     // Cloud Run, return simple logger, similar to CI logger
     return function cloudRunLogHandler(req, _res, next) {
-      req.log = req.warn = req.error = logToCI
+      req.log = req.warn = req.error = (...args: any[]) => logToCI(args)
       next()
     }
   }
