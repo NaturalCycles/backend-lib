@@ -89,7 +89,11 @@ class ValidateRequest {
     schema: AnySchema<T>,
     opt: ReqValidationOptions<JoiValidationError> = {},
   ): T {
-    const { value, error } = getValidationResult(req[reqProperty], schema, `request ${reqProperty}`)
+    const { value, error } = getValidationResult(
+      req[reqProperty] || {},
+      schema,
+      `request ${reqProperty}`,
+    )
     if (error) {
       let report: boolean | undefined
       if (typeof opt.report === 'boolean') {

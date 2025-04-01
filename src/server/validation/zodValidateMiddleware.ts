@@ -19,7 +19,7 @@ export function zodReqValidate(
     typeof opt.report === 'function' ? opt.report : () => opt.report as boolean | undefined
 
   return (req, _res, next) => {
-    const { error } = zSafeValidate(req[prop], schema)
+    const { error } = zSafeValidate(req[prop] || {}, schema)
     if (!error) {
       return next()
     }
