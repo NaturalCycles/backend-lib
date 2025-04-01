@@ -8,7 +8,7 @@
     "lint": "dev-lib lint",
     "bt": "dev-lib bt",
     "lbt": "dev-lib lbt",
-    "dev": "APP_ENV=dev node -r ts-node/register --watch ./src/test/server/server.ts",
+    "dev": "APP_ENV=dev tsx watch src/test/server/server.ts",
     "docs-serve": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "docs-build": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
     "deploy-gae": "yarn tsx ./src/bin/deploy-gae.ts",
