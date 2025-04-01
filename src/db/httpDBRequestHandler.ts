@@ -55,7 +55,7 @@ export function httpDBRequestHandler(db: CommonDB): BackendRouter {
   const router = getDefaultRouter()
 
   // resetCache, only applicable to InMemoryDB
-  router.put('/resetCache/:table?', async (req, res) => {
+  router.put('/resetCache{/:table}', async (req, res) => {
     if (db instanceof InMemoryDB) {
       await db.resetCache(req.params['table'])
     }
