@@ -112,7 +112,8 @@ class ValidateRequest {
     }
 
     // mutate req to replace the property with the value, converted by Joi
-    if (!opt.keepOriginal) {
+    if (!opt.keepOriginal && reqProperty !== 'query') {
+      // query is read-only in Express 5
       req[reqProperty] = value
     }
 
