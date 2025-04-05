@@ -935,10 +935,10 @@
     "@emnapi/runtime" "^1.4.0"
     "@tybys/wasm-util" "^0.9.0"
 
-"@naturalcycles/bench-lib@^3":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@naturalcycles/bench-lib/-/bench-lib-3.1.1.tgz#f1431bc69687dc472b910385c30d0f8860bb4df0"
-  integrity sha512-rv/6/gTzZd2Ga0jBLhgFxyVaJfB9nBb7nl1cGbU4OfZ2pHoU8fIBlEVWbK79fDF2E/QhcJlVK6lu+BA5gGHBcg==
+"@naturalcycles/bench-lib@^4":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@naturalcycles/bench-lib/-/bench-lib-4.0.0.tgz#abbfe1a3f1086962da1c4b0be8fec1137a6992bc"
+  integrity sha512-aLl2ir6prVE9XYuewLwFp0pr+SuHnITBvK6+0fyZQisz4/rwwnQKHEjrnc3kM+eUItFMhA4yia11m7VzQo81ig==
   dependencies:
     "@naturalcycles/js-lib" "^14"
     "@naturalcycles/nodejs-lib" "^13"

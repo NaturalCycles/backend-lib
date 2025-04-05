@@ -40,7 +40,7 @@
     "simple-git": "^3"
   },
   "devDependencies": {
-    "@naturalcycles/bench-lib": "^3",
+    "@naturalcycles/bench-lib": "^4",
     "@naturalcycles/dev-lib": "^17",
     "@sentry/node": "^9",
     "@types/ejs": "^3",
