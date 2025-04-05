@@ -48,7 +48,7 @@ export class FirebaseSharedService {
     const { serviceAccount } = this.cfg
 
     // lazy loading
-    const admin = await import('firebase-admin')
+    const { default: admin } = await import('firebase-admin')
 
     const credential = serviceAccount
       ? admin.credential.cert(serviceAccount)
