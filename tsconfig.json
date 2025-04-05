@@ -1,6 +1,8 @@
 {
   "extends": "@naturalcycles/dev-lib/cfg/tsconfig.json",
-  "compilerOptions": {},
+  "compilerOptions": {
+    "verbatimModuleSyntax": true,
+  },
   "include": ["src"],
   "exclude": ["**/__exclude"],
 }

@@ -1,8 +1,8 @@
 import { afterAll, expect, test } from 'vitest'
-import { debugResource } from '../test/debug.resource'
-import { expressTestService } from '../testing'
+import { debugResource } from '../test/debug.resource.js'
+import { expressTestService } from '../testing/index.js'
 
-const app = expressTestService.createAppFromResource(debugResource)
+const app = await expressTestService.createAppFromResource(debugResource)
 afterAll(async () => {
   await app.close()
 })

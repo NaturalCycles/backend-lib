@@ -1,7 +1,7 @@
 import { pDelay } from '@naturalcycles/js-lib'
 import { afterAll, test } from 'vitest'
-import { getDefaultRouter } from '../server/getDefaultRouter'
-import { expressTestService } from '../testing'
+import { getDefaultRouter } from '../server/getDefaultRouter.js'
+import { expressTestService } from '../testing/index.js'
 
 const res = getDefaultRouter()
 res.get('/', async (_req, res) => {
@@ -9,7 +9,7 @@ res.get('/', async (_req, res) => {
   res.json('ok')
 })
 
-const app = expressTestService.createAppFromResource(res, {
+const app = await expressTestService.createAppFromResource(res, {
   debug: true,
 })
 afterAll(async () => {

@@ -1,13 +1,13 @@
 import { InMemoryDB } from '@naturalcycles/db-lib'
-import { runCommonDaoTest, runCommonDBTest } from '@naturalcycles/db-lib/dist/testing'
+import { runCommonDaoTest, runCommonDBTest } from '@naturalcycles/db-lib/dist/testing/index.js'
 import { afterAll, describe } from 'vitest'
-import { expressTestService } from '../testing'
-import { HttpDB } from './httpDB'
-import { httpDBRequestHandler } from './httpDBRequestHandler'
+import { expressTestService } from '../testing/index.js'
+import { HttpDB } from './httpDB.js'
+import { httpDBRequestHandler } from './httpDBRequestHandler.js'
 
 const inMemoryDB = new InMemoryDB()
 
-const app = expressTestService.createAppFromResource(httpDBRequestHandler(inMemoryDB))
+const app = await expressTestService.createAppFromResource(httpDBRequestHandler(inMemoryDB))
 
 const db = new HttpDB({
   baseUrl: app.cfg.baseUrl,

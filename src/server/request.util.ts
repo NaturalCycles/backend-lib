@@ -1,4 +1,4 @@
-import type { BackendRequest } from './server.model'
+import type { BackendRequest } from './server.model.js'
 
 /**
  * Returns e.g:

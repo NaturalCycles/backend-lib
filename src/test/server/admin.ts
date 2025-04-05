@@ -1,8 +1,8 @@
+import 'dotenv/config'
 import { requireEnvKeys } from '@naturalcycles/nodejs-lib'
-import { FirebaseSharedService } from '../..'
-import { createAdminMiddleware } from '../../admin/adminMiddleware'
-import { BaseAdminService } from '../../admin/base.admin.service'
-require('dotenv').config()
+import { createAdminMiddleware } from '../../admin/adminMiddleware.js'
+import { BaseAdminService } from '../../admin/base.admin.service.js'
+import { FirebaseSharedService } from '../../admin/firebase.shared.service.js'
 
 const { FIREBASE_SERVICE_ACCOUNT_PATH, FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN } = requireEnvKeys(
   'FIREBASE_SERVICE_ACCOUNT_PATH',
@@ -24,7 +24,7 @@ class AdminService extends BaseAdminService {
 }
 
 // const firebaseAdmin
-export const adminService = new AdminService(firebaseService.auth(), {
+export const adminService = new AdminService(await firebaseService.auth(), {
   // authEnabled: false,
 })
 

@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
-import type { BaseEnv, EnvSharedServiceCfg } from './env.shared.service'
-import { EnvSharedService } from './env.shared.service'
+import type { BaseEnv, EnvSharedServiceCfg } from './env.shared.service.js'
+import { EnvSharedService } from './env.shared.service.js'
 
 interface MyEnv extends BaseEnv {
   a: string

@@ -1,4 +1,4 @@
-import type { BackendRequestHandler } from './server.model'
+import type { BackendRequestHandler } from './server.model.js'
 
 export interface MethodOverrideMiddlewareCfg {
   /**

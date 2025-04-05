@@ -1,4 +1,4 @@
-import type { BackendRequestHandler } from './server.model'
+import type { BackendRequestHandler } from './server.model.js'
 
 export function okMiddleware(): BackendRequestHandler {
   return (_req, res) => {

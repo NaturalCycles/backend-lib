@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
-import { srcDir } from '../paths.cnst'
-import { getDeployInfo } from './deployInfo.util'
+import { srcDir } from '../paths.cnst.js'
+import { getDeployInfo } from './deployInfo.util.js'
 
 test('getDeployInfo non-existing file', () => {
   const deployInfo = getDeployInfo('')

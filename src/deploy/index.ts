@@ -1,11 +1,11 @@
-import type { BackendCfg } from './backend.cfg.util'
-import { getBackendCfg } from './backend.cfg.util'
-import type { DeployInfo } from './deploy.model'
-import { createAppYaml, createDeployInfo } from './deploy.util'
-import { deployGae } from './deployGae'
-import type { DeployHealthCheckOptions } from './deployHealthCheck'
-import { deployHealthCheck } from './deployHealthCheck'
-import { deployPrepare } from './deployPrepare'
+import type { BackendCfg } from './backend.cfg.util.js'
+import { getBackendCfg } from './backend.cfg.util.js'
+import type { DeployInfo } from './deploy.model.js'
+import { createAppYaml, createDeployInfo } from './deploy.util.js'
+import { deployGae } from './deployGae.js'
+import type { DeployHealthCheckOptions } from './deployHealthCheck.js'
+import { deployHealthCheck } from './deployHealthCheck.js'
+import { deployPrepare } from './deployPrepare.js'
 
 export type { BackendCfg, DeployHealthCheckOptions, DeployInfo }
 

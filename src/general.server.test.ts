@@ -8,9 +8,9 @@ import {
 } from '@naturalcycles/js-lib'
 import { arraySchema, deflateString, objectSchema } from '@naturalcycles/nodejs-lib'
 import { afterAll, expect, test } from 'vitest'
-import { getDefaultRouter, validateRequest } from './index'
-import { safeJsonMiddleware } from './server/safeJsonMiddleware'
-import { expressTestService } from './testing'
+import { getDefaultRouter, validateRequest } from './index.js'
+import { safeJsonMiddleware } from './server/safeJsonMiddleware.js'
+import { expressTestService } from './testing/index.js'
 
 const router = getDefaultRouter()
 router.get('/circular', safeJsonMiddleware(), async req => {
@@ -33,7 +33,7 @@ router.post('/compressedBody', async (req, res) => {
   res.json(body)
 })
 
-const app = expressTestService.createAppFromResource(router)
+const app = await expressTestService.createAppFromResource(router)
 afterAll(async () => {
   await app.close()
 })

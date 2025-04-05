@@ -1,7 +1,7 @@
 import { _assert, _mapValues, _merge, _truncate, localTime } from '@naturalcycles/js-lib'
 import { dimGrey, fs2, sha256, white } from '@naturalcycles/nodejs-lib'
-import type { BackendCfg } from './backend.cfg.util'
-import type { AppYaml, DeployInfo } from './deploy.model'
+import type { BackendCfg } from './backend.cfg.util.js'
+import type { AppYaml, DeployInfo } from './deploy.model.js'
 
 const APP_YAML_DEFAULT = (): AppYaml => ({
   runtime: 'nodejs22',
@@ -37,7 +37,7 @@ export async function createDeployInfo(
   backendCfg: BackendCfg,
   overrideBranch?: string,
 ): Promise<DeployInfo> {
-  const simpleGit = require('simple-git') // lazy load
+  const { simpleGit } = await import('simple-git') // lazy load
   const git = simpleGit('.')
 
   const now = localTime.now()
@@ -153,7 +153,6 @@ export function createAppYaml(
   }
 
   // appYamlPassEnv
-  require('dotenv').config() // ensure .env is read
   const passEnv = appYamlPassEnv
     .split(',')
     .filter(Boolean)

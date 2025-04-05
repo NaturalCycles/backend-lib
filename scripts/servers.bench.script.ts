@@ -5,11 +5,11 @@ yarn tsx scripts/servers.bench
  */
 
 import { runCannonScript } from '@naturalcycles/bench-lib'
-import { createServerBareNode } from './profile/01-bare-node'
-import { createServerFastify } from './profile/02-bare-fastify'
-import { createServerBareExpress } from './profile/03-bare-express'
-import { createServerExpressMiddlewares } from './profile/04-express-middlewares'
-import { createServerBackendLib } from './profile/05-backend-lib-default'
+import { createServerBareNode } from './profile/01-bare-node.js'
+import { createServerFastify } from './profile/02-bare-fastify.js'
+import { createServerBareExpress } from './profile/03-bare-express.js'
+import { createServerExpressMiddlewares } from './profile/04-express-middlewares.js'
+import { createServerBackendLib } from './profile/05-backend-lib-default.js'
 
 runCannonScript(
   {

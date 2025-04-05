@@ -15,12 +15,12 @@ autocannon -c 100 -d 40 -p 10 localhost:8080
 console.log('startServer... ')
 
 // should come strictly first
-import { sentry } from './instrument'
+import { sentry } from './instrument.js'
 
 // should come after `instrument.ts` import
 
 import { _errorLikeToErrorObject, AppError, pDelay } from '@naturalcycles/js-lib'
-import { loginHtml } from '../../admin/adminMiddleware'
+import { loginHtml } from '../../admin/adminMiddleware.js'
 import {
   basicAuthMiddleware,
   getDefaultRouter,
@@ -28,14 +28,17 @@ import {
   SentrySharedService,
   serverStatusMiddleware,
   startServer,
-} from '../../index'
+} from '../../index.js'
 import {
   getRequest,
   getRequestLogger,
   requestLogger,
-} from '../../server/asyncLocalStorageMiddleware'
-import { serverStatsHTMLHandler, serverStatsMiddleware } from '../../server/serverStatsMiddleware'
-import { adminService, firebaseService, reqAdmin } from './admin'
+} from '../../server/asyncLocalStorageMiddleware.js'
+import {
+  serverStatsHTMLHandler,
+  serverStatsMiddleware,
+} from '../../server/serverStatsMiddleware.js'
+import { adminService, firebaseService, reqAdmin } from './admin.js'
 
 const router = getDefaultRouter()
 export const rootResource = router

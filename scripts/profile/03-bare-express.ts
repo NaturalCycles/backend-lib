@@ -1,5 +1,5 @@
 import http from 'node:http'
-import express = require('express')
+import express from 'express'
 
 export async function createServerBareExpress(): Promise<http.Server> {
   const app = express()

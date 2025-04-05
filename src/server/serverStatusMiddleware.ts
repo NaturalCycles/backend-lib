@@ -1,7 +1,7 @@
 import { _filterNullishValues, localTime } from '@naturalcycles/js-lib'
 import { memoryUsageFull, processSharedUtil } from '@naturalcycles/nodejs-lib'
-import { getDeployInfo } from './deployInfo.util'
-import type { BackendRequestHandler } from './server.model'
+import { getDeployInfo } from './deployInfo.util.js'
+import type { BackendRequestHandler } from './server.model.js'
 
 const { versions, arch, platform } = process
 const { GAE_APPLICATION, GAE_SERVICE, GAE_VERSION, K_SERVICE, K_REVISION, APP_ENV, NODE_OPTIONS } =

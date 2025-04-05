@@ -4,8 +4,8 @@ import type { Server } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import type { UnixTimestampMillis } from '@naturalcycles/js-lib'
 import { _since } from '@naturalcycles/js-lib'
-import { createDefaultApp } from '..'
-import { debugResource } from './debug.resource'
+import { createDefaultApp } from '../server/createDefaultApp.js'
+import { debugResource } from './debug.resource.js'
 
 declare global {
   namespace NodeJS {
@@ -24,7 +24,7 @@ declare global {
 export default async (): Promise<void> => {
   const resources = [debugResource]
 
-  const app = createDefaultApp({
+  const app = await createDefaultApp({
     resources,
   })
 

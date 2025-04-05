@@ -1,5 +1,6 @@
 {
   "name": "@naturalcycles/backend-lib",
+  "type": "module",
   "version": "2.61.0",
   "scripts": {
     "prepare": "husky",
@@ -11,11 +12,11 @@
     "dev": "APP_ENV=dev tsx watch src/test/server/server.ts",
     "docs-serve": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "docs-build": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
-    "deploy-gae": "yarn tsx ./src/bin/deploy-gae.ts",
-    "deploy-prepare": "yarn tsx ./src/bin/deploy-prepare.ts",
-    "deploy-prepare-debug": "AA=AA1 BB=BB1 yarn tsx ./src/bin/deploy-prepare.ts --projectDir ./src/test/project",
-    "deploy-health-check-debug1": "yarn tsx ./src/bin/deploy-health-check.ts --url https://api-master.naturalcycles.com",
-    "deploy-health-check-debug2": "yarn tsx ./src/bin/deploy-health-check.ts --url https://api-master2.naturalcycles.com --thresholdUnhealthy 5"
+    "deploy-gae": "yarn tsx src/bin/deploy-gae.ts",
+    "deploy-prepare": "yarn tsx src/bin/deploy-prepare.ts",
+    "deploy-prepare-debug": "AA=AA1 BB=BB1 yarn tsx src/bin/deploy-prepare.ts --projectDir ./src/test/project",
+    "deploy-health-check-debug1": "yarn tsx src/bin/deploy-health-check.ts --url https://api-master.naturalcycles.com",
+    "deploy-health-check-debug2": "yarn tsx src/bin/deploy-health-check.ts --url https://api-master2.naturalcycles.com --thresholdUnhealthy 5"
   },
   "peerDependencies": {
     "@sentry/node": "^9"
@@ -77,7 +78,6 @@
   "engines": {
     "node": ">=22.12.0"
   },
-  "type": "commonjs",
   "description": "Standard library for making Express.js / AppEngine based backend services",
   "author": "Natural Cycles Team",
   "license": "MIT"

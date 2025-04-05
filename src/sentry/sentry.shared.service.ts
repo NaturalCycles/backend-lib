@@ -4,7 +4,7 @@ import type { InspectAnyOptions } from '@naturalcycles/nodejs-lib'
 import { _inspect } from '@naturalcycles/nodejs-lib'
 import type { Breadcrumb, SeverityLevel } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
-import { getRequestLogger } from '../index'
+import { getRequestLogger } from '../index.js'
 
 export interface SentrySharedServiceCfg {
   sentry: typeof SentryLib

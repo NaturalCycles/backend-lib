@@ -1,7 +1,7 @@
-import { mockTime } from '@naturalcycles/dev-lib/dist/testing'
+import { mockTime } from '@naturalcycles/dev-lib/dist/testing/index.js'
 import { afterAll, beforeEach, describe, expect, test, vi } from 'vitest'
-import { BaseAdminService, FirebaseSharedService, getDefaultRouter } from '../index'
-import { expressTestService } from '../testing'
+import { BaseAdminService, FirebaseSharedService, getDefaultRouter } from '../index.js'
+import { expressTestService } from '../testing/index.js'
 
 const firebaseService = new FirebaseSharedService({
   authDomain: 'FIREBASE_AUTH_DOMAIN',
@@ -20,7 +20,7 @@ class AdminService extends BaseAdminService {
   }
 }
 
-const adminService = new AdminService(firebaseService.auth(), {
+const adminService = new AdminService(await firebaseService.auth(), {
   // authEnabled: false,
 })
 
@@ -34,7 +34,7 @@ beforeEach(() => {
   mockTime()
 })
 
-const app = expressTestService.createAppFromResource(adminResource)
+const app = await expressTestService.createAppFromResource(adminResource)
 afterAll(async () => {
   await app.close()
 })

@@ -1,5 +1,5 @@
 import http from 'node:http'
-import { createDefaultApp, getDefaultRouter } from '../../src'
+import { createDefaultApp, getDefaultRouter } from '../../src/index.js'
 
 export async function createServerBackendLib(): Promise<http.Server> {
   const router = getDefaultRouter()
@@ -17,7 +17,7 @@ export async function createServerBackendLib(): Promise<http.Server> {
   //   res.json({ hello: 'world' })
   // })
 
-  const app = createDefaultApp({
+  const app = await createDefaultApp({
     resources: [helloResource],
   })
 

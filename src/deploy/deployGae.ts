@@ -1,11 +1,11 @@
 import { _anyToError, _objectAssign, pRetry } from '@naturalcycles/js-lib'
 import { appendToGithubSummary, exec2 } from '@naturalcycles/nodejs-lib'
-import { getBackendCfg } from './backend.cfg.util'
-import { createDeployInfo } from './deploy.util'
-import type { DeployHealthCheckOptions } from './deployHealthCheck'
-import { deployHealthCheck } from './deployHealthCheck'
-import type { DeployPrepareOptions } from './deployPrepare'
-import { deployPrepare } from './deployPrepare'
+import { getBackendCfg } from './backend.cfg.util.js'
+import { createDeployInfo } from './deploy.util.js'
+import type { DeployHealthCheckOptions } from './deployHealthCheck.js'
+import { deployHealthCheck } from './deployHealthCheck.js'
+import type { DeployPrepareOptions } from './deployPrepare.js'
+import { deployPrepare } from './deployPrepare.js'
 
 export interface DeployGaeOptions extends DeployPrepareOptions, DeployHealthCheckOptions {}
 

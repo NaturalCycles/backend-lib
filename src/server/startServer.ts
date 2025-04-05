@@ -2,8 +2,8 @@ import type { Server } from 'node:http'
 import os from 'node:os'
 import { _Memo, _ms } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey, white } from '@naturalcycles/nodejs-lib'
-import { createDefaultApp } from '../index'
-import type { StartServerCfg, StartServerData } from './startServer.model'
+import { createDefaultApp } from '../index.js'
+import type { StartServerCfg, StartServerData } from './startServer.model.js'
 
 const { NODE_OPTIONS, APP_ENV } = process.env
 
@@ -13,11 +13,8 @@ export class BackendServer {
   server?: Server
 
   async start(): Promise<StartServerData> {
-    const {
-      port: cfgPort,
-      expressApp = createDefaultApp(this.cfg),
-      registerUncaughtExceptionHandlers = true,
-    } = this.cfg
+    const { port: cfgPort, registerUncaughtExceptionHandlers = true } = this.cfg
+    const expressApp = this.cfg.expressApp || (await createDefaultApp(this.cfg))
 
     // 1. Register error handlers, etc.
     if (registerUncaughtExceptionHandlers) {

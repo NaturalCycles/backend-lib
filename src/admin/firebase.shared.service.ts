@@ -39,16 +39,16 @@ export interface FirebaseSharedServiceCfg {
 export class FirebaseSharedService {
   constructor(public cfg: FirebaseSharedServiceCfg) {}
 
-  init(): void {
-    this.admin()
+  async init(): Promise<void> {
+    await this.admin()
   }
 
   @_Memo()
-  admin(): FirebaseAdmin.app.App {
+  async admin(): Promise<FirebaseAdmin.app.App> {
     const { serviceAccount } = this.cfg
 
     // lazy loading
-    const admin = require('firebase-admin') as typeof FirebaseAdmin
+    const admin = await import('firebase-admin')
 
     const credential = serviceAccount
       ? admin.credential.cert(serviceAccount)
@@ -63,7 +63,8 @@ export class FirebaseSharedService {
     )
   }
 
-  auth(): FirebaseAdmin.auth.Auth {
-    return this.admin().auth()
+  async auth(): Promise<FirebaseAdmin.auth.Auth> {
+    const admin = await this.admin()
+    return admin.auth()
   }
 }

@@ -1,6 +1,6 @@
-import type { HttpDBCfg } from './httpDB'
-import { HttpDB } from './httpDB'
-import { httpDBRequestHandler } from './httpDBRequestHandler'
+import type { HttpDBCfg } from './httpDB.js'
+import { HttpDB } from './httpDB.js'
+import { httpDBRequestHandler } from './httpDBRequestHandler.js'
 
 export type { HttpDBCfg }
 

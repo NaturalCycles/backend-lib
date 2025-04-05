@@ -4,11 +4,12 @@ import {
   commonDBOptionsSchema,
   commonDBSaveOptionsSchema,
   dbQuerySchema,
-} from '@naturalcycles/db-lib/dist/validation'
+} from '@naturalcycles/db-lib/dist/validation/index.js'
 import type { ObjectWithId } from '@naturalcycles/js-lib'
 import { anyObjectSchema, arraySchema, objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
-import type { BackendRouter } from '..'
-import { getDefaultRouter, validateRequest } from '..'
+import { getDefaultRouter } from '../server/getDefaultRouter.js'
+import type { BackendRouter } from '../server/server.model.js'
+import { validateRequest } from '../server/validation/validateRequest.js'
 
 export interface GetByIdsInput {
   table: string

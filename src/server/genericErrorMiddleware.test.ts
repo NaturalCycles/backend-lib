@@ -1,9 +1,9 @@
 import type { BackendErrorResponseObject } from '@naturalcycles/js-lib'
 import { afterAll, expect, test } from 'vitest'
-import { debugResource } from '../test/debug.resource'
-import { expressTestService } from '../testing'
+import { debugResource } from '../test/debug.resource.js'
+import { expressTestService } from '../testing/index.js'
 
-const app = expressTestService.createAppFromResource(debugResource)
+const app = await expressTestService.createAppFromResource(debugResource)
 
 afterAll(async () => {
   await app.close()
@@ -18,7 +18,7 @@ test('genericErrorFormatter', async () => {
 
   const overriddenSecret = 'Nothing to see'
 
-  const appWExtraMw = expressTestService.createAppFromResource(debugResource, undefined, {
+  const appWExtraMw = await expressTestService.createAppFromResource(debugResource, undefined, {
     genericErrorMwCfg: {
       formatError: err => {
         err.data['dirtySecret'] = overriddenSecret

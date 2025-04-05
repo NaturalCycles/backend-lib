@@ -1,23 +1,24 @@
-import cookieParser = require('cookie-parser')
-import cors = require('cors')
-import express = require('express')
-import type { BackendApplication } from '..'
-import { isGAE, methodOverrideMiddleware } from '..'
-import { asyncLocalStorageMiddleware } from './asyncLocalStorageMiddleware'
+import cookieParser from 'cookie-parser'
+import cors from 'cors'
+import express from 'express'
+import { isGAE } from '../util.js'
+import { asyncLocalStorageMiddleware } from './asyncLocalStorageMiddleware.js'
 import type {
   BackendRequestHandlerCfg,
   BackendRequestHandlerWithPath,
   DefaultAppCfg,
-} from './createDefaultApp.model'
-import { genericErrorMiddleware } from './genericErrorMiddleware'
-import { logMiddleware } from './logMiddleware'
-import { notFoundMiddleware } from './notFoundMiddleware'
-import { requestTimeoutMiddleware } from './requestTimeoutMiddleware'
-import { simpleRequestLoggerMiddleware } from './simpleRequestLoggerMiddleware'
+} from './createDefaultApp.model.js'
+import { genericErrorMiddleware } from './genericErrorMiddleware.js'
+import { logMiddleware } from './logMiddleware.js'
+import { methodOverrideMiddleware } from './methodOverrideMiddleware.js'
+import { notFoundMiddleware } from './notFoundMiddleware.js'
+import { requestTimeoutMiddleware } from './requestTimeoutMiddleware.js'
+import type { BackendApplication } from './server.model.js'
+import { simpleRequestLoggerMiddleware } from './simpleRequestLoggerMiddleware.js'
 
 const isTest = process.env['APP_ENV'] === 'test'
 
-export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
+export async function createDefaultApp(cfg: DefaultAppCfg): Promise<BackendApplication> {
   const { sentryService } = cfg
 
   const app = express()
@@ -75,8 +76,9 @@ export function createDefaultApp(cfg: DefaultAppCfg): BackendApplication {
 
   if (!isTest) {
     // leaks, load lazily
+    const { default: helmet } = await import('helmet')
     app.use(
-      require('helmet')({
+      helmet({
         contentSecurityPolicy: false, // to allow "admin 401 auto-redirect"
       }),
     )

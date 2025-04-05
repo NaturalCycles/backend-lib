@@ -2,13 +2,13 @@ import type { Server } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import type { Fetcher, FetcherOptions, FetchFunction } from '@naturalcycles/js-lib'
 import { getFetcher, pDelay } from '@naturalcycles/js-lib'
-import type { BackendApplication, DefaultAppCfg } from '../index'
-import { createDefaultApp } from '../index'
-import type { BackendRequestHandlerCfg } from '../server/createDefaultApp.model'
+import type { BackendApplication, DefaultAppCfg } from '../index.js'
+import { createDefaultApp } from '../index.js'
+import type { BackendRequestHandlerCfg } from '../server/createDefaultApp.model.js'
 
 const nativeFetchFn: FetchFunction = async (url, init) => await globalThis.fetch(url, init)
 
-export interface ExpressApp extends Fetcher {
+export interface ExpressApp extends Fetcher, AsyncDisposable {
   close: () => Promise<void>
 }
 
@@ -19,13 +19,13 @@ export interface ExpressApp extends Fetcher {
 // })
 
 class ExpressTestService {
-  createAppFromResource(
+  async createAppFromResource(
     resource: BackendRequestHandlerCfg,
     opt?: FetcherOptions,
     defaultAppCfg?: DefaultAppCfg,
-  ): ExpressApp {
+  ): Promise<ExpressApp> {
     return this.createApp(
-      createDefaultApp({
+      await createDefaultApp({
         ...defaultAppCfg,
         resources: [resource],
       }),
@@ -33,9 +33,12 @@ class ExpressTestService {
     )
   }
 
-  createAppFromResources(resources: BackendRequestHandlerCfg[], opt?: FetcherOptions): ExpressApp {
+  async createAppFromResources(
+    resources: BackendRequestHandlerCfg[],
+    opt?: FetcherOptions,
+  ): Promise<ExpressApp> {
     return this.createApp(
-      createDefaultApp({
+      await createDefaultApp({
         resources,
       }),
       opt,
@@ -70,9 +73,15 @@ class ExpressTestService {
       // console.log(`close took ${_since(started)}`) // todo: investigate why it takes ~5 seconds!
       // Kirill: not awaiting the server-close, otherwise it takes significant waiting time
       // to "teardown" server after it's been hit by Fetcher
-      server.close()
-      // server.destroy()
+      // server.close()
+      // 2024-08-31: server.close is no longer slow, so now we're back at awaiting it
+      await new Promise(resolve => {
+        server.unref().close(resolve)
+      })
+      await pDelay()
     }
+
+    fetcher[Symbol.asyncDispose] = async () => await fetcher.close()
 
     return fetcher
   }

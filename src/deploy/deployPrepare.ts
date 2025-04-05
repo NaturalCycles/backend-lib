@@ -1,8 +1,8 @@
 import { dimGrey, fs2, kpySync } from '@naturalcycles/nodejs-lib'
-import { srcDir } from '../paths.cnst'
-import { getBackendCfg } from './backend.cfg.util'
-import type { DeployInfo } from './deploy.model'
-import { createAndSaveAppYaml, createAndSaveDeployInfo } from './deploy.util'
+import { srcDir } from '../paths.cnst.js'
+import { getBackendCfg } from './backend.cfg.util.js'
+import type { DeployInfo } from './deploy.model.js'
+import { createAndSaveAppYaml, createAndSaveDeployInfo } from './deploy.util.js'
 
 export interface DeployPrepareOptions {
   projectDir?: string
@@ -65,7 +65,8 @@ const DEFAULT_FILES = [
 const defaultFilesDir = `${srcDir}/deploy/files-default`
 
 export async function deployPrepare(opt: DeployPrepareOptions = {}): Promise<DeployInfo> {
-  // lazy load (somehow fixes `yarn test-leaks`)
+  await import('dotenv/config') // ensure .env is loaded
+
   const { projectDir = '.', targetDir = './tmp/deploy', createNpmrc = true } = opt
 
   const backendCfg = getBackendCfg(projectDir)

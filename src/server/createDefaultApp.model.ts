@@ -1,8 +1,8 @@
 import type { Options, OptionsJson, OptionsUrlencoded } from 'body-parser'
 import type { CorsOptions } from 'cors'
-import type { SentrySharedService } from '../sentry/sentry.shared.service'
-import type { GenericErrorMiddlewareCfg } from './genericErrorMiddleware'
-import type { BackendRequestHandler } from './server.model'
+import type { SentrySharedService } from '../sentry/sentry.shared.service.js'
+import type { GenericErrorMiddlewareCfg } from './genericErrorMiddleware.js'
+import type { BackendRequestHandler } from './server.model.js'
 
 /**
  * Plain RequestHandler can be provided - then it's mounted to /

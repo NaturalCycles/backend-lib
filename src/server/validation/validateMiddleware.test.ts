@@ -1,13 +1,13 @@
 import type { StringMap } from '@naturalcycles/js-lib'
 import { jsonSchema } from '@naturalcycles/js-lib'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
-import { debugResource } from '../../test/debug.resource'
-import type { ExpressApp } from '../../testing'
-import { expressTestService } from '../../testing'
-import { getDefaultRouter } from '../getDefaultRouter'
-import { validateHeaders } from './validateMiddleware'
+import { debugResource } from '../../test/debug.resource.js'
+import type { ExpressApp } from '../../testing/index.js'
+import { expressTestService } from '../../testing/index.js'
+import { getDefaultRouter } from '../getDefaultRouter.js'
+import { validateHeaders } from './validateMiddleware.js'
 
-const app = expressTestService.createAppFromResource(debugResource)
+const app = await expressTestService.createAppFromResource(debugResource)
 afterAll(async () => {
   await app.close()
 })
@@ -64,7 +64,7 @@ describe('validateHeader', () => {
     resource.get('/', validateHeaders(schema, { redactPaths: ['sessionid'] }), async (req, res) => {
       res.json({ ok: 1, headers: req.headers })
     })
-    app = expressTestService.createAppFromResource(resource)
+    app = await expressTestService.createAppFromResource(resource)
   })
 
   afterAll(async () => {

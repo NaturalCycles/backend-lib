@@ -1,7 +1,7 @@
 import type { StringMap } from '@naturalcycles/js-lib'
 import { _split } from '@naturalcycles/js-lib'
 import { base64ToString, timingSafeStringEqual } from '@naturalcycles/nodejs-lib'
-import type { BackendRequestHandler } from './server.model'
+import type { BackendRequestHandler } from './server.model.js'
 
 export interface BasicAuthMiddlewareCfg {
   /**

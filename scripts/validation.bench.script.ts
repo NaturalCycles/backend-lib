@@ -8,9 +8,9 @@ import http from 'node:http'
 import { runCannon } from '@naturalcycles/bench-lib'
 import { jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, runScript, stringSchema } from '@naturalcycles/nodejs-lib'
-import express = require('express')
-import type { BackendApplication } from '../src'
-import { validateBody, validateRequest } from '../src'
+import express from 'express'
+import type { BackendApplication } from '../src/index.js'
+import { validateBody, validateRequest } from '../src/index.js'
 
 interface PwInput {
   pw: string

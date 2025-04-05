@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { _yargs, runScript } from '@naturalcycles/nodejs-lib'
-import { undeployGae } from '../deploy/deployGae'
+import { undeployGae } from '../deploy/deployGae.js'
 
 runScript(async () => {
   const { branch } = _yargs().options({
