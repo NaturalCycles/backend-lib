@@ -1,9 +1,10 @@
 import cookieParser = require('cookie-parser')
 import cors = require('cors')
 import express = require('express')
-import { BackendApplication, isGAE, methodOverrideMiddleware } from '..'
+import type { BackendApplication } from '..'
+import { isGAE, methodOverrideMiddleware } from '..'
 import { asyncLocalStorageMiddleware } from './asyncLocalStorageMiddleware'
-import {
+import type {
   BackendRequestHandlerCfg,
   BackendRequestHandlerWithPath,
   DefaultAppCfg,

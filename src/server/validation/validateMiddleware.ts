@@ -1,7 +1,9 @@
-import { _get, AppError, JsonSchema, JsonSchemaBuilder } from '@naturalcycles/js-lib'
-import { AjvSchema, AjvValidationError } from '@naturalcycles/nodejs-lib'
-import { BackendRequestHandler } from '../server.model'
-import { ReqValidationOptions } from './validateRequest'
+import type { JsonSchema, JsonSchemaBuilder } from '@naturalcycles/js-lib'
+import { _get, AppError } from '@naturalcycles/js-lib'
+import type { AjvValidationError } from '@naturalcycles/nodejs-lib'
+import { AjvSchema } from '@naturalcycles/nodejs-lib'
+import type { BackendRequestHandler } from '../server.model'
+import type { ReqValidationOptions } from './validateRequest'
 
 const REDACTED = 'REDACTED'
 

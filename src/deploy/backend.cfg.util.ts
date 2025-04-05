@@ -1,4 +1,4 @@
-import { StringMap } from '@naturalcycles/js-lib'
+import type { StringMap } from '@naturalcycles/js-lib'
 import { AjvSchema, fs2, requireFileToExist } from '@naturalcycles/nodejs-lib'
 import { resourcesDir } from '../paths.cnst'
 

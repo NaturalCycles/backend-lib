@@ -1,13 +1,7 @@
-import {
-  _anyToError,
-  _errorLikeToErrorObject,
-  _filterUndefinedValues,
-  AppError,
-  BackendErrorResponseObject,
-  ErrorObject,
-} from '@naturalcycles/js-lib'
-import { SentrySharedService } from '../sentry/sentry.shared.service'
-import { BackendErrorRequestHandler, BackendRequest, BackendResponse } from './server.model'
+import type { AppError, BackendErrorResponseObject, ErrorObject } from '@naturalcycles/js-lib'
+import { _anyToError, _errorLikeToErrorObject, _filterUndefinedValues } from '@naturalcycles/js-lib'
+import type { SentrySharedService } from '../sentry/sentry.shared.service'
+import type { BackendErrorRequestHandler, BackendRequest, BackendResponse } from './server.model'
 
 export interface GenericErrorMiddlewareCfg {
   sentryService?: SentrySharedService

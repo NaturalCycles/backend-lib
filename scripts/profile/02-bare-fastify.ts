@@ -1,4 +1,4 @@
-import http from 'node:http'
+import type http from 'node:http'
 import fastifyLib from 'fastify'
 
 export async function createServerFastify(): Promise<http.Server> {

@@ -1,5 +1,5 @@
 import { getRequestEndpoint } from './request.util'
-import { BackendRequestHandler } from './server.model'
+import type { BackendRequestHandler } from './server.model'
 
 export function notFoundMiddleware(): BackendRequestHandler {
   return (req, res) => {

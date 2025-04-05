@@ -1,9 +1,9 @@
 import { _memoFn, AppError } from '@naturalcycles/js-lib'
 import { fs2 } from '@naturalcycles/nodejs-lib'
 import ejs from 'ejs'
-import { BackendRequestHandler } from '../server/server.model'
-import { BaseAdminService } from './base.admin.service'
-import { FirebaseSharedServiceCfg } from './firebase.shared.service'
+import type { BackendRequestHandler } from '../server/server.model'
+import type { BaseAdminService } from './base.admin.service'
+import type { FirebaseSharedServiceCfg } from './firebase.shared.service'
 
 export interface RequireAdminCfg {
   /**

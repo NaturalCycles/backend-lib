@@ -9,7 +9,8 @@ import { runCannon } from '@naturalcycles/bench-lib'
 import { jsonSchema } from '@naturalcycles/js-lib'
 import { objectSchema, runScript, stringSchema } from '@naturalcycles/nodejs-lib'
 import express = require('express')
-import { BackendApplication, validateBody, validateRequest } from '../src'
+import type { BackendApplication } from '../src'
+import { validateBody, validateRequest } from '../src'
 
 interface PwInput {
   pw: string

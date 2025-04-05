@@ -1,5 +1,6 @@
 import { AppError } from '@naturalcycles/js-lib'
-import { BackendRequestHandler, respondWithError } from '../index'
+import type { BackendRequestHandler } from '../index'
+import { respondWithError } from '../index'
 
 export interface BodyParserTimeoutMiddlewareCfg {
   /**

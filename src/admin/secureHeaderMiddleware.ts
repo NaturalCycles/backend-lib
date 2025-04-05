@@ -1,8 +1,9 @@
 import { AppError } from '@naturalcycles/js-lib'
 import { timingSafeStringEqual } from '@naturalcycles/nodejs-lib'
-import { BackendRequestHandler } from '../server/server.model'
-import { AdminMiddleware, RequireAdminCfg, requireAdminPermissions } from './adminMiddleware'
-import { BaseAdminService } from './base.admin.service'
+import type { BackendRequestHandler } from '../server/server.model'
+import type { AdminMiddleware, RequireAdminCfg } from './adminMiddleware'
+import { requireAdminPermissions } from './adminMiddleware'
+import type { BaseAdminService } from './base.admin.service'
 
 export interface SecureHeaderMiddlewareCfg extends RequireAdminCfg {
   adminService: BaseAdminService

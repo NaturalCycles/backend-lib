@@ -1,6 +1,6 @@
-import { CommonLogLevel } from '@naturalcycles/js-lib'
+import type { CommonLogLevel } from '@naturalcycles/js-lib'
 import { boldGrey, green, red, yellow } from '@naturalcycles/nodejs-lib'
-import { BackendRequest } from './server.model'
+import type { BackendRequest } from './server.model'
 
 export function logRequest(req: BackendRequest, statusCode: number, ...tokens: any[]): void {
   req[logLevel(statusCode)](

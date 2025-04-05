@@ -1,7 +1,7 @@
 import { _assert, AppError } from '@naturalcycles/js-lib'
 import { dimGrey, green, red } from '@naturalcycles/nodejs-lib'
 import type FirebaseAdmin from 'firebase-admin'
-import { BackendRequest, BackendRequestHandler } from '../server/server.model'
+import type { BackendRequest, BackendRequestHandler } from '../server/server.model'
 
 export interface AdminServiceCfg {
   /**

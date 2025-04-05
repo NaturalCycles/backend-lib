@@ -1,8 +1,10 @@
-import { Server } from 'node:http'
-import { AddressInfo } from 'node:net'
-import { Fetcher, FetcherOptions, FetchFunction, getFetcher, pDelay } from '@naturalcycles/js-lib'
-import { BackendApplication, createDefaultApp, DefaultAppCfg } from '../index'
-import { BackendRequestHandlerCfg } from '../server/createDefaultApp.model'
+import type { Server } from 'node:http'
+import type { AddressInfo } from 'node:net'
+import type { Fetcher, FetcherOptions, FetchFunction } from '@naturalcycles/js-lib'
+import { getFetcher, pDelay } from '@naturalcycles/js-lib'
+import type { BackendApplication, DefaultAppCfg } from '../index'
+import { createDefaultApp } from '../index'
+import type { BackendRequestHandlerCfg } from '../server/createDefaultApp.model'
 
 const nativeFetchFn: FetchFunction = async (url, init) => await globalThis.fetch(url, init)
 

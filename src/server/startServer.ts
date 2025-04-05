@@ -1,9 +1,9 @@
-import { Server } from 'node:http'
+import type { Server } from 'node:http'
 import os from 'node:os'
 import { _Memo, _ms } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey, white } from '@naturalcycles/nodejs-lib'
 import { createDefaultApp } from '../index'
-import { StartServerCfg, StartServerData } from './startServer.model'
+import type { StartServerCfg, StartServerData } from './startServer.model'
 
 const { NODE_OPTIONS, APP_ENV } = process.env
 

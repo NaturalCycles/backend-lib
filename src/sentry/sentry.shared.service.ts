@@ -1,12 +1,7 @@
-import {
-  _anyToError,
-  _isErrorObject,
-  CommonLogger,
-  CommonLogLevel,
-  Primitive,
-  StringMap,
-} from '@naturalcycles/js-lib'
-import { _inspect, InspectAnyOptions } from '@naturalcycles/nodejs-lib'
+import type { CommonLogger, CommonLogLevel, Primitive, StringMap } from '@naturalcycles/js-lib'
+import { _anyToError, _isErrorObject } from '@naturalcycles/js-lib'
+import type { InspectAnyOptions } from '@naturalcycles/nodejs-lib'
+import { _inspect } from '@naturalcycles/nodejs-lib'
 import type { Breadcrumb, SeverityLevel } from '@sentry/node'
 import type * as SentryLib from '@sentry/node'
 import { getRequestLogger } from '../index'

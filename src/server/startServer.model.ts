@@ -1,7 +1,7 @@
-import { Server } from 'node:http'
-import { SentrySharedService } from '../sentry/sentry.shared.service'
-import { DefaultAppCfg } from './createDefaultApp.model'
-import { BackendApplication } from './server.model'
+import type { Server } from 'node:http'
+import type { SentrySharedService } from '../sentry/sentry.shared.service'
+import type { DefaultAppCfg } from './createDefaultApp.model'
+import type { BackendApplication } from './server.model'
 
 /**
  * If DefaultAppCfg.resources is passed and `expressApp` is not passed - it will call createDefaultApp(cfg).

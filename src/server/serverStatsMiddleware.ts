@@ -1,3 +1,4 @@
+import type { StringMap } from '@naturalcycles/js-lib'
 import {
   _get,
   _mapValues,
@@ -9,9 +10,9 @@ import {
   _stringMapValues,
   _sum,
   NumberStack,
-  StringMap,
 } from '@naturalcycles/js-lib'
-import { BackendRequestHandler, onFinished } from '../index'
+import type { BackendRequestHandler } from '../index'
+import { onFinished } from '../index'
 import { getRequestEndpoint } from './request.util'
 
 const { GAE_INSTANCE } = process.env

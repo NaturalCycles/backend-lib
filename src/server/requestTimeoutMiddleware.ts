@@ -1,12 +1,7 @@
-import { _ms, AppError, NumberOfSeconds } from '@naturalcycles/js-lib'
-import {
-  BackendRequest,
-  BackendRequestHandler,
-  BackendResponse,
-  getRequestEndpoint,
-  onFinished,
-  respondWithError,
-} from '../index'
+import type { NumberOfSeconds } from '@naturalcycles/js-lib'
+import { _ms, AppError } from '@naturalcycles/js-lib'
+import type { BackendRequest, BackendRequestHandler, BackendResponse } from '../index'
+import { getRequestEndpoint, onFinished, respondWithError } from '../index'
 
 export interface RequestTimeoutMiddlewareCfg {
   /**

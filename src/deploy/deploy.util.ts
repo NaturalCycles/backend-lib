@@ -1,7 +1,7 @@
 import { _assert, _mapValues, _merge, _truncate, localTime } from '@naturalcycles/js-lib'
 import { dimGrey, fs2, sha256, white } from '@naturalcycles/nodejs-lib'
-import { BackendCfg } from './backend.cfg.util'
-import { AppYaml, DeployInfo } from './deploy.model'
+import type { BackendCfg } from './backend.cfg.util'
+import type { AppYaml, DeployInfo } from './deploy.model'
 
 const APP_YAML_DEFAULT = (): AppYaml => ({
   runtime: 'nodejs22',

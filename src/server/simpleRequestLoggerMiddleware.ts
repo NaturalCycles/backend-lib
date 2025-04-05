@@ -1,6 +1,8 @@
-import { _since, UnixTimestampMillis } from '@naturalcycles/js-lib'
+import type { UnixTimestampMillis } from '@naturalcycles/js-lib'
+import { _since } from '@naturalcycles/js-lib'
 import { boldGrey, dimGrey } from '@naturalcycles/nodejs-lib'
-import { BackendRequestHandler, onFinished } from '../index'
+import type { BackendRequestHandler } from '../index'
+import { onFinished } from '../index'
 import { logRequest } from './request.log.util'
 
 const { APP_ENV } = process.env

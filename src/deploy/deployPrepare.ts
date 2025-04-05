@@ -1,7 +1,7 @@
 import { dimGrey, fs2, kpySync } from '@naturalcycles/nodejs-lib'
 import { srcDir } from '../paths.cnst'
 import { getBackendCfg } from './backend.cfg.util'
-import { DeployInfo } from './deploy.model'
+import type { DeployInfo } from './deploy.model'
 import { createAndSaveAppYaml, createAndSaveDeployInfo } from './deploy.util'
 
 export interface DeployPrepareOptions {

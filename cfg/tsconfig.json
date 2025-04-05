@@ -27,7 +27,7 @@
     // Otherwise since es2022 it defaults to true
     // and starts to produce different/unexpected behavior
     // https://angular.schule/blog/2022-11-use-define-for-class-fields
-    "useDefineForClassFields": false,
+    "useDefineForClassFields": true,
     "importHelpers": true,
 
     // Strictness
@@ -38,6 +38,7 @@
     "suppressImplicitAnyIndexErrors": false,
     "noImplicitOverride": true,
     "noUncheckedIndexedAccess": true,
+    "noUncheckedSideEffectImports": true,
     "noPropertyAccessFromIndexSignature": true,
 
     // Enabled should be faster, but will catch less errors

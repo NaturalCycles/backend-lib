@@ -1,8 +1,6 @@
 import { Readable } from 'node:stream'
-import {
-  BaseCommonDB,
+import type {
   CommonDB,
-  commonDBFullSupport,
   CommonDBOptions,
   CommonDBSaveOptions,
   CommonDBStreamOptions,
@@ -10,14 +8,15 @@ import {
   DBQuery,
   RunQueryResult,
 } from '@naturalcycles/db-lib'
-import {
+import { BaseCommonDB, commonDBFullSupport } from '@naturalcycles/db-lib'
+import type {
   Fetcher,
   FetcherOptions,
-  getFetcher,
   JsonSchemaRootObject,
   ObjectWithId,
 } from '@naturalcycles/js-lib'
-import { ReadableTyped } from '@naturalcycles/nodejs-lib'
+import { getFetcher } from '@naturalcycles/js-lib'
+import type { ReadableTyped } from '@naturalcycles/nodejs-lib'
 
 export interface HttpDBCfg extends FetcherOptions {
   baseUrl: string

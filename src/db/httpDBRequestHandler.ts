@@ -1,18 +1,14 @@
-import {
-  CommonDB,
-  CommonDBOptions,
-  CommonDBSaveOptions,
-  DBQuery,
-  InMemoryDB,
-} from '@naturalcycles/db-lib'
+import type { CommonDB, CommonDBOptions, CommonDBSaveOptions } from '@naturalcycles/db-lib'
+import { DBQuery, InMemoryDB } from '@naturalcycles/db-lib'
 import {
   commonDBOptionsSchema,
   commonDBSaveOptionsSchema,
   dbQuerySchema,
 } from '@naturalcycles/db-lib/dist/validation'
-import { ObjectWithId } from '@naturalcycles/js-lib'
+import type { ObjectWithId } from '@naturalcycles/js-lib'
 import { anyObjectSchema, arraySchema, objectSchema, stringSchema } from '@naturalcycles/nodejs-lib'
-import { BackendRouter, getDefaultRouter, validateRequest } from '..'
+import type { BackendRouter } from '..'
+import { getDefaultRouter, validateRequest } from '..'
 
 export interface GetByIdsInput {
   table: string

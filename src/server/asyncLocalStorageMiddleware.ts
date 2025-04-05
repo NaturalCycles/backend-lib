@@ -1,7 +1,8 @@
 import { AsyncLocalStorage } from 'node:async_hooks'
-import { _lazyValue, CommonLogger } from '@naturalcycles/js-lib'
+import type { CommonLogger } from '@naturalcycles/js-lib'
+import { _lazyValue } from '@naturalcycles/js-lib'
 import { ciLogger, devLogger, gaeLogger } from './logMiddleware'
-import { BackendRequest, BackendRequestHandler } from './server.model'
+import type { BackendRequest, BackendRequestHandler } from './server.model'
 
 const { GAE_INSTANCE, CI } = process.env
 const isGAE = !!GAE_INSTANCE
