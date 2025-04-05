@@ -1,6 +1,7 @@
 import { _memoFn, AppError } from '@naturalcycles/js-lib'
 import { fs2 } from '@naturalcycles/nodejs-lib'
 import ejs from 'ejs'
+import { srcDir } from '../paths.cnst.js'
 import type { BackendRequestHandler } from '../server/server.model.js'
 import type { BaseAdminService } from './base.admin.service.js'
 import type { FirebaseSharedServiceCfg } from './firebase.shared.service.js'
@@ -101,7 +102,7 @@ export function loginHtml(firebaseServiceCfg: FirebaseSharedServiceCfg): Backend
 
 const getLoginHtml = _memoFn((cfg: LoginHtmlCfg) => {
   console.log(`reading login.html`)
-  const tmpl = fs2.readText(`${__dirname}/login.html`)
+  const tmpl = fs2.readText(`${srcDir}/admin/login.html`)
   return ejs.render(tmpl, cfg)
 })
 
