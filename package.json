@@ -23,8 +23,8 @@
   },
   "dependencies": {
     "@naturalcycles/db-lib": "^10",
-    "@naturalcycles/js-lib": "^14",
-    "@naturalcycles/nodejs-lib": "^13",
+    "@naturalcycles/js-lib": "^15",
+    "@naturalcycles/nodejs-lib": "^14",
     "@types/cookie-parser": "^1",
     "@types/cors": "^2",
     "@types/express": "^5",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@naturalcycles/bench-lib": "^4",
-    "@naturalcycles/dev-lib": "^17",
+    "@naturalcycles/dev-lib": "^18",
     "@sentry/node": "^9",
     "@types/ejs": "^3",
     "@types/node": "^22",
