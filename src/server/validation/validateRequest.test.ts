@@ -8,6 +8,7 @@ import { getDefaultRouter } from '../getDefaultRouter.js'
 import { validateRequest } from './validateRequest.js'
 
 const app = await expressTestService.createAppFromResource(debugResource)
+
 afterAll(async () => {
   await app.close()
 })

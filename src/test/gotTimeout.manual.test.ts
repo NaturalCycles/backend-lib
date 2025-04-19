@@ -12,6 +12,7 @@ res.get('/', async (_req, res) => {
 const app = await expressTestService.createAppFromResource(res, {
   debug: true,
 })
+
 afterAll(async () => {
   await app.close()
 })

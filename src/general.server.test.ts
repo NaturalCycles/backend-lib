@@ -34,6 +34,7 @@ router.post('/compressedBody', async (req, res) => {
 })
 
 const app = await expressTestService.createAppFromResource(router)
+
 afterAll(async () => {
   await app.close()
 })

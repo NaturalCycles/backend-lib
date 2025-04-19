@@ -3,6 +3,7 @@ import { debugResource } from '../test/debug.resource.js'
 import { expressTestService } from '../testing/index.js'
 
 const app = await expressTestService.createAppFromResource(debugResource)
+
 afterAll(async () => {
   await app.close()
 })

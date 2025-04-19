@@ -35,6 +35,7 @@ beforeEach(() => {
 })
 
 const app = await expressTestService.createAppFromResource(adminResource)
+
 afterAll(async () => {
   await app.close()
 })

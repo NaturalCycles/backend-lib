@@ -18,7 +18,11 @@ afterAll(async () => {
   await app.close()
 })
 
-describe('runCommonDBTest', () => runCommonDBTest(db))
+describe('runCommonDBTest', async () => {
+  await runCommonDBTest(db)
+})
 
 // todo: unskip and figure it out
-describe.skip('runCommonDaoTest', () => runCommonDaoTest(db))
+describe.skip('runCommonDaoTest', async () => {
+  await runCommonDaoTest(db)
+})
