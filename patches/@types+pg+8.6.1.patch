@@ -1,0 +1,13 @@
+diff --git a/node_modules/@types/pg/index.d.ts b/node_modules/@types/pg/index.d.ts
+index bc8a39c..b0a979a 100755
+--- a/node_modules/@types/pg/index.d.ts
++++ b/node_modules/@types/pg/index.d.ts
+@@ -9,7 +9,7 @@
+ import events = require('events');
+ import stream = require('stream');
+ import pgTypes = require('pg-types');
+-import { NoticeMessage } from 'pg-protocol/dist/messages';
++import { NoticeMessage } from 'pg-protocol/dist/messages.js';
+ 
+ import { ConnectionOptions } from 'tls';
+ 

@@ -3,7 +3,7 @@
   "type": "module",
   "version": "2.61.0",
   "scripts": {
-    "prepare": "husky",
+    "prepare": "husky && patch-package --error-on-warn",
     "build": "dev-lib build",
     "test": "dev-lib test",
     "lint": "dev-lib lint",
@@ -46,6 +46,7 @@
     "@types/ejs": "^3",
     "@types/node": "^22",
     "fastify": "^5",
+    "patch-package": "^8",
     "tsx": "^4",
     "vitest": "^3"
   },
